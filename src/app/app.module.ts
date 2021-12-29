@@ -8,6 +8,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { AddVehicleComponent } from './components/add-vehicle/add-vehicle.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { EjesComponent } from './components/ejes/ejes.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { FooterComponent } from './components/footer/footer.component';
     HeaderComponent,
     MenuComponent,
     AddVehicleComponent,
-    FooterComponent
+    FooterComponent,
+	EjesComponent
   ],
   imports: [
     BrowserModule,
