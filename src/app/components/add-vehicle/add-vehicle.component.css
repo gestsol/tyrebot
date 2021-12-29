@@ -1,0 +1,83 @@
+.addVehicle{
+	width: 1000px;
+	height: 510px;
+	position: absolute; 
+	top: 100px;
+	left: 340px;
+	align-content: center;
+}
+
+.title{
+	text-align: center;
+	color: white;
+	font-size: 30px;
+    margin-top: 20px;
+	font-family: SF Pro Display;
+	font-weight: bold;
+}
+
+.formulario{
+	width: 650px;
+	height: 350px;
+	border: solid 1px;
+	border: solid 2px #6a6969;
+	margin: 0 auto;
+	margin-top: 20px;
+	border-radius: 20px;
+	padding-left: 30px;
+	padding-right: 30px;
+}
+
+.formulario > p{
+	font-family: SF Pro Display;
+	color: white;
+}
+
+label{
+	color: gray;
+	font-weight: bold;
+	font-size: 13px;
+	font-family: SF Pro Display;
+}
+
+.align-right{
+	text-align: right;
+}
+
+input{
+	background-color: gray;
+    border: 0px;
+    border-radius: 10px;
+}
+
+.row > div{
+	padding-top: 10px;
+}
+
+input::placeholder{
+	color: lightgray;
+}
+
+select{
+	background-color: gray;
+    border: 0px;
+    border-radius: 10px;
+}
+
+.btn{
+	background-color: gray;
+	border: 0px;
+    border-radius: 20px;
+	width: 200px;
+	height: 40px;
+}
+
+.cantEjes{
+	width: 80px;
+	height: 30px;
+}
+
+.gps{
+	width: 100%;
+	height: 35px;
+}

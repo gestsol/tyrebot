@@ -1,0 +1,18 @@
+.menu{
+	width:20%;
+	background-color: #222325; 
+	position: absolute;
+	top: 100px;
+	bottom: 0;
+}
+
+.w3-sidebar{
+	background-color: #fff0;
+	color: #ababab;
+}
+
+.w3-dropdown-content{
+	background-color: #222325;
+	color: #ababab;
+	padding-left: 40px;
+}
