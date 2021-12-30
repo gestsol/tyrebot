@@ -1,3 +1,29 @@
 <app-header></app-header>
 <app-menu></app-menu>
+<div class="ejes">
+	<div class="title">Cantidad de Ejes y Neumáticos</div>
+	<div class="align-right col-12 col-md-12">
+		<button (click)="volver();"  class="volver">Volver</button>
+	</div>
+	<div class="contenedor">
+		<h3>EJES</h3>
+		<p>INGRESA CANTIDAD DE NEUMATICO POR EJE</p>
+		<div class="container">
+		  <div class="row row-cols-auto">
+				<div *ngFor="let element of elements; let i=index" >
+						<div id="contenedor" class="col">
+							<h4>EJE {{i+1}} </h4>
+							 <input type="text" class="form-control" >
+						</div>
+				</div>
+			</div>
+			<div class="align-right-buttom col-12 col-md-12">
+				<button type="button" class="btn btn-primary continuar">Continuar</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 <app-footer></app-footer>
+
+

@@ -4,57 +4,73 @@
 	<div class="title">Agregar Vehiculo</div>
 	<div class="formulario">
 		<p>Ingrese los datos del nuevo vehiculo</p>
-		<form id="frmAddVehicle" action="ejes">
+		<form [formGroup]="frmAddVehicle" (ngSubmit)="continuar()" >
 		  <div class="row">
-				<div class="col-3 col-md-3">
-				 <label>PATENTE:</label>
-				</div>
-				<div class="col-3 col-md-4">
-				  <input type="text" class="form-control"  required placeholder="Ejemplo: WI TT 21">
+				<div class=" col-3 col-md-3"><label>PATENTE:</label></div>
+				<div class="form-group col-3 col-md-4">
+					  <input type="text" formControlName="patente" class="form-control"  required placeholder="Ejemplo: WI TT 21" [ngClass]="{'is-invalid': submitted && f.patente.errors }" >
+					<div *ngIf="submitted && f.patente.errors" class="invalid-feedback">
+						<div *ngIf="f.patente.errors.required">Por favor, indique la patente</div>
+					 </div>
 				</div>
 				<div class="col-3 col-md-3">
 				 <label>CANTIDAD DE EJES:</label>
 				</div>
-				<div class="col-3 col-md-2">
-				 <select id="inputState"  class="cantEjes" required>
+				<div class="form-group col-3 col-md-2">
+				 <select id="inputState"  formControlName="ejes" id="ejes" class="cantEjes" required [ngClass]="{'is-invalid': submitted && f.ejes.errors }">
 					<option></option>
 					<option>2</option>
 					<option>3</option>
 					<option>4</option>
 				  </select>
+				  <div *ngIf="submitted && f.ejes.errors" class="invalid-feedback">
+					<div *ngIf="f.ejes.errors.required">Por favor, ingrese la cantidad de ejes</div>
+				 </div>
 				</div>
 				<div class="col-3 col-md-3">
 				 <label>MODELO DE CHASIS:</label>
 				</div>
-				<div class="col-3 col-md-4">
-				  <input type="text" class="form-control" required placeholder="Ejemplo: 0 500 R">
+				<div class="form-group col-3 col-md-4">
+				  <input type="text" formControlName="chasis" class="form-control" required placeholder="Ejemplo: 0 500 R" [ngClass]="{'is-invalid': submitted && f.chasis.errors }">
+					<div *ngIf="submitted && f.chasis.errors" class="invalid-feedback">
+						<div *ngIf="f.chasis.errors.required">Por favor, indique el modelo del chasis</div>
+					</div>
 				</div>
 				<div class="col-5 col-md-5">
 				</div>
 				<div class="col-3 col-md-3">
 				 <label>ID DE TPMS:</label>
 				</div>
-				<div class="col-3 col-md-4">
-				  <input type="text" class="form-control" required placeholder="Ejemplo: 8ab67d">
+				<div class="form-group col-3 col-md-4">
+				  <input type="text" formControlName="tpms" class="form-control" required placeholder="Ejemplo: 8ab67d" [ngClass]="{'is-invalid': submitted && f.tpms.errors }">
+					<div *ngIf="submitted && f.tpms.errors" class="invalid-feedback">
+						<div *ngIf="f.tpms.errors.required">Por favor, indique el ID de TPMS</div>
+					</div>				  
 				</div>
 				<div class="col-5 col-md-5">
 				</div>
 				<div class="col-3 col-md-3">
 				 <label>NÚMERO INTERNO:</label>
 				</div>
-				<div class="col-3 col-md-4">
-				  <input type="text" class="form-control" required placeholder="Ejemplo: G07">
+				<div class="form-group col-3 col-md-4">
+				  <input type="text" formControlName="nrointerno" class="form-control" required placeholder="Ejemplo: G07" [ngClass]="{'is-invalid': submitted && f.nrointerno.errors }">
+					<div *ngIf="submitted && f.nrointerno.errors" class="invalid-feedback">
+						<div *ngIf="f.nrointerno.errors.required">Por favor, indique el Número Interno</div>
+					</div>					  
 				</div>
 				<div class="col-5 col-md-5">
 				</div>
 				<div class="col-3 col-md-3">
 				 <label>DISPOSITIVO GPS:</label>
 				</div>
-				<div class="col-3 col-md-4">
-				   <select id="inputState" class="gps" required>
+				<div class="form-group col-3 col-md-4">
+				   <select formControlName="gps" id="inputState" class="gps" required [ngClass]="{'is-invalid': submitted && f.gps.errors }">
 					<option></option>
 					<option>GPS</option>
 				  </select>
+					<div *ngIf="submitted && f.gps.errors" class="invalid-feedback">
+						<div *ngIf="f.gps.errors.required">Por favor, indique el Dispositivo GPS</div>
+					</div>				  
 				</div>
 				<div class="align-right col-12 col-md-12">
 				<button type="submit" class="btn btn-primary">Continuar</button>
