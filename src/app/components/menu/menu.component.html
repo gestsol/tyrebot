@@ -1,20 +1,20 @@
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <div class="menu">
-		<div class="w3-sidebar w3-bar-block" style="width:25%">
-		  <a href="#" class="w3-bar-item w3-button">Informacion de Mi Perfil</a>
-		  <a href="#" class="w3-bar-item w3-button">Administrar Cuentas</a>
-		  <div class="w3-dropdown-hover">
-		  <div class="w3-dropdown-click">	  
-			<button class="w3-button">Vehículo <i class="fa fa-caret-down"></i></button>
-			<div class="w3-dropdown-content w3-bar-block">
-			  <a href="addVehicle" class="w3-bar-item w3-button">Agregar Vehiculo</a>
-			  <a href="#" class="w3-bar-item w3-button">Editar Existente</a>
-			  <a href="#" class="w3-bar-item w3-button">Crear perfil de conductor</a>
-			  <a href="#" class="w3-bar-item w3-button">Crear perfil de conductor</a>
-			</div>
-		  </div>
-		  <a href="#" class="w3-bar-item w3-button">Neumático</a>
-		  <a href="#" class="w3-bar-item w3-button">Neumático</a>
-		</div>
-	</div>
+	<ul class="menu__lvl1">
+	  <li *ngFor="let lvl1 of menu; let i = index;">
+      <ng-container *ngTemplateOutlet="menuItem, context: { $implicit: lvl1 }"></ng-container>
+      <div *ngIf="lvl1.list" class="menu__lvl2" [ngClass]="{'open': lvl1.open}">
+        <ul class="menu__lvl2__container">
+          <li *ngFor="let lvl2 of lvl1.list">
+            <ng-container *ngTemplateOutlet="menuItem, context: { $implicit: lvl2 }"></ng-container>
+          </li>
+        </ul>
+      </div>
+    </li>
+	</ul>
 </div>
+
+<ng-template #menuItem let-item>
+  <a [routerLink]="item.router" (click)="openNav(item)">
+    {{item.name}}
+  </a>
+</ng-template>
