@@ -1,4 +1,4 @@
-<div class="menu">
+<nav class="menu">
 	<ul class="menu__lvl1">
 	  <li *ngFor="let lvl1 of menu; let i = index;">
       <ng-container *ngTemplateOutlet="menuItem, context: { $implicit: lvl1 }"></ng-container>
@@ -10,11 +10,15 @@
         </ul>
       </div>
     </li>
+    <li class="menu__logout"><a href="">
+      <ion-icon name="log-in"></ion-icon>
+      <span>Salir</span>
+    </a></li>
 	</ul>
-</div>
+</nav>
 
 <ng-template #menuItem let-item>
-  <a [routerLink]="item.router" (click)="openNav(item)">
+  <a [routerLink]="item.route" (click)="openNav(item)">
     {{item.name}}
   </a>
 </ng-template>

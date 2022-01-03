@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuItem, NavigationService } from 'src/app/services/navigation.service';
 
-interface MenuItem {
-  name: string
-  route?: string
-  list?: MenuItem[]
-  open?: boolean
-}
 
 @Component({
   selector: 'app-menu',
@@ -13,37 +8,12 @@ interface MenuItem {
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-  menu: MenuItem[] = [
-    {
-      name: 'Informacion de Mi Perfil'
-    },
-    {
-      name: 'Administrar Cuentas'
-    },
-    {
-      name: 'Vehículo',
-      open: false,
-      list: [
-        {
-          name: 'Vehículos Activos'
-        },
-        {
-          name: 'Agregar Vehículo',
-          route: '/addVehicle'
-        },
-        {
-          name: 'Editar Existente'
-        }
-      ]
-    },
-    {
-      name: 'Configuración'
-    }
-  ]
+  menu: MenuItem[] = []
 
-  constructor() { }
+  constructor(private navigation: NavigationService) { }
 
   ngOnInit(): void {
+    this.menu = this.navigation.menu
   }
 
   openNav(item: MenuItem) {

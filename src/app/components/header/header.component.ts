@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {formatDate } from '@angular/common';
+import { NavigationService } from 'src/app/services/navigation.service';
 
 @Component({
   selector: 'app-header',
@@ -9,11 +10,17 @@ import {formatDate } from '@angular/common';
 export class HeaderComponent implements OnInit {
   today= new Date();
   jstoday = '';
-  constructor() {
-	this.jstoday = formatDate(this.today, 'hh:mm:ss a  dd MMMM yyyy', 'en-US', '+0530');
-  }
+
+  constructor(private navigationService: NavigationService) {}
 
   ngOnInit(): void {
+    this.jstoday = formatDate(this.today, 'hh:mm:ss a  dd MMMM yyyy', 'en-US', '+0530');
+  }
+
+  open() {
+    this.navigationService.navOpen$.subscribe(value => {
+      this.navigationService.open(!value)
+    })
   }
 
 }

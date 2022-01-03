@@ -4,8 +4,8 @@
 	position: absolute;
 	top: 100px;
 	bottom: 0;
-  height: 100vh;
-  li {
+  height: calc(100vh - 100px);
+  li:not(&__logout) {
     list-style: none;
     width: 100%;
     transition: all 0.2s ease-in;
@@ -26,6 +26,8 @@
   }
 	// min-height: 115vh;
   &__lvl1 {
+    position: relative;
+    height: 100%;
     padding: 40px 30px 40px 40px;
     & > li {
       margin: 1rem 0;
@@ -44,6 +46,18 @@
       margin-top: 1rem;
       padding: 5px;
       border-left: solid 2px #343A40;
+    }
+  }
+  &__logout {
+    position: absolute;
+    width: calc(100% - 70px);
+    bottom: 50px;
+    ion-icon, span {
+      vertical-align: middle;
+      margin-inline-start: 0.5rem;
+    }
+    ion-icon {
+      font-size: 1.5rem;
     }
   }
 }
