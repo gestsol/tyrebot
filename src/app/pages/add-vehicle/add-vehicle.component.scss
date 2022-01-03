@@ -1,42 +1,34 @@
-.addVehicle{
-	width: 1000px;
-	position: absolute;
-	top: 100px;
-	left: 340px;
-	align-content: center;
-}
 
-.title{
+
+.title {
 	text-align: center;
 	color: white;
 	font-size: 30px;
-    margin-top: 20px;
-	font-family: SF Pro Display;
+  margin: 3rem 0;
 	font-weight: bold;
 }
 
-.formulario{
-	width: 650px;
-	height: auto;
+.formulario {
+	max-width: 800px;
 	border: solid 1px;
 	border: solid 2px #6a6969;
-	margin: 0 auto;
+	margin: auto;
 	margin-top: 20px;
 	border-radius: 20px;
-	padding-left: 30px;
-	padding-right: 30px;
+	padding-left: 60px;
+	padding-right: 60px;
+  & > h2 {
+    color: white;
+    font-size: 1rem;
+    margin: 1rem 0;
+    margin-top: 2rem;
+  }
 }
 
-.formulario > p{
-	font-family: SF Pro Display;
-	color: white;
-}
-
-label{
+label {
 	color: gray;
 	font-weight: bold;
-	font-size: 13px;
-	font-family: SF Pro Display;
+	font-size: 1rem;
 }
 
 .align-right{

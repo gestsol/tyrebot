@@ -1,12 +1,12 @@
 <app-header></app-header>
 <app-menu></app-menu>
 <div class="addVehicle">
-	<div class="title">Agregar Vehiculo</div>
+	<h1 class="title">Agregar Vehiculo</h1>
 	<div class="formulario">
-		<p>Ingrese los datos del nuevo vehiculo</p>
+		<h2 class="text-light">Ingrese los datos del nuevo vehiculo</h2>
 		<form [formGroup]="frmAddVehicle" (ngSubmit)="continuar()" >
 		  <div class="row">
-				<div class=" col-3 col-md-3"><label>PATENTE:</label></div>
+				<div class="col-3 col-md-3"><label>PATENTE:</label></div>
 				<div class="form-group col-3 col-md-4">
 					  <input type="text" formControlName="patente" class="form-control"  required placeholder="Ejemplo: WI TT 21" [ngClass]="{'is-invalid': submitted && f.patente.errors }" >
 					<div *ngIf="submitted && f.patente.errors" class="invalid-feedback">
@@ -45,7 +45,7 @@
 				  <input type="text" formControlName="tpms" class="form-control" required placeholder="Ejemplo: 8ab67d" [ngClass]="{'is-invalid': submitted && f.tpms.errors }">
 					<div *ngIf="submitted && f.tpms.errors" class="invalid-feedback">
 						<div *ngIf="f.tpms.errors.required">Por favor, indique el ID de TPMS</div>
-					</div>				  
+					</div>
 				</div>
 				<div class="col-5 col-md-5">
 				</div>
@@ -56,7 +56,7 @@
 				  <input type="text" formControlName="nrointerno" class="form-control" required placeholder="Ejemplo: G07" [ngClass]="{'is-invalid': submitted && f.nrointerno.errors }">
 					<div *ngIf="submitted && f.nrointerno.errors" class="invalid-feedback">
 						<div *ngIf="f.nrointerno.errors.required">Por favor, indique el Número Interno</div>
-					</div>					  
+					</div>
 				</div>
 				<div class="col-5 col-md-5">
 				</div>
@@ -70,7 +70,7 @@
 				  </select>
 					<div *ngIf="submitted && f.gps.errors" class="invalid-feedback">
 						<div *ngIf="f.gps.errors.required">Por favor, indique el Dispositivo GPS</div>
-					</div>				  
+					</div>
 				</div>
 				<div class="align-right col-12 col-md-12">
 				<button type="submit" class="btn btn-primary">Continuar</button>

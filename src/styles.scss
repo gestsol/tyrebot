@@ -1,13 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 body{
 	background-image: url('/assets/img/fondo.jpg') !important;
+  font-family: SF Pro Display;
 }
 
 
 @font-face {
-    font-family: 'SF Pro Display';
-    src: url('assets/fonts/SFProDisplay-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'SF Pro Display';
+  src: url('assets/fonts/SFProDisplay-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
