@@ -11,10 +11,9 @@ import { AppComponent } from './app.component';
 import { MainComponent } from './pages/main/main.component';
 import { HeaderComponent } from './components/header/header.component';
 import { MenuComponent } from './components/menu/menu.component';
-import { AddVehicleComponent } from './pages/add-vehicle/add-vehicle.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { EjesComponent } from './pages/ejes/ejes.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AddVehicleModule } from './pages/add-vehicle/add-vehicle.module';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -23,19 +22,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MainComponent,
     HeaderComponent,
     MenuComponent,
-    AddVehicleComponent,
-    FooterComponent,
-	  EjesComponent
+    FooterComponent
   ],
   imports: [
     BrowserModule,
 	  AppRoutingModule,
 	  FormsModule,
-    ReactiveFormsModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
     MatSelectModule,
     MatInputModule,
-    MatRippleModule
+    MatRippleModule,
+    AddVehicleModule
   ],
   providers: [],
   bootstrap: [AppComponent]

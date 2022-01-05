@@ -32,7 +32,7 @@ export class NavigationService {
         },
         {
           name: 'Agregar Vehículo',
-          route: '/addVehicle'
+          route: '/add-vehicle'
         },
         {
           name: 'Editar Existente'
