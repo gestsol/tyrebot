@@ -1,0 +1,52 @@
+
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '~@angular/material' as mat;
+@use './components/_form-button';
+@use './components/_form_field';
+@use './components/_select';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+$tyrebot-primary: mat.define-palette(mat.$indigo-palette);
+$tyrebot-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$tyrebot-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$tyrebot-theme: mat.define-light-theme((
+  color: (
+    primary: $tyrebot-primary,
+    accent: $tyrebot-accent,
+    warn: $tyrebot-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($tyrebot-theme);
+
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('../assets/fonts/SFProDisplay-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+html, body { height: 100%; }
+
+/* You can add global styles to this file, and also import other style files */
+body{
+	background: transparent linear-gradient(180deg, #171717 0%, #555555 100%) 0% 0% no-repeat padding-box;;
+  margin: 0; font-family: 'SF Pro Display', "Helvetica Neue", sans-serif;
+}

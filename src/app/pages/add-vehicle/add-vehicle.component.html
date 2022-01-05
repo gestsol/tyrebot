@@ -4,76 +4,76 @@
 	<h1 class="title">Agregar Vehiculo</h1>
 	<div class="formulario">
 		<h2 class="text-light">Ingrese los datos del nuevo vehiculo</h2>
-		<form [formGroup]="frmAddVehicle" (ngSubmit)="continuar()" >
+		<form [formGroup]="frmAddVehicle" (ngSubmit)="continuar()">
 		  <div class="row">
 				<div class="col-3 col-md-3"><label>PATENTE:</label></div>
-				<div class="form-group col-3 col-md-4">
-					  <input type="text" formControlName="patente" class="form-control"  required placeholder="Ejemplo: WI TT 21" [ngClass]="{'is-invalid': submitted && f.patente.errors }" >
-					<div *ngIf="submitted && f.patente.errors" class="invalid-feedback">
-						<div *ngIf="f.patente.errors.required">Por favor, indique la patente</div>
-					 </div>
+				<div class="col-3 col-md-4">
+          <mat-form-field appearance="outline" [ngClass]="{'grey-background': !f.patente.dirty}">
+            <input matInput formControlName="patente" placeholder="Ejemplo: WI TT 21">
+          </mat-form-field>
+          <mat-error *ngIf="submitted && f.patente.errors">{{f.patente.errors?.required? 'Por favor, indique la patente': ''}}</mat-error>
 				</div>
-				<div class="col-3 col-md-3">
-				 <label>CANTIDAD DE EJES:</label>
-				</div>
-				<div class="form-group col-3 col-md-2">
-				 <select id="inputState"  formControlName="ejes" id="ejes" class="cantEjes" required [ngClass]="{'is-invalid': submitted && f.ejes.errors }">
-					<option></option>
-					<option>2</option>
-					<option>3</option>
-					<option>4</option>
-				  </select>
-				  <div *ngIf="submitted && f.ejes.errors" class="invalid-feedback">
-					<div *ngIf="f.ejes.errors.required">Por favor, ingrese la cantidad de ejes</div>
-				 </div>
+				<div class="col-6 col-md-5">
+          <div class="form-input-container">
+            <label>CANTIDAD DE EJES:</label>
+            <mat-form-field appearance="outline" class="cantEjes" [ngClass]="{'grey-background': !f.ejes.dirty}">
+              <mat-select disableOptionCentering formControlName="ejes">
+                <mat-option *ngFor="let value of [2, 3, 4]" [value]="value">
+                  {{value}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <mat-error style="text-align: right;" *ngIf="submitted && f.ejes.errors">{{f.ejes.errors?.required? 'Por favor, ingrese la cantidad de ejes': ''}}</mat-error>
 				</div>
 				<div class="col-3 col-md-3">
 				 <label>MODELO DE CHASIS:</label>
 				</div>
-				<div class="form-group col-3 col-md-4">
-				  <input type="text" formControlName="chasis" class="form-control" required placeholder="Ejemplo: 0 500 R" [ngClass]="{'is-invalid': submitted && f.chasis.errors }">
-					<div *ngIf="submitted && f.chasis.errors" class="invalid-feedback">
-						<div *ngIf="f.chasis.errors.required">Por favor, indique el modelo del chasis</div>
-					</div>
+				<div class="col-3 col-md-4">
+          <mat-form-field appearance="outline" [ngClass]="{'grey-background': !f.chasis.dirty}">
+            <input matInput formControlName="chasis" placeholder="Ejemplo: 0 500 R">
+          </mat-form-field>
+          <mat-error *ngIf="submitted && f.chasis.errors">{{f.chasis.errors?.required? 'Por favor, ingrese el modelo de chasis': ''}}</mat-error>
 				</div>
-				<div class="col-5 col-md-5">
+        <div class="col-5 col-md-5">
 				</div>
 				<div class="col-3 col-md-3">
 				 <label>ID DE TPMS:</label>
 				</div>
-				<div class="form-group col-3 col-md-4">
-				  <input type="text" formControlName="tpms" class="form-control" required placeholder="Ejemplo: 8ab67d" [ngClass]="{'is-invalid': submitted && f.tpms.errors }">
-					<div *ngIf="submitted && f.tpms.errors" class="invalid-feedback">
-						<div *ngIf="f.tpms.errors.required">Por favor, indique el ID de TPMS</div>
-					</div>
+        <div class="col-3 col-md-4">
+          <mat-form-field appearance="outline" [ngClass]="{'grey-background': !f.tpms.dirty}">
+            <input matInput formControlName="tpms" placeholder="Ejemplo: 0 500 R">
+          </mat-form-field>
+          <mat-error *ngIf="submitted && f.tpms.errors">{{f.tpms.errors?.required? 'Por favor, indique el ID de TPMS': ''}}</mat-error>
 				</div>
 				<div class="col-5 col-md-5">
 				</div>
 				<div class="col-3 col-md-3">
 				 <label>NÚMERO INTERNO:</label>
 				</div>
-				<div class="form-group col-3 col-md-4">
-				  <input type="text" formControlName="nrointerno" class="form-control" required placeholder="Ejemplo: G07" [ngClass]="{'is-invalid': submitted && f.nrointerno.errors }">
-					<div *ngIf="submitted && f.nrointerno.errors" class="invalid-feedback">
-						<div *ngIf="f.nrointerno.errors.required">Por favor, indique el Número Interno</div>
-					</div>
+        <div class="col-3 col-md-4">
+          <mat-form-field appearance="outline" [ngClass]="{'grey-background': !f.nrointerno.dirty}">
+            <input matInput formControlName="nrointerno" placeholder="Ejemplo: 0 500 R">
+          </mat-form-field>
+          <mat-error *ngIf="submitted && f.nrointerno.errors">{{f.nrointerno.errors?.required? 'Por favor, indique el Número Interno': ''}}</mat-error>
 				</div>
 				<div class="col-5 col-md-5">
 				</div>
 				<div class="col-3 col-md-3">
 				 <label>DISPOSITIVO GPS:</label>
 				</div>
-				<div class="form-group col-3 col-md-4">
-				   <select formControlName="gps" id="inputState" class="gps" required [ngClass]="{'is-invalid': submitted && f.gps.errors }">
-					<option></option>
-					<option>GPS</option>
-				  </select>
-					<div *ngIf="submitted && f.gps.errors" class="invalid-feedback">
-						<div *ngIf="f.gps.errors.required">Por favor, indique el Dispositivo GPS</div>
-					</div>
+				<div class="col-3 col-md-4">
+          <mat-form-field appearance="outline" [ngClass]="{'grey-background': !f.gps.dirty}">
+            <mat-select disableOptionCentering formControlName="gps">
+              <mat-option *ngFor="let value of ['GPS']" [value]="value">
+                {{value}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+					<mat-error *ngIf="submitted && f.gps.errors">{{f.gps.errors?.required? 'Por favor, indique el Dispositivo GPS': ''}}</mat-error>
 				</div>
 				<div class="align-right col-12 col-md-12">
-				<button type="submit" class="btn btn-primary">Continuar</button>
+				<button matRipple type="submit" class="form-btn" [disabled]="frmAddVehicle.invalid" >Continuar</button>
 				</div>
 			</div>
 		</form>

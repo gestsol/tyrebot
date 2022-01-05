@@ -1,0 +1,32 @@
+.form-btn {
+  position: relative;
+	border: 0px;
+  border-radius: 20px;
+	width: 200px;
+	height: 40px;
+  color: #fff;
+  overflow: hidden;
+  background-color: transparent;
+  transition: all 0.2s;
+  &:disabled {
+    &:before {
+      opacity: 0;
+    }
+    background: gray;
+  }
+  &:active {
+    transform: scale(0.95) !important;
+  }
+  &:before {
+    content: '';
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: transparent linear-gradient(125deg, #339AF0 0%, #FFFFFFA8 100%) 0% 0% no-repeat padding-box;
+    opacity: 1;
+    transition: opacity 0.2s;
+  }
+}

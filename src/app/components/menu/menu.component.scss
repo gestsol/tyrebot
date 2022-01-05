@@ -38,10 +38,10 @@
     padding-left: 1.5rem;
     height: auto;
     max-height: 0px;
-    transition: max-height 0.3s ease-in;
+    transition: max-height 0.2s ease-in;
     overflow: hidden;
     &.open {
-      max-height: 500px
+      max-height: 200px
     }
     &__container {
       margin-top: 1rem;
