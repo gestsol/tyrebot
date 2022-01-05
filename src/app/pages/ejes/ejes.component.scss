@@ -1,5 +1,16 @@
 @use '/src/sass/vars/colors' as colors;
 
+.volver {
+  width: 119px;
+  border-radius: 15px;
+  margin-left: auto;
+  display: block;
+  margin-bottom: 1rem;
+  &:before {
+    background: transparent linear-gradient(139deg, #212529 0%, #FFFFFFA8 100%) 0% 0% no-repeat padding-box;
+  }
+}
+
 .ejes {
 	align-content: center;
   &__title {
@@ -19,7 +30,7 @@
   &__container__box {
     &.container {
       padding-top: 2rem;
-      padding-left: 2rem;
+      padding-bottom: 1rem;
     }
     border: solid 2px colors.$border-text-dark;
     border-radius: 20px;
@@ -35,6 +46,11 @@
       color: colors.$border-text-dark;
       text-align: center;
       margin-bottom: 2rem;
+    }
+
+    &__description {
+      color: colors.$border-text-dark;
+      font-size: 0.8rem;
     }
 
     h4 {
@@ -72,30 +88,12 @@
       background-color: colors.$border-text-dark;
       max-height: 120px;
     }
+
+    &__button {
+      text-align: right;
+      margin-left: 6px;
+      margin-top: 70px;
+    }
   }
 }
 
-.align-right {
-	text-align: right;
-	margin-bottom:20px;
-	margin-left:-187px;
-}
-
-
-.volver {
-  width: 119px;
-  border-radius: 15px;
-  margin-left: auto;
-  display: block;
-  margin-bottom: 1rem;
-  &:before {
-    background: transparent linear-gradient(139deg, #212529 0%, #FFFFFFA8 100%) 0% 0% no-repeat padding-box;
-  }
-}
-
-.align-right-buttom {
-    text-align: right;
-    margin-bottom: 41px;
-    margin-left: 6px;
-    margin-top: 70px;
-}
