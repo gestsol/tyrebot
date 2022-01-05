@@ -1,0 +1,101 @@
+@use '/src/sass/vars/colors' as colors;
+
+.ejes {
+	align-content: center;
+  &__title {
+    text-align: center;
+    color: white;
+    font-size: 30px;
+    margin: 3rem 0 0rem 0;
+    font-weight: bold;
+  }
+
+  &__container {
+    max-width: 1000px;
+    margin-top: 20px;
+    margin: 0 auto;
+  }
+
+  &__container__box {
+    &.container {
+      padding-top: 2rem;
+      padding-left: 2rem;
+    }
+    border: solid 2px colors.$border-text-dark;
+    border-radius: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    & > h3 {
+      text-align: center;
+      color: colors.$border-text-dark;
+    }
+
+    & > p {
+      font-family: SF Pro Display;
+      color: colors.$border-text-dark;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    h4 {
+      text-align: center;
+	    color: colors.$border-text-dark;
+      font-size: 1rem;
+      text-transform: uppercase;
+      &.dirty {
+        color: colors.$primary
+      }
+    }
+
+    &__field {
+      padding: 1.5rem;
+      &__input {
+        width: 70px;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+      }
+
+      &__input input {
+        text-align: center;
+      }
+
+      &__input mat-error {
+        text-align: center;
+      }
+    }
+
+    &__separator > div {
+      margin: auto;
+      height: 100%;
+      width: 1px;
+      background-color: colors.$border-text-dark;
+      max-height: 120px;
+    }
+  }
+}
+
+.align-right {
+	text-align: right;
+	margin-bottom:20px;
+	margin-left:-187px;
+}
+
+
+.volver {
+  width: 119px;
+  border-radius: 15px;
+  margin-left: auto;
+  display: block;
+  margin-bottom: 1rem;
+  &:before {
+    background: transparent linear-gradient(139deg, #212529 0%, #FFFFFFA8 100%) 0% 0% no-repeat padding-box;
+  }
+}
+
+.align-right-buttom {
+    text-align: right;
+    margin-bottom: 41px;
+    margin-left: 6px;
+    margin-top: 70px;
+}

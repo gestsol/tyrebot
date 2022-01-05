@@ -43,10 +43,8 @@ $tyrebot-theme: mat.define-light-theme((
   font-display: swap;
 }
 
-html, body { height: 100%; }
-
 /* You can add global styles to this file, and also import other style files */
 body{
-	background: transparent linear-gradient(180deg, #171717 0%, #555555 100%) 0% 0% no-repeat padding-box;;
+	background: transparent linear-gradient(180deg, #171717 0%, #555555 100%) 0% 0% no-repeat padding-box;
   margin: 0; font-family: 'SF Pro Display', "Helvetica Neue", sans-serif;
 }

@@ -1,29 +1,39 @@
-<app-header></app-header>
-<app-menu></app-menu>
 <div class="ejes">
-	<div class="title">Cantidad de Ejes y Neumáticos</div>
-	<div class="align-right col-12 col-md-12">
-		<button (click)="volver();"  class="volver">Volver</button>
-	</div>
-	<div class="contenedor">
-		<h3>EJES</h3>
-		<p>INGRESA CANTIDAD DE NEUMATICO POR EJE</p>
-		<div class="container">
-		  <div class="row row-cols-auto">
-				<div *ngFor="let element of elements; let i=index" >
-						<div id="contenedor" class="col">
-							<h4>EJE {{i+1}} </h4>
-							 <input type="text" class="form-control" >
-						</div>
-				</div>
+	<h1 class="ejes__title">Cantidad de Ejes y Neumáticos</h1>
+	<div class="ejes__container">
+    <button matRipple (click)="volver();"  class="form-btn volver">Volver</button>
+		<form [formGroup]="form" (ngSubmit)="continuar()" class="ejes__container__box container">
+      <h3>EJES</h3>
+      <p>INGRESA CANTIDAD DE NEUMATICO POR EJE</p>
+		  <div class="row" formArrayName="ejes">
+				<ng-container *ngFor="let control of ejes.controls; let i = index">
+					<div class="col ejes__container__box__field">
+            <h4 [ngClass]="{'dirty': control.dirty}">
+              {{ejes.controls.length - 1 === i? 'R' :'Eje ' + (i + 1)}}
+            </h4>
+            <div class="ejes__container__box__field__input">
+              <mat-form-field appearance="outline" [ngClass]="{'grey-background': !control.dirty}">
+                <input matInput [formControlName]="i" type="number">
+              </mat-form-field>
+              <mat-error
+              *ngIf="control.errors && control.touched">
+              {{
+                (control.errors?.required || control.errors?.min) ?
+                'Campo requerido': (control.errors?.max) ? '4 ejes máximo' : ''
+              }}
+              </mat-error>
+            </div>
+          </div>
+          <div class="col ejes__container__box__separator" *ngIf="ejes.controls && ejes.controls.length - 1 !== i">
+            <div></div>
+          </div>
+        </ng-container>
 			</div>
 			<div class="align-right-buttom col-12 col-md-12">
-				<button type="button" class="btn btn-primary continuar">Continuar</button>
+				<button matRipple type="submit" class="form-btn" type="button"  [disabled]="form.invalid">
+          Continuar
+        </button>
 			</div>
-		</div>
+		</form>
 	</div>
 </div>
-
-<app-footer></app-footer>
-
-

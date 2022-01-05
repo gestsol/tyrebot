@@ -1,10 +1,8 @@
-<app-header></app-header>
-<app-menu></app-menu>
-<div class="addVehicle">
+<div class="add-vehicle">
 	<h1 class="title">Agregar Vehiculo</h1>
 	<div class="formulario">
 		<h2 class="text-light">Ingrese los datos del nuevo vehiculo</h2>
-		<form [formGroup]="frmAddVehicle" (ngSubmit)="continuar()">
+		<form [formGroup]="form" (ngSubmit)="continuar()">
 		  <div class="row">
 				<div class="col-3 col-md-3"><label>PATENTE:</label></div>
 				<div class="col-3 col-md-4">
@@ -73,10 +71,9 @@
 					<mat-error *ngIf="submitted && f.gps.errors">{{f.gps.errors?.required? 'Por favor, indique el Dispositivo GPS': ''}}</mat-error>
 				</div>
 				<div class="align-right col-12 col-md-12">
-				<button matRipple type="submit" class="form-btn" [disabled]="frmAddVehicle.invalid" >Continuar</button>
+				<button matRipple type="submit" class="form-btn" [disabled]="form.invalid" >Continuar</button>
 				</div>
 			</div>
 		</form>
 	</div>
 </div>
-<app-footer></app-footer>

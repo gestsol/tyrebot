@@ -10,10 +10,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-vehicle.component.scss']
 })
 export class AddVehicleComponent implements OnInit {
-  frmAddVehicle: FormGroup;
+  form: FormGroup;
   submitted = false;
   constructor(private formBuilder: FormBuilder, private router: Router) {
-    this.frmAddVehicle = this.formBuilder.group({
+    this.form = this.formBuilder.group({
 		patente: ['', Validators.required],
 		ejes: ['', Validators.required],
 		chasis: ['', Validators.required],
@@ -27,20 +27,20 @@ export class AddVehicleComponent implements OnInit {
   }
 
 
-	get f() { return this.frmAddVehicle.controls; }
+	get f() { return this.form.controls; }
 
 
 	continuar() {
         this.submitted = true;
 
-        if (this.frmAddVehicle.invalid) {
+        if (this.form.invalid) {
             return;
         }
 
 
        this.router.navigate(['/ejes'], {
 		   queryParams: {
-			  cantidad: this.frmAddVehicle.get('ejes')?.value
+			  cantidad: this.form.get('ejes')?.value
 		   }
 		});
     }

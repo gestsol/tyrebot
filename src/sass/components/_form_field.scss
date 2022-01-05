@@ -1,4 +1,6 @@
-@use '../_colors' as colors;
+@use '../vars/_colors' as colors;
+
+$field-border-radius: 5px;
 
 mat-error {
   font-size: 0.9rem;
@@ -15,8 +17,19 @@ mat-error {
 
 .mat-form-field-appearance-outline {
   & input, & span {
-    color: colors.$input-text-dark
+    color: colors.$input-text-dark;
+    caret-color: colors.$primary
   }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
+}
 }
 
 .mat-form-field-appearance-outline .mat-select-arrow-wrapper {
@@ -44,22 +57,22 @@ mat-error {
 }
 
 .mat-form-field-outline-start {
-  border-radius: 10px  0 0 10px !important;
+  border-radius: #{$field-border-radius}  0 0 #{$field-border-radius} !important;
   width: 15px;
 }
 .mat-form-field-outline-end {
-  border-radius: 0 10px 10px 0 !important;
+  border-radius: 0 #{$field-border-radius} #{$field-border-radius} 0 !important;
 }
 
 .mat-form-field-appearance-outline .mat-form-field-outline-thick {
-  border-radius: 10px !important;
+  border-radius: #{$field-border-radius} !important;
 }
 .mat-form-field-appearance-outline:not(.mat-form-field-invalid) {
   .mat-form-field-outline-thick {
-    color: #E7A42A !important;
+    color: colors.$primary !important;
   }
   &.mat-focused .mat-form-field-outline-thick {
-    color: #E7A42A !important;
+    color: colors.$primary !important;
   }
 }
 
