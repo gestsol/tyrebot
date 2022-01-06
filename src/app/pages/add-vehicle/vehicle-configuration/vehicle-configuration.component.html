@@ -5,17 +5,8 @@
   </div>
   <p>INGRESA LOS DATOS CORRESPONDIENTES:</p>
   <mat-tab-group mat-align-tabs="center" dynamicHeight>
-    <mat-tab label="EJE 1">
-      <app-vehicle-configuration-form></app-vehicle-configuration-form>
-    </mat-tab>
-    <mat-tab label="EJE 2">
-      <app-vehicle-configuration-form></app-vehicle-configuration-form>
-    </mat-tab>
-    <mat-tab label="EJE 3">
-      <app-vehicle-configuration-form></app-vehicle-configuration-form>
-    </mat-tab>
-    <mat-tab label="R">
-      <app-vehicle-configuration-form></app-vehicle-configuration-form>
+    <mat-tab [label]="i === ejes.length - 1 ? 'R' : 'EJE ' + (i + 1)" *ngFor="let eje of ejes; let i = index">
+      <app-vehicle-configuration-form [tires]="eje"></app-vehicle-configuration-form>
     </mat-tab>
   </mat-tab-group>
 </div>

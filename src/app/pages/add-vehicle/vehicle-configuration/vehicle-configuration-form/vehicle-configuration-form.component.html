@@ -1,6 +1,6 @@
-<mat-card>
+<mat-card *ngIf="form">
   <div class="row-container">
-    <div class="row-container__col field-header" *ngFor="let col of [1, 2, 3, 4, 5]; let i = index">
+    <div class="row-container__col field-header" *ngFor="let col of tiresLength; let i = index">
       <span *ngIf="i !== 0">{{'Tire ' + i}}</span>
     </div>
   </div>
@@ -93,18 +93,18 @@
 </mat-card>
 
 <ng-template #controlTemplate let-controls let-name="name">
-  <ng-container>
-    <div class="row-container__col field-name">
-      <div>
-        <span>{{name}}</span>
-      </div>
+  <div class="row-container__col field-name">
+    <div>
+      <span>{{name}}</span>
     </div>
-    <div class="row-container__col"
-      *ngFor="let control of controls; let i=index"
-    >
+  </div>
+  <div class="row-container__col"
+  *ngFor="let control of controls; let i=index"
+  >
+    <div>
       <mat-form-field appearance="outline" [ngClass]="{'grey-background': !control.dirty}">
         <input matInput [formControl]="controls[i]">
       </mat-form-field>
     </div>
-  </ng-container>
+  </div>
 </ng-template>
