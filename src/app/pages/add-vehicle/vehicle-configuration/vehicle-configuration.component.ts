@@ -1,8 +1,9 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, QueryList, ViewChildren } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, QueryList, ViewChildren, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest, Observable, of, Subscription } from 'rxjs';
+import { combineLatest, Observable, Subscription } from 'rxjs';
 import { EjeData, FlowData, Step3, StepKeys, VehicleService } from '../vehicle.service';
 import { VehicleConfigurationFormComponent } from './vehicle-configuration-form/vehicle-configuration-form.component';
+import { MatTabGroup } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-vehicle-configuration',
@@ -10,6 +11,7 @@ import { VehicleConfigurationFormComponent } from './vehicle-configuration-form/
   styleUrls: ['./vehicle-configuration.component.scss']
 })
 export class VehicleConfigurationComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild(MatTabGroup) tabGroup!: MatTabGroup;
   @ViewChildren(VehicleConfigurationFormComponent) items!: QueryList<VehicleConfigurationFormComponent>;
 
   formValidation: Subscription | null = null
@@ -28,10 +30,12 @@ export class VehicleConfigurationComponent implements OnInit, AfterViewInit, OnD
       const step2 = value?.step2
       if (step2) {
         const tiresList = step2.ejes
-        const actualData = value.step3? value.step3.ejes : {}
-        this.ejes = tiresList.map(value => ({
-          tires: value,
-          ...actualData
+        const actualData = value.step3 ? value.step3.ejes : []
+        console.log(tiresList)
+        console.log(actualData)
+        this.ejes = tiresList.map((value, i) => ({
+          ...actualData[i],
+          tires: value
         }))
       }
     })
@@ -58,18 +62,26 @@ export class VehicleConfigurationComponent implements OnInit, AfterViewInit, OnD
   }
 
   ngAfterViewInit(): void {
-    if (this.formValidation !== null) {
-      this.formValidation.unsubscribe()
-    }
     this.items.forEach((item, i) => {
       this.statusList.push(item.statusChanges)
     })
     this.formValidation = combineLatest(this.statusList).subscribe((statusList) => {
-      this.isFormValid = statusList.reduce((result, value) =>
-        result && value === 'VALID',
-        true
-      )
+      setTimeout(() => {
+        this.isFormValid = statusList.reduce((result, value) =>
+          result && value === 'VALID',
+          true
+        )
+      },0)
     })
+
+    this.route.queryParams.subscribe(
+		  params => {
+			  const eje =  parseInt(params['eje']);
+        if (eje) {
+          this.tabGroup.selectedIndex = eje
+        }
+		  }
+		)
   }
 
   ngOnDestroy(): void {

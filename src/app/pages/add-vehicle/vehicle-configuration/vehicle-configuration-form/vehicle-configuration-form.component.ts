@@ -12,7 +12,7 @@ import { EjeData } from '../../vehicle.service';
 export class VehicleConfigurationFormComponent implements OnInit {
   @Input() eje: Partial<EjeData> | null = null
 
-  tiresLength: string[] = [];
+  headersLength: string[] = [];
   form: FormGroup | null = null;
   statusChanges = of('INVALID')
 
@@ -62,7 +62,7 @@ export class VehicleConfigurationFormComponent implements OnInit {
   }
 
   private createControls() {
-    this.tiresLength = new Array((this.eje && this.eje.tires? this.eje.tires : 0) + 1).fill('')
+    this.headersLength = new Array((this.eje && this.eje.tires? this.eje.tires : 0) + 1).fill('')
     this.form = this.fb.group({
       tpmsId: this.fb.group({
         tires: this.fb.array([])
@@ -102,6 +102,8 @@ export class VehicleConfigurationFormComponent implements OnInit {
       })
     });
 
+    console.log(this.eje)
+
     this.addControls(this.tpmsId, this.eje?.tpmsId, true);
     this.addControls(this.tpmsType, this.eje?.tpmsType);
     this.addControls(this.tpmsManufacturer, this.eje?.tpmsManufacturer);
@@ -120,9 +122,9 @@ export class VehicleConfigurationFormComponent implements OnInit {
     )
   }
 
-  private addControls(controlList: FormArray, value: any = '', required = false) {
-    new Array(this.eje?.tires).fill('').forEach(() => {
-      const control = new FormControl(value, required ? [
+  private addControls(controlList: FormArray, value: any[] = [], required = false) {
+    new Array(this.eje?.tires).fill('').forEach((_, i) => {
+      const control = new FormControl(value[i] || '', required ? [
         Validators.required
       ] : undefined)
       controlList.push(control)
@@ -131,7 +133,7 @@ export class VehicleConfigurationFormComponent implements OnInit {
 
   getData(): EjeData {
     return {
-      tires: this.tiresLength.length,
+      tires: this.headersLength.length - 1,
       tpmsId: this.tpmsId.controls.map(control => control.value),
       tpmsType: this.tpmsType.controls.map(control => control.value),
       tpmsManufacturer: this.tpmsManufacturer.controls.map(control => control.value),

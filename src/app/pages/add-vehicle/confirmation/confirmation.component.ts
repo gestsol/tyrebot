@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { EjeData, Step1, Step2, VehicleService } from '../vehicle.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Step1, Step2, VehicleService } from '../vehicle.service';
 
 @Component({
   selector: 'app-confirmation',
@@ -13,7 +14,9 @@ export class ConfirmationComponent implements OnInit {
   repuestoLength: string[] = []
 
   constructor(
-    private vehicleService: VehicleService
+    private vehicleService: VehicleService,
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -29,8 +32,25 @@ export class ConfirmationComponent implements OnInit {
     })
   }
 
+  toDetail() {
+    this.router.navigate(['../step-1'], {
+      relativeTo: this.route
+    })
+  }
+
+  toEjes() {
+    this.router.navigate(['../step-2'], {
+      relativeTo: this.route
+    })
+  }
+
   toEje(eje: number) {
-    console.log(eje + 1)
+    this.router.navigate(['../step-3'], {
+      relativeTo: this.route,
+		  queryParams: {
+		   eje: eje
+		  }
+		});
   }
 
   continue() {

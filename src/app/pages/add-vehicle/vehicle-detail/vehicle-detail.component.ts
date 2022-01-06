@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FlowData, Step1, StepKeys, VehicleService } from '../vehicle.service';
@@ -25,9 +25,7 @@ export class VehicleDetailComponent implements OnInit {
     private vehicleService: VehicleService,
     private router: Router,
     private route: ActivatedRoute
-  ) { }
-
-  ngOnInit(): void {
+  ) {
     this.vehicleService.data$.subscribe(
 		  (value: FlowData) => {
         const actualData = value?.step1
@@ -42,6 +40,8 @@ export class VehicleDetailComponent implements OnInit {
       }
     )
   }
+
+  ngOnInit(): void {}
 
 	get f() { return this.form.controls; }
 

@@ -9,7 +9,7 @@
         <div class="step-4__panel__step-1">
           <div class="step-4__panel__header">
             <h2>Información del vehículo</h2>
-            <span>Editar</span>
+            <span (click)="toDetail()">Editar</span>
           </div>
           <ul class="step-4__panel__step-1__data">
             <li>
@@ -42,7 +42,7 @@
           <div class="step-4__panel__header">
             <h2>Ejes</h2>
             <h3>RESUMEN DE NEUMÁTICOS POR EJES</h3>
-            <span>Editar</span>
+            <span (click)="toEjes()">Editar</span>
           </div>
           <div class="step-4__panel__step-2__ejes">
             <div *ngFor="let eje of step2?.ejes; let i = index">

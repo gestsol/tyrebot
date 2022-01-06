@@ -18,8 +18,13 @@
               <mat-error
               *ngIf="control.errors && control.touched">
               {{
-                (control.errors?.required || control.errors?.min) ?
-                'Campo requerido': (control.errors?.max) ? '4 ejes máximo' : ''
+                (control.errors?.required) ?
+                'Campo requerido':
+                control.errors?.max ?
+                '3 neumáticos máximo':
+                control.errors?.min ?
+                '1 neumáticos mínimo':
+                '2 o 4 neumáticos'
               }}
               </mat-error>
             </div>

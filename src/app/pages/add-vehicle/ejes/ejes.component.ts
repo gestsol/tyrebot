@@ -33,11 +33,13 @@ export class EjesComponent implements OnInit {
         const actualData = value.step2?.ejes
         if (ejes) {
           this.cantidad =  parseInt(ejes) + 1;
-          new Array(this.cantidad).fill(null).forEach( () => {
+          new Array(this.cantidad).fill(null).forEach((_, i) => {
             const control = new FormControl('', [
               Validators.required,
-              Validators.max(4),
-              Validators.min(1)
+              ...(i === this.cantidad - 1 ?
+                [Validators.max(3), Validators.min(1)] :
+                [Validators.pattern('^2|4$')]
+              )
             ])
             this.ejes.push(control)
           });
@@ -67,5 +69,4 @@ export class EjesComponent implements OnInit {
       relativeTo: this.route
     })
   }
-
 }
