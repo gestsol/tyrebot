@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit, OnDestroy, QueryList, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, Observable, of, Subscription } from 'rxjs';
-import { EjeData, FlowData, VehicleService } from '../vehicle.service';
+import { EjeData, FlowData, Step3, StepKeys, VehicleService } from '../vehicle.service';
 import { VehicleConfigurationFormComponent } from './vehicle-configuration-form/vehicle-configuration-form.component';
 
 @Component({
@@ -42,6 +42,16 @@ export class VehicleConfigurationComponent implements OnInit, AfterViewInit, OnD
   }
 
   continue() {
+    const ejes: EjeData[] = []
+    this.items.forEach(item => {
+      ejes.push(item.getData())
+    })
+    const data: Step3 = {
+      ejes
+    }
+
+    this.vehicleService.updateStep(data, StepKeys.step3)
+
     this.router.navigate(['../step-4'], {
       relativeTo: this.route
     })
@@ -59,7 +69,6 @@ export class VehicleConfigurationComponent implements OnInit, AfterViewInit, OnD
         result && value === 'VALID',
         true
       )
-      console.log(this.isFormValid, statusList)
     })
   }
 

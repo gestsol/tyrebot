@@ -1,1 +1,87 @@
-<p>confirmation works!</p>
+<div class="step-4">
+  <div style="max-width: 1300px; margin: auto; margin-bottom: 3rem;">
+    <div style="margin: 0 2rem;">
+      <div class="step-4__header">
+        <h1 class="step-4__header__title">Resumén del Vehículo</h1>
+        <app-back-button path="/add-vehicle/step-4"></app-back-button>
+      </div>
+      <div class="step-4__panel">
+        <div class="step-4__panel__step-1">
+          <div class="step-4__panel__header">
+            <h2>Información del vehículo</h2>
+            <span>Editar</span>
+          </div>
+          <ul class="step-4__panel__step-1__data">
+            <li>
+              <span>PETENTE:</span>
+              <span>{{ step1?.patente }}</span>
+            </li>
+            <li>
+              <span>Nº INTERNO VEHÍCULO:</span>
+              <span>{{ step1?.nrointerno }}</span>
+            </li>
+            <li>
+              <span>MODELO DE CHASIS:</span>
+              <span>{{ step1?.chasis }}</span>
+            </li>
+            <li>
+              <span>ID DE TPMS:</span>
+              <span>{{ step1?.tpms }}</span>
+            </li>
+            <li>
+              <span>DISPOSITIVO GPS:</span>
+              <span>{{ step1?.gps }}</span>
+            </li>
+            <li>
+              <span>CANTIDAD DE EJES:</span>
+              <span>{{ step1?.ejes }}</span>
+            </li>
+          </ul>
+        </div>
+        <div class="step-4__panel__step-2">
+          <div class="step-4__panel__header">
+            <h2>Ejes</h2>
+            <h3>RESUMEN DE NEUMÁTICOS POR EJES</h3>
+            <span>Editar</span>
+          </div>
+          <div class="step-4__panel__step-2__ejes">
+            <div *ngFor="let eje of step2?.ejes; let i = index">
+              <label [for]="'eje' + i">
+                {{i === ejesLength - 1 ? 'R' : 'EJE ' + (i + 1)}}
+              </label>
+              <mat-form-field appearance="outline" class="grey-background">
+                <input [id]="'eje' + i" matInput type="number" [value]="eje" [disabled]="true">
+              </mat-form-field>
+              <button (click)="toEje(i)" class="form-btn form-btn--step-2">Editar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <mat-card>
+        <div class="step-4__bus">
+          <img
+            class="step-4__bus__bus-container"
+            src="/assets/img/bus/bus.svg"
+            alt="bus-container"
+            style="width: 100%;"
+          >
+
+          <ng-container *ngFor="let eje of step2?.ejes; let i = index">
+            <img *ngIf="i !== ejesLength - 1"
+              [src]="'/assets/img/bus/eje' + (i + 1) + '-' + eje + 'ruedas.svg'"
+              [class]="'step-4__bus__eje' + (i + 1)" [alt]="'eje-'+ (i + 1)"
+            >
+            <ng-container *ngIf="i === ejesLength - 1">
+              <img *ngFor="let item of repuestoLength; let i = index"
+                [src]="'/assets/img/bus/repuesto' + (i + 1) + '.svg'"
+                [class]="'step-4__bus__repuesto' + (i + 1)" [alt]="'repuesto-'+ (i + 1)"
+              >
+            </ng-container>
+          </ng-container>
+        </div>
+      <button matRipple class="form-btn" (click)="continue()">Guardar</button>
+
+      </mat-card>
+    </div>
+  </div>
+</div>

@@ -1,10 +1,5 @@
 @use '/src/sass/vars/colors' as colors;
 
-mat-card {
-  background-color: colors.$bg-blue;
-  margin: 1rem 0;
-}
-
 ::ng-deep .mat-form-field-infix {
   width: 100% !important;
 }

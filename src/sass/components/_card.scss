@@ -1,0 +1,6 @@
+@use '../vars/_colors' as colors;
+
+.mat-card {
+  background-color: colors.$bg-blue !important;
+  margin: 1rem 0;
+}

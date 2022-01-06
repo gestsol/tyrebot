@@ -1,0 +1,170 @@
+@use '/src/sass/vars/colors' as colors;
+
+$panel-radius: 12px;
+
+%panel-item {
+  border-radius: 12px;
+  border: 2px solid colors.$border-text-dark;
+  padding: 1rem 2rem;
+}
+
+%eje-img {
+  position: absolute;
+  z-index: 2;
+  top: 10%;
+  height: 80%;
+}
+
+%repuesto-img {
+  position: absolute;
+  z-index: 2;
+  right: 5%;
+  height: 33%;
+}
+
+.step-4 {
+  &__panel__header {
+    position: relative;
+    h2 {
+      color: white;
+      font-size: 1.5rem;
+    }
+
+    h3 {
+      color: white;
+      font-size: 1.1rem;
+    }
+
+    span {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      color: colors.$primary;
+      font-size: 1.3rem;
+      cursor: pointer;
+      &:hover {
+        color: mix(colors.$primary, white, 60%);
+      }
+    }
+  }
+  &__header {
+    position: relative;
+    margin: 3rem 0 0rem 0;
+    &__title {
+      text-align: center;
+      color: white;
+      font-size: 30px;
+      font-weight: bold;
+    }
+    app-back-button {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+    }
+  }
+
+  &__panel {
+    display: flex;
+    gap: 2rem;
+    margin: 2rem 0
+  }
+
+  &__panel__step-1 {
+    @extend %panel-item;
+    display: flex;
+    flex-direction: column;
+    flex: 4 2 0;
+  }
+
+  &__panel__step-1__data li {
+    color: colors.$border-text-dark;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 1rem 0;
+    span {
+      flex: 1 1 171px;
+      text-align: left;
+    }
+  }
+
+  &__panel__step-2 {
+    @extend %panel-item;
+    height: fit-content;
+    flex: 3 1 0;
+    &__ejes {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+    &__ejes > div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0.5rem;
+    }
+    label {
+      color: colors.$border-text-dark;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+    mat-form-field {
+      width: 70px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    input {
+      text-align: center;
+    }
+  }
+
+  &__bus {
+    position: relative;
+    &__bus-container {
+      height: fit-content;
+    }
+    &__eje1 {
+      @extend %eje-img;
+      left: 16%;
+    }
+    &__eje2 {
+      @extend %eje-img;
+      right: 28%;
+    }
+    &__eje3 {
+      @extend %eje-img;
+      right: 17%;
+    }
+    &__repuesto1 {
+      @extend %repuesto-img;
+      top: 13%;
+    }
+    &__repuesto2 {
+      @extend %repuesto-img;
+      top: 31%;
+
+    }
+    &__repuesto3 {
+      @extend %repuesto-img;
+      top: 49%;
+    }
+  }
+  .form-btn:not(.form-btn--step-2) {
+    display: block;
+    margin-left: auto;
+  }
+
+  .form-btn--step-2 {
+    width: 100%;
+    height: 1.2rem;
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

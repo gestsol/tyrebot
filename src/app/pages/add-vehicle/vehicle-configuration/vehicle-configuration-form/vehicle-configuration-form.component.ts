@@ -102,7 +102,7 @@ export class VehicleConfigurationFormComponent implements OnInit {
       })
     });
 
-    this.addControls(this.tpmsId, this.eje?.tpmsId);
+    this.addControls(this.tpmsId, this.eje?.tpmsId, true);
     this.addControls(this.tpmsType, this.eje?.tpmsType);
     this.addControls(this.tpmsManufacturer, this.eje?.tpmsManufacturer);
     this.addControls(this.tpmsDate, this.eje?.tpmsDate);
@@ -120,12 +120,30 @@ export class VehicleConfigurationFormComponent implements OnInit {
     )
   }
 
-  private addControls(controlList: FormArray, value: any = '', optional = false) {
+  private addControls(controlList: FormArray, value: any = '', required = false) {
     new Array(this.eje?.tires).fill('').forEach(() => {
-      const control = new FormControl(value, !optional ? [
+      const control = new FormControl(value, required ? [
         Validators.required
       ] : undefined)
       controlList.push(control)
     });
+  }
+
+  getData(): EjeData {
+    return {
+      tires: this.tiresLength.length,
+      tpmsId: this.tpmsId.controls.map(control => control.value),
+      tpmsType: this.tpmsType.controls.map(control => control.value),
+      tpmsManufacturer: this.tpmsManufacturer.controls.map(control => control.value),
+      tpmsDate: this.tpmsDate.controls.map(control => control.value),
+      tireDate: this.tireDate.controls.map(control => control.value),
+      tireBrand: this.tireBrand.controls.map(control => control.value),
+      tireProvider: this.tireProvider.controls.map(control => control.value),
+      dot: this.dot.controls.map(control => control.value),
+      loadIndex: this.loadIndex.controls.map(control => control.value),
+      measurement: this.measurement.controls.map(control => control.value),
+      reTire: this.reTire.controls.map(control => control.value),
+      wear: this.wear.controls.map(control => control.value)
+    }
   }
 }

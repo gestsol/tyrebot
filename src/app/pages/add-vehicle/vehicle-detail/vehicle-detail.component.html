@@ -16,7 +16,7 @@
             <label>CANTIDAD DE EJES:</label>
             <mat-form-field appearance="outline" class="cantEjes" [ngClass]="{'grey-background': !f.ejes.dirty}">
               <mat-select disableOptionCentering formControlName="ejes">
-                <mat-option *ngFor="let value of [2, 3, 4]" [value]="value">
+                <mat-option *ngFor="let value of [2, 3]" [value]="value">
                   {{value}}
                 </mat-option>
               </mat-select>

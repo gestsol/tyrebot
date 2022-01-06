@@ -9,7 +9,7 @@ export enum StepKeys {
 
 export interface EjeData {
   tires: number
-  tpmsId: string
+  tpmsId: string[]
   tpmsType: string[]
   tpmsManufacturer: string[]
   tpmsDate: string[]
