@@ -16,6 +16,7 @@ import { VehicleDetailComponent } from './vehicle-detail/vehicle-detail.componen
 import { EjesComponent } from './ejes/ejes.component';
 import { VehicleConfigurationComponent } from './vehicle-configuration/vehicle-configuration.component';
 import { VehicleConfigurationFormComponent } from './vehicle-configuration/vehicle-configuration-form/vehicle-configuration-form.component';
+import { ConfirmationComponent } from './confirmation/confirmation.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { VehicleConfigurationFormComponent } from './vehicle-configuration/vehic
     VehicleDetailComponent,
     EjesComponent,
     VehicleConfigurationComponent,
-    VehicleConfigurationFormComponent
+    VehicleConfigurationFormComponent,
+    ConfirmationComponent
   ],
   imports: [
     CommonModule,

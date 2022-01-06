@@ -7,6 +7,22 @@ export enum StepKeys {
   step3 = 'step3'
 }
 
+export interface EjeData {
+  tires: number
+  tpmsId: string
+  tpmsType: string[]
+  tpmsManufacturer: string[]
+  tpmsDate: string[]
+  tireDate: string[]
+  tireBrand: string[]
+  tireProvider: string[]
+  dot: string[]
+  loadIndex: string[]
+  measurement: string[]
+  reTire: string[]
+  wear: string[]
+}
+
 export interface Step1 {
   patente: string
   ejes: string
@@ -21,20 +37,7 @@ export interface Step2 {
 }
 
 export interface Step3 {
-  ejes: {
-    tires: number
-    tpmsType: string[]
-    tpmsManufacturer: string[]
-    tpmsDate: string[]
-    tireDate: string[]
-    tireBrand: string[]
-    tireProvider: string[]
-    dot: string[]
-    loadIndex: string[]
-    measurement: string[]
-    reTire: string[]
-    wear: string[]
-  }[]
+  ejes: EjeData[]
 }
 
 export interface FlowData {

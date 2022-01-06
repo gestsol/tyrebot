@@ -8,14 +8,13 @@ import { NavigationService } from './services/navigation.service';
 })
 export class AppComponent implements OnInit {
   title = 'tyrebot';
-  navState: boolean = true
+  navState: boolean = true;
 
   constructor(private navigation: NavigationService) {}
 
   ngOnInit() {
     this.navigation.navOpen$.subscribe((value) => {
-      this.navState = value
-      console.log(value)
+      this.navState = value;
     })
   }
 }

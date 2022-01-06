@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { of } from 'rxjs';
+import { startWith } from 'rxjs/operators';
+import { EjeData } from '../../vehicle.service';
 
 @Component({
   selector: 'app-vehicle-configuration-form',
@@ -7,56 +10,18 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./vehicle-configuration-form.component.scss']
 })
 export class VehicleConfigurationFormComponent implements OnInit {
-  @Input() tires = 0
+  @Input() eje: Partial<EjeData> | null = null
 
-  tiresLength: string[] = []
-  form: FormGroup | null = null
+  tiresLength: string[] = [];
+  form: FormGroup | null = null;
+  statusChanges = of('INVALID')
 
   constructor(
     private fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
-    console.log('tires', this.tires)
-    this.tiresLength = new Array(this.tires + 1).fill('')
-    this.form = this.fb.group({
-      tpmsId: this.fb.group({
-        tires: this.fb.array(new Array(this.tires).fill(''))
-      }),
-      tpmsType: this.fb.group({
-        tires: this.fb.array(new Array(this.tires).fill(''))
-      }),
-      tpmsManufacturer: this.fb.group({
-        tires: this.fb.array(new Array(this.tires).fill(''))
-      }),
-      tpmsDate: this.fb.group({
-        tires: this.fb.array(new Array(this.tires).fill(''))
-      }),
-      tireDate: this.fb.group({
-        tires: this.fb.array(new Array(this.tires).fill(''))
-      }),
-      tireBrand: this.fb.group({
-        tires: this.fb.array(new Array(this.tires).fill(''))
-      }),
-      tireProvider: this.fb.group({
-        tires: this.fb.array(new Array(this.tires).fill(''))
-      }),
-      dot: this.fb.group({
-        tires: this.fb.array(new Array(this.tires).fill(''))
-      }),
-      loadIndex: this.fb.group({
-        tires: this.fb.array(new Array(this.tires).fill(''))
-      }),
-      measurement: this.fb.group({
-        tires: this.fb.array(new Array(this.tires).fill(''))
-      }),
-      reTire: this.fb.group({
-        tires: this.fb.array(new Array(this.tires).fill(''))
-      }),
-      wear: this.fb.group({
-        tires: this.fb.array(new Array(this.tires).fill(''))
-      })
-    });
+    this.createControls()
   }
 
   get tpmsId() {
@@ -96,4 +61,71 @@ export class VehicleConfigurationFormComponent implements OnInit {
     return this.form?.get('wear')?.get('tires') as FormArray;
   }
 
+  private createControls() {
+    this.tiresLength = new Array((this.eje && this.eje.tires? this.eje.tires : 0) + 1).fill('')
+    this.form = this.fb.group({
+      tpmsId: this.fb.group({
+        tires: this.fb.array([])
+      }),
+      tpmsType: this.fb.group({
+        tires: this.fb.array([])
+      }),
+      tpmsManufacturer: this.fb.group({
+        tires: this.fb.array([])
+      }),
+      tpmsDate: this.fb.group({
+        tires: this.fb.array([])
+      }),
+      tireDate: this.fb.group({
+        tires: this.fb.array([])
+      }),
+      tireBrand: this.fb.group({
+        tires: this.fb.array([])
+      }),
+      tireProvider: this.fb.group({
+        tires: this.fb.array([])
+      }),
+      dot: this.fb.group({
+        tires: this.fb.array([])
+      }),
+      loadIndex: this.fb.group({
+        tires: this.fb.array([])
+      }),
+      measurement: this.fb.group({
+        tires: this.fb.array([])
+      }),
+      reTire: this.fb.group({
+        tires: this.fb.array([])
+      }),
+      wear: this.fb.group({
+        tires: this.fb.array([])
+      })
+    });
+
+    this.addControls(this.tpmsId, this.eje?.tpmsId);
+    this.addControls(this.tpmsType, this.eje?.tpmsType);
+    this.addControls(this.tpmsManufacturer, this.eje?.tpmsManufacturer);
+    this.addControls(this.tpmsDate, this.eje?.tpmsDate);
+    this.addControls(this.tireDate, this.eje?.tireDate);
+    this.addControls(this.tireBrand, this.eje?.tireBrand);
+    this.addControls(this.tireProvider, this.eje?.tireProvider);
+    this.addControls(this.dot, this.eje?.dot);
+    this.addControls(this.loadIndex, this.eje?.loadIndex);
+    this.addControls(this.measurement, this.eje?.measurement);
+    this.addControls(this.reTire, this.eje?.reTire);
+    this.addControls(this.wear, this.eje?.wear);
+
+    this.statusChanges = this.form.statusChanges.pipe(
+      startWith(this.form.status)
+    )
+  }
+
+  private addControls(controlList: FormArray, value: any = '', optional = false) {
+    new Array(this.eje?.tires).fill('').forEach(() => {
+      const control = new FormControl(value, !optional ? [
+        Validators.required
+      ] : undefined)
+      controlList.push(control)
+    });
+  }
 }
