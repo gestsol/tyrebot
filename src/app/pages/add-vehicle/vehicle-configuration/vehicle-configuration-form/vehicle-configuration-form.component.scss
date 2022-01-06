@@ -19,20 +19,38 @@ mat-form-field {
   height: 32px;
 }
 
-.step-2 {
-  margin-bottom: 4rem;
-  &__title {
-    text-align: center;
-    color: white;
-    font-size: 30px;
-    margin: 3rem 0 0rem 0;
-    font-weight: bold;
+.row-container {
+  display: flex;
+  gap: 2rem;
+  &__col {
+    flex: 1 1;
   }
+  &__col:not(.field-name) {
+    padding: 1rem 0;
+  }
+  &__col.field-name > div {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    color: white;
+    align-items: center;
+    font-size: 1.2rem;
+    padding: 0 0 0 2rem;
+    span {
+      display: block;
+      text-align: left;
+    }
+  }
+}
 
-  & > p {
-    color: colors.$border-text-dark;
-    text-align: center;
-    margin-bottom: 2rem;
+.field-header {
+  font-size: 21px;
+  color: colors.$primary;
+  span {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
   }
 }
 
@@ -42,27 +60,4 @@ fieldset {
   padding: 0 0.7rem;
   margin: 0.5rem 0;
   border-radius: 5px;
-  .row-container {
-    display: flex;
-    gap: 2rem;
-    &__col {
-      flex: 1 1;
-    }
-    &__col:not(.field-name) {
-      padding: 1rem 0;
-    }
-    &__col.field-name > div {
-      display: flex;
-      width: 100%;
-      height: 100%;
-      color: white;
-      align-items: center;
-      font-size: 1.2rem;
-      padding: 0 0 0 2rem;
-      span {
-        display: block;
-        text-align: left;
-      }
-    }
-  }
 }

@@ -1,4 +1,9 @@
 <mat-card>
+  <div class="row-container">
+    <div class="row-container__col field-header" *ngFor="let col of [1, 2, 3, 4, 5]; let i = index">
+      <span *ngIf="i !== 0">{{'Tire ' + i}}</span>
+    </div>
+  </div>
   <form [formGroup]="form">
     <fieldset class="field-container" formGroupName="tpmsId">
       <div class="row-container" formArrayName="tires">
