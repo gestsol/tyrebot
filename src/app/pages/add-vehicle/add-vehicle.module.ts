@@ -7,18 +7,21 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatRippleModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card'
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { AddVehicleRoutingModule } from './add-vehicle-routing.module';
 import { VehicleDetailComponent } from './vehicle-detail/vehicle-detail.component';
 import { EjesComponent } from './ejes/ejes.component';
 import { VehicleConfigurationComponent } from './vehicle-configuration/vehicle-configuration.component';
+import { VehicleConfigurationFormComponent } from './vehicle-configuration/vehicle-configuration-form/vehicle-configuration-form.component';
 
 
 @NgModule({
   declarations: [
     VehicleDetailComponent,
     EjesComponent,
-    VehicleConfigurationComponent
+    VehicleConfigurationComponent,
+    VehicleConfigurationFormComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +31,8 @@ import { VehicleConfigurationComponent } from './vehicle-configuration/vehicle-c
     MatSelectModule,
     MatInputModule,
     MatRippleModule,
-    MatCardModule
+    MatCardModule,
+    MatTabsModule
   ]
 })
 export class AddVehicleModule { }

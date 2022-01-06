@@ -1,0 +1,19 @@
+@use '../vars/colors' as colors;
+
+.mat-tab-header {
+  border-bottom: none !important
+}
+
+mat-ink-bar {
+  background-color: colors.$primary !important;
+}
+
+.mat-tab-label.mat-tab-label {
+  font-size: 1.8rem;
+  font-weight: bold;
+  opacity: 1;
+  color: colors.$input-background-light;
+  &.mat-tab-label-active {
+    color: colors.$primary;
+  }
+}

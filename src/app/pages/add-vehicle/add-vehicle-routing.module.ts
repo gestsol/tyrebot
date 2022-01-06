@@ -6,7 +6,7 @@ import { VehicleDetailComponent } from './vehicle-detail/vehicle-detail.componen
 
 const routes: Routes = [
   {
-    component: VehicleDetailComponent,
+    component: VehicleConfigurationComponent,
     path: 'step-1'
   },
   {
