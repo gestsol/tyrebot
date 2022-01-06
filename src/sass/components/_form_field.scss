@@ -54,6 +54,10 @@ mat-error {
       color: black !important;
     }
   }
+
+  button.mat-focus-indicator.mat-icon-button.mat-button-base {
+    height: 32px;
+  }
 }
 
 .mat-form-field-outline-start {

@@ -29,14 +29,14 @@
     <fieldset class="field-container" formGroupName="tpmsDate">
       <div class="row-container" formArrayName="tires">
         <ng-container
-          *ngTemplateOutlet="controlTemplate, context: { $implicit: tpmsDate.controls, name: 'Fecha Instalación TPMS' }">
+          *ngTemplateOutlet="controlTemplate, context: { $implicit: tpmsDate.controls, name: 'Fecha Instalación TPMS', isDate: true }">
         </ng-container>
       </div>
     </fieldset>
     <fieldset class="field-container" formGroupName="tireDate">
       <div class="row-container" formArrayName="tires">
         <ng-container
-          *ngTemplateOutlet="controlTemplate, context: { $implicit: tireDate.controls, name: 'Fecha Fabricación Neumático' }">
+          *ngTemplateOutlet="controlTemplate, context: { $implicit: tireDate.controls, name: 'Fecha Fabricación Neumático', isDate: true }">
         </ng-container>
       </div>
     </fieldset>
@@ -92,7 +92,7 @@
   </form>
 </mat-card>
 
-<ng-template #controlTemplate let-controls let-name="name">
+<ng-template #controlTemplate let-controls let-name="name" let-isDate="isDate">
   <div class="row-container__col field-name">
     <div>
       <span>{{name}}</span>
@@ -101,9 +101,16 @@
   <div class="row-container__col"
   *ngFor="let control of controls; let i=index"
   >
-    <div>
+    <div *ngIf="!isDate">
       <mat-form-field appearance="outline" [ngClass]="{'grey-background': !control.dirty}">
         <input matInput [formControl]="controls[i]">
+      </mat-form-field>
+    </div>
+    <div *ngIf="isDate">
+      <mat-form-field appearance="outline" [ngClass]="{'grey-background': !control.dirty}">
+        <input matInput [matDatepicker]="picker" [formControl]="controls[i]">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
     </div>
   </div>

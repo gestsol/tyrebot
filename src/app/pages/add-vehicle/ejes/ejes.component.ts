@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
-import { FlowData, Step1, Step2, StepKeys, VehicleService } from '../vehicle.service';
+import { FlowData, Step2, StepKeys, VehicleService } from '../vehicle.service';
 
 @Component({
   selector: 'app-ejes',

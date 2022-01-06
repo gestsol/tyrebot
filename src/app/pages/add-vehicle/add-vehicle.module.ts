@@ -8,6 +8,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRippleModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card'
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 
 import { AddVehicleRoutingModule } from './add-vehicle-routing.module';
 import { VehicleDetailComponent } from './vehicle-detail/vehicle-detail.component';
@@ -32,7 +34,12 @@ import { VehicleConfigurationFormComponent } from './vehicle-configuration/vehic
     MatInputModule,
     MatRippleModule,
     MatCardModule,
-    MatTabsModule
+    MatTabsModule,
+    MatDatepickerModule,
+    MatMomentDateModule
+  ],
+  providers: [
+    {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}}
   ]
 })
 export class AddVehicleModule { }
