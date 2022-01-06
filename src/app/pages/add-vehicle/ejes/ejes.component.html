@@ -1,8 +1,8 @@
 <div class="ejes">
 	<h1 class="ejes__title">Cantidad de Ejes y Neumáticos</h1>
 	<div class="ejes__container">
-    <button matRipple (click)="volver();"  class="form-btn volver">Volver</button>
-		<form [formGroup]="form" (ngSubmit)="continuar()" class="ejes__container__box container">
+    <button matRipple (click)="back();" class="form-btn back-btn">Volver</button>
+		<form [formGroup]="form" class="ejes__container__box container">
       <h3>EJES</h3>
       <p>INGRESA CANTIDAD DE NEUMATICO POR EJE</p>
 		  <div class="row" formArrayName="ejes">
@@ -30,7 +30,7 @@
         </ng-container>
 			</div>
 			<div class="ejes__container__box__button col-12 col-md-12">
-				<button matRipple type="submit" class="form-btn" type="button"  [disabled]="form.invalid">
+				<button matRipple (click)="continue()" type="submit" class="form-btn" type="button" [disabled]="form.invalid">
           Continuar
         </button>
 			</div>

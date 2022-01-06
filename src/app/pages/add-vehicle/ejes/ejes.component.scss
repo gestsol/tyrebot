@@ -1,16 +1,5 @@
 @use '/src/sass/vars/colors' as colors;
 
-.volver {
-  width: 119px;
-  border-radius: 15px;
-  margin-left: auto;
-  display: block;
-  margin-bottom: 1rem;
-  &:before {
-    background: transparent linear-gradient(139deg, #212529 0%, #FFFFFFA8 100%) 0% 0% no-repeat padding-box;
-  }
-}
-
 .ejes {
 	align-content: center;
   &__title {

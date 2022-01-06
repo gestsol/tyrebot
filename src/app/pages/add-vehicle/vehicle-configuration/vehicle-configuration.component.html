@@ -1,0 +1,112 @@
+<div class="step-2">
+  <h1 class="step-2__title">Configuración</h1>
+  <div style="max-width: 1200px;">
+    <button matRipple (click)="back();" style="margin-left:auto;" class="form-btn back-btn">Volver</button>
+  </div>
+  <p>INGRESA LOS DATOS CORRESPONDIENTES:</p>
+  <mat-card>
+    <form [formGroup]="form">
+      <fieldset class="field-container" formGroupName="tpmsId">
+        <div class="row-container" formArrayName="tires">
+          <ng-container
+          *ngTemplateOutlet="controlTemplate, context: { $implicit: tpmsId.controls, name: 'TPMS id' }">
+        </ng-container>
+      </div>
+    </fieldset>
+    <fieldset class="field-container" formGroupName="tpmsType">
+      <div class="row-container" formArrayName="tires">
+        <ng-container
+        *ngTemplateOutlet="controlTemplate, context: { $implicit: tpmsType.controls, name: 'TPMS tipo' }">
+      </ng-container>
+    </div>
+  </fieldset>
+  <fieldset class="field-container" formGroupName="tpmsManufacturer">
+    <div class="row-container" formArrayName="tires">
+      <ng-container
+        *ngTemplateOutlet="controlTemplate, context: { $implicit: tpmsManufacturer.controls, name: 'Fabricante TPMS' }">
+      </ng-container>
+    </div>
+  </fieldset>
+  <fieldset class="field-container" formGroupName="tpmsDate">
+    <div class="row-container" formArrayName="tires">
+      <ng-container
+      *ngTemplateOutlet="controlTemplate, context: { $implicit: tpmsDate.controls, name: 'Fecha Instalación TPMS' }">
+    </ng-container>
+  </div>
+  </fieldset>
+  <fieldset class="field-container" formGroupName="tireDate">
+    <div class="row-container" formArrayName="tires">
+      <ng-container
+      *ngTemplateOutlet="controlTemplate, context: { $implicit: tireDate.controls, name: 'Fecha Fabricación Neumático' }">
+    </ng-container>
+  </div>
+  </fieldset>
+  <fieldset class="field-container" formGroupName="tireBrand">
+    <div class="row-container" formArrayName="tires">
+      <ng-container
+      *ngTemplateOutlet="controlTemplate, context: { $implicit: tireBrand.controls, name: 'Marca de Neumático' }">
+    </ng-container>
+  </div>
+  </fieldset>
+  <fieldset class="field-container" formGroupName="tireProvider">
+    <div class="row-container" formArrayName="tires">
+      <ng-container
+      *ngTemplateOutlet="controlTemplate, context: { $implicit: tireProvider.controls, name: 'Provedor de Neumático' }">
+    </ng-container>
+  </div>
+  </fieldset>
+  <fieldset class="field-container" formGroupName="dot">
+    <div class="row-container" formArrayName="tires">
+      <ng-container
+      *ngTemplateOutlet="controlTemplate, context: { $implicit: dot.controls, name: 'DOT' }">
+    </ng-container>
+  </div>
+  </fieldset>
+  <fieldset class="field-container" formGroupName="loadIndex">
+    <div class="row-container" formArrayName="tires">
+      <ng-container
+            *ngTemplateOutlet="controlTemplate, context: { $implicit: loadIndex.controls, name: 'Indice carga/vel' }">
+          </ng-container>
+        </div>
+      </fieldset>
+      <fieldset class="field-container" formGroupName="measurement">
+        <div class="row-container" formArrayName="tires">
+          <ng-container
+            *ngTemplateOutlet="controlTemplate, context: { $implicit: measurement.controls, name: 'Medidas' }">
+          </ng-container>
+        </div>
+      </fieldset>
+      <fieldset class="field-container" formGroupName="reTire">
+        <div class="row-container" formArrayName="tires">
+          <ng-container
+            *ngTemplateOutlet="controlTemplate, context: { $implicit: reTire.controls, name: 'Recauchado' }">
+          </ng-container>
+        </div>
+      </fieldset>
+      <fieldset class="field-container" formGroupName="wear">
+        <div class="row-container" formArrayName="tires">
+          <ng-container
+          *ngTemplateOutlet="controlTemplate, context: { $implicit: wear.controls, name: 'Tipo de desgaste' }">
+          </ng-container>
+        </div>
+      </fieldset>
+    </form>
+  </mat-card>
+</div>
+
+<ng-template #controlTemplate let-controls let-name="name">
+  <ng-container>
+    <div class="row-container__col field-name">
+      <div>
+        <span>{{name}}</span>
+      </div>
+    </div>
+    <div class="row-container__col"
+      *ngFor="let control of controls; let i=index"
+    >
+      <mat-form-field appearance="outline" [ngClass]="{'grey-background': !control.dirty}">
+        <input matInput [formControl]="controls[i]">
+      </mat-form-field>
+    </div>
+  </ng-container>
+</ng-template>

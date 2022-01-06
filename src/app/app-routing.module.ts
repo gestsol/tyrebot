@@ -7,7 +7,7 @@ import { MainComponent } from './pages/main/main.component';
 const routes: Routes = [
 	{path:'', component: MainComponent},
 	{path:'add-vehicle', loadChildren: () => import('./pages/add-vehicle/add-vehicle-routing.module').then( m => m.AddVehicleRoutingModule)},
-	{path:'**',redirectTo:'', pathMatch: 'full'},
+	{path:'**', redirectTo:'', pathMatch: 'full'},
 
 ];
 

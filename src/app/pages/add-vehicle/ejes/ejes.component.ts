@@ -20,16 +20,18 @@ export class EjesComponent implements OnInit {
   ) {
 		this.route.queryParams.subscribe(
 		  params => {
-			  this.cantidad =  parseInt(params['cantidad']) + 1;
-        console.log(new Array(this.cantidad).fill(null), this.cantidad)
-        new Array(this.cantidad).fill(null).forEach( () => {
-          const control = new FormControl('', [
-            Validators.required,
-            Validators.max(4),
-            Validators.min(1)
-          ])
-          this.ejes.push(control)
-        });
+        const param = parseInt(params['cantidad'])
+        if (param) {
+          this.cantidad =  parseInt(params['cantidad']) + 1;
+          new Array(this.cantidad).fill(null).forEach( () => {
+            const control = new FormControl('', [
+              Validators.required,
+              Validators.max(4),
+              Validators.min(1)
+            ])
+            this.ejes.push(control)
+          });
+        }
 		  }
 		)
   }
@@ -41,12 +43,14 @@ export class EjesComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  volver() {
-	 this.router.navigate(['/addVehicle'])
+  back() {
+	  this.router.navigate(['/add-vehicle'])
   }
 
-  continuar() {
-    console.log('continuar')
+  continue() {
+    this.router.navigate(['../step-3'], {
+      relativeTo: this.route
+    })
   }
 
 }

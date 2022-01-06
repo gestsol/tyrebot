@@ -6,16 +6,19 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatRippleModule } from '@angular/material/core';
+import { MatCardModule } from '@angular/material/card'
 
 import { AddVehicleRoutingModule } from './add-vehicle-routing.module';
 import { VehicleDetailComponent } from './vehicle-detail/vehicle-detail.component';
 import { EjesComponent } from './ejes/ejes.component';
+import { VehicleConfigurationComponent } from './vehicle-configuration/vehicle-configuration.component';
 
 
 @NgModule({
   declarations: [
     VehicleDetailComponent,
-    EjesComponent
+    EjesComponent,
+    VehicleConfigurationComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +27,8 @@ import { EjesComponent } from './ejes/ejes.component';
     ReactiveFormsModule,
     MatSelectModule,
     MatInputModule,
-    MatRippleModule
+    MatRippleModule,
+    MatCardModule
   ]
 })
 export class AddVehicleModule { }

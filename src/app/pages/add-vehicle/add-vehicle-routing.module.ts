@@ -1,16 +1,25 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EjesComponent } from './ejes/ejes.component';
+import { VehicleConfigurationComponent } from './vehicle-configuration/vehicle-configuration.component';
 import { VehicleDetailComponent } from './vehicle-detail/vehicle-detail.component';
 
 const routes: Routes = [
   {
     component: VehicleDetailComponent,
-    path: ''
+    path: 'step-1'
   },
   {
     component: EjesComponent,
-    path: 'ejes'
+    path: 'step-2'
+  },
+  {
+    component: VehicleConfigurationComponent,
+    path: 'step-3'
+  },
+  {
+    path: '**',
+    redirectTo: 'step-1'
   }
 ];
 

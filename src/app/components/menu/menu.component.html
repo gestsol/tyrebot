@@ -18,7 +18,7 @@
 </nav>
 
 <ng-template #menuItem let-item>
-  <a [routerLink]="item.route" (click)="openNav(item)">
+  <a [routerLink]="item.route" [ngClass]="{'item-active': item.active}" (click)="openLevel(item)">
     {{item.name}}
   </a>
 </ng-template>

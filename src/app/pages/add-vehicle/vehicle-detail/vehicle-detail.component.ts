@@ -30,12 +30,12 @@ export class VehicleDetailComponent implements OnInit {
 
 	get f() { return this.form.controls; }
 
-	continuar() {
+	continue() {
     this.submitted = true;
     if (this.form.invalid) {
         return;
     }
-    this.router.navigate(['ejes'], {
+    this.router.navigate(['../step-2'], {
       relativeTo: this.route,
 		  queryParams: {
 		   cantidad: this.form.get('ejes')?.value

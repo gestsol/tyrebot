@@ -1,3 +1,5 @@
+@use '../vars/colors' as colors;
+
 .form-btn {
   position: relative;
 	border: 0px;
@@ -28,5 +30,16 @@
     background: transparent linear-gradient(125deg, #339AF0 0%, #FFFFFFA8 100%) 0% 0% no-repeat padding-box;
     opacity: 1;
     transition: opacity 0.2s;
+  }
+}
+
+.back-btn {
+  width: 119px;
+  border-radius: 15px;
+  margin-left: auto;
+  display: block;
+  margin-bottom: 1rem;
+  &:before {
+    background: transparent linear-gradient(139deg, #{colors.$bg-blue} 0%, #FFFFFFA8 100%) 0% 0% no-repeat padding-box;
   }
 }

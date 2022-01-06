@@ -1,12 +1,21 @@
 @use '/src/sass/vars/sizes' as sizes;
 
 .main-page {
-  width: calc(100% - #{sizes.$side-nav})
+  width: calc(100% - #{sizes.$side-nav});
+  transition: width 0.3s;
+  &.close {
+    width: 100%
+  }
 }
 
 app-menu {
+  overflow: hidden;
   position: sticky;
   top: 0;
 	width: sizes.$side-nav;
+  transition: width 0.3s;
   height: 100vh; //Restar tamaño del header mientras no se mueva el scroll
+  &.close {
+    width: 0;
+  }
 }

@@ -17,10 +17,8 @@ export class HeaderComponent implements OnInit {
     this.jstoday = formatDate(this.today, 'hh:mm:ss a  dd MMMM yyyy', 'en-US', '+0530');
   }
 
-  open() {
-    this.navigationService.navOpen$.subscribe(value => {
-      this.navigationService.open(!value)
-    })
+  toggleNav() {
+    this.navigationService.toggle()
   }
 
 }
