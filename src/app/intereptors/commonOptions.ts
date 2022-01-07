@@ -15,18 +15,14 @@ export class CommonOptions implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    if (req.url.includes('socketgpsv1.gestsol.cl')) {
-      return next.handle(req)
-    }
-    const url = 'https://firebot-backend.gestsol.io/api/'
-    let headers = req.headers.set('Content-Type', 'application/json')
-    if (req.url !== 'login' && req.url !== 'register') {
-      const token = `Bearer ${localStorage.getItem('token')}`
-      headers = headers.set('Authorization', token)
-    }
+    const url = 'https://tyrebot-backend.witservices.io/api/'
+    // let headers = req.headers.set('Content-Type', 'application/json')
+    // if (req.url !== 'login' && req.url !== 'register') {
+    //   const token = `Bearer ${localStorage.getItem('token')}`
+    //   headers = headers.set('Authorization', token)
+    // }
     const reqCopy = req.clone({
-      url: url + req.url,
-      headers
+      url: url + req.url
     })
     return next.handle(reqCopy).pipe(
       //retry(3),

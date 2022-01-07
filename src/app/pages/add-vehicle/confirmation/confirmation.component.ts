@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Step1, Step2, VehicleService } from '../../../services/vehicle.service';
+import { Step1, Step2, Step3, VehicleService } from '../../../services/vehicle.service';
 
 @Component({
   selector: 'app-confirmation',
@@ -10,8 +10,10 @@ import { Step1, Step2, VehicleService } from '../../../services/vehicle.service'
 export class ConfirmationComponent implements OnInit {
   step1: Step1 | null = null
   step2: Step2 | null = null
+  step3: Step3 | null = null
   ejesLength = 0
   repuestoLength: string[] = []
+  loading = false
 
   constructor(
     private vehicleService: VehicleService,
@@ -26,6 +28,7 @@ export class ConfirmationComponent implements OnInit {
       if (step1 && step2?.ejes) {
         this.step1 = step1
         this.step2 = step2
+        this.step3 = step3
         this.ejesLength = step2.ejes.length
         this.repuestoLength = new Array(step2.ejes[step2.ejes.length - 1]).fill('')
       }
@@ -53,7 +56,19 @@ export class ConfirmationComponent implements OnInit {
 		});
   }
 
+  test () {
+    this.vehicleService.getHubs().subscribe()
+  }
+
   continue() {
+    if (this.step1 && this.step3) {
+      this.loading = false;
+      this.vehicleService.createData(this.step1, this.step3, () => this.loading = false)
+      .subscribe((response) => {
+        alert('ok')
+        console.log(response)
+      }, (err) => console.error(err))
+    }
     console.log('continue')
   }
 
