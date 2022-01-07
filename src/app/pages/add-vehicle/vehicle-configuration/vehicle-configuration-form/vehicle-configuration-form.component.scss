@@ -1,10 +1,10 @@
 @use '/src/sass/vars/colors' as colors;
 
-::ng-deep .mat-form-field-infix {
+:host ::ng-deep .mat-form-field-infix {
   width: 100% !important;
 }
 
-::ng-deep .mat-form-field-appearance-outline .mat-form-field-wrapper.mat-form-field-wrapper {
+:host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-wrapper.mat-form-field-wrapper {
   margin: 0;
 }
 

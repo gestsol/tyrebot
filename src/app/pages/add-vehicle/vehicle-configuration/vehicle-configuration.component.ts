@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit, OnDestroy, QueryList, ViewChildren, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, Observable, Subscription } from 'rxjs';
-import { EjeData, FlowData, Step3, StepKeys, VehicleService } from '../vehicle.service';
+import { EjeData, FlowData, Step3, StepKeys, VehicleService } from '../../../services/vehicle.service';
 import { VehicleConfigurationFormComponent } from './vehicle-configuration-form/vehicle-configuration-form.component';
 import { MatTabGroup } from '@angular/material/tabs';
 

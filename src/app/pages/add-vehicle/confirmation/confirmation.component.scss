@@ -142,16 +142,15 @@ $panel-radius: 12px;
     }
     &__repuesto1 {
       @extend %repuesto-img;
-      top: 13%;
+      top: 15%;
     }
     &__repuesto2 {
       @extend %repuesto-img;
-      top: 31%;
-
+      top: 33%;
     }
     &__repuesto3 {
       @extend %repuesto-img;
-      top: 49%;
+      top: 51%;
     }
   }
   .form-btn:not(.form-btn--step-2) {

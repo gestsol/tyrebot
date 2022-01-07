@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { of } from 'rxjs';
 import { startWith } from 'rxjs/operators';
-import { EjeData } from '../../vehicle.service';
+import { EjeData } from '../../../../services/vehicle.service';
 
 @Component({
   selector: 'app-vehicle-configuration-form',
