@@ -13,7 +13,7 @@ export class VehicleDetailComponent implements OnInit {
     patente: ['', Validators.required],
     ejes: ['', Validators.required],
     chasis: ['', Validators.required],
-    tpms: ['', Validators.required],
+    hubId: ['', Validators.required],
     nrointerno: ['', Validators.required],
     gps: ['', Validators.required]
   });
@@ -36,7 +36,7 @@ export class VehicleDetailComponent implements OnInit {
           this.form.get('patente')?.setValue(actualData.patente)
           this.form.get('ejes')?.setValue(actualData.ejes)
           this.form.get('chasis')?.setValue(actualData.chasis)
-          this.form.get('tpms')?.setValue(actualData.tpms)
+          this.form.get('hubId')?.setValue(actualData.hubId)
           this.form.get('nrointerno')?.setValue(actualData.nrointerno)
           this.form.get('gps')?.setValue(actualData.gps)
         }
@@ -56,7 +56,7 @@ export class VehicleDetailComponent implements OnInit {
       patente: this.form.get('patente')?.value,
       ejes: this.form.get('ejes')?.value,
       chasis: this.form.get('chasis')?.value,
-      tpms: this.form.get('tpms')?.value,
+      hubId: this.form.get('hubId')?.value,
       nrointerno: this.form.get('nrointerno')?.value,
       gps: this.form.get('gps')?.value
     }

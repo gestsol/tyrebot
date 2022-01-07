@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { HttpClientModule } from '@angular/common/http'
 
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
@@ -14,11 +15,6 @@ import { httpInterceptorProviders } from './intereptors/base'
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-  ],
   exports: [
     CommonModule,
     FormsModule,
@@ -29,7 +25,8 @@ import { httpInterceptorProviders } from './intereptors/base'
     MatCardModule,
     MatTabsModule,
     MatDatepickerModule,
-    MatMomentDateModule
+    MatMomentDateModule,
+    HttpClientModule
   ],
   providers: [
     httpInterceptorProviders,
