@@ -22,14 +22,20 @@ export class MenuComponent implements OnInit {
           lvl1Item.route === url
           lvl1Item.active = true
         } else if (lvl1Item.list) {
+          let founded = false
           lvl1Item.list.map(lvl2Item => {
             if (lvl2Item.route === url) {
-              lvl1Item.active = true
+              founded = true
               lvl2Item.active = true
               this.openLevel(lvl1Item, true)
+            } else {
+              lvl2Item.active = false
             }
             return lvl2Item
           })
+          lvl1Item.active = founded
+        } else {
+          lvl1Item.active = false
         }
         return lvl1Item
       })

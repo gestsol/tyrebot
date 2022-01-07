@@ -6,14 +6,19 @@ mat-error {
   font-size: 0.9rem;
 }
 
-.mat-form-field-infix {
+.mat-form-field-appearance-outline .mat-form-field-infix {
   padding: 11px 0 !important;
   border: 0 !important;
 }
 
-.mat-form-field-wrapper {
+.mat-form-field-appearance-outline .mat-form-field-wrapper {
   padding-bottom: 0 !important;
 }
+
+.mat-form-field-appearance-outline .mat-select-arrow-wrapper {
+  transform: translateY(0) !important;
+}
+
 
 .mat-form-field-appearance-outline {
   & input, & span {
@@ -29,23 +34,16 @@ mat-error {
   /* Firefox */
   input[type=number] {
     -moz-appearance: textfield;
-}
-}
-
-.mat-form-field-appearance-outline .mat-select-arrow-wrapper {
-  transform: translateY(0) !important;
-}
-
-
-.mat-form-field-appearance-outline {
-  &:not(.grey-background) {
-    .mat-form-field-outline-start, .mat-form-field-outline-end, .mat-form-field-outline-gap {
-      background-color: colors.$input-background-dark;
-    }
-    &:not(.mat-form-field-invalid) .mat-select-arrow-wrapper .mat-select-arrow {
-      color: colors.$input-text-dark !important;
-    }
   }
+
+  // Estilos para controles en flujo de insercion de vehículos
+  .mat-form-field-outline-start, .mat-form-field-outline-end, .mat-form-field-outline-gap {
+    background-color: colors.$input-background-dark;
+  }
+  &:not(.mat-form-field-invalid) .mat-select-arrow-wrapper .mat-select-arrow {
+    color: colors.$input-text-dark !important;
+  }
+
   &.grey-background {
     .mat-form-field-outline-start, .mat-form-field-outline-end, .mat-form-field-outline-gap {
       background-color: colors.$input-background-light;
@@ -55,22 +53,50 @@ mat-error {
     }
   }
 
+  // Estilos para controles de busqueda
+  &.light {
+    .mat-form-field-outline-start, .mat-form-field-outline-end, .mat-form-field-outline-gap {
+      background-color: white;
+    }
+
+    // &:not(.mat-form-field-invalid) .mat-select-arrow-wrapper .mat-select-arrow {
+    //   color: colors.$primary;
+    // }
+
+    & input, & span {
+      color: black;
+    }
+  }
+
   button.mat-focus-indicator.mat-icon-button.mat-button-base {
     height: 32px;
   }
+
+  .mat-form-field-outline-start {
+    border-radius: #{$field-border-radius}  0 0 #{$field-border-radius} !important;
+    width: 15px;
+  }
+  .mat-form-field-outline-end {
+    border-radius: 0 #{$field-border-radius} #{$field-border-radius} 0 !important;
+  }
+
+  .mat-form-field-appearance-outline .mat-form-field-outline-thick {
+    border-radius: #{$field-border-radius} !important;
+  }
+
+  &.rounded .mat-form-field-outline-start {
+    border-radius: 28px  0 0 28px !important;
+    width: 15px;
+  }
+  &.rounded .mat-form-field-outline-end {
+    border-radius: 0 28px 28px 0 !important;
+  }
+
+  &.rounded .mat-form-field-appearance-outline .mat-form-field-outline-thick {
+    border-radius: 28px !important;
+  }
 }
 
-.mat-form-field-outline-start {
-  border-radius: #{$field-border-radius}  0 0 #{$field-border-radius} !important;
-  width: 15px;
-}
-.mat-form-field-outline-end {
-  border-radius: 0 #{$field-border-radius} #{$field-border-radius} 0 !important;
-}
-
-.mat-form-field-appearance-outline .mat-form-field-outline-thick {
-  border-radius: #{$field-border-radius} !important;
-}
 .mat-form-field-appearance-outline:not(.mat-form-field-invalid) {
   .mat-form-field-outline-thick {
     color: colors.$primary !important;

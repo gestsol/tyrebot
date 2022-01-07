@@ -1,17 +1,17 @@
-<div class="ejes">
-	<h1 class="ejes__title">Cantidad de Ejes y Neumáticos</h1>
-	<div class="ejes__container">
+<div class="step-2 main-container">
+	<h1 class="step-2__title">Cantidad de Ejes y Neumáticos</h1>
+	<div class="step-2__container">
     <button matRipple (click)="back();" class="form-btn back-btn">Volver</button>
-		<form [formGroup]="form" class="ejes__container__box container">
+		<form [formGroup]="form" class="step-2__container__box container">
       <h3>EJES</h3>
       <p>INGRESA CANTIDAD DE NEUMATICO POR EJE</p>
 		  <div class="row" formArrayName="ejes">
 				<ng-container *ngFor="let control of ejes.controls; let i = index">
-					<div class="col ejes__container__box__field">
+					<div class="col step-2__container__box__field">
             <h4 [ngClass]="{'dirty': control.dirty}">
               {{ejes.controls.length - 1 === i? 'R' :'Eje ' + (i + 1)}}
             </h4>
-            <div class="ejes__container__box__field__input">
+            <div class="step-2__container__box__field__input">
               <mat-form-field appearance="outline" [ngClass]="{'grey-background': !control.dirty}">
                 <input matInput [formControlName]="i" type="number">
               </mat-form-field>
@@ -29,17 +29,17 @@
               </mat-error>
             </div>
           </div>
-          <div class="col ejes__container__box__separator" *ngIf="ejes.controls && ejes.controls.length - 1 !== i">
+          <div class="col step-2__container__box__separator" *ngIf="ejes.controls && ejes.controls.length - 1 !== i">
             <div></div>
           </div>
         </ng-container>
 			</div>
-			<div class="ejes__container__box__button col-12 col-md-12">
+			<div class="step-2__container__box__button col-12 col-md-12">
 				<button matRipple (click)="continue()" type="submit" class="form-btn" type="button" [disabled]="form.invalid">
           Continuar
         </button>
 			</div>
-      <span class="ejes__container__box__description">*R se refiere a neumáticos de repuesto</span>
+      <span class="step-2__container__box__description">*R se refiere a neumáticos de repuesto</span>
 		</form>
 	</div>
 </div>

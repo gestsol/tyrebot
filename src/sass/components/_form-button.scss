@@ -10,7 +10,7 @@
   overflow: hidden;
   background-color: transparent;
   transition: all 0.2s;
-  &:disabled {
+  &:not(.loading):disabled {
     &:before {
       opacity: 0;
     }
@@ -30,6 +30,10 @@
     background: transparent linear-gradient(125deg, #339AF0 0%, #FFFFFFA8 100%) 0% 0% no-repeat padding-box;
     opacity: 1;
     transition: opacity 0.2s;
+  }
+
+  .mat-progress-spinner circle, .mat-spinner circle {
+    stroke: #fff;
   }
 }
 

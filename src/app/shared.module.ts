@@ -10,6 +10,8 @@ import { MatCardModule } from '@angular/material/card'
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { httpInterceptorProviders } from './intereptors/base'
 
@@ -19,6 +21,7 @@ import { httpInterceptorProviders } from './intereptors/base'
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     MatSelectModule,
     MatInputModule,
     MatRippleModule,
@@ -26,7 +29,8 @@ import { httpInterceptorProviders } from './intereptors/base'
     MatTabsModule,
     MatDatepickerModule,
     MatMomentDateModule,
-    HttpClientModule
+    MatIconModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     httpInterceptorProviders,

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, of } from 'rxjs';
-import { finalize, mergeMap } from 'rxjs/operators';
+import { finalize, map, mergeMap } from 'rxjs/operators';
 
 export enum StepKeys {
   step1 = 'step1',
@@ -28,7 +28,7 @@ export interface EjeData {
 export interface Step1 {
   patente: string
   ejes: string
-  chasis: string
+  chassis: string
   hubId: string
   nrointerno: string
   gps: string
@@ -107,11 +107,16 @@ export class VehicleService {
     return this.http.get('hub_tpms')
   }
 
+  getVehicles() {
+    return this.http.get('vehicles')
+    .pipe(map((data: any) => data.data))
+  }
+
   createVehicle(step1: Step1, step3: Step3, hub_tpms_id: number) {
     const body = {
       plate: step1.patente,
       internal_number: step1.nrointerno,
-      chasis: step1.chasis,
+      chassis: step1.chassis,
       gps_model: step1.gps,
       hub_tpms_id: hub_tpms_id,
       format: {

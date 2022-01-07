@@ -50,3 +50,10 @@ body{
 	background: transparent linear-gradient(180deg, #171717 0%, #555555 100%) 0% 0% no-repeat padding-box;
   margin: 0; font-family: 'SF Pro Display', "Helvetica Neue", sans-serif;
 }
+
+.main-container {
+  margin: auto;
+  margin-bottom: 3rem;
+  padding: 0 2rem;
+  max-width: 1300px;
+}

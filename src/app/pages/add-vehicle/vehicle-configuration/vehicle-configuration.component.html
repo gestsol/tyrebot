@@ -1,18 +1,13 @@
-<div class="step-2">
-  <h1 class="step-2__title">Configuración</h1>
-  <div style="max-width: 1200px; margin: auto;">
-    <div style="margin: 0 1rem;">
-      <button matRipple (click)="back();" style="margin-left:auto;" class="form-btn back-btn">Volver</button>
-
-      <p>INGRESA LOS DATOS CORRESPONDIENTES:</p>
-      <mat-tab-group mat-align-tabs="center" dynamicHeight>
-        <mat-tab [label]="i === ejes.length - 1 ? 'R' : 'EJE ' + (i + 1)" *ngFor="let eje of ejes; let i = index">
-          <app-vehicle-configuration-form [eje]="eje"></app-vehicle-configuration-form>
-        </mat-tab>
-      </mat-tab-group>
-      <div>
-        <button matRipple style="display: block; margin-left: auto;" class="form-btn" [disabled]="!isFormValid" (click)="continue()">Continuar</button>
-      </div>
-    </div>
+<div class="step-3 main-container">
+  <h1 class="step-3__title">Configuración</h1>
+  <button matRipple (click)="back();" style="margin-left:auto;" class="form-btn back-btn">Volver</button>
+  <p>INGRESA LOS DATOS CORRESPONDIENTES:</p>
+  <mat-tab-group mat-align-tabs="center" dynamicHeight>
+    <mat-tab [label]="i === ejes.length - 1 ? 'R' : 'EJE ' + (i + 1)" *ngFor="let eje of ejes; let i = index">
+      <app-vehicle-configuration-form [eje]="eje"></app-vehicle-configuration-form>
+    </mat-tab>
+  </mat-tab-group>
+  <div>
+    <button matRipple style="display: block; margin-left: auto;" class="form-btn" [disabled]="!isFormValid" (click)="continue()">Continuar</button>
   </div>
 </div>

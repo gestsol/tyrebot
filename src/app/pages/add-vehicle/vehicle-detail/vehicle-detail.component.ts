@@ -12,7 +12,7 @@ export class VehicleDetailComponent implements OnInit {
   form = this.formBuilder.group({
     patente: ['', Validators.required],
     ejes: ['', Validators.required],
-    chasis: ['', Validators.required],
+    chassis: ['', Validators.required],
     hubId: ['', Validators.required],
     nrointerno: ['', Validators.required],
     gps: ['', Validators.required]
@@ -35,7 +35,7 @@ export class VehicleDetailComponent implements OnInit {
         if (actualData) {
           this.form.get('patente')?.setValue(actualData.patente)
           this.form.get('ejes')?.setValue(actualData.ejes)
-          this.form.get('chasis')?.setValue(actualData.chasis)
+          this.form.get('chassis')?.setValue(actualData.chassis)
           this.form.get('hubId')?.setValue(actualData.hubId)
           this.form.get('nrointerno')?.setValue(actualData.nrointerno)
           this.form.get('gps')?.setValue(actualData.gps)
@@ -55,7 +55,7 @@ export class VehicleDetailComponent implements OnInit {
     const data: Step1 = {
       patente: this.form.get('patente')?.value,
       ejes: this.form.get('ejes')?.value,
-      chasis: this.form.get('chasis')?.value,
+      chassis: this.form.get('chassis')?.value,
       hubId: this.form.get('hubId')?.value,
       nrointerno: this.form.get('nrointerno')?.value,
       gps: this.form.get('gps')?.value

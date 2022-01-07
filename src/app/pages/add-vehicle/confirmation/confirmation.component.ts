@@ -62,14 +62,13 @@ export class ConfirmationComponent implements OnInit {
 
   continue() {
     if (this.step1 && this.step3) {
-      this.loading = false;
+      this.loading = true;
       this.vehicleService.createData(this.step1, this.step3, () => this.loading = false)
       .subscribe((response) => {
-        alert('ok')
+        this.router.navigate(['../../active-vehicle'])
         console.log(response)
       }, (err) => console.error(err))
     }
-    console.log('continue')
   }
 
 }

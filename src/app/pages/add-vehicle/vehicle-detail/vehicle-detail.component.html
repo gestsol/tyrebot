@@ -1,4 +1,4 @@
-<div class="add-vehicle">
+<div class="step-1 main-container">
 	<h1 class="title">Agregar Vehiculo</h1>
 	<div class="formulario">
 		<h2 class="text-light">Ingrese los datos del nuevo vehiculo</h2>
@@ -28,10 +28,10 @@
 				 <label>MODELO DE CHASIS:</label>
 				</div>
 				<div class="col-3 col-md-4">
-          <mat-form-field appearance="outline" [ngClass]="{'grey-background': !f.chasis.dirty}">
-            <input matInput formControlName="chasis" placeholder="Ejemplo: 0 500 R">
+          <mat-form-field appearance="outline" [ngClass]="{'grey-background': !f.chassis.dirty}">
+            <input matInput formControlName="chassis" placeholder="Ejemplo: 0 500 R">
           </mat-form-field>
-          <mat-error *ngIf="submitted && f.chasis.errors">{{f.chasis.errors?.required? 'Por favor, ingrese el modelo de chasis': ''}}</mat-error>
+          <mat-error *ngIf="submitted && f.chassis.errors">{{f.chassis.errors?.required? 'Por favor, ingrese el modelo de chasis': ''}}</mat-error>
 				</div>
         <div class="col-5 col-md-5">
 				</div>
