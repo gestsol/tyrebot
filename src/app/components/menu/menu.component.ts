@@ -17,6 +17,7 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
     this.menu = this.navigation.menu
     this.navigation.currentUrl$.subscribe((url) => {
+      console.log(url)
       this.menu.map((lvl1Item) => {
         if (lvl1Item.route) {
           lvl1Item.route === url

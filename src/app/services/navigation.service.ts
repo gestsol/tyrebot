@@ -66,7 +66,7 @@ export class NavigationService {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.previousUrl = this.currentUrl.value;
-        this.currentUrl.next(event.url)
+        this.currentUrl.next(event.urlAfterRedirects)
       }
     })
   }
