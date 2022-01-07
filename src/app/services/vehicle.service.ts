@@ -92,7 +92,7 @@ export class VehicleService {
     return this.createHub(step1.hubId)
     .pipe(
       mergeMap((data: any) => {
-        return this.createVehicle(step1, step3, data.data.hub_tpms_id)
+        return this.createVehicle(step1, step3, data.data.id)
       }),
       finalize(finalizeCb)
     )
@@ -114,7 +114,7 @@ export class VehicleService {
       chasis: step1.chasis,
       gps_model: step1.gps,
       hub_tpms_id: hub_tpms_id,
-      formats: {
+      format: {
         axies: step3.ejes.map((item, index) => ({
           type: index !== step3.ejes.length - 1 ? 'main' : 'backup',
           tyres_count: item.tires,
