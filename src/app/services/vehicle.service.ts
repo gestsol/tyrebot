@@ -112,6 +112,16 @@ export class VehicleService {
     .pipe(map((data: any) => data.data))
   }
 
+  getVehicle(id: number) {
+    return this.http.get(`vehicles/${id}`)
+    .pipe(map((data: any) => data.data))
+  }
+
+  getHistoryTpms(id: number) {
+    return this.http.get(`vehicles/${id}`)
+    .pipe(map((data: any) => data.data))
+  }
+
   createVehicle(step1: Step1, step3: Step3, hub_tpms_id: number) {
     const body = {
       plate: step1.patente,
@@ -124,7 +134,7 @@ export class VehicleService {
           type: index !== step3.ejes.length - 1 ? 'main' : 'backup',
           tyres_count: item.tires,
           axie_number: index + 1,
-          tires: new Array(item.tires).fill({}).map((_, i) => ({
+          tyres: new Array(item.tires).fill({}).map((_, i) => ({
             tyre_number: i + 1,
             tpms_name: item.tpmsId[i],
             tpms_type: item.tpmsType[i],
@@ -138,7 +148,7 @@ export class VehicleService {
             tyre_index: item.loadIndex[i],
             tyre_measurements: item.measurement[i],
             recauchado: item.reTire[i] && item.reTire[i] !== '',
-            tyre_wear: item.wear
+            tyre_wear: item.wear[i]
           }))
         })),
         axies_count: step3.ejes.length
