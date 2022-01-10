@@ -8,20 +8,6 @@ $panel-radius: 12px;
   padding: 1rem 2rem;
 }
 
-%eje-img {
-  position: absolute;
-  z-index: 2;
-  top: 10%;
-  height: 80%;
-}
-
-%repuesto-img {
-  position: absolute;
-  z-index: 2;
-  right: 5%;
-  height: 33%;
-}
-
 .step-4 {
   &__panel__header {
     position: relative;
@@ -120,37 +106,6 @@ $panel-radius: 12px;
 
     input {
       text-align: center;
-    }
-  }
-
-  &__bus {
-    position: relative;
-    &__bus-container {
-      height: fit-content;
-    }
-    &__eje1 {
-      @extend %eje-img;
-      left: 16%;
-    }
-    &__eje2 {
-      @extend %eje-img;
-      right: 28%;
-    }
-    &__eje3 {
-      @extend %eje-img;
-      right: 17%;
-    }
-    &__repuesto1 {
-      @extend %repuesto-img;
-      top: 15%;
-    }
-    &__repuesto2 {
-      @extend %repuesto-img;
-      top: 33%;
-    }
-    &__repuesto3 {
-      @extend %repuesto-img;
-      top: 51%;
     }
   }
   .form-btn:not(.form-btn--step-2) {

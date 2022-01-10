@@ -15,14 +15,17 @@ export class CommonOptions implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const url = 'https://tyrebot-backend.witservices.io/api/'
+    const baseUrl = window.location.origin;
+    console.log(baseUrl)
+    const url = 'https://tyrebot-backend.witservices.io/api/';
     // let headers = req.headers.set('Content-Type', 'application/json')
     // if (req.url !== 'login' && req.url !== 'register') {
     //   const token = `Bearer ${localStorage.getItem('token')}`
     //   headers = headers.set('Authorization', token)
     // }
+
     const reqCopy = req.clone({
-      url: url + req.url
+      url: req.url.includes('svg') ? baseUrl + req.url: url + req.url
     })
     return next.handle(reqCopy).pipe(
       //retry(3),

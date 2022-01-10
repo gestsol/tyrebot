@@ -1,0 +1,19 @@
+<div class="bus">
+  <img
+    class="bus__bus-container"
+    src="/assets/img/bus/bus.svg"
+    alt="bus-container"
+    style="width: 100%;"
+  >
+  <ng-container *ngFor="let eje of data.ejes; let i = index">
+    <svg-icon *ngIf="i !== data.ejes.length - 1"
+      [src]="'/assets/img/bus/eje' + (i + 1) + '-' + eje + 'ruedas.svg'"
+      [class]="'bus__eje' + (i + 1)"
+    ></svg-icon>
+    <ng-container *ngIf="i === data.ejes.length - 1">
+      <svg-icon *ngFor="let item of repuestoLength; let i = index"
+        [src]="'/assets/img/bus/repuesto' + (i + 1) + '.svg'"
+        [class]="'bus__repuesto' + (i + 1)"></svg-icon>
+    </ng-container>
+  </ng-container>
+</div>

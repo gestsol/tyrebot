@@ -40,12 +40,12 @@ export class NavigationService {
         {
           name: 'Vehículos Activos',
           active: false,
-          route: '/active-vehicle/list'
+          route: '/active-vehicle'
         },
         {
           name: 'Agregar Vehículo',
           active: false,
-          route: '/add-vehicle/step-1'
+          route: '/add-vehicle'
         },
         {
           name: 'Editar Existente',

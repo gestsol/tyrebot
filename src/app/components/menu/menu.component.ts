@@ -17,7 +17,6 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
     this.menu = this.navigation.menu
     this.navigation.currentUrl$.subscribe((url) => {
-      console.log(url)
       this.menu.map((lvl1Item) => {
         if (lvl1Item.route) {
           lvl1Item.route === url
@@ -25,20 +24,23 @@ export class MenuComponent implements OnInit {
         } else if (lvl1Item.list) {
           let founded = false
           lvl1Item.list.map(lvl2Item => {
-            if (lvl2Item.route === url) {
+            console.log(url)
+            console.log(lvl2Item.route)
+            console.log(lvl2Item.route?.includes(url))
+            if (lvl2Item?.route && url.includes(lvl2Item.route)) {
               founded = true
               lvl2Item.active = true
-              this.openLevel(lvl1Item, true)
             } else {
               lvl2Item.active = false
             }
-            return lvl2Item
+            return {...lvl2Item}
           })
+          this.openLevel(lvl1Item, founded)
           lvl1Item.active = founded
         } else {
           lvl1Item.active = false
         }
-        return lvl1Item
+        return {...lvl1Item}
       })
     })
   }

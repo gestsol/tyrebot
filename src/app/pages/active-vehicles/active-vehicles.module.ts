@@ -7,11 +7,13 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { SharedModule } from 'src/app/shared.module';
+import { VehicleComponent } from './vehicle/vehicle.component';
 
 
 @NgModule({
   declarations: [
-    VehicleListComponent
+    VehicleListComponent,
+    VehicleComponent
   ],
   imports: [
     CommonModule,

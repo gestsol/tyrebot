@@ -56,26 +56,7 @@
     </div>
   </div>
   <mat-card>
-    <div class="step-4__bus">
-      <img
-        class="step-4__bus__bus-container"
-        src="/assets/img/bus/bus.svg"
-        alt="bus-container"
-        style="width: 100%;"
-      >
-      <ng-container *ngFor="let eje of step2?.ejes; let i = index">
-        <img *ngIf="i !== ejesLength - 1"
-          [src]="'/assets/img/bus/eje' + (i + 1) + '-' + eje + 'ruedas.svg'"
-          [class]="'step-4__bus__eje' + (i + 1)" [alt]="'eje-'+ (i + 1)"
-        >
-        <ng-container *ngIf="i === ejesLength - 1">
-          <img *ngFor="let item of repuestoLength; let i = index"
-            [src]="'/assets/img/bus/repuesto' + (i + 1) + '.svg'"
-            [class]="'step-4__bus__repuesto' + (i + 1)" [alt]="'repuesto-'+ (i + 1)"
-          >
-        </ng-container>
-      </ng-container>
-    </div>
+    <app-bus [data]="step2 || {ejes: [0]}"></app-bus>
     <button matRipple class="form-btn" (click)="continue()" [disabled]="loading" [ngClass]="{'loading': loading}">
       <ng-container *ngIf="!loading">
         Guardar

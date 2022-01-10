@@ -12,7 +12,6 @@ export class ConfirmationComponent implements OnInit {
   step2: Step2 | null = null
   step3: Step3 | null = null
   ejesLength = 0
-  repuestoLength: string[] = []
   loading = false
 
   constructor(
@@ -30,7 +29,6 @@ export class ConfirmationComponent implements OnInit {
         this.step2 = step2
         this.step3 = step3
         this.ejesLength = step2.ejes.length
-        this.repuestoLength = new Array(step2.ejes[step2.ejes.length - 1]).fill('')
       }
     })
   }
