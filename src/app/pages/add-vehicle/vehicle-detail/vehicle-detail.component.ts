@@ -31,7 +31,6 @@ export class VehicleDetailComponent implements OnInit {
     this.vehicleService.data$.subscribe(
 		  (value: FlowData) => {
         const actualData = value?.step1
-        console.log(actualData)
         if (actualData) {
           this.form.get('patente')?.setValue(actualData.patente)
           this.form.get('ejes')?.setValue(actualData.ejes)

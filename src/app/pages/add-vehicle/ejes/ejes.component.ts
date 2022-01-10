@@ -28,7 +28,6 @@ export class EjesComponent implements OnInit {
   ngOnInit(): void {
     this.vehicleService.data$.subscribe(
 		  (value: FlowData) => {
-        console.log('value', value)
         const ejes = value.step1?.ejes
         const actualData = value.step2?.ejes
         if (ejes) {

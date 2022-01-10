@@ -102,8 +102,6 @@ export class VehicleConfigurationFormComponent implements OnInit {
       })
     });
 
-    console.log(this.eje)
-
     this.addControls(this.tpmsId, this.eje?.tpmsId, true);
     this.addControls(this.tpmsType, this.eje?.tpmsType);
     this.addControls(this.tpmsManufacturer, this.eje?.tpmsManufacturer);

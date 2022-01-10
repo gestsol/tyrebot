@@ -1,0 +1,88 @@
+@use '/src/sass/vars/colors' as colors;
+@use '/src/sass/vars/sizes' as sizes;
+
+.bus-data {
+  position: relative;
+  &__plate {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-left: 2rem;
+    position: absolute;
+    left: 0;
+    font-size: sizes.$table-font-size;
+    color: colors.$input-background-light;
+    span {
+      padding: 0.3rem;
+      background-color: white;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  &__indicators {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: fit-content;
+    border-radius: 10px;
+    border: 1px solid #{colors.$input-background-light};
+    font-size: sizes.$table-font-size;
+    color: colors.$input-background-light;
+    gap: 0.5rem;
+    &__title {
+      font-size: 0.9rem;
+      color: white;
+    }
+    ol {
+      display: flex;
+      padding: 0.3rem 1rem;
+      gap: 1rem;
+      font-size: 0.8rem;
+      margin: 0;
+    }
+    li {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    li span:first-child {
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background-color: colors.$green;
+    }
+    li:first-child {
+      color: colors.$yellow;
+      span:first-child {
+        background-color: colors.$yellow;
+      }
+    }
+    li:nth-child(2) {
+      color: colors.$green;
+      span:first-child {
+        background-color: colors.$green;
+      }
+    }
+    li:nth-child(3) {
+      color: colors.$red;
+      span:first-child {
+        background-color: colors.$red;
+      }
+    }
+  }
+  &__footer {
+    margin: auto;
+    max-width: 250px;
+    border: 1px solid #{colors.$input-background-light};
+    border-radius: 20px;
+    color: #{colors.$input-background-light};
+    background-color: #2C2C2C;
+    text-align: center;
+  }
+}

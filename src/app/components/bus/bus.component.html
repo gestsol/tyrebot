@@ -5,13 +5,13 @@
     alt="bus-container"
     style="width: 100%;"
   >
-  <ng-container *ngFor="let eje of data.ejes; let i = index">
-    <svg-icon *ngIf="i !== data.ejes.length - 1"
-      [src]="'/assets/img/bus/eje' + (i + 1) + '-' + eje + 'ruedas.svg'"
+  <ng-container *ngFor="let axie of axies; let i = index">
+    <svg-icon *ngIf="i !== axies.length - 1"
+      [src]="'/assets/img/bus/eje' + (i + 1) + '-' + axie.tyres_count + 'ruedas.svg'"
       [class]="'bus__eje' + (i + 1)"
     ></svg-icon>
-    <ng-container *ngIf="i === data.ejes.length - 1">
-      <svg-icon *ngFor="let item of repuestoLength; let i = index"
+    <ng-container *ngIf="i === axies.length - 1">
+      <svg-icon *ngFor="let tyre of axie.tyres; let i = index"
         [src]="'/assets/img/bus/repuesto' + (i + 1) + '.svg'"
         [class]="'bus__repuesto' + (i + 1)"></svg-icon>
     </ng-container>

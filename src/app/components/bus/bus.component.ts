@@ -7,13 +7,11 @@ import { Step2 } from 'src/app/services/vehicle.service';
   styleUrls: ['./bus.component.scss']
 })
 export class BusComponent implements OnInit {
-  @Input() data: Step2 = { ejes: [0] }
-  repuestoLength: string[] = []
+  @Input() axies: any
 
   constructor() { }
 
   ngOnInit(): void {
-    this.repuestoLength = new Array(this.data.ejes[this.data.ejes.length - 1]).fill('')
   }
 
 }

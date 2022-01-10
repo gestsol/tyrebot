@@ -2,6 +2,7 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+import { ActivatedRoute, Router } from '@angular/router';
 import { VehicleService } from 'src/app/services/vehicle.service';
 
 @Component({
@@ -44,12 +45,15 @@ export class VehicleListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
-    private vehicleService: VehicleService
+    private vehicleService: VehicleService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
     this.vehicleService.getVehicles().subscribe((response: any[]) => {
       const data: any = response.map((item) => ({
+        id: item.id,
         axies: item.format?.axies_count,
         chassis: item.chassis,
         internal_number: item.internal_number,
@@ -72,5 +76,11 @@ export class VehicleListComponent implements OnInit, AfterViewInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  seeMore(vehicle: any) {
+    this.router.navigate(['../detail', vehicle.id], {
+      relativeTo: this.route
+    })
   }
 }

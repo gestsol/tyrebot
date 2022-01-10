@@ -11,6 +11,7 @@ export class ConfirmationComponent implements OnInit {
   step1: Step1 | null = null
   step2: Step2 | null = null
   step3: Step3 | null = null
+  axies: any
   ejesLength = 0
   loading = false
 
@@ -22,13 +23,13 @@ export class ConfirmationComponent implements OnInit {
 
   ngOnInit(): void {
     this.vehicleService.data$.subscribe((value) => {
-      console.log(value)
       const { step1, step2, step3 } = value
-      if (step1 && step2?.ejes) {
+      if (step1 && step2?.ejes && step3) {
         this.step1 = step1
         this.step2 = step2
         this.step3 = step3
         this.ejesLength = step2.ejes.length
+        this.getBus()
       }
     })
   }
@@ -54,8 +55,16 @@ export class ConfirmationComponent implements OnInit {
 		});
   }
 
-  test () {
-    this.vehicleService.getHubs().subscribe()
+  getBus() {
+    if (this.step1 && this.step3) {
+      const ejesLength = this.step3.ejes.length
+      this.axies = this.step3.ejes.map((item, index) => ({
+        type: index !== ejesLength - 1 ? 'main' : 'backup',
+        tyres_count: item.tires,
+        axie_number: index + 1,
+        tyres: new Array(item.tires).fill({})
+      }))
+    }
   }
 
   continue() {

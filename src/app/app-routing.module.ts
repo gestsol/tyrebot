@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-//componentes
-import { MainComponent } from './pages/main/main.component';
-
 const routes: Routes = [
 	{path:'', redirectTo:'active-vehicle', pathMatch: 'full'},
 	{path:'add-vehicle', loadChildren: () => import('./pages/add-vehicle/add-vehicle-routing.module').then( m => m.AddVehicleRoutingModule)},

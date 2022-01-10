@@ -16,7 +16,6 @@ export class CommonOptions implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     const baseUrl = window.location.origin;
-    console.log(baseUrl)
     const url = 'https://tyrebot-backend.witservices.io/api/';
     // let headers = req.headers.set('Content-Type', 'application/json')
     // if (req.url !== 'login' && req.url !== 'register') {

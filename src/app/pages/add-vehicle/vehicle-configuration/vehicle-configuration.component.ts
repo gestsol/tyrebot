@@ -31,8 +31,6 @@ export class VehicleConfigurationComponent implements OnInit, AfterViewInit, OnD
       if (step2) {
         const tiresList = step2.ejes
         const actualData = value.step3 ? value.step3.ejes : []
-        console.log(tiresList)
-        console.log(actualData)
         this.ejes = tiresList.map((value, i) => ({
           ...actualData[i],
           tires: value

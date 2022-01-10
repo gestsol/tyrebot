@@ -24,9 +24,6 @@ export class MenuComponent implements OnInit {
         } else if (lvl1Item.list) {
           let founded = false
           lvl1Item.list.map(lvl2Item => {
-            console.log(url)
-            console.log(lvl2Item.route)
-            console.log(lvl2Item.route?.includes(url))
             if (lvl2Item?.route && url.includes(lvl2Item.route)) {
               founded = true
               lvl2Item.active = true

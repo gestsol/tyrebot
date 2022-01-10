@@ -56,7 +56,7 @@
     </div>
   </div>
   <mat-card>
-    <app-bus [data]="step2 || {ejes: [0]}"></app-bus>
+    <app-bus *ngIf="axies" [axies]="axies"></app-bus>
     <button matRipple class="form-btn" (click)="continue()" [disabled]="loading" [ngClass]="{'loading': loading}">
       <ng-container *ngIf="!loading">
         Guardar

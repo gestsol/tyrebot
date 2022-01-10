@@ -1,3 +1,6 @@
+@use '/src/sass/vars/colors' as colors;
+@use '/src/sass/vars/sizes' as sizes;
+
 table {
   width: 100%;
   background-color: transparent;
@@ -26,7 +29,7 @@ td, th {
   background-color: transparent;
   th {
     color: #FFFFFF83;
-    font-size: 1.1rem;
+    font-size: sizes.$table-font-size;
   }
 }
 

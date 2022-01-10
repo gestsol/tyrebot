@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, of } from 'rxjs';
 import { finalize, map, mergeMap } from 'rxjs/operators';
+import latestData from '../mocks/latest_data'
 
 export enum StepKeys {
   step1 = 'step1',
@@ -117,9 +118,12 @@ export class VehicleService {
     .pipe(map((data: any) => data.data))
   }
 
-  getHistoryTpms(id: number) {
-    return this.http.get(`vehicles/${id}`)
-    .pipe(map((data: any) => data.data))
+  getTpms(id: number) {
+    return this.http.get(`vehicles/${id}/latest_tpms_data`)
+    .pipe(
+      map(() => latestData),
+      map((data: any) => data.data)
+    )
   }
 
   createVehicle(step1: Step1, step3: Step3, hub_tpms_id: number) {
