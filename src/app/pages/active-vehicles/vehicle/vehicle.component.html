@@ -1,6 +1,6 @@
 <div class="main-container" *ngIf="busData">
   <mat-card class="bus-data">
-    <h2 class="bus-data__plate"> Patente: <span>{{vehicleData.plate}}</span></h2>
+    <h2 class="bus-data__plate"> Patente: <span>{{vehicleData?.plate}}</span></h2>
     <div class="bus-data__indicators">
       <span class="bus-data__indicators__title">Presión</span>
       <ol>
@@ -18,7 +18,7 @@
         </li>
       </ol>
     </div>
-    <app-bus *ngIf="vehicleData?.format" [axies]="vehicleData.format.axies"></app-bus>
+    <app-bus *ngIf="axies" [axies]="axies"></app-bus>
     <div class="bus-data__footer"><span> INDICE DE CONSUMO DE COMBUSTIBLE </span></div>
   </mat-card>
   <!-- <mat-card>

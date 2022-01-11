@@ -12,7 +12,7 @@ export default {
       "batt": -1,
       "created_at": "2022-01-06T13:29:13",
       "id": 5678,
-      "name": "5e5183",
+      "name": "12",
       "pressure": 45.48223350253808,
       "temp": 33
     },
@@ -20,8 +20,8 @@ export default {
       "batt": -1,
       "created_at": "2022-01-05T10:21:08",
       "id": 5668,
-      "name": "8a8eca",
-      "pressure": 47.338651196519216,
+      "name": "125",
+      "pressure": 11.338651196519216,
       "temp": 20
     }
   ]

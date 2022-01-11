@@ -43,20 +43,18 @@ export class VehicleComponent implements OnInit {
 
   getBus (tpmsData: any) {
     if (this.vehicleData?.format && tpmsData) {
-      console.log(tpmsData)
-      console.log(this.vehicleData?.format)
-      this.axies = this.vehicleData.format.axies.map((item: any) => {
-
-        return item.tyres.map((tyre: any) => {
-          const result = this.tpmsData.find((tpms: any) => tpms.name === tyre.tpms_name)
+      this.axies = this.vehicleData.format.axies.map((item: any, index: number) => {
+        const tyres = item.tyres.map((tyre: any) => {
+          const result = tpmsData.find((tpms: any) => tpms.name === tyre.tpms_name)
           let state = 'NO_SIGNAL'
           if (result) {
-            if (result.pressure > 20) {
-              state = 'HIGH'
-            } else if (result.pressure < 10) {
-              state = 'LOW'
+            const pressure = parseInt(result.pressure);
+            if ( pressure > 40) {
+              state = 'high'
+            } else if (pressure < 10) {
+              state = 'low'
             } else {
-              state = 'OK'
+              state = 'ok'
             }
           }
           return {
@@ -64,7 +62,10 @@ export class VehicleComponent implements OnInit {
             state
           }
         })
+        return { ...item, tyres }
       })
+      console.log(this.axies)
+      console.log(tpmsData)
     }
   }
 }

@@ -6,10 +6,12 @@
     style="width: 100%;"
   >
   <ng-container *ngFor="let axie of axies; let i = index">
-    <svg-icon *ngIf="i !== axies.length - 1"
-      [src]="'/assets/img/bus/eje' + (i + 1) + '-' + axie.tyres_count + 'ruedas.svg'"
+    <app-axie *ngIf="i !== axies.length - 1"
+      [axie]="i + 1"
+      [type]="axie.tyres_count"
+      [tyres]="axie.tyres"
       [class]="'bus__eje' + (i + 1)"
-    ></svg-icon>
+    ></app-axie>
     <ng-container *ngIf="i === axies.length - 1">
       <svg-icon *ngFor="let tyre of axie.tyres; let i = index"
         [src]="'/assets/img/bus/repuesto' + (i + 1) + '.svg'"

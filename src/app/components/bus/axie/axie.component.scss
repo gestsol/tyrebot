@@ -1,0 +1,83 @@
+@use 'sass:list';
+@use '/src/sass/vars/colors' as colors;
+
+$states: (
+  "low": (colors.$yellow ,colors.$yellow-dark),
+  "ok": (colors.$green ,colors.$green-dark),
+  "high": (colors.$red ,colors.$red-dark)
+);
+
+@mixin getColor($tyre) {
+  @each $state, $values in $states {
+    .#{$state}-#{$tyre} #tyre-#{$tyre} {
+      rect:first-child {
+        fill: list.nth($values, 1);
+      }
+      rect:nth-child(2) {
+        stroke: list.nth($values, 2);
+      }
+      path:first-child {
+        fill: list.nth($values, 1);
+      }
+      path:nth-child(2) {
+        fill: list.nth($values, 2);
+      }
+    }
+    .#{$state}-#{$tyre} text {
+      fill: white !important;
+    }
+  }
+}
+
+@include getColor(1);
+@include getColor(2);
+@include getColor(3);
+@include getColor(4);
+
+svg-icon {
+  height: 100%;
+  svg {
+    height: 100%;
+  }
+  .cls-1 {
+    fill:#85878a;
+  }
+  .cls-2, .cls-8 {
+    fill:none;
+  }
+  .cls-2 {
+    stroke:#bdbebf;
+    stroke-linejoin: round;
+    stroke-width: 6px;
+  }
+  .cls-3, .cls-4, .cls-9 {
+    isolation:isolate;
+  }
+  .cls-4, .cls-9 {
+    font-size:14px;
+  }
+  .cls-4 {
+    fill:#535353;
+    font-family: SFProDisplay-Bold, SF Pro Display;
+    font-weight:700;
+  }
+  .cls-5 {
+    letter-spacing:-0.02em;
+  }
+  .cls-6 {
+    letter-spacing:-0.02em;
+  }
+  .cls-7 {
+    fill:#bdbebf;
+  }
+  .cls-8 {
+    stroke:#85878a;
+    stroke-width:15px;
+  }
+  .cls-9 {
+    fill:#fff;
+    font-family:SFProDisplay-Semibold, SF Pro Display;
+    font-weight:600;
+  }
+}
+

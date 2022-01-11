@@ -13,18 +13,13 @@ import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/m
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-import { BusComponent } from './components/bus/bus.component'
-import { AngularSvgIconModule } from 'angular-svg-icon'
-
 import { httpInterceptorProviders } from './intereptors/base';
+import { BusModule } from './components/bus/bus.module';
+import { BusComponent } from './components/bus/bus.component';
 
 @NgModule({
-  declarations: [
-    BusComponent
-  ],
   imports: [
-    CommonModule,
-    AngularSvgIconModule.forRoot()
+    CommonModule
   ],
   exports: [
     CommonModule,
@@ -40,7 +35,7 @@ import { httpInterceptorProviders } from './intereptors/base';
     MatMomentDateModule,
     MatIconModule,
     MatProgressSpinnerModule,
-    BusComponent
+    BusModule
   ],
   providers: [
     httpInterceptorProviders,
