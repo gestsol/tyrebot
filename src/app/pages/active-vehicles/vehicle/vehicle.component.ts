@@ -14,6 +14,18 @@ export class VehicleComponent implements OnInit {
   loading = false;
   dateFrom: string = '';
   dateTo: string = '';
+  tpmsKeysNames = [
+    {key: 'tpms_name', name: 'TPMS id'},
+    {key: 'tpms_type', name: 'TPMS tipo'},
+    {key: 'tpms_installation_date', name: 'Instalación TPMS'},
+    {key: 'tyre_manufacturing_date', name: 'Fabricación del neumático'},
+    {key: 'tyre_installation_date', name: 'Instalación del neumático'},
+    {key: 'tyre_brand', name: 'Marca'},
+    {key: 'tyre_provider', name: 'Proveedor'},
+    {key: 'dot', name: 'DOT'},
+    {key: 'tyre_index', name: 'Indice carga/vel'},
+    {key: 'tyre_measurements', name: 'Medidas'}
+  ]
 
   constructor(
     private route: ActivatedRoute,
