@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { VehicleService } from 'src/app/services/vehicle.service';
+import { ActiveVehiclesService } from '../active-vehicles.service';
 
 @Component({
   selector: 'app-vehicle',
@@ -9,15 +10,15 @@ import { VehicleService } from 'src/app/services/vehicle.service';
   styleUrls: ['./vehicle.component.scss']
 })
 export class VehicleComponent implements OnInit {
-  busData = {ejes: []}
-  vehicleData: any
-  axies: any
-  tpmsData: any
-  loading = false
+  busData: any;
+  loading = false;
+  dateFrom: string = '';
+  dateTo: string = '';
 
   constructor(
     private route: ActivatedRoute,
-    private vehicleService: VehicleService
+    private vehicleService: VehicleService,
+    private activeVehicleService: ActiveVehiclesService
   ) { }
 
   ngOnInit(): void {
@@ -27,45 +28,18 @@ export class VehicleComponent implements OnInit {
         this.getData(id)
       }
     })
+
+    this.activeVehicleService.date$.subscribe(value => {
+      this.dateFrom = value.from
+      this.dateTo = value.to
+    })
   }
 
   getData(id: number) {
     this.loading = true
-    combineLatest([
-      this.vehicleService.getVehicle(id),
-      this.vehicleService.getTpms(id)
-    ]).subscribe(([vehicleData, tpmsData]) => {
-      this.vehicleData = vehicleData
-      this.getBus(tpmsData)
+    this.vehicleService.getBusData(id, this.dateFrom, this.dateTo).subscribe((data) => {
+      this.busData = data
       this.loading = false
     })
-  }
-
-  getBus (tpmsData: any) {
-    if (this.vehicleData?.format && tpmsData) {
-      this.axies = this.vehicleData.format.axies.map((item: any, index: number) => {
-        const tyres = item.tyres.map((tyre: any) => {
-          const result = tpmsData.find((tpms: any) => tpms.name === tyre.tpms_name)
-          let state = 'NO_SIGNAL'
-          if (result) {
-            const pressure = parseInt(result.pressure);
-            if ( pressure > 40) {
-              state = 'high'
-            } else if (pressure < 10) {
-              state = 'low'
-            } else {
-              state = 'ok'
-            }
-          }
-          return {
-            ...tyre,
-            state
-          }
-        })
-        return { ...item, tyres }
-      })
-      console.log(this.axies)
-      console.log(tpmsData)
-    }
   }
 }

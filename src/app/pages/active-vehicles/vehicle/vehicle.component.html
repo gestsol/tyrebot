@@ -1,5 +1,5 @@
 <mat-card class="bus-data" *ngIf="busData">
-  <h2 class="bus-data__plate"> Patente: <span>{{vehicleData?.plate}}</span></h2>
+  <h2 class="bus-data__plate"> Patente: <span>{{busData.plate}}</span></h2>
   <div class="bus-data__indicators">
     <span class="bus-data__indicators__title">Presión</span>
     <ol>
@@ -17,13 +17,31 @@
       </li>
     </ol>
   </div>
-  <app-bus *ngIf="axies" [axies]="axies"></app-bus>
+  <app-bus *ngIf="busData?.format" [axies]="busData.format.axies"></app-bus>
   <div class="bus-data__footer"><span> INDICE DE CONSUMO DE COMBUSTIBLE </span></div>
 </mat-card>
-<!-- <mat-card>
+<!-- <mat-card *ngIf="busData?.format">
   <mat-tab-group mat-align-tabs="center" dynamicHeight>
-    <mat-tab [label]="i === ejes.length - 1 ? 'R' : 'EJE ' + (i + 1)" *ngFor="let eje of ejes; let i = index">
-      <app-vehicle-configuration-form [eje]="eje"></app-vehicle-configuration-form>
+    <mat-tab [label]="axie.type === 'backup' ? 'R' : 'EJE ' + axie.axie_number"
+      *ngFor="let axie of busData.format.axies; let i = index">
+      <div class="row-container">
+        <div class="row-container__col field-header" *ngFor="let col of headersLength; let i = index">
+          <span *ngIf="i !== 0">{{'Tire ' + i}}</span>
+        </div>
+      </div>
     </mat-tab>
   </mat-tab-group>
 </mat-card> -->
+
+<!-- <ng-template #controlTemplate let-controls let-name="name">
+  <div class="row-container__col field-name">
+    <div>
+      <span>{{name}}</span>
+    </div>
+  </div>
+  <div class="row-container__col"
+  *ngFor="let control of controls; let i=index"
+  >
+    <div></div>
+  </div>
+</ng-template> -->

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import * as moment from 'moment';
+import { ActiveVehiclesService } from '../active-vehicles.service';
 
 @Component({
   selector: 'app-active-vehicles-container',
@@ -6,10 +9,41 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./active-vehicles-container.component.scss']
 })
 export class ActiveVehiclesContainerComponent implements OnInit {
+  dateFrom: string = '';
+  dateTo: string = '';
+  form = this.fb.group({
+    plate: [''],
+    from: [''],
+    to: ['']
+  })
 
-  constructor() { }
+  constructor(
+    private activeVehicleService: ActiveVehiclesService,
+    private fb: FormBuilder
+  ) { }
 
   ngOnInit(): void {
+    this.activeVehicleService.date$.subscribe(value => {
+      this.dateFrom = value.from
+      this.dateTo = value.to
+    })
+  }
+
+  dateChange() {
+    const from = this.form.get('from')?.value
+    const to = this.form.get('to')?.value
+    if (from && to) {
+      const data = {
+        from: moment(this.form.get('from')?.value).format(),
+        to: moment(this.form.get('to')?.value)
+        .set('h', 23)
+        .set('minutes', 59)
+        .set('seconds', 59)
+        .format()
+      }
+      console.log(data)
+      this.activeVehicleService.setDate(data)
+    }
   }
 
 }

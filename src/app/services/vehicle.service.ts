@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, of } from 'rxjs';
+import * as moment from 'moment';
+import { BehaviorSubject, of, zip } from 'rxjs';
 import { finalize, map, mergeMap } from 'rxjs/operators';
 import latestData from '../mocks/latest_data'
 
@@ -126,6 +127,21 @@ export class VehicleService {
     )
   }
 
+  getSummary(id: number, from: string, to: string) {
+    const defaultFrom = moment()
+      .set('h', 0)
+      .set('minutes', 0)
+      .set('seconds', 0)
+      .format('YYYY-MM-DDTHH:mm:ss')
+    const defaultTo = moment().format('YYYY-MM-DDTHH:mm:ss')
+    const queryParams = `?from=${from || defaultFrom}&to=${to || defaultTo}`
+    return this.http.get(`vehicles/${id}/summary_tpms_data${queryParams}`)
+    .pipe(
+      map(() => latestData),
+      map((data: any) => data.data)
+    )
+  }
+
   createVehicle(step1: Step1, step3: Step3, hub_tpms_id: number) {
     const body = {
       plate: step1.patente,
@@ -159,5 +175,46 @@ export class VehicleService {
       }
     }
     return this.http.post('vehicles', {vehicle: body})
+  }
+
+  getBusData(id: number, dateFrom: string, dateTo: string) {
+    return zip(
+      this.getVehicle(id),
+      this.getSummary(id, dateFrom, dateTo),
+      this.getTpms(id)
+    ).pipe(
+      map(([vehicleData, summaryData, tpmsData]) => {
+        console.log(vehicleData, summaryData, tpmsData)
+        let axies: any
+        if (vehicleData.format && tpmsData) {
+          vehicleData.format.axies = vehicleData.format.axies.map((item: any, index: number) => {
+            const tyres = item.tyres.map((tyre: any) => {
+              const tpmsResult = tpmsData.find((tpms: any) => tpms.name === tyre.tpms_name)
+              const summaryResult = summaryData.find((tpms: any) => tpms.name === tyre.tpms_name)
+              let state = 'NO_SIGNAL'
+              if (tpmsResult) {
+                const pressure = parseInt(tpmsResult.pressure);
+                if ( pressure > 40) {
+                  state = 'high'
+                } else if (pressure < 10) {
+                  state = 'low'
+                } else {
+                  state = 'ok'
+                }
+              }
+              return {
+                ...tyre,
+                ...(summaryResult || {}),
+                state
+              }
+            })
+            return { ...item, tyres }
+          })
+          console.log(axies)
+          console.log(tpmsData)
+        }
+        return vehicleData
+      })
+    )
   }
 }

@@ -1,13 +1,16 @@
 <div class="main-container">
-  <mat-card class="search-form">
+  <mat-card class="search-form" [formGroup]="form">
     <mat-form-field appearance="outline" class="light rounded">
-      <input matInput placeholder="Patente" #input>
+      <input matInput placeholder="Patente" #input fromControlName="plate">
       <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
     <mat-form-field appearance="outline" class="light rounded">
-      <input matInput [matDatepicker]="picker" placeholder="Fecha">
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate placeholder="Desde" formControlName="from">
+        <input matEndDate placeholder="Hasta" formControlName="to" (dateChange)="dateChange()">
+      </mat-date-range-input>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
+      <mat-date-range-picker #picker></mat-date-range-picker>
     </mat-form-field>
   </mat-card>
   <div class="active-vehicles__header">

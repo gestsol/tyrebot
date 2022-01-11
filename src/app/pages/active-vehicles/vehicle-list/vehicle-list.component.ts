@@ -65,7 +65,7 @@ export class VehicleListComponent implements OnInit, AfterViewInit {
       this.dataSource = new MatTableDataSource(data);
       this.loading = false
     }, (err) => {
-      this.loading = true
+      this.loading = false
       console.error(err)
     })
   }
