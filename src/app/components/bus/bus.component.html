@@ -5,17 +5,20 @@
     alt="bus-container"
     style="width: 100%;"
   >
-  <ng-container *ngFor="let axie of axies; let i = index">
-    <app-axie *ngIf="i !== axies.length - 1"
-      [axie]="i + 1"
+  <ng-container *ngFor="let axie of axies">
+    <app-axie *ngIf="axie.type === 'main'"
+      [axie]="axie.axie_number"
       [type]="axie.tyres_count"
       [tyres]="axie.tyres"
-      [class]="'bus__eje' + (i + 1)"
+      [class]="'bus__eje' + axie.axie_number"
     ></app-axie>
-    <ng-container *ngIf="i === axies.length - 1">
-      <svg-icon *ngFor="let tyre of axie.tyres; let i = index"
-        [src]="'/assets/img/bus/repuesto' + (i + 1) + '.svg'"
-        [class]="'bus__repuesto' + (i + 1)"></svg-icon>
+    <ng-container *ngIf="axie.type === 'backup'">
+      <app-replacement
+        *ngFor="let tyre of axie.tyres"
+        [type]="tyre.tyre_number"
+        [state]="tyre.state"
+        [class]="'bus__repuesto' + tyre.tyre_number"
+      ></app-replacement>
     </ng-container>
   </ng-container>
 </div>

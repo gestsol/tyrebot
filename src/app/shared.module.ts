@@ -15,11 +15,15 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { httpInterceptorProviders } from './intereptors/base';
 import { BusModule } from './components/bus/bus.module';
-import { BusComponent } from './components/bus/bus.component';
+import { BackButtonComponent } from './components/back-button/back-button.component';
 
 @NgModule({
+  declarations: [
+    BackButtonComponent
+  ],
   imports: [
-    CommonModule
+    CommonModule,
+    MatIconModule
   ],
   exports: [
     CommonModule,
@@ -35,7 +39,8 @@ import { BusComponent } from './components/bus/bus.component';
     MatMomentDateModule,
     MatIconModule,
     MatProgressSpinnerModule,
-    BusModule
+    BusModule,
+    BackButtonComponent
   ],
   providers: [
     httpInterceptorProviders,

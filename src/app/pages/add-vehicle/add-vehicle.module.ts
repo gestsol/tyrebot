@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { BackButtonComponent } from '../../components/back-button/back-button.component'
 
 import { AddVehicleRoutingModule } from './add-vehicle-routing.module';
 import { VehicleDetailComponent } from './vehicle-detail/vehicle-detail.component';
@@ -12,7 +11,6 @@ import { SharedModule } from 'src/app/shared.module';
 
 @NgModule({
   declarations: [
-    BackButtonComponent,
     VehicleDetailComponent,
     EjesComponent,
     VehicleConfigurationComponent,

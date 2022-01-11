@@ -4,7 +4,7 @@ export default {
       "batt": -1,
       "created_at": "2022-01-06T15:00:47",
       "id": 5754,
-      "name": "8a8e63",
+      "name": "22",
       "pressure": 27.15010877447426,
       "temp": 31
     },

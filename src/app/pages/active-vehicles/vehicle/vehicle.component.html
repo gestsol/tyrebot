@@ -1,31 +1,29 @@
-<div class="main-container" *ngIf="busData">
-  <mat-card class="bus-data">
-    <h2 class="bus-data__plate"> Patente: <span>{{vehicleData?.plate}}</span></h2>
-    <div class="bus-data__indicators">
-      <span class="bus-data__indicators__title">Presión</span>
-      <ol>
-        <li>
-          <span></span>
-          <span>Alta</span>
-        </li>
-        <li>
-          <span></span>
-          <span>Ok</span>
-        </li>
-        <li>
-          <span></span>
-          <span>Baja</span>
-        </li>
-      </ol>
-    </div>
-    <app-bus *ngIf="axies" [axies]="axies"></app-bus>
-    <div class="bus-data__footer"><span> INDICE DE CONSUMO DE COMBUSTIBLE </span></div>
-  </mat-card>
-  <!-- <mat-card>
-    <mat-tab-group mat-align-tabs="center" dynamicHeight>
-      <mat-tab [label]="i === ejes.length - 1 ? 'R' : 'EJE ' + (i + 1)" *ngFor="let eje of ejes; let i = index">
-        <app-vehicle-configuration-form [eje]="eje"></app-vehicle-configuration-form>
-      </mat-tab>
-    </mat-tab-group>
-  </mat-card> -->
-</div>
+<mat-card class="bus-data" *ngIf="busData">
+  <h2 class="bus-data__plate"> Patente: <span>{{vehicleData?.plate}}</span></h2>
+  <div class="bus-data__indicators">
+    <span class="bus-data__indicators__title">Presión</span>
+    <ol>
+      <li>
+        <span></span>
+        <span>Alta</span>
+      </li>
+      <li>
+        <span></span>
+        <span>Ok</span>
+      </li>
+      <li>
+        <span></span>
+        <span>Baja</span>
+      </li>
+    </ol>
+  </div>
+  <app-bus *ngIf="axies" [axies]="axies"></app-bus>
+  <div class="bus-data__footer"><span> INDICE DE CONSUMO DE COMBUSTIBLE </span></div>
+</mat-card>
+<!-- <mat-card>
+  <mat-tab-group mat-align-tabs="center" dynamicHeight>
+    <mat-tab [label]="i === ejes.length - 1 ? 'R' : 'EJE ' + (i + 1)" *ngFor="let eje of ejes; let i = index">
+      <app-vehicle-configuration-form [eje]="eje"></app-vehicle-configuration-form>
+    </mat-tab>
+  </mat-tab-group>
+</mat-card> -->

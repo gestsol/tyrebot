@@ -1,0 +1,31 @@
+.search-form {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+h1 {
+  color: white;
+  font-size: bold;
+  text-align: center;
+  margin: 0;
+}
+
+.active-vehicles__header {
+  position: relative;
+  margin: 2rem 0 0.5rem 0;
+  span {
+    position: absolute;
+    bottom: 0;
+    color: white;
+    left: 0;
+  }
+  app-back-button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+  ::ng-deep .back-btn {
+    margin-bottom: 0;
+  }
+}

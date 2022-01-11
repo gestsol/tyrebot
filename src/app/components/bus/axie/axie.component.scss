@@ -1,14 +1,9 @@
 @use 'sass:list';
 @use '/src/sass/vars/colors' as colors;
-
-$states: (
-  "low": (colors.$yellow ,colors.$yellow-dark),
-  "ok": (colors.$green ,colors.$green-dark),
-  "high": (colors.$red ,colors.$red-dark)
-);
+@use '/src/sass/vars/tyre_states' as states;
 
 @mixin getColor($tyre) {
-  @each $state, $values in $states {
+  @each $state, $values in states.$states {
     .#{$state}-#{$tyre} #tyre-#{$tyre} {
       rect:first-child {
         fill: list.nth($values, 1);

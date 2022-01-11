@@ -1,0 +1,28 @@
+@use 'sass:list';
+@use '/src/sass/vars/colors' as colors;
+@use '/src/sass/vars/tyre_states' as states;
+
+@mixin getColor() {
+  @each $state, $values in states.$states {
+    .#{$state} {
+      .cls-1 {
+        fill: list.nth($values, 1);
+      }
+      .cls-2 {
+        fill: list.nth($values, 2);
+      }
+    }
+    .#{$state} text {
+      fill: white !important;
+    }
+  }
+}
+
+@include getColor();
+
+svg-icon {
+  height: 100%;
+  svg {
+    height: 100%;
+  }
+}

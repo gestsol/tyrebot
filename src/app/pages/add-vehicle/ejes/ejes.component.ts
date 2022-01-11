@@ -53,10 +53,6 @@ export class EjesComponent implements OnInit {
 		)
   }
 
-  back() {
-	  this.router.navigate(['/add-vehicle'])
-  }
-
   continue() {
     const data: Step2 = {
       ejes: this.ejes.controls.map(control => parseInt(control.value))

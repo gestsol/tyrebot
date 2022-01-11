@@ -1,17 +1,24 @@
 
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ActiveVehiclesContainerComponent } from './active-vehicles-container/active-vehicles-container.component';
 import { VehicleListComponent } from './vehicle-list/vehicle-list.component';
 import { VehicleComponent } from './vehicle/vehicle.component';
 
 const routes: Routes = [
   {
-    component: VehicleListComponent,
-    path: 'list'
-  },
-  {
-    component: VehicleComponent,
-    path: 'detail/:id'
+    component: ActiveVehiclesContainerComponent,
+    path: 'list',
+    children: [
+      {
+        component: VehicleListComponent,
+        path: ''
+      },
+      {
+        component: VehicleComponent,
+        path: 'detail/:id'
+      }
+    ]
   },
   {
     path: '**',

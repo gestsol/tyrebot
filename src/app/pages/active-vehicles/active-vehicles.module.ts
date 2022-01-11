@@ -8,12 +8,14 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { SharedModule } from 'src/app/shared.module';
 import { VehicleComponent } from './vehicle/vehicle.component';
+import { ActiveVehiclesContainerComponent } from './active-vehicles-container/active-vehicles-container.component';
 
 
 @NgModule({
   declarations: [
     VehicleListComponent,
-    VehicleComponent
+    VehicleComponent,
+    ActiveVehiclesContainerComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,8 @@
+
+@use '/src/sass/vars/colors' as colors;
+
+$states: (
+  "low": (colors.$yellow ,colors.$yellow-dark),
+  "ok": (colors.$green ,colors.$green-dark),
+  "high": (colors.$red ,colors.$red-dark)
+);

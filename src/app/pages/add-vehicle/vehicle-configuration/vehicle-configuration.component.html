@@ -1,6 +1,6 @@
 <div class="step-3 main-container">
   <h1 class="step-3__title">Configuración</h1>
-  <button matRipple (click)="back();" style="margin-left:auto;" class="form-btn back-btn">Volver</button>
+  <app-back-button path="/add-vehicle/step-2"></app-back-button>
   <p>INGRESA LOS DATOS CORRESPONDIENTES:</p>
   <mat-tab-group mat-align-tabs="center" dynamicHeight>
     <mat-tab [label]="i === ejes.length - 1 ? 'R' : 'EJE ' + (i + 1)" *ngFor="let eje of ejes; let i = index">

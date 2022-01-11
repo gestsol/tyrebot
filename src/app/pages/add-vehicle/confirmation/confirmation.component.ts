@@ -62,7 +62,9 @@ export class ConfirmationComponent implements OnInit {
         type: index !== ejesLength - 1 ? 'main' : 'backup',
         tyres_count: item.tires,
         axie_number: index + 1,
-        tyres: new Array(item.tires).fill({})
+        tyres: new Array(item.tires).fill({}).map((_, i) => ({
+          tyre_number: i + 1
+        }))
       }))
     }
   }

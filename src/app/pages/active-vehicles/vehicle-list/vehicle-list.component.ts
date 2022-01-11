@@ -11,6 +11,7 @@ import { VehicleService } from 'src/app/services/vehicle.service';
   styleUrls: ['./vehicle-list.component.scss']
 })
 export class VehicleListComponent implements OnInit, AfterViewInit {
+  loading = false;
   columns: {key: string, name: string}[] = [
     {
       key: 'plate',
@@ -36,9 +37,9 @@ export class VehicleListComponent implements OnInit, AfterViewInit {
       key: 'action',
       name: 'Detalles'
     }
-  ]
+  ];
 
-  displayedColumns: string[] = this.columns.map((item) => item.key)
+  displayedColumns: string[] = this.columns.map((item) => item.key);
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -51,6 +52,7 @@ export class VehicleListComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit() {
+    this.loading = true
     this.vehicleService.getVehicles().subscribe((response: any[]) => {
       const data: any = response.map((item) => ({
         id: item.id,
@@ -59,8 +61,12 @@ export class VehicleListComponent implements OnInit, AfterViewInit {
         internal_number: item.internal_number,
         plate: item.plate,
         hubId: item.hub_tpms.name
-      }))
+      }));
       this.dataSource = new MatTableDataSource(data);
+      this.loading = false
+    }, (err) => {
+      this.loading = true
+      console.error(err)
     })
   }
 
@@ -79,7 +85,7 @@ export class VehicleListComponent implements OnInit, AfterViewInit {
   }
 
   seeMore(vehicle: any) {
-    this.router.navigate(['../detail', vehicle.id], {
+    this.router.navigate(['./detail', vehicle.id], {
       relativeTo: this.route
     })
   }
