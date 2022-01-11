@@ -9,12 +9,12 @@ export class AxieComponent implements OnInit {
   @Input() axie = 1
   @Input() type = 2
   @Input() tyres: any[] = []
-  classes = ''
+  classes: string[] = []
 
   constructor() { }
 
   ngOnInit(): void {
-    this.classes = this.tyres.map((item, i) => item.state? `${item.state}-${i + 1}`: '').join(' ')
+    this.classes = this.tyres.map((item, i) => item.state? `${item.state}-${i + 1}`: '')
   }
 
 }
