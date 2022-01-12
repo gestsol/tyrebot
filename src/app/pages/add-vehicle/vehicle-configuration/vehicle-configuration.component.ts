@@ -83,10 +83,10 @@ export class VehicleConfigurationComponent implements OnInit, AfterViewInit, OnD
             ...item
           ]
         )
-        console.log(flattenedList)
+        let initialIndex = 0
         this.items.forEach((axie, i) => {
           axie.tpms_name.controls.forEach((control, j) => {
-            const tyreIndex = i !== 0 ? j + i + 1 : j
+            const tyreIndex = j + initialIndex
             if (control.value !== '') {
               const present = flattenedList.some((item, index) => control.value === item && index !== tyreIndex)
               if (present)
@@ -97,6 +97,7 @@ export class VehicleConfigurationComponent implements OnInit, AfterViewInit, OnD
                 control.setErrors(null)
             }
           })
+          initialIndex += axie.tpms_name.controls.length
         })
       },0)
     })

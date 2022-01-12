@@ -118,7 +118,7 @@
       <mat-form-field appearance="outline" [ngClass]="{'grey-background': !control.value}">
         <input matInput [formControl]="controls[i]" [type]="isNumber? 'number': 'text'">
         <mat-error *ngIf="control.errors">{{
-          control.errors.required ? 'TPMS id es requerido': control.errors.notUnique
+          control.errors.required ? name + ' es requerido': control.errors.notUnique
         }}</mat-error>
       </mat-form-field>
     </div>
