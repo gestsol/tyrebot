@@ -13,18 +13,19 @@ export enum StepKeys {
 
 export interface EjeData {
   tires: number
-  tpmsId: string[]
-  tpmsType: string[]
-  tpmsManufacturer: string[]
-  tpmsDate: string[]
-  tireDate: string[]
-  tireBrand: string[]
-  tireProvider: string[]
+  tpms_name: string[]
+  tpms_type: string[]
+  tpms_manufacturer: string[]
+  tpms_installation_date: string[]
+  tyre_installation_date: string[]
+  tyre_temperature: number[]
+  tyre_brand: string[]
+  tyre_provider: string[]
   dot: string[]
-  loadIndex: string[]
-  measurement: string[]
-  reTire: string[]
-  wear: string[]
+  tyre_index: string[]
+  tyre_measurements: string[]
+  recauchado: string[]
+  tyre_wear: string[]
 }
 
 export interface Step1 {
@@ -156,19 +157,20 @@ export class VehicleService {
           axie_number: index + 1,
           tyres: new Array(item.tires).fill({}).map((_, i) => ({
             tyre_number: i + 1,
-            tpms_name: item.tpmsId[i],
-            tpms_type: item.tpmsType[i],
-            tpms_manufacturer: item.tpmsManufacturer[i],
-            tpms_installation_date: item.tpmsDate[i],
-            tyre_installation_date: item.tireDate[i],
+            tpms_name: item.tpms_name[i],
+            tpms_type: item.tpms_type[i],
+            tpms_manufacturer: item.tpms_manufacturer[i],
+            tpms_installation_date: item.tpms_installation_date[i],
+            tyre_installation_date: item.tyre_installation_date[i],
             tyre_manufacturing_date: '',
-            tyre_brand: item.tireBrand[i],
-            tyre_provider: item.tireProvider[i],
+            tyre_temperature: item.tyre_temperature[i],
+            tyre_brand: item.tyre_brand[i],
+            tyre_provider: item.tyre_provider[i],
             dot: item.dot[i],
-            tyre_index: item.loadIndex[i],
-            tyre_measurements: item.measurement[i],
-            recauchado: item.reTire[i] && item.reTire[i] !== '',
-            tyre_wear: item.wear[i]
+            tyre_index: item.tyre_index[i],
+            tyre_tyre_measurementss: item.tyre_measurements[i],
+            recauchado: item.recauchado[i],
+            tyre_wear: item.tyre_wear[i]
           }))
         })),
         axies_count: step3.ejes.length

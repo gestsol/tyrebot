@@ -10,11 +10,12 @@ import { EjeData } from '../../../../services/vehicle.service';
   styleUrls: ['./vehicle-configuration-form.component.scss']
 })
 export class VehicleConfigurationFormComponent implements OnInit {
-  @Input() eje: Partial<EjeData> | null = null
+  @Input() axie: Partial<EjeData> | null = null
 
   headersLength: string[] = [];
   form: FormGroup | null = null;
   statusChanges = of('INVALID')
+  tpmsNameChanges = of([])
 
   constructor(
     private fb: FormBuilder
@@ -24,104 +25,114 @@ export class VehicleConfigurationFormComponent implements OnInit {
     this.createControls()
   }
 
-  get tpmsId() {
-    return this.form?.get('tpmsId')?.get('tires') as FormArray;
+  get tpms_name() {
+    return this.form?.get('tpms_name')?.get('tires') as FormArray;
   }
-  get tpmsType() {
-    return this.form?.get('tpmsType')?.get('tires') as FormArray;
+  get tpms_type() {
+    return this.form?.get('tpms_type')?.get('tires') as FormArray;
   }
-  get tpmsManufacturer() {
-    return this.form?.get('tpmsManufacturer')?.get('tires') as FormArray;
+  get tpms_manufacturer() {
+    return this.form?.get('tpms_manufacturer')?.get('tires') as FormArray;
   }
-  get tpmsDate() {
-    return this.form?.get('tpmsDate')?.get('tires') as FormArray;
+  get tpms_installation_date() {
+    return this.form?.get('tpms_installation_date')?.get('tires') as FormArray;
   }
-  get tireDate() {
-    return this.form?.get('tireDate')?.get('tires') as FormArray;
+  get tyre_installation_date() {
+    return this.form?.get('tyre_installation_date')?.get('tires') as FormArray;
   }
-  get tireBrand() {
-    return this.form?.get('tireBrand')?.get('tires') as FormArray;
+  get tyre_temperature() {
+    return this.form?.get('tyre_temperature')?.get('tires') as FormArray;
   }
-  get tireProvider() {
-    return this.form?.get('tireProvider')?.get('tires') as FormArray;
+  get tyre_brand() {
+    return this.form?.get('tyre_brand')?.get('tires') as FormArray;
+  }
+  get tyre_provider() {
+    return this.form?.get('tyre_provider')?.get('tires') as FormArray;
   }
   get dot() {
     return this.form?.get('dot')?.get('tires') as FormArray;
   }
-  get loadIndex() {
-    return this.form?.get('loadIndex')?.get('tires') as FormArray;
+  get tyre_index() {
+    return this.form?.get('tyre_index')?.get('tires') as FormArray;
   }
-  get measurement() {
-    return this.form?.get('measurement')?.get('tires') as FormArray;
+  get tyre_measurements() {
+    return this.form?.get('tyre_measurements')?.get('tires') as FormArray;
   }
-  get reTire() {
-    return this.form?.get('reTire')?.get('tires') as FormArray;
+  get recauchado() {
+    return this.form?.get('recauchado')?.get('tires') as FormArray;
   }
-  get wear() {
-    return this.form?.get('wear')?.get('tires') as FormArray;
+  get tyre_wear() {
+    return this.form?.get('tyre_wear')?.get('tires') as FormArray;
   }
 
   private createControls() {
-    this.headersLength = new Array((this.eje && this.eje.tires? this.eje.tires : 0) + 1).fill('')
+    this.headersLength = new Array((this.axie && this.axie.tires? this.axie.tires : 0) + 1).fill('')
     this.form = this.fb.group({
-      tpmsId: this.fb.group({
+      tpms_name: this.fb.group({
         tires: this.fb.array([])
       }),
-      tpmsType: this.fb.group({
+      tpms_type: this.fb.group({
         tires: this.fb.array([])
       }),
-      tpmsManufacturer: this.fb.group({
+      tpms_manufacturer: this.fb.group({
         tires: this.fb.array([])
       }),
-      tpmsDate: this.fb.group({
+      tpms_installation_date: this.fb.group({
         tires: this.fb.array([])
       }),
-      tireDate: this.fb.group({
+      tyre_installation_date: this.fb.group({
         tires: this.fb.array([])
       }),
-      tireBrand: this.fb.group({
+      tyre_temperature: this.fb.group({
         tires: this.fb.array([])
       }),
-      tireProvider: this.fb.group({
+      tyre_brand: this.fb.group({
+        tires: this.fb.array([])
+      }),
+      tyre_provider: this.fb.group({
         tires: this.fb.array([])
       }),
       dot: this.fb.group({
         tires: this.fb.array([])
       }),
-      loadIndex: this.fb.group({
+      tyre_index: this.fb.group({
         tires: this.fb.array([])
       }),
-      measurement: this.fb.group({
+      tyre_measurements: this.fb.group({
         tires: this.fb.array([])
       }),
-      reTire: this.fb.group({
+      recauchado: this.fb.group({
         tires: this.fb.array([])
       }),
-      wear: this.fb.group({
+      tyre_wear: this.fb.group({
         tires: this.fb.array([])
       })
     });
 
-    this.addControls(this.tpmsId, this.eje?.tpmsId, true);
-    this.addControls(this.tpmsType, this.eje?.tpmsType);
-    this.addControls(this.tpmsManufacturer, this.eje?.tpmsManufacturer);
-    this.addControls(this.tpmsDate, this.eje?.tpmsDate);
-    this.addControls(this.tireDate, this.eje?.tireDate);
-    this.addControls(this.tireBrand, this.eje?.tireBrand);
-    this.addControls(this.tireProvider, this.eje?.tireProvider);
-    this.addControls(this.dot, this.eje?.dot);
-    this.addControls(this.loadIndex, this.eje?.loadIndex);
-    this.addControls(this.measurement, this.eje?.measurement);
-    this.addControls(this.reTire, this.eje?.reTire);
-    this.addControls(this.wear, this.eje?.wear);
+    this.addControls(this.tpms_name, this.axie?.tpms_name, true);
+    this.addControls(this.tpms_type, this.axie?.tpms_type);
+    this.addControls(this.tpms_manufacturer, this.axie?.tpms_manufacturer);
+    this.addControls(this.tpms_installation_date, this.axie?.tpms_installation_date);
+    this.addControls(this.tyre_installation_date, this.axie?.tyre_installation_date);
+    this.addControls(this.tyre_temperature, this.axie?.tyre_temperature);
+    this.addControls(this.tyre_brand, this.axie?.tyre_brand);
+    this.addControls(this.tyre_provider, this.axie?.tyre_provider);
+    this.addControls(this.dot, this.axie?.dot);
+    this.addControls(this.tyre_index, this.axie?.tyre_index);
+    this.addControls(this.tyre_measurements, this.axie?.tyre_measurements);
+    this.addControls(this.recauchado, this.axie?.recauchado);
+    this.addControls(this.tyre_wear, this.axie?.tyre_wear);
 
     this.statusChanges = this.form.statusChanges.pipe(
       startWith(this.form.status)
     )
+    this.tpmsNameChanges = this.tpms_name?.valueChanges.pipe(
+      startWith(this.tpms_name?.value)
+    )
   }
 
   private addControls(controlList: FormArray, value: any[] = [], required = false) {
-    new Array(this.eje?.tires).fill('').forEach((_, i) => {
+    new Array(this.axie?.tires).fill('').forEach((_, i) => {
       const control = new FormControl(value[i] || '', required ? [
         Validators.required
       ] : undefined)
@@ -132,18 +143,19 @@ export class VehicleConfigurationFormComponent implements OnInit {
   getData(): EjeData {
     return {
       tires: this.headersLength.length - 1,
-      tpmsId: this.tpmsId.controls.map(control => control.value),
-      tpmsType: this.tpmsType.controls.map(control => control.value),
-      tpmsManufacturer: this.tpmsManufacturer.controls.map(control => control.value),
-      tpmsDate: this.tpmsDate.controls.map(control => control.value),
-      tireDate: this.tireDate.controls.map(control => control.value),
-      tireBrand: this.tireBrand.controls.map(control => control.value),
-      tireProvider: this.tireProvider.controls.map(control => control.value),
+      tpms_name: this.tpms_name.controls.map(control => control.value),
+      tpms_type: this.tpms_type.controls.map(control => control.value),
+      tpms_manufacturer: this.tpms_manufacturer.controls.map(control => control.value),
+      tpms_installation_date: this.tpms_installation_date.controls.map(control => control.value),
+      tyre_installation_date: this.tyre_installation_date.controls.map(control => control.value),
+      tyre_temperature: this.tyre_temperature.controls.map(control => control.value),
+      tyre_brand: this.tyre_brand.controls.map(control => control.value),
+      tyre_provider: this.tyre_provider.controls.map(control => control.value),
       dot: this.dot.controls.map(control => control.value),
-      loadIndex: this.loadIndex.controls.map(control => control.value),
-      measurement: this.measurement.controls.map(control => control.value),
-      reTire: this.reTire.controls.map(control => control.value),
-      wear: this.wear.controls.map(control => control.value)
+      tyre_index: this.tyre_index.controls.map(control => control.value),
+      tyre_measurements: this.tyre_measurements.controls.map(control => control.value),
+      recauchado: this.recauchado.controls.map(control => control.value),
+      tyre_wear: this.tyre_wear.controls.map(control => control.value)
     }
   }
 }

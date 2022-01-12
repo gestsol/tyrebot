@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest } from 'rxjs';
+import { combineLatest, Subscription } from 'rxjs';
 import { VehicleService } from 'src/app/services/vehicle.service';
 import { ActiveVehiclesService } from '../active-vehicles.service';
 
@@ -24,8 +24,9 @@ export class VehicleComponent implements OnInit {
     {key: 'tyre_provider', name: 'Proveedor'},
     {key: 'dot', name: 'DOT'},
     {key: 'tyre_index', name: 'Indice carga/vel'},
-    {key: 'tyre_measurements', name: 'Medidas'}
+    {key: 'tyre_tyre_measurementss', name: 'Medidas'}
   ]
+  dataSubscription: Subscription | null = null
 
   constructor(
     private route: ActivatedRoute,
@@ -49,7 +50,10 @@ export class VehicleComponent implements OnInit {
 
   getData(id: number) {
     this.loading = true
-    this.vehicleService.getBusData(id, this.dateFrom, this.dateTo).subscribe((data) => {
+    if (this.dataSubscription && !this.dataSubscription.closed) {
+      this.dataSubscription.unsubscribe()
+    }
+    this.dataSubscription = this.vehicleService.getBusData(id, this.dateFrom, this.dateTo).subscribe((data) => {
       this.busData = data
       this.loading = false
     })

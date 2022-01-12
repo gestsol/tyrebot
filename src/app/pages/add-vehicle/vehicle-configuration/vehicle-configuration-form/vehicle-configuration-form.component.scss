@@ -8,6 +8,12 @@
   margin: 0;
 }
 
+:host ::ng-deep .mat-error {
+  margin-top: 1rem;
+  margin-left: -0.7rem;
+  font-size: 0.8rem;
+}
+
 mat-form-field {
   min-width: 0;
   max-width: 206px;
@@ -21,7 +27,7 @@ mat-form-field {
     flex: 1 1;
   }
   &__col:not(.field-name) {
-    padding: 1rem 0;
+    padding: 1.3rem 0;
     & > div {
       display: flex;
       justify-content: center;

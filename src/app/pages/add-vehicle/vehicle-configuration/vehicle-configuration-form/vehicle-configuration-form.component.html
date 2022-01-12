@@ -5,52 +5,59 @@
     </div>
   </div>
   <form [formGroup]="form">
-    <fieldset class="field-container" formGroupName="tpmsId">
+    <fieldset class="field-container" formGroupName="tpms_name">
       <div class="row-container" formArrayName="tires">
         <ng-container
-          *ngTemplateOutlet="controlTemplate, context: { $implicit: tpmsId.controls, name: 'TPMS id' }">
+          *ngTemplateOutlet="controlTemplate, context: { $implicit: tpms_name.controls, name: 'TPMS id' }">
         </ng-container>
       </div>
     </fieldset>
-    <fieldset class="field-container" formGroupName="tpmsType">
+    <fieldset class="field-container" formGroupName="tpms_type">
       <div class="row-container" formArrayName="tires">
         <ng-container
-          *ngTemplateOutlet="controlTemplate, context: { $implicit: tpmsType.controls, name: 'TPMS tipo' }">
+          *ngTemplateOutlet="controlTemplate, context: { $implicit: tpms_type.controls, name: 'TPMS tipo' }">
         </ng-container>
       </div>
     </fieldset>
-    <fieldset class="field-container" formGroupName="tpmsManufacturer">
+    <fieldset class="field-container" formGroupName="tpms_manufacturer">
       <div class="row-container" formArrayName="tires">
         <ng-container
-          *ngTemplateOutlet="controlTemplate, context: { $implicit: tpmsManufacturer.controls, name: 'Fabricante TPMS' }">
+          *ngTemplateOutlet="controlTemplate, context: { $implicit: tpms_manufacturer.controls, name: 'Fabricante TPMS' }">
         </ng-container>
       </div>
     </fieldset>
-    <fieldset class="field-container" formGroupName="tpmsDate">
+    <fieldset class="field-container" formGroupName="tpms_installation_date">
       <div class="row-container" formArrayName="tires">
         <ng-container
-          *ngTemplateOutlet="controlTemplate, context: { $implicit: tpmsDate.controls, name: 'Fecha Instalación TPMS', isDate: true }">
+          *ngTemplateOutlet="controlTemplate, context: { $implicit: tpms_installation_date.controls, name: 'Fecha Instalación TPMS', isDate: true }">
         </ng-container>
       </div>
     </fieldset>
-    <fieldset class="field-container" formGroupName="tireDate">
+    <fieldset class="field-container" formGroupName="tyre_installation_date">
       <div class="row-container" formArrayName="tires">
         <ng-container
-          *ngTemplateOutlet="controlTemplate, context: { $implicit: tireDate.controls, name: 'Fecha Fabricación Neumático', isDate: true }">
+          *ngTemplateOutlet="controlTemplate, context: { $implicit: tyre_installation_date.controls, name: 'Fecha Fabricación Neumático', isDate: true }">
         </ng-container>
       </div>
     </fieldset>
-    <fieldset class="field-container" formGroupName="tireBrand">
+    <fieldset class="field-container" formGroupName="tyre_temperature">
       <div class="row-container" formArrayName="tires">
         <ng-container
-          *ngTemplateOutlet="controlTemplate, context: { $implicit: tireBrand.controls, name: 'Marca de Neumático' }">
+          *ngTemplateOutlet="controlTemplate, context: { $implicit: tyre_temperature.controls, name: 'Temperatura', isNumber: true }">
         </ng-container>
       </div>
     </fieldset>
-    <fieldset class="field-container" formGroupName="tireProvider">
+    <fieldset class="field-container" formGroupName="tyre_brand">
       <div class="row-container" formArrayName="tires">
         <ng-container
-          *ngTemplateOutlet="controlTemplate, context: { $implicit: tireProvider.controls, name: 'Provedor de Neumático' }">
+          *ngTemplateOutlet="controlTemplate, context: { $implicit: tyre_brand.controls, name: 'Marca de Neumático' }">
+        </ng-container>
+      </div>
+    </fieldset>
+    <fieldset class="field-container" formGroupName="tyre_provider">
+      <div class="row-container" formArrayName="tires">
+        <ng-container
+          *ngTemplateOutlet="controlTemplate, context: { $implicit: tyre_provider.controls, name: 'Provedor de Neumático' }">
         </ng-container>
       </div>
     </fieldset>
@@ -61,38 +68,44 @@
       </ng-container>
     </div>
     </fieldset>
-    <fieldset class="field-container" formGroupName="loadIndex">
+    <fieldset class="field-container" formGroupName="tyre_index">
       <div class="row-container" formArrayName="tires">
         <ng-container
-          *ngTemplateOutlet="controlTemplate, context: { $implicit: loadIndex.controls, name: 'Indice carga/vel' }">
+          *ngTemplateOutlet="controlTemplate, context: { $implicit: tyre_index.controls, name: 'Indice carga/vel' }">
         </ng-container>
       </div>
     </fieldset>
-    <fieldset class="field-container" formGroupName="measurement">
+    <fieldset class="field-container" formGroupName="tyre_measurements">
       <div class="row-container" formArrayName="tires">
         <ng-container
-          *ngTemplateOutlet="controlTemplate, context: { $implicit: measurement.controls, name: 'Medidas' }">
+          *ngTemplateOutlet="controlTemplate, context: { $implicit: tyre_measurements.controls, name: 'Medidas' }">
         </ng-container>
       </div>
     </fieldset>
-    <fieldset class="field-container" formGroupName="reTire">
+    <fieldset class="field-container" formGroupName="recauchado">
       <div class="row-container" formArrayName="tires">
         <ng-container
-          *ngTemplateOutlet="controlTemplate, context: { $implicit: reTire.controls, name: 'Recauchado' }">
+          *ngTemplateOutlet="controlTemplate, context: { $implicit: recauchado.controls, name: 'Recauchado', isSelect: true }">
         </ng-container>
       </div>
     </fieldset>
-    <fieldset class="field-container" formGroupName="wear">
+    <fieldset class="field-container" formGroupName="tyre_wear">
       <div class="row-container" formArrayName="tires">
         <ng-container
-        *ngTemplateOutlet="controlTemplate, context: { $implicit: wear.controls, name: 'Tipo de desgaste' }">
+        *ngTemplateOutlet="controlTemplate, context: { $implicit: tyre_wear.controls, name: 'Tipo de desgaste' }">
         </ng-container>
       </div>
     </fieldset>
   </form>
 </mat-card>
 
-<ng-template #controlTemplate let-controls let-name="name" let-isDate="isDate">
+<ng-template
+  #controlTemplate
+  let-controls
+  let-name="name"
+  let-isNumber="isNumber"
+  let-isDate="isDate"
+  let-isSelect="isSelect">
   <div class="row-container__col field-name">
     <div>
       <span>{{name}}</span>
@@ -101,13 +114,25 @@
   <div class="row-container__col"
   *ngFor="let control of controls; let i=index"
   >
-    <div *ngIf="!isDate">
-      <mat-form-field appearance="outline" [ngClass]="{'grey-background': !control.dirty}">
-        <input matInput [formControl]="controls[i]">
+    <div *ngIf="!isDate && !isSelect">
+      <mat-form-field appearance="outline" [ngClass]="{'grey-background': !control.value}">
+        <input matInput [formControl]="controls[i]" [type]="isNumber? 'number': 'text'">
+        <mat-error *ngIf="control.errors">{{
+          control.errors.required ? 'TPMS id es requerido': control.errors.notUnique
+        }}</mat-error>
+      </mat-form-field>
+    </div>
+    <div *ngIf="isSelect">
+      <mat-form-field appearance="outline" style="width: 100%;" [ngClass]="{'grey-background': !control.value}">
+        <mat-select disableOptionCentering [formControl]="controls[i]">
+          <mat-option *ngFor="let value of ['SI', 'NO']" [value]="value">
+            {{value}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </div>
     <div *ngIf="isDate">
-      <mat-form-field appearance="outline" [ngClass]="{'grey-background': !control.dirty}">
+      <mat-form-field appearance="outline" [ngClass]="{'grey-background': !control.value}">
         <input matInput [matDatepicker]="picker" [formControl]="controls[i]">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>

@@ -8,11 +8,11 @@
 		  <div class="row" formArrayName="ejes">
 				<ng-container *ngFor="let control of ejes.controls; let i = index">
 					<div class="col step-2__container__box__field">
-            <h4 [ngClass]="{'dirty': control.dirty}">
+            <h4 [ngClass]="{'dirty': !!control.value}">
               {{ejes.controls.length - 1 === i? 'R' :'Eje ' + (i + 1)}}
             </h4>
             <div class="step-2__container__box__field__input">
-              <mat-form-field appearance="outline" [ngClass]="{'grey-background': !control.dirty}">
+              <mat-form-field appearance="outline" [ngClass]="{'grey-background': !control.value}">
                 <input matInput [formControlName]="i" type="number">
               </mat-form-field>
               <mat-error

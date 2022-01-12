@@ -15,7 +15,9 @@ export class VehicleConfigurationComponent implements OnInit, AfterViewInit, OnD
   @ViewChildren(VehicleConfigurationFormComponent) items!: QueryList<VehicleConfigurationFormComponent>;
 
   formValidation: Subscription | null = null
+  tpmsValidation: Subscription | null = null
   statusList: Observable<any>[] = []
+  tpmsList: Observable<any>[] = []
   isFormValid = false
   ejes: Partial<EjeData>[] = []
 
@@ -62,6 +64,7 @@ export class VehicleConfigurationComponent implements OnInit, AfterViewInit, OnD
   ngAfterViewInit(): void {
     this.items.forEach((item, i) => {
       this.statusList.push(item.statusChanges)
+      this.tpmsList.push(item.tpmsNameChanges)
     })
     this.formValidation = combineLatest(this.statusList).subscribe((statusList) => {
       setTimeout(() => {
@@ -69,6 +72,32 @@ export class VehicleConfigurationComponent implements OnInit, AfterViewInit, OnD
           result && value === 'VALID',
           true
         )
+      },0)
+    })
+    this.tpmsValidation = combineLatest(this.tpmsList).subscribe((valueList) => {
+      setTimeout(() => {
+        let flattenedList: any[] = []
+        valueList.forEach((item: any[]) =>
+          flattenedList = [
+            ...flattenedList,
+            ...item
+          ]
+        )
+        console.log(flattenedList)
+        this.items.forEach((axie, i) => {
+          axie.tpms_name.controls.forEach((control, j) => {
+            const tyreIndex = i !== 0 ? j + i + 1 : j
+            if (control.value !== '') {
+              const present = flattenedList.some((item, index) => control.value === item && index !== tyreIndex)
+              if (present)
+                control.setErrors({
+                  notUnique: 'TPMS id debe ser único'
+                })
+              else
+                control.setErrors(null)
+            }
+          })
+        })
       },0)
     })
 
@@ -84,5 +113,6 @@ export class VehicleConfigurationComponent implements OnInit, AfterViewInit, OnD
 
   ngOnDestroy(): void {
     this.formValidation?.unsubscribe()
+    this.tpmsValidation?.unsubscribe()
   }
 }

@@ -4,7 +4,7 @@
   <p>INGRESA LOS DATOS CORRESPONDIENTES:</p>
   <mat-tab-group mat-align-tabs="center" dynamicHeight>
     <mat-tab [label]="i === ejes.length - 1 ? 'R' : 'EJE ' + (i + 1)" *ngFor="let eje of ejes; let i = index">
-      <app-vehicle-configuration-form [eje]="eje"></app-vehicle-configuration-form>
+      <app-vehicle-configuration-form [axie]="eje"></app-vehicle-configuration-form>
     </mat-tab>
   </mat-tab-group>
   <div>

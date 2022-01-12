@@ -3,6 +3,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { VehicleService } from 'src/app/services/vehicle.service';
 import { ActiveVehiclesService } from '../active-vehicles.service';
 
@@ -46,6 +47,8 @@ export class VehicleListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
+  dataSubscription: Subscription | null = null
+
   constructor(
     private vehicleService: VehicleService,
     private activeVehicleService: ActiveVehiclesService,
@@ -55,7 +58,10 @@ export class VehicleListComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.loading = true
-    this.vehicleService.getVehicles().subscribe((response: any[]) => {
+    if (this.dataSubscription && !this.dataSubscription.closed) {
+      this.dataSubscription.unsubscribe()
+    }
+    this.dataSubscription = this.vehicleService.getVehicles().subscribe((response: any[]) => {
       const data: any = response.map((item) => ({
         id: item.id,
         axies: item.format?.axies_count,
