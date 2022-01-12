@@ -15,6 +15,10 @@ export class VehicleComponent implements OnInit {
   dateFrom: string = '';
   dateTo: string = '';
   tpmsKeysNames = [
+    {key: 'min_max_temp', name: 'Temp. Min/Max'},
+    {key: 'min_max_pressure', name: 'Presión Min/Max'},
+    {key: 'average_pressure', name: 'Promedio de P.'},
+    {key: 'measurements_count', name: 'Mediciones'},
     {key: 'tpms_name', name: 'TPMS id'},
     {key: 'tpms_type', name: 'TPMS tipo'},
     {key: 'tpms_installation_date', name: 'Instalación TPMS'},

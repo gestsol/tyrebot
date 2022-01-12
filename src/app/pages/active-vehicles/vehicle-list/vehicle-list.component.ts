@@ -61,17 +61,8 @@ export class VehicleListComponent implements OnInit, AfterViewInit {
     if (this.dataSubscription && !this.dataSubscription.closed) {
       this.dataSubscription.unsubscribe()
     }
-    this.dataSubscription = this.vehicleService.getVehicles().subscribe((response: any[]) => {
-      const data: any = response.map((item) => ({
-        id: item.id,
-        axies: item.format?.axies_count,
-        chassis: item.chassis,
-        internal_number: item.internal_number,
-        plate: item.plate,
-        hubId: item.hub_tpms.name
-      }));
+    this.dataSubscription = this.activeVehicleService.vehicles$.subscribe((data: any[]) => {
       this.dataSource = new MatTableDataSource(data);
-      this.activeVehicleService.setVehicles(this.dataSource.data.length)
       this.loading = false
     }, (err) => {
       this.loading = false

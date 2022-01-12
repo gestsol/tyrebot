@@ -24,8 +24,8 @@
   <mat-tab-group mat-align-tabs="center" dynamicHeight>
     <mat-tab [label]="axie.type === 'backup' ? 'R' : 'EJE ' + axie.axie_number"
       *ngFor="let axie of busData.format.axies; let i = index">
-      <div class="row-container">
-        <div class="row-container__col field-header"></div>
+      <div class="row-container" style="margin-top: 1.5rem;">
+        <div class="row-container__col field-name"></div>
         <div class="row-container__col field-header" *ngFor="let col of axie.tyres; let i = index">
           <span>{{'Tire ' + col.tyre_number}}</span>
         </div>

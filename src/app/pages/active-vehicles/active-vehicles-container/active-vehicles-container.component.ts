@@ -11,7 +11,7 @@ import { ActiveVehiclesService } from '../active-vehicles.service';
   styleUrls: ['./active-vehicles-container.component.scss']
 })
 export class ActiveVehiclesContainerComponent implements OnInit {
-  vehiclesCount$ = this.activeVehicleService.vehicles$;
+  vehicles$ = this.activeVehicleService.vehicles$;
   showBackBtn = false;
   dateFrom: string = '';
   dateTo: string = '';
@@ -28,6 +28,7 @@ export class ActiveVehiclesContainerComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.activeVehicleService.getVehicles().subscribe()
     this.activeVehicleService.date$.subscribe(value => {
       this.dateFrom = value.from
       this.dateTo = value.to

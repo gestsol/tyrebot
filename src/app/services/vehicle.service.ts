@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { BehaviorSubject, of, zip } from 'rxjs';
 import { finalize, map, mergeMap } from 'rxjs/operators';
 import latestData from '../mocks/latest_data'
+import summaryData from '../mocks/summary'
 
 export enum StepKeys {
   step1 = 'step1',
@@ -51,6 +52,19 @@ export interface FlowData {
   step3: Step3 | null
 }
 
+export interface Summary {
+  from: string,
+  max_pressure: number,
+  max_temp: number,
+  measurements_count: number,
+  min_pressure: number,
+  min_temp: number,
+  name: string,
+  to: string,
+  min_max_temp?: string,
+  min_max_pressure: string,
+  average_pressure: string
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -136,10 +150,10 @@ export class VehicleService {
       .format('YYYY-MM-DDTHH:mm:ss')
     const defaultTo = moment().format('YYYY-MM-DDTHH:mm:ss')
     const queryParams = `?from=${from || defaultFrom}&to=${to || defaultTo}`
-    return this.http.get(`vehicles/${id}/summary_tpms_data${queryParams}`)
+    return this.http.get<{data: Summary[]}>(`vehicles/${id}/summary_tpms_data${queryParams}`)
     .pipe(
-      map(() => latestData),
-      map((data: any) => data.data)
+      map(() => summaryData),
+      map((data) => data.data  as Summary[])
     )
   }
 
@@ -204,6 +218,11 @@ export class VehicleService {
                   state = 'ok'
                 }
               }
+              if (summaryResult) {
+                summaryResult.min_max_temp = `${summaryResult.min_temp.toFixed(0)} / ${summaryResult.max_temp.toFixed(0)} ºc`
+                summaryResult.min_max_pressure = `${summaryResult.min_pressure.toFixed(0)} / ${summaryResult.max_pressure.toFixed(0)} psi`
+                summaryResult.average_pressure = `${((summaryResult.min_temp + summaryResult.max_temp) / 2).toFixed(0)}`
+              }
               return {
                 ...tyre,
                 ...(summaryResult || {}),
@@ -212,8 +231,6 @@ export class VehicleService {
             })
             return { ...item, tyres }
           })
-          console.log(axies)
-          console.log(tpmsData)
         }
         return vehicleData
       })
