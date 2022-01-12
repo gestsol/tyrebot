@@ -17,10 +17,10 @@ export interface MenuItem {
 export class NavigationService {
   private previousUrl: string = '';
 
-  navOpen = new BehaviorSubject(false)
+  private navOpen = new BehaviorSubject(false)
   navOpen$ = this.navOpen.asObservable()
 
-  currentUrl = new BehaviorSubject('')
+  private currentUrl = new BehaviorSubject('')
   currentUrl$ = this.currentUrl.asObservable()
 
   menu: MenuItem[] = [

@@ -6,11 +6,13 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ActiveVehiclesService {
 
-  plateSub = new BehaviorSubject<string>('')
-  dateSub = new BehaviorSubject<{from: string, to: string}>({from: '', to: ''})
+  private plateSub = new BehaviorSubject<string>('')
+  private dateSub = new BehaviorSubject<{from: string, to: string}>({from: '', to: ''})
+  private vehiclesSub = new BehaviorSubject<number>(0)
 
   plate$ = this.plateSub.asObservable()
   date$ = this.dateSub.asObservable()
+  vehicles$ = this.vehiclesSub.asObservable()
 
   constructor() { }
 
@@ -20,5 +22,9 @@ export class ActiveVehiclesService {
 
   setPlate(value: string) {
     this.plateSub.next(value)
+  }
+
+  setVehicles(value: number) {
+    this.vehiclesSub.next(value)
   }
 }

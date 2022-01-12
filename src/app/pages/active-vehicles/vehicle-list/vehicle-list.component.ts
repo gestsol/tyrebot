@@ -4,6 +4,7 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VehicleService } from 'src/app/services/vehicle.service';
+import { ActiveVehiclesService } from '../active-vehicles.service';
 
 @Component({
   selector: 'app-vehicle-list',
@@ -47,6 +48,7 @@ export class VehicleListComponent implements OnInit, AfterViewInit {
 
   constructor(
     private vehicleService: VehicleService,
+    private activeVehicleService: ActiveVehiclesService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
@@ -63,6 +65,7 @@ export class VehicleListComponent implements OnInit, AfterViewInit {
         hubId: item.hub_tpms.name
       }));
       this.dataSource = new MatTableDataSource(data);
+      this.activeVehicleService.setVehicles(this.dataSource.data.length)
       this.loading = false
     }, (err) => {
       this.loading = false

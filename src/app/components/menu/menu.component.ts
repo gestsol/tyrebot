@@ -50,5 +50,7 @@ export class MenuComponent implements OnInit {
     }
   }
 
-
+  close() {
+    this.navigation.toggle()
+  }
 }

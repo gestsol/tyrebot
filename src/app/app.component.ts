@@ -17,4 +17,8 @@ export class AppComponent implements OnInit {
       this.navState = value;
     })
   }
+
+  close() {
+    this.navigation.toggle()
+  }
 }

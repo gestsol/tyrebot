@@ -1,4 +1,7 @@
 <nav class="menu">
+  <button matRipple class="menu__close" (click)="close()">
+    <mat-icon>clear</mat-icon>
+  </button>
 	<ul class="menu__lvl1">
 	  <li *ngFor="let lvl1 of menu; let i = index;">
       <ng-container *ngTemplateOutlet="menuItem, context: { $implicit: lvl1 }"></ng-container>

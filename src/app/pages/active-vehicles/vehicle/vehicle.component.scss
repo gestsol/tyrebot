@@ -104,8 +104,9 @@
     }
   }
   &__col.field-name {
-    flex: 0.6 0.6 100px;
+    flex: 0 1 25%;
     line-height: 1.2;
+    min-width: 160px;
   }
   &__col.field-name > div {
     display: flex;

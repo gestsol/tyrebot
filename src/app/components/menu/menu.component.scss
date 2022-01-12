@@ -73,4 +73,26 @@
       font-size: 1.5rem;
     }
   }
+  &__close {
+    display: none;
+    outline: none;
+    background-color: transparent;
+    height: 45px;
+    width: 45px;
+    border: none;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    margin: 0 1rem 0 auto;
+  }
+}
+
+@media (max-width: 1200px) {
+  .menu {
+    padding-top: 2rem;
+  }
+  .menu__close {
+    display: flex;
+  }
 }

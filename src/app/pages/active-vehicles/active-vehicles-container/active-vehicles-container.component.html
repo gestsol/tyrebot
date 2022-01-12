@@ -14,9 +14,9 @@
     </mat-form-field>
   </mat-card>
   <div class="active-vehicles__header">
-    <span>VEHÍCULOS: 2440</span>
+    <span>VEHÍCULOS: {{vehiclesCount$ | async}}</span>
     <h1>Vehículos y Activos</h1>
-    <app-back-button :path="/active-vehicles/list"></app-back-button>
+    <app-back-button *ngIf="showBackBtn" :path="/active-vehicle/list"></app-back-button>
   </div>
   <router-outlet></router-outlet>
 </div>

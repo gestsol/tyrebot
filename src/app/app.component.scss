@@ -1,11 +1,24 @@
 @use '/src/sass/vars/sizes' as sizes;
+@use '/src/sass/vars/colors' as colors;
 
 .main-page {
   width: calc(100% - #{sizes.$side-nav});
   transition: width 0.3s;
+  min-height: 100vh;
   &.close {
     width: 100%
   }
+}
+
+.overlay {
+  position: fixed;
+  width: 0;
+  height: 0;
+  top: 0;
+  z-index: 9998;
+  transition: opacity 0.3s ease;
+  background-color: #{colors.$bg-blue} + '7f';
+  opacity: 0;
 }
 
 app-menu {
@@ -17,5 +30,23 @@ app-menu {
   height: 100vh; //Restar tamaño del header mientras no se mueva el scroll
   &.close {
     width: 0;
+  }
+}
+
+
+@media (max-width: 1200px) {
+  .main-page {
+    width: 100%;
+  }
+  app-menu {
+    position: fixed;
+    width: 300px;
+    z-index: 9999;
+    box-shadow: 1px 7px 22px 5px rgba(0,0,0,0.31);
+  }
+  .overlay:not(.close) {
+    width: 100vw;
+    height: 100vh;
+    opacity: 1;
   }
 }

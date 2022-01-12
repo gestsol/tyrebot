@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
+import { NavigationService } from 'src/app/services/navigation.service';
 import { ActiveVehiclesService } from '../active-vehicles.service';
 
 @Component({
@@ -9,6 +11,8 @@ import { ActiveVehiclesService } from '../active-vehicles.service';
   styleUrls: ['./active-vehicles-container.component.scss']
 })
 export class ActiveVehiclesContainerComponent implements OnInit {
+  vehiclesCount$ = this.activeVehicleService.vehicles$;
+  showBackBtn = false;
   dateFrom: string = '';
   dateTo: string = '';
   form = this.fb.group({
@@ -18,6 +22,7 @@ export class ActiveVehiclesContainerComponent implements OnInit {
   })
 
   constructor(
+    private navigationService: NavigationService,
     private activeVehicleService: ActiveVehiclesService,
     private fb: FormBuilder
   ) { }
@@ -26,6 +31,9 @@ export class ActiveVehiclesContainerComponent implements OnInit {
     this.activeVehicleService.date$.subscribe(value => {
       this.dateFrom = value.from
       this.dateTo = value.to
+    })
+    this.navigationService.currentUrl$.subscribe((url) => {
+      this.showBackBtn = url.includes('detail')
     })
   }
 
