@@ -204,7 +204,6 @@ export class VehicleService {
     ).pipe(
       map(([vehicleData, summaryData, tpmsData]) => {
         console.log(vehicleData, summaryData, tpmsData)
-        let axies: any
         if (vehicleData.format && tpmsData) {
           vehicleData.format.axies = vehicleData.format.axies.map((item: any, index: number) => {
             const tyres = item.tyres.map((tyre: any) => {
