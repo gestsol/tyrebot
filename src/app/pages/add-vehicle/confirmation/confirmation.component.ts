@@ -74,6 +74,7 @@ export class ConfirmationComponent implements OnInit {
       this.loading = true;
       this.vehicleService.createData(this.step1, this.step3, () => this.loading = false)
       .subscribe((response) => {
+        this.vehicleService.deleteInfo()
         this.router.navigate(['../../active-vehicle'])
         console.log(response)
       }, (err) => console.error(err))

@@ -239,4 +239,15 @@ export class VehicleService {
       })
     )
   }
+
+  deleteInfo() {
+    localStorage.removeItem(StepKeys.step1)
+    localStorage.removeItem(StepKeys.step2)
+    localStorage.removeItem(StepKeys.step3)
+    this.data.next({
+      step1: null,
+      step2: null,
+      step3: null
+    })
+  }
 }
