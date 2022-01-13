@@ -35,7 +35,6 @@ export class VehicleComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private vehicleService: VehicleService,
     private activeVehicleService: ActiveVehiclesService
   ) { }
 

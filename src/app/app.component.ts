@@ -10,12 +10,23 @@ export class AppComponent implements OnInit {
   title = 'tyrebot';
   navState: boolean = true;
 
-  constructor(private navigation: NavigationService) {}
+  constructor(
+    private navigation: NavigationService
+  ) {}
 
   ngOnInit() {
     this.navigation.navOpen$.subscribe((value) => {
       this.navState = value;
     })
+
+    this.navigation.currentUrl$
+    .subscribe(() => {
+      window.scroll({
+        left: 0,
+        top: 0,
+        behavior: 'smooth'
+      })
+    });
   }
 
   close() {
