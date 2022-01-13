@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest, Subscription } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { VehicleService } from 'src/app/services/vehicle.service';
 import { ActiveVehiclesService } from '../active-vehicles.service';
 
@@ -9,7 +9,8 @@ import { ActiveVehiclesService } from '../active-vehicles.service';
   templateUrl: './vehicle.component.html',
   styleUrls: ['./vehicle.component.scss']
 })
-export class VehicleComponent implements OnInit {
+export class VehicleComponent implements OnInit, OnDestroy {
+  id: number = 0;
   busData: any;
   loading = false;
   dateFrom: string = '';
@@ -41,15 +42,19 @@ export class VehicleComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       if (params['id']) {
-        const id = parseInt(params['id'])
-        this.getData(id)
+        this.id = parseInt(params['id'])
+        this.activeVehicleService.date$.subscribe(value => {
+          console.log(this.id)
+          this.dateFrom = value.from
+          this.dateTo = value.to
+          this.getData(this.id)
+        })
       }
     })
+  }
 
-    this.activeVehicleService.date$.subscribe(value => {
-      this.dateFrom = value.from
-      this.dateTo = value.to
-    })
+  ngOnDestroy(): void {
+    this.dataSubscription?.unsubscribe()
   }
 
   getData(id: number) {

@@ -32,10 +32,10 @@ export class ActiveVehiclesService {
     this.vehiclesSub.next(value)
   }
 
-  getVehicles() {
-    return this.vehicleService.getVehicles().pipe(
+  getVehicles(page?: number, page_size?: number, plate?: string) {
+    return this.vehicleService.getVehicles(page, page_size, plate).pipe(
       map((response: any) => {
-        const data: any = response.map((item) => ({
+        const data: any = response.data.map((item) => ({
           id: item.id,
           axies: item.format?.axies_count,
           chassis: item.chassis,
@@ -44,6 +44,7 @@ export class ActiveVehiclesService {
           hubId: item.hub_tpms.name
         }));
         this.setVehicles(data)
+        return response
       })
     )
   }

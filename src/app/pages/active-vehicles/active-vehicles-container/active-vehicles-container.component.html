@@ -1,17 +1,19 @@
 <div class="main-container">
-  <mat-card class="search-form" [formGroup]="form">
-    <mat-form-field appearance="outline" class="light rounded">
-      <input matInput placeholder="Patente" #input fromControlName="plate">
-      <mat-icon matSuffix>search</mat-icon>
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="light rounded">
-      <mat-date-range-input [rangePicker]="picker">
-        <input matStartDate placeholder="Desde" formControlName="from">
-        <input matEndDate placeholder="Hasta" formControlName="to" (dateChange)="dateChange()">
-      </mat-date-range-input>
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-date-range-picker #picker></mat-date-range-picker>
-    </mat-form-field>
+  <mat-card>
+    <form [formGroup]="form" class="search-form">
+      <mat-form-field appearance="outline" class="light rounded">
+        <input matInput placeholder="Patente" #input formControlName="plate">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="light rounded">
+        <mat-date-range-input [rangePicker]="picker">
+          <input matStartDate placeholder="Desde" formControlName="from">
+          <input matEndDate placeholder="Hasta" formControlName="to" (dateChange)="dateChange()">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+    </form>
   </mat-card>
   <div class="active-vehicles__header">
     <span>VEHÍCULOS: {{(vehicles$ | async)?.length}}</span>

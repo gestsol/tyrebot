@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { BehaviorSubject, of, zip } from 'rxjs';
 import { finalize, map, mergeMap } from 'rxjs/operators';
+import { URLSearchParams } from 'url';
 import latestData from '../mocks/latest_data'
 import summaryData from '../mocks/summary'
 
@@ -124,9 +125,16 @@ export class VehicleService {
     return this.http.get('hub_tpms')
   }
 
-  getVehicles() {
-    return this.http.get('vehicles')
-    .pipe(map((data: any) => data.data))
+  getVehicles(page = 1, page_size = 30, plate = '') {
+    const params = new HttpParams()
+    params.set('page', page)
+    params.set('page_size', page_size)
+    params.set('plate', plate)
+
+    return this.http.get('vehicles', { params: {
+      page, page_size, plate
+    } })
+    .pipe(map((data: any) => data))
   }
 
   getVehicle(id: number) {

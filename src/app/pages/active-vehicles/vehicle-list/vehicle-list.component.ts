@@ -1,10 +1,9 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { VehicleService } from 'src/app/services/vehicle.service';
+import { BehaviorSubject, combineLatest, of, Subject, Subscription } from 'rxjs';
+import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { ActiveVehiclesService } from '../active-vehicles.service';
 
 @Component({
@@ -13,7 +12,9 @@ import { ActiveVehiclesService } from '../active-vehicles.service';
   styleUrls: ['./vehicle-list.component.scss']
 })
 export class VehicleListComponent implements OnInit, AfterViewInit {
+  pageSub = new BehaviorSubject(0)
   loading = false;
+  resultsLength = 0;
   columns: {key: string, name: string}[] = [
     {
       key: 'plate',
@@ -45,43 +46,46 @@ export class VehicleListComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
 
   dataSubscription: Subscription | null = null
 
   constructor(
-    private vehicleService: VehicleService,
     private activeVehicleService: ActiveVehiclesService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
 
-  ngOnInit() {
-    this.loading = true
-    if (this.dataSubscription && !this.dataSubscription.closed) {
-      this.dataSubscription.unsubscribe()
-    }
-    this.dataSubscription = this.activeVehicleService.vehicles$.subscribe((data: any[]) => {
-      this.dataSource = new MatTableDataSource(data);
-      this.loading = false
-    }, (err) => {
-      this.loading = false
-      console.error(err)
-    })
+  ngOnInit() {}
+
+  pageChange() {
+    this.pageSub.next(0)
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
+    this.paginator._formFieldAppearance = 'outline'
+    setTimeout(() => {
+      combineLatest([this.pageSub, this.activeVehicleService.plate$]).pipe(
+        startWith([0, '']),
+        switchMap((data) => {
+          this.loading = true;
+          return this.activeVehicleService.getVehicles(
+            this.paginator.pageIndex + 1,
+            this.paginator.pageSize,
+            data[1] as string
+          ).pipe(
+            map((data) => data),
+            catchError((err) => {
+              console.error(err)
+              return of(null)
+            })
+          );
+        })
+      ).subscribe((data) => {
+        this.dataSource = new MatTableDataSource(data.data);
+        this.loading = false
+        this.resultsLength = data.total_entries
+      });
+    }, 0)
   }
 
   seeMore(vehicle: any) {
