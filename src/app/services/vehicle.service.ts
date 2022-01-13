@@ -3,9 +3,6 @@ import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { BehaviorSubject, of, zip } from 'rxjs';
 import { finalize, map, mergeMap } from 'rxjs/operators';
-import { URLSearchParams } from 'url';
-import latestData from '../mocks/latest_data'
-import summaryData from '../mocks/summary'
 
 export enum StepKeys {
   step1 = 'step1',
@@ -145,7 +142,6 @@ export class VehicleService {
   getTpms(id: number) {
     return this.http.get(`vehicles/${id}/latest_tpms_data`)
     .pipe(
-      map(() => latestData),
       map((data: any) => data.data)
     )
   }
@@ -160,7 +156,6 @@ export class VehicleService {
     const queryParams = `?from=${from || defaultFrom}&to=${to || defaultTo}`
     return this.http.get<{data: Summary[]}>(`vehicles/${id}/summary_tpms_data${queryParams}`)
     .pipe(
-      map(() => summaryData),
       map((data) => data.data  as Summary[])
     )
   }
