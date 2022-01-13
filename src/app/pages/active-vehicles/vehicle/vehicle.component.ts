@@ -62,7 +62,7 @@ export class VehicleComponent implements OnInit, OnDestroy {
     if (this.dataSubscription && !this.dataSubscription.closed) {
       this.dataSubscription.unsubscribe()
     }
-    this.dataSubscription = this.vehicleService.getBusData(id, this.dateFrom, this.dateTo).subscribe((data) => {
+    this.dataSubscription = this.activeVehicleService.getBusData(id, this.dateFrom, this.dateTo).subscribe((data) => {
       this.busData = data
       this.loading = false
     })

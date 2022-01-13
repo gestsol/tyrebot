@@ -43,6 +43,9 @@ export class VehicleConfigurationFormComponent implements OnInit {
   get tyre_temperature() {
     return this.form?.get('tyre_temperature')?.get('tires') as FormArray;
   }
+  get tyre_pressure() {
+    return this.form?.get('tyre_pressure')?.get('tires') as FormArray;
+  }
   get tyre_brand() {
     return this.form?.get('tyre_brand')?.get('tires') as FormArray;
   }
@@ -86,6 +89,9 @@ export class VehicleConfigurationFormComponent implements OnInit {
       tyre_temperature: this.fb.group({
         tires: this.fb.array([])
       }),
+      tyre_pressure: this.fb.group({
+        tires: this.fb.array([])
+      }),
       tyre_brand: this.fb.group({
         tires: this.fb.array([])
       }),
@@ -109,12 +115,13 @@ export class VehicleConfigurationFormComponent implements OnInit {
       })
     });
 
-    this.addControls(this.tpms_name, this.axie?.tpms_name, true);
+    this.addControls(this.tpms_name, this.axie?.tpms_name, '', true);
     this.addControls(this.tpms_type, this.axie?.tpms_type);
     this.addControls(this.tpms_manufacturer, this.axie?.tpms_manufacturer);
     this.addControls(this.tpms_installation_date, this.axie?.tpms_installation_date);
     this.addControls(this.tyre_installation_date, this.axie?.tyre_installation_date);
     this.addControls(this.tyre_temperature, this.axie?.tyre_temperature);
+    this.addControls(this.tyre_pressure, this.axie?.tyre_pressure, 45, true);
     this.addControls(this.tyre_brand, this.axie?.tyre_brand);
     this.addControls(this.tyre_provider, this.axie?.tyre_provider);
     this.addControls(this.dot, this.axie?.dot);
@@ -131,9 +138,9 @@ export class VehicleConfigurationFormComponent implements OnInit {
     )
   }
 
-  private addControls(controlList: FormArray, value: any[] = [], required = false) {
+  private addControls(controlList: FormArray, value: any[] = [], defaultValue: any = '', required = false) {
     new Array(this.axie?.tires).fill('').forEach((_, i) => {
-      const control = new FormControl(value[i] || '', required ? [
+      const control = new FormControl(value[i] || defaultValue, required ? [
         Validators.required
       ] : undefined)
       controlList.push(control)
@@ -149,6 +156,7 @@ export class VehicleConfigurationFormComponent implements OnInit {
       tpms_installation_date: this.tpms_installation_date.controls.map(control => control.value),
       tyre_installation_date: this.tyre_installation_date.controls.map(control => control.value),
       tyre_temperature: this.tyre_temperature.controls.map(control => control.value),
+      tyre_pressure: this.tyre_pressure.controls.map(control => control.value),
       tyre_brand: this.tyre_brand.controls.map(control => control.value),
       tyre_provider: this.tyre_provider.controls.map(control => control.value),
       dot: this.dot.controls.map(control => control.value),

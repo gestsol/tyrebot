@@ -53,4 +53,11 @@ export class MenuComponent implements OnInit {
   close() {
     this.navigation.toggle()
   }
+
+  selectMenuItem(item: MenuItem) {
+    this.openLevel(item)
+    if (item.route && window.innerWidth <= 1200) {
+      this.close()
+    }
+  }
 }

@@ -18,6 +18,7 @@ export interface EjeData {
   tpms_installation_date: string[]
   tyre_installation_date: string[]
   tyre_temperature: number[]
+  tyre_pressure: number[]
   tyre_brand: string[]
   tyre_provider: string[]
   dot: string[]
@@ -50,19 +51,6 @@ export interface FlowData {
   step3: Step3 | null
 }
 
-export interface Summary {
-  from: string,
-  max_pressure: number,
-  max_temp: number,
-  measurements_count: number,
-  min_pressure: number,
-  min_temp: number,
-  name: string,
-  to: string,
-  min_max_temp?: string,
-  min_max_pressure: string,
-  average_pressure: string
-}
 @Injectable({
   providedIn: 'root'
 })
@@ -139,27 +127,6 @@ export class VehicleService {
     .pipe(map((data: any) => data.data))
   }
 
-  getTpms(id: number) {
-    return this.http.get(`vehicles/${id}/latest_tpms_data`)
-    .pipe(
-      map((data: any) => data.data)
-    )
-  }
-
-  getSummary(id: number, from: string, to: string) {
-    const defaultFrom = moment()
-      .set('h', 0)
-      .set('minutes', 0)
-      .set('seconds', 0)
-      .format('YYYY-MM-DDTHH:mm:ss')
-    const defaultTo = moment().format('YYYY-MM-DDTHH:mm:ss')
-    const queryParams = `?from=${from || defaultFrom}&to=${to || defaultTo}`
-    return this.http.get<{data: Summary[]}>(`vehicles/${id}/summary_tpms_data${queryParams}`)
-    .pipe(
-      map((data) => data.data  as Summary[])
-    )
-  }
-
   createVehicle(step1: Step1, step3: Step3, hub_tpms_id: number) {
     const body = {
       plate: step1.patente,
@@ -181,6 +148,7 @@ export class VehicleService {
             tyre_installation_date: item.tyre_installation_date[i],
             tyre_manufacturing_date: '',
             tyre_temperature: item.tyre_temperature[i],
+            tyre_pressure: item.tyre_pressure[i],
             tyre_brand: item.tyre_brand[i],
             tyre_provider: item.tyre_provider[i],
             dot: item.dot[i],
@@ -194,49 +162,6 @@ export class VehicleService {
       }
     }
     return this.http.post('vehicles', {vehicle: body})
-  }
-
-  getBusData(id: number, dateFrom: string, dateTo: string) {
-    return zip(
-      this.getVehicle(id),
-      this.getSummary(id, dateFrom, dateTo),
-      this.getTpms(id)
-    ).pipe(
-      map(([vehicleData, summaryData, tpmsData]) => {
-        console.log(vehicleData, summaryData, tpmsData)
-        if (vehicleData.format && tpmsData) {
-          vehicleData.format.axies = vehicleData.format.axies.map((item: any, index: number) => {
-            const tyres = item.tyres.map((tyre: any) => {
-              const tpmsResult = tpmsData.find((tpms: any) => tpms.name === tyre.tpms_name)
-              const summaryResult = summaryData.find((tpms: any) => tpms.name === tyre.tpms_name)
-              let state = 'NO_SIGNAL'
-              if (tpmsResult) {
-                const pressure = parseInt(tpmsResult.pressure);
-                if ( pressure > 40) {
-                  state = 'high'
-                } else if (pressure < 10) {
-                  state = 'low'
-                } else {
-                  state = 'ok'
-                }
-              }
-              if (summaryResult) {
-                summaryResult.min_max_temp = `${summaryResult.min_temp.toFixed(0)} / ${summaryResult.max_temp.toFixed(0)} ºc`
-                summaryResult.min_max_pressure = `${summaryResult.min_pressure.toFixed(0)} / ${summaryResult.max_pressure.toFixed(0)} psi`
-                summaryResult.average_pressure = `${((summaryResult.min_temp + summaryResult.max_temp) / 2).toFixed(0)}`
-              }
-              return {
-                ...tyre,
-                ...(summaryResult || {}),
-                state
-              }
-            })
-            return { ...item, tyres }
-          })
-        }
-        return vehicleData
-      })
-    )
   }
 
   deleteInfo() {

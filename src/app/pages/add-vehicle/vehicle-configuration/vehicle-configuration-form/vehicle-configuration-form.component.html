@@ -47,6 +47,13 @@
         </ng-container>
       </div>
     </fieldset>
+    <fieldset class="field-container" formGroupName="tyre_pressure">
+      <div class="row-container" formArrayName="tires">
+        <ng-container
+          *ngTemplateOutlet="controlTemplate, context: { $implicit: tyre_pressure.controls, name: 'Presión normal', isNumber: true }">
+        </ng-container>
+      </div>
+    </fieldset>
     <fieldset class="field-container" formGroupName="tyre_brand">
       <div class="row-container" formArrayName="tires">
         <ng-container
