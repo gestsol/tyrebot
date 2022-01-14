@@ -8,7 +8,6 @@ import { HeaderComponent } from './components/header/header.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AddVehicleModule } from './pages/add-vehicle/add-vehicle.module';
 import { SharedModule } from './shared.module';
 
 @NgModule({
@@ -24,7 +23,6 @@ import { SharedModule } from './shared.module';
     BrowserModule,
 	  AppRoutingModule,
     BrowserAnimationsModule,
-    AddVehicleModule,
     SharedModule
   ],
   providers: [],

@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Step2 } from 'src/app/services/vehicle.service';
 
 @Component({
   selector: 'app-bus',

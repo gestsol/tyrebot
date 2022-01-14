@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
-import { FlowData, Step2, StepKeys, VehicleService } from '../../../services/vehicle.service';
+import { VehiclesFlowService, FlowData, Step2, StepKeys } from '../vehicles-flow.service';
 
 @Component({
   selector: 'app-ejes',
@@ -18,7 +18,7 @@ export class EjesComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
-    private vehicleService: VehicleService
+    private flowService: VehiclesFlowService
   ) {}
 
   get ejes() {
@@ -26,12 +26,15 @@ export class EjesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.vehicleService.data$.subscribe(
+    this.flowService.data$.subscribe(
 		  (value: FlowData) => {
+        this.form = this.fb.group({
+          ejes: this.fb.array([])
+        });
         const ejes = value.step1?.ejes
         const actualData = value.step2?.ejes
         if (ejes) {
-          this.cantidad =  parseInt(ejes) + 1;
+          this.cantidad =  ejes + 1;
           new Array(this.cantidad).fill(null).forEach((_, i) => {
             const control = new FormControl('', [
               Validators.required,
@@ -54,11 +57,13 @@ export class EjesComponent implements OnInit {
   }
 
   continue() {
-    const data: Step2 = {
+    const step: Step2 = {
       ejes: this.ejes.controls.map(control => parseInt(control.value))
     }
 
-    this.vehicleService.updateStep(data, StepKeys.step2)
+    this.route.params.subscribe((params) => {
+      this.flowService.updateStep(step, StepKeys.step2, !params['id'])
+    })
 
     this.router.navigate(['../step-3'], {
       relativeTo: this.route

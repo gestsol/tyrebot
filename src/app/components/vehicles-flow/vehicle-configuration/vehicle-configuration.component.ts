@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit, OnDestroy, QueryList, ViewChildren, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, Observable, Subscription } from 'rxjs';
-import { EjeData, FlowData, Step3, StepKeys, VehicleService } from '../../../services/vehicle.service';
+import { VehiclesFlowService, EjeData, FlowData, Step3, StepKeys } from '../vehicles-flow.service';
 import { VehicleConfigurationFormComponent } from './vehicle-configuration-form/vehicle-configuration-form.component';
 import { MatTabGroup } from '@angular/material/tabs';
 
@@ -24,11 +24,11 @@ export class VehicleConfigurationComponent implements OnInit, AfterViewInit, OnD
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private vehicleService: VehicleService
+    private flowService: VehiclesFlowService
   ) { }
 
   ngOnInit(): void {
-    this.vehicleService.data$.subscribe((value: FlowData) => {
+    this.flowService.data$.subscribe((value: FlowData) => {
       const step2 = value?.step2
       if (step2) {
         const tiresList = step2.ejes
@@ -50,11 +50,13 @@ export class VehicleConfigurationComponent implements OnInit, AfterViewInit, OnD
     this.items.forEach(item => {
       ejes.push(item.getData())
     })
-    const data: Step3 = {
+    const step: Step3 = {
       ejes
     }
 
-    this.vehicleService.updateStep(data, StepKeys.step3)
+    this.route.params.subscribe((params) => {
+      this.flowService.updateStep(step, StepKeys.step3, !params['id'])
+    })
 
     this.router.navigate(['../step-4'], {
       relativeTo: this.route

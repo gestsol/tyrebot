@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Step1, Step2, Step3, VehicleService } from '../../../services/vehicle.service';
+import { Step1, Step2, Step3, VehiclesFlowService } from '../vehicles-flow.service';
 
 @Component({
   selector: 'app-confirmation',
@@ -16,13 +16,13 @@ export class ConfirmationComponent implements OnInit {
   loading = false
 
   constructor(
-    private vehicleService: VehicleService,
+    private flowService: VehiclesFlowService,
     private router: Router,
     private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.vehicleService.data$.subscribe((value) => {
+    this.flowService.data$.subscribe((value) => {
       const { step1, step2, step3 } = value
       if (step1 && step2?.ejes && step3) {
         this.step1 = step1
@@ -70,15 +70,26 @@ export class ConfirmationComponent implements OnInit {
   }
 
   continue() {
-    if (this.step1 && this.step3) {
-      this.loading = true;
-      this.vehicleService.createData(this.step1, this.step3, () => this.loading = false)
-      .subscribe((response) => {
-        this.vehicleService.deleteInfo()
-        this.router.navigate(['../../active-vehicle'])
-        console.log(response)
-      }, (err) => console.error(err))
-    }
+    this.loading = true;
+    this.route.parent?.parent?.params.subscribe((params) => {
+      if (this.step1 && this.step3) {
+        if (!params['id']) {
+          this.flowService.createData(this.step1, this.step3, () => this.loading = false)
+          .subscribe((response) => {
+            this.flowService.deleteInfo()
+            this.router.navigate(['../../active-vehicle'])
+            console.log(response)
+          }, (err) => console.error(err))
+        } else {
+          this.flowService.updateData(params['id'], this.step1, this.step3, () => this.loading = false)
+          .subscribe((response) => {
+            this.flowService.deleteInfo()
+            this.router.navigate(['../../active-vehicle'])
+            console.log(response)
+          }, (err) => console.error(err))
+        }
+      }
+    })
   }
 
 }

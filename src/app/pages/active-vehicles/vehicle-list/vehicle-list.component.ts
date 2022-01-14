@@ -29,7 +29,7 @@ export class VehicleListComponent implements OnInit, AfterViewInit {
       name: 'Ejes'
     },
     {
-      key: 'hubId',
+      key: 'hubName',
       name: 'ID HUB'
     },
     {
@@ -89,7 +89,13 @@ export class VehicleListComponent implements OnInit, AfterViewInit {
   }
 
   seeMore(vehicle: any) {
-    this.router.navigate(['./detail', vehicle.id], {
+    this.router.navigate(['../detail', vehicle.id], {
+      relativeTo: this.route
+    })
+  }
+
+  edit(vehicle: any) {
+    this.router.navigate(['../edit', vehicle.id], {
       relativeTo: this.route
     })
   }

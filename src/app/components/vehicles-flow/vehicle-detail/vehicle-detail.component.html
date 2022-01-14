@@ -1,5 +1,6 @@
 <div class="step-1 main-container">
-	<h1 class="title">Agregar Vehiculo</h1>
+	<h1 class="title" [style]="{marginBottom: hasId? '1rem': ''}">Agregar Vehiculo</h1>
+  <app-back-button *ngIf="hasId" path="../../"></app-back-button>
 	<div class="formulario">
 		<h2 class="text-light">Ingrese los datos del nuevo vehiculo</h2>
 		<form [formGroup]="form" (ngSubmit)="continue()">
@@ -39,10 +40,10 @@
 				 <label>ID DE HUB:</label>
 				</div>
         <div class="col-3 col-md-4">
-          <mat-form-field appearance="outline" [ngClass]="{'grey-background': !f.hubId.value}">
-            <input matInput formControlName="hubId" placeholder="Ejemplo: 0 500 R">
+          <mat-form-field appearance="outline" [ngClass]="{'grey-background': !f.hubName.value}">
+            <input matInput formControlName="hubName" placeholder="Ejemplo: 0 500 R">
           </mat-form-field>
-          <mat-error *ngIf="submitted && f.hubId.errors">{{f.hubId.errors?.required? 'Por favor, indique el ID de HUB': ''}}</mat-error>
+          <mat-error *ngIf="submitted && f.hubName.errors">{{f.hubName.errors?.required? 'Por favor, indique el ID de HUB': ''}}</mat-error>
 				</div>
 				<div class="col-5 col-md-5">
 				</div>

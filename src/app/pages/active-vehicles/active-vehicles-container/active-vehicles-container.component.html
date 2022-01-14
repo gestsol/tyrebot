@@ -18,7 +18,7 @@
   <div class="active-vehicles__header">
     <span>VEHÍCULOS: {{(vehicles$ | async)?.length}}</span>
     <h1>Vehículos y Activos</h1>
-    <app-back-button *ngIf="showBackBtn" :path="/active-vehicle/list"></app-back-button>
+    <app-back-button *ngIf="showBackBtn" :path="./list"></app-back-button>
   </div>
   <router-outlet></router-outlet>
 </div>

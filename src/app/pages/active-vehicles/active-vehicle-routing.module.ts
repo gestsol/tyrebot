@@ -8,17 +8,26 @@ import { VehicleComponent } from './vehicle/vehicle.component';
 const routes: Routes = [
   {
     component: ActiveVehiclesContainerComponent,
-    path: 'list',
+    path: '',
     children: [
       {
-        component: VehicleListComponent,
-        path: ''
+        path: 'list',
+        component: VehicleListComponent
       },
       {
-        component: VehicleComponent,
-        path: 'detail/:id'
+        path: 'detail/:id',
+        component: VehicleComponent
+      },
+      {
+        path: '',
+        redirectTo: 'list'
       }
-    ]
+    ],
+  },
+  {
+    path: 'edit/:id',
+    data: { edit: true },
+    loadChildren: () => import('../../components/vehicles-flow/vehicles-flow.module').then( m => m.VehiclesFlowModule)
   },
   {
     path: '**',

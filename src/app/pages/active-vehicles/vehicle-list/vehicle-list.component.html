@@ -16,7 +16,10 @@
             </ng-container>
             <ng-container *ngIf="column.key === 'action'">
               <td mat-cell *matCellDef="let row" colspan="2">
-                <button disable="false" class="form-btn" (click)="seeMore(row)">Ver más</button>
+                <div style="display: flex; gap: 1rem;">
+                  <button disable="false" class="form-btn" (click)="seeMore(row)">Ver más</button>
+                  <button disable="false" class="form-btn" (click)="edit(row)">Editar</button>
+                </div>
               </td>
             </ng-container>
           </ng-container>

@@ -58,7 +58,7 @@ export class ActiveVehiclesService {
           chassis: item.chassis,
           internal_number: item.internal_number,
           plate: item.plate,
-          hubId: item.hub_tpms.name
+          hubName: item.hub_tpms.name
         }));
         this.setVehicles(data)
         return response
