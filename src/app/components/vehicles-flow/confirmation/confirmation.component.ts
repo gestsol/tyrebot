@@ -78,14 +78,12 @@ export class ConfirmationComponent implements OnInit {
           .subscribe((response) => {
             this.flowService.deleteInfo()
             this.router.navigate(['../../active-vehicle'])
-            console.log(response)
           }, (err) => console.error(err))
         } else {
           this.flowService.updateData(params['id'], this.step1, this.step3, () => this.loading = false)
           .subscribe((response) => {
             this.flowService.deleteInfo()
             this.router.navigate(['../../active-vehicle'])
-            console.log(response)
           }, (err) => console.error(err))
         }
       }

@@ -43,7 +43,6 @@ export class VehicleComponent implements OnInit, OnDestroy {
       if (params['id']) {
         this.id = parseInt(params['id'])
         this.activeVehicleService.date$.subscribe(value => {
-          console.log(this.id)
           this.dateFrom = value.from
           this.dateTo = value.to
           this.getData(this.id)

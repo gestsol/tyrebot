@@ -20,7 +20,6 @@ export class VehiclesFlowComponent implements OnInit {
   ngOnInit(): void {
     this.loading = false;
     this.route.params.subscribe((params) => {
-      console.log(params)
       if (params['id']) {
         const id = parseInt(params['id'])
         this.flowService.prepareFlow(id).subscribe(() => {
