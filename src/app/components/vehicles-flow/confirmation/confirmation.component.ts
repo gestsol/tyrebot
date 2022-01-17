@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { VehicleCreationSuccessComponent } from '../../vehicle-creation-success/vehicle-creation-success.component';
+import { VehicleCreationSuccessComponent, DialogData } from '../../vehicle-creation-success/vehicle-creation-success.component';
 import { Step1, Step2, Step3, VehiclesFlowService } from '../vehicles-flow.service';
 
 @Component({
@@ -79,47 +79,35 @@ export class ConfirmationComponent implements OnInit {
         if (!params['id']) {
           this.flowService.createData(this.step1, this.step3, () => this.loading = false)
           .subscribe((response) => {
-            this.flowService.deleteInfo()
-            this.router.navigate(['../../active-vehicle'])
+            this.openDialog({ type: 'create' })
+            this.toList()
           }, (err) => console.error(err))
         } else {
           this.flowService.updateData(params['id'], this.step1, this.step3, () => this.loading = false)
           .subscribe((response) => {
-            this.flowService.deleteInfo()
-            this.router.navigate(['../../active-vehicle'])
+            this.openDialog({ type: 'update' })
+            this.toList()
           }, (err) => console.error(err))
         }
       }
     })
   }
 
-  prepareDialog() {
-    if (window.scrollY !== 0) {
-      const scrollEvent = () => {
-        console.log(window.scrollY)
-        if (window.scrollY === 0) {
-          this.openDialog()
-          window.removeEventListener('scroll', scrollEvent)
-        }
-      }
-      window.addEventListener('scroll', scrollEvent)
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      })
-    } else {
-      this.openDialog()
-    }
-    setTimeout(() => {
-      this.dialog.closeAll()
-    }, 2500)
+  toList() {
+    this.flowService.deleteInfo()
+    this.router.navigate(['../../active-vehicle'])
   }
 
-  openDialog() {
+  openDialog(data: DialogData) {
     this.dialog.open(VehicleCreationSuccessComponent, {
-      data: {
-        animal: 'panda'
-      }
+      data,
+      height: '50vh',
+      width: '40vw',
+      maxHeight: 412,
+      maxWidth: 648,
+      minWidth: 300,
+      minHeight: 300,
+      panelClass: 'custom-dialog'
     });
   }
 

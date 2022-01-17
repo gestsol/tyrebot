@@ -13,6 +13,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    overflow: visible;
   }
 }
 
@@ -36,10 +37,11 @@
 
 .date {
 	color: white;
-  margin-right: min(50px, 10vw);
+  margin-right: clamp(1rem, 3vw, 50px);
 }
 
 .iconUser {
+  flex-shrink: 0;
 	background-image: url('/assets/img/icon-user.png');
 	width: 50px;
 	height: 50px;

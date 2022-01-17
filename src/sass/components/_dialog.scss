@@ -4,3 +4,10 @@
   background-color: colors.$bg-blue;
   color: white;
 }
+
+.cdk-global-scrollblock {
+  top: 0 !important;
+	position: initial !important;
+	width: initial !important;
+	overflow: hidden;
+}
