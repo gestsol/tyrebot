@@ -62,9 +62,9 @@
     }
   }
   &__logout {
-    position: absolute;
+    position: sticky;
     width: calc(100% - 70px);
-    top: calc(100vh - #{sizes.$header} - 150px);
+    top: calc(100vh - #{sizes.$header} - 80px);
     ion-icon, span {
       vertical-align: middle;
       margin-inline-start: 0.5rem;
