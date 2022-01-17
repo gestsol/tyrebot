@@ -1,0 +1,19 @@
+.dialog {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0 1rem;
+  &__title {
+    font-size: 1.8rem;
+  }
+  .form-btn:before {
+    z-index: 0;
+  }
+  .form-btn span {
+    position: relative;
+    z-index: 1;
+  }
+}

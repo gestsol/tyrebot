@@ -109,6 +109,8 @@ export class ActiveVehiclesService {
                 } else {
                   state = 'ok'
                 }
+                console.log(tyre.tyre_pressure, pressure)
+                console.log(state)
               }
               if (summaryResult) {
                 summaryResult.min_max_temp = `${summaryResult.min_temp.toFixed(0)} / ${summaryResult.max_temp.toFixed(0)} ºc`

@@ -199,7 +199,7 @@ export class VehiclesFlowService {
             tyre_installation_date: item.tyre_installation_date[i],
             tyre_manufacturing_date: '',
             tyre_temperature: item.tyre_temperature[i],
-            tyre_pressure: item.tyre_pressure[i],
+            tyre_pressure: typeof item.tyre_pressure[i] === 'string'? parseInt(item.tyre_pressure[i] as any):item.tyre_pressure[i],
             tyre_brand: item.tyre_brand[i],
             tyre_provider: item.tyre_provider[i],
             dot: item.dot[i],

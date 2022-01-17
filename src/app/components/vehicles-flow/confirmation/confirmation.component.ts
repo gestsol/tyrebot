@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { VehicleCreationSuccessComponent } from '../../vehicle-creation-success/vehicle-creation-success.component';
 import { Step1, Step2, Step3, VehiclesFlowService } from '../vehicles-flow.service';
 
 @Component({
@@ -18,7 +20,8 @@ export class ConfirmationComponent implements OnInit {
   constructor(
     private flowService: VehiclesFlowService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -88,6 +91,36 @@ export class ConfirmationComponent implements OnInit {
         }
       }
     })
+  }
+
+  prepareDialog() {
+    if (window.scrollY !== 0) {
+      const scrollEvent = () => {
+        console.log(window.scrollY)
+        if (window.scrollY === 0) {
+          this.openDialog()
+          window.removeEventListener('scroll', scrollEvent)
+        }
+      }
+      window.addEventListener('scroll', scrollEvent)
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
+    } else {
+      this.openDialog()
+    }
+    setTimeout(() => {
+      this.dialog.closeAll()
+    }, 2500)
+  }
+
+  openDialog() {
+    this.dialog.open(VehicleCreationSuccessComponent, {
+      data: {
+        animal: 'panda'
+      }
+    });
   }
 
 }

@@ -1,0 +1,6 @@
+@use '../vars/_colors' as colors;
+
+.custom-dialog .mat-dialog-container {
+  background-color: colors.$bg-blue;
+  color: white;
+}

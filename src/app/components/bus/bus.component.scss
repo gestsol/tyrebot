@@ -5,6 +5,7 @@
   z-index: 2;
   top: 10%;
   height: 80%;
+  width: 12%;
 }
 
 %repuesto-img {
@@ -13,16 +14,11 @@
   right: 5%;
   height: 33%;
   padding: 0.3rem;
-  svg {
-    height: 100%;
-  }
+  width: 12%;
 }
 
 .bus {
   position: relative;
-  &__bus-container {
-    height: fit-content;
-  }
   &__eje1 {
     @extend %eje-img;
     left: 16%;

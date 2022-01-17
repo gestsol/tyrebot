@@ -12,18 +12,22 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { httpInterceptorProviders } from './intereptors/base';
 import { BusModule } from './components/bus/bus.module';
 import { BackButtonComponent } from './components/back-button/back-button.component';
+import { VehicleCreationSuccessComponent } from './components/vehicle-creation-success/vehicle-creation-success.component';
 
 @NgModule({
   declarations: [
-    BackButtonComponent
+    BackButtonComponent,
+    VehicleCreationSuccessComponent
   ],
   imports: [
     CommonModule,
-    MatIconModule
+    MatIconModule,
+    MatDialogModule
   ],
   exports: [
     CommonModule,
@@ -40,7 +44,8 @@ import { BackButtonComponent } from './components/back-button/back-button.compon
     MatIconModule,
     MatProgressSpinnerModule,
     BusModule,
-    BackButtonComponent
+    BackButtonComponent,
+    MatDialogModule
   ],
   providers: [
     httpInterceptorProviders,
