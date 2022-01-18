@@ -19,13 +19,11 @@
 	margin: auto;
 	margin-top: 20px;
 	border-radius: 20px;
-	padding-left: 60px;
-	padding-right: 60px;
+
   & > h2 {
     color: white;
     font-size: 1rem;
-    margin: 1rem 0;
-    margin-top: 2rem;
+    margin: 2rem 0 2rem 2rem;
   }
 }
 
@@ -37,8 +35,9 @@ label {
 
 .form-btn {
   display: block;
-	margin-left: auto;
+	margin: auto;
   margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 input::placeholder{
@@ -49,37 +48,83 @@ input::placeholder{
   display: grid;
   width: 100%;
   padding: 0.6rem 0;
-  grid-template-columns: 1fr 0.8fr;
-  column-gap: 3rem;
-  row-gap: 0.3rem;
+  grid-template-columns: 1fr;
   &__column {
+    flex-wrap: wrap;
     $self: &;
     display: flex;
-    justify-content: space-between;
-
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
     &__field {
       max-width: 204px;
     }
-
+    label {
+      flex-basis: 0;
+    }
     @each $value in 1 2 3 4 5 6 {
       &:nth-child(#{$value}) {
-        @if ($value == 6) {
-          grid-column: 2;
-          grid-row: 1;
-          max-height: 40px;
-          #{$self}__field {
-            max-width: 160px;
-          }
-        } @else {
-          grid-column: 1;
-          grid-row: $value;
-        }
+        grid-column: 1;
+        grid-row: $value;
       }
     }
   }
-  .cantEjes {
-    display: block;
+}
+
+@media (min-width: 565px) {
+  .form-container {
+    padding-left: 60px;
+    padding-right: 60px;
+    & > h2 {
+      margin-left: 0;
+    }
+  }
+  .grid{
+    &__column {
+      flex-direction: row;
+      justify-content: space-between;
+      label {
+        flex-basis: 156px;
+      }
+    }
+  }
+}
+@media (min-width: 600px) {
+  .form-btn {
+    margin-right: 0;
     margin-left: auto;
-    width: 80px;
+    margin-top: 0;
+  }
+}
+
+@media (min-width: 785px) {
+  .grid {
+    grid-template-columns: 1fr 0.8fr;
+    column-gap: 3rem;
+    row-gap: 0.3rem;
+    &__column {
+      flex-wrap: nowrap;
+      $self: &;
+      @each $value in 1 2 3 4 5 6 {
+        &:nth-child(#{$value}) {
+          @if ($value == 6) {
+            grid-column: 2;
+            grid-row: 1;
+            max-height: 40px;
+            #{$self}__field {
+              max-width: 160px;
+            }
+          } @else {
+            grid-column: 1;
+            grid-row: $value;
+          }
+        }
+      }
+    }
+    .cantEjes {
+      display: block;
+      margin-left: auto;
+      width: 80px;
+    }
   }
 }

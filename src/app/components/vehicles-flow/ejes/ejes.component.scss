@@ -52,7 +52,7 @@
     }
 
     &__field {
-      padding: 1.5rem;
+      padding: 0.5rem 1.5rem;
       &__input {
         width: 70px;
         margin: auto;
@@ -68,6 +68,9 @@
         text-align: center;
       }
     }
+    &__separator {
+      display: none;
+    }
 
     &__separator > div {
       margin: auto;
@@ -76,12 +79,32 @@
       background-color: colors.$border-text-dark;
       max-height: 120px;
     }
-
-    &__button {
-      text-align: right;
-      margin-left: 6px;
-      margin-top: 70px;
-    }
   }
 }
 
+.form-btn {
+  display: block;
+	margin: auto;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+@media (min-width: 340px) {
+  .step-2__container__box__field {
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width: 600px) {
+  .form-btn {
+    margin-right: 0;
+    margin-left: auto;
+    margin-top: 70px;
+  }
+}
+
+@media (min-width: 770px) {
+  .step-2__container__box__separator {
+    display: block;
+  }
+}

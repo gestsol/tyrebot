@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Directive, ElementRef, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { of } from 'rxjs';
 import { startWith } from 'rxjs/operators';
@@ -15,7 +15,7 @@ export class VehicleConfigurationFormComponent implements OnInit {
   headersLength: string[] = [];
   form: FormGroup | null = null;
   statusChanges = of('INVALID')
-  tpmsNameChanges = of([])
+  tpmsNameChanges = of([]);
 
   constructor(
     private fb: FormBuilder
@@ -69,7 +69,7 @@ export class VehicleConfigurationFormComponent implements OnInit {
   }
 
   private createControls() {
-    this.headersLength = new Array((this.axie && this.axie.tires? this.axie.tires : 0) + 1).fill('')
+    this.headersLength = new Array((this.axie && this.axie.tires? this.axie.tires : 0)).fill('')
     this.form = this.fb.group({
       tpms_name: this.fb.group({
         tires: this.fb.array([])
@@ -165,5 +165,10 @@ export class VehicleConfigurationFormComponent implements OnInit {
       recauchado: this.recauchado.controls.map(control => control.value),
       tyre_wear: this.tyre_wear.controls.map(control => control.value)
     }
+  }
+
+  togglePanel(event, template) {
+    event.target.classList.toggle('expantion-btn--open')
+    template.classList.toggle('open')
   }
 }

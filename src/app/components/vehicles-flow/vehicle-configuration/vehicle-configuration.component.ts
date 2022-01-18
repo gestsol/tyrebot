@@ -14,12 +14,12 @@ export class VehicleConfigurationComponent implements OnInit, AfterViewInit, OnD
   @ViewChild(MatTabGroup) tabGroup!: MatTabGroup;
   @ViewChildren(VehicleConfigurationFormComponent) items!: QueryList<VehicleConfigurationFormComponent>;
 
-  formValidation: Subscription | null = null
-  tpmsValidation: Subscription | null = null
-  statusList: Observable<any>[] = []
-  tpmsList: Observable<any>[] = []
-  isFormValid = false
-  ejes: Partial<EjeData>[] = []
+  formValidation: Subscription | null = null;
+  tpmsValidation: Subscription | null = null;
+  statusList: Observable<any>[] = [];
+  tpmsList: Observable<any>[] = [];
+  isFormValid = false;
+  ejes: Partial<EjeData>[] = [];
 
   constructor(
     private router: Router,

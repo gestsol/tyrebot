@@ -1,7 +1,15 @@
 <mat-card *ngIf="form">
   <div class="row-container">
-    <div class="row-container__col field-header" *ngFor="let col of headersLength; let i = index">
-      <span *ngIf="i !== 0">{{'Tire ' + i}}</span>
+    <div class="row-container__col field-name field-header">
+      <div></div>
+    </div>
+    <div class="row-container__col field-header">
+      <div *ngFor="let col of headersLength; let i = index">
+        <span>
+          <!-- *ngIf="i !== 0" -->
+          {{'Tire ' + (i + 1)}}
+        </span>
+      </div>
     </div>
   </div>
   <form [formGroup]="form">
@@ -116,34 +124,40 @@
   <div class="row-container__col field-name">
     <div>
       <span>{{name}}</span>
+      <mat-icon
+        class="expantion-btn"
+        (click)="togglePanel($event, panel)"
+        [ngClass]="{'expantion-btn--open': name === 'TPMS id' }">
+        expand_more
+      </mat-icon>
     </div>
   </div>
-  <div class="row-container__col"
-  *ngFor="let control of controls; let i=index"
-  >
-    <div *ngIf="!isDate && !isSelect">
-      <mat-form-field appearance="outline" [ngClass]="{'grey-background': !control.value}">
-        <input matInput [formControl]="controls[i]" [type]="isNumber? 'number': 'text'">
-        <mat-error *ngIf="control.errors">{{
-          control.errors.required ? name + ' es requerido': control.errors.notUnique
-        }}</mat-error>
-      </mat-form-field>
-    </div>
-    <div *ngIf="isSelect">
-      <mat-form-field appearance="outline" style="width: 100%;" [ngClass]="{'grey-background': !control.value}">
-        <mat-select disableOptionCentering [formControl]="controls[i]">
-          <mat-option *ngFor="let value of ['SI', 'NO']" [value]="value">
-            {{value}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div *ngIf="isDate">
-      <mat-form-field appearance="outline" [ngClass]="{'grey-background': !control.value}">
-        <input matInput [matDatepicker]="picker" [formControl]="controls[i]">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
+  <div #panel class="row-container__col" [ngClass]="{'open': name === 'TPMS id' }">
+    <div *ngFor="let control of controls; let i=index">
+      <ng-container *ngIf="!isDate && !isSelect">
+        <mat-form-field appearance="outline" [ngClass]="{'grey-background': !control.value}">
+          <input matInput [placeholder]="'Tire '+ (i + 1)" [formControl]="controls[i]" [type]="isNumber? 'number': 'text'">
+          <mat-error *ngIf="control.errors">{{
+            control.errors.required ? name + ' es requerido': control.errors.notUnique
+          }}</mat-error>
+        </mat-form-field>
+      </ng-container>
+      <ng-container *ngIf="isSelect">
+        <mat-form-field appearance="outline" style="width: 100%;" [ngClass]="{'grey-background': !control.value}">
+          <mat-select disableOptionCentering [placeholder]="'Tire '+ (i + 1)" [formControl]="controls[i]">
+            <mat-option *ngFor="let value of ['SI', 'NO']" [value]="value">
+              {{value}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </ng-container>
+      <ng-container *ngIf="isDate">
+        <mat-form-field appearance="outline" [ngClass]="{'grey-background': !control.value}">
+          <input matInput [matDatepicker]="picker" [placeholder]="'Tire '+ (i + 1)" [formControl]="controls[i]">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </ng-container>
     </div>
   </div>
 </ng-template>
