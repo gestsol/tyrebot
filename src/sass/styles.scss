@@ -55,6 +55,12 @@ body{
 .main-container {
   margin: auto;
   margin-bottom: 3rem;
-  padding: 0 2rem;
+  padding: 0 1rem;
   max-width: 1300px;
+}
+
+@media (min-width: 340px) {
+  .main-container {
+    padding: 0 2rem;
+  }
 }

@@ -1,46 +1,104 @@
 @use '/src/sass/vars/colors' as colors;
 
-%eje-img {
+%eje-img-mobile {
   position: absolute;
+  transform: rotate(90deg);
   z-index: 2;
-  top: 10%;
-  height: 80%;
-  width: 12%;
+  height: 31%;
+  width: 6rem;
 }
 
-%repuesto-img {
+%repuesto-img-mobile {
   position: absolute;
   z-index: 2;
-  right: 5%;
-  height: 33%;
+  bottom: 1%;
   padding: 0.3rem;
-  width: 12%;
+  width: 6rem;
 }
 
 .bus {
+  display: flex;
+  justify-content: center;
+  &__bus-container {
+    width: auto;
+    height: 90vh;
+    max-height: 800px;
+  }
   position: relative;
   &__eje1 {
-    @extend %eje-img;
-    left: 16%;
+    @extend %eje-img-mobile;
+    bottom: 63%;
   }
   &__eje2 {
-    @extend %eje-img;
-    right: 28%;
+    @extend %eje-img-mobile;
+    bottom: 17%;
   }
   &__eje3 {
-    @extend %eje-img;
-    right: 17%;
+    @extend %eje-img-mobile;
+    bottom: 5%;
   }
   &__repuesto1 {
-    @extend %repuesto-img;
-    top: 15%;
+    @extend %repuesto-img-mobile;
+    transform: translateX(2.8rem)
   }
   &__repuesto2 {
-    @extend %repuesto-img;
-    top: 33%;
+    @extend %repuesto-img-mobile;
+    transform: translateX(-2.8rem)
   }
   &__repuesto3 {
-    @extend %repuesto-img;
-    top: 51%;
+    @extend %repuesto-img-mobile;
+  }
+}
+
+
+@media (min-width: 700px) {
+  %eje-img-desktop {
+    transform: rotate(0);
+    position: absolute;
+    z-index: 2;
+    top: 10%;
+    height: 80%;
+    width: 12%;
+  }
+
+  %repuesto-img-desktop {
+    transform: rotate(0);
+    position: absolute;
+    z-index: 2;
+    right: 5%;
+    height: 33%;
+    padding: 0.3rem;
+    width: 12%;
+  }
+  .bus {
+    display: block;
+    &__bus-container {
+      height: auto;
+      width: 100%;
+    }
+    &__eje1 {
+      @extend %eje-img-desktop;
+      left: 16%;
+    }
+    &__eje2 {
+      @extend %eje-img-desktop;
+      right: 28%;
+    }
+    &__eje3 {
+      @extend %eje-img-desktop;
+      right: 17%;
+    }
+    &__repuesto1 {
+      @extend %repuesto-img-desktop;
+      top: 15%;
+    }
+    &__repuesto2 {
+      @extend %repuesto-img-desktop;
+      top: 33%;
+    }
+    &__repuesto3 {
+      @extend %repuesto-img-desktop;
+      top: 51%;
+    }
   }
 }

@@ -50,3 +50,9 @@ app-menu {
     opacity: 1;
   }
 }
+
+@media (max-width: 400px) {
+  app-menu {
+    width: 280px;
+  }
+}

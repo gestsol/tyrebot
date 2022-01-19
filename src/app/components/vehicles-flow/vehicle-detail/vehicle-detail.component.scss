@@ -49,6 +49,7 @@ input::placeholder{
   width: 100%;
   padding: 0.6rem 0;
   grid-template-columns: 1fr;
+  row-gap: 1rem;
   &__column {
     flex-wrap: wrap;
     $self: &;
@@ -79,7 +80,8 @@ input::placeholder{
       margin-left: 0;
     }
   }
-  .grid{
+  .grid {
+    row-gap: 0rem;
     &__column {
       flex-direction: row;
       justify-content: space-between;

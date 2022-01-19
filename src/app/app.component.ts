@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.navigation.navOpen$.subscribe((value) => {
-      this.navState = value;
+      this.navState = !value;
     })
 
     this.navigation.currentUrl$

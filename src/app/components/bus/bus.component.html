@@ -1,9 +1,8 @@
 <div class="bus">
   <img
     class="bus__bus-container"
-    src="/assets/img/bus/bus.svg"
+    [src]="img"
     alt="bus-container"
-    style="width: 100%;"
   >
   <ng-container *ngFor="let axie of axies">
     <app-axie *ngIf="axie.type === 'main'"

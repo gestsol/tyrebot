@@ -149,7 +149,7 @@ export class VehicleConfigurationFormComponent implements OnInit {
 
   getData(): EjeData {
     return {
-      tires: this.headersLength.length - 1,
+      tires: this.headersLength.length,
       tpms_name: this.tpms_name.controls.map(control => control.value),
       tpms_type: this.tpms_type.controls.map(control => control.value),
       tpms_manufacturer: this.tpms_manufacturer.controls.map(control => control.value),
