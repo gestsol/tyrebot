@@ -69,7 +69,8 @@ mat-error {
   }
 
   button.mat-focus-indicator.mat-icon-button.mat-button-base {
-    height: 32px;
+    height: 28px;
+    width: 28px;
   }
 
   .mat-form-field-outline-start {
@@ -86,7 +87,7 @@ mat-error {
 
   &.rounded .mat-form-field-outline-start {
     border-radius: 28px  0 0 28px !important;
-    width: 15px;
+    width: 25px;
   }
   &.rounded .mat-form-field-outline-end {
     border-radius: 0 28px 28px 0 !important;
