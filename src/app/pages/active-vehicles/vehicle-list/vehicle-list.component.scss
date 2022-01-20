@@ -27,6 +27,7 @@ table {
   background-color: transparent;
   border-collapse: separate;
   border-spacing: 0 1rem !important;
+  min-width: 600px;
 }
 
 td, th {
@@ -37,7 +38,7 @@ td, th {
   background-color: transparent;
   th {
     color: #FFFFFF83;
-    font-size: sizes.$table-font-size;
+    font-size: clamp(0.8rem, 2vw, #{sizes.$table-font-size});
   }
 }
 

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import * as moment from 'moment';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { ActiveVehiclesService } from '../active-vehicles.service';
+import { SearchComponent } from '../search/search.component';
 
 @Component({
   selector: 'app-active-vehicles-container',
@@ -21,7 +23,8 @@ export class ActiveVehiclesContainerComponent implements OnInit {
   constructor(
     private navigationService: NavigationService,
     private activeVehicleService: ActiveVehiclesService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -48,6 +51,15 @@ export class ActiveVehiclesContainerComponent implements OnInit {
       }
       this.activeVehicleService.setDate(data)
     }
+  }
+
+  openSearchDialog() {
+    const dialogRef = this.dialog.open(SearchComponent, {
+      width: '80vw',
+      minWidth: 300,
+      // minHeight: 300,
+      panelClass: 'custom-dialog'
+    });
   }
 
 }

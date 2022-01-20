@@ -46,12 +46,12 @@ export class NavigationService {
           name: 'Agregar Vehículo',
           active: false,
           route: '/add-vehicle'
-        },
-        {
-          name: 'Editar Existente',
-          active: false
         }
       ]
+    },
+    {
+      name: 'Mi Cuenta',
+      active: false
     },
     {
       name: 'Configuración',

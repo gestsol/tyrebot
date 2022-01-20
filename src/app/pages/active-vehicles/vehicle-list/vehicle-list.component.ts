@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -11,7 +11,8 @@ import { ActiveVehiclesService } from '../active-vehicles.service';
   templateUrl: './vehicle-list.component.html',
   styleUrls: ['./vehicle-list.component.scss']
 })
-export class VehicleListComponent implements OnInit, AfterViewInit {
+export class VehicleListComponent implements OnInit, OnDestroy, AfterViewInit {
+  tableSub: Subscription | null = null
   pageSub = new BehaviorSubject(0)
   loading = false;
   resultsLength = 0;
@@ -57,6 +58,10 @@ export class VehicleListComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {}
 
+  ngOnDestroy(): void {
+    this.tableSub?.unsubscribe()
+  }
+
   pageChange() {
     this.pageSub.next(0)
   }
@@ -64,7 +69,7 @@ export class VehicleListComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.paginator._formFieldAppearance = 'outline'
     setTimeout(() => {
-      combineLatest([this.pageSub, this.activeVehicleService.plate$]).pipe(
+      this.tableSub = combineLatest([this.pageSub, this.activeVehicleService.plate$]).pipe(
         startWith([0, '']),
         switchMap((data) => {
           this.loading = true;

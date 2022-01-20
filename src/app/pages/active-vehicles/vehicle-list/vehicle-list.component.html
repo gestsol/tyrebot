@@ -3,7 +3,7 @@
     <mat-spinner></mat-spinner>
   </div>
   <ng-container *ngIf="!loading">
-    <div>
+    <div style="overflow: auto;">
       <table mat-table [dataSource]="dataSource" *ngIf="dataSource.data.length">
         <!-- Columns -->
         <ng-container *ngFor="let column of columns">

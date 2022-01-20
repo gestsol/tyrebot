@@ -1,8 +1,9 @@
 @use '/src/sass/vars/colors' as colors;
+@use '/src/sass/vars/sizes' as sizes;
 
 .footer {
 	width:100%;
-	height: 40px;
+	height: sizes.$footer;
 	background-color: colors.$bg-blue;
 	left:0px;
 	right:0px;
