@@ -24,6 +24,9 @@ h1 {
     color: white;
     margin-top: 1rem;
   }
+  span.detail {
+    margin-top: 2rem;
+  }
   app-back-button {
     position: absolute;
     bottom: 0;
@@ -35,10 +38,11 @@ h1 {
 }
 
 .search-button {
-  position: fixed;
-  bottom: calc( #{sizes.$footer} + 50px);
-  right: 50px;
+  position: sticky;
+  bottom: 50px;
+  left: calc(100% - 106px);
   background: linear-gradient(125deg, #339AF0 0%, #FFFFFFA8 100%);
+  z-index: 999;
 }
 
 @media (min-width: 630px) {

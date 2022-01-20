@@ -55,13 +55,13 @@
 }
 
 @media (max-width: 1280px) {
-  .title {
+  .header__title {
     font-size: 1.2rem;
   }
 }
 
 @media (min-width: 720px) {
-  .title {
+  .header__title {
     display: block;
   }
 }

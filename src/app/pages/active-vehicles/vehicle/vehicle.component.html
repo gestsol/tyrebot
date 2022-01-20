@@ -24,17 +24,21 @@
   <mat-tab-group mat-align-tabs="center" dynamicHeight>
     <mat-tab [label]="axie.type === 'backup' ? 'R' : 'EJE ' + axie.axie_number"
       *ngFor="let axie of busData.format.axies; let i = index">
-      <div class="row-container" style="margin-top: 1.5rem;">
-        <div class="row-container__col field-name"></div>
-        <div class="row-container__col field-header" *ngFor="let col of axie.tyres; let i = index">
-          <span>{{'Tire ' + col.tyre_number}}</span>
+      <div class="mat-tab-container">
+        <div class="row-container field-header">
+          <div class="row-container__field-name"></div>
+          <div class="row-container__values">
+            <div class="row-container__values__item" *ngFor="let col of axie.tyres; let i = index">
+              <span>{{'Tire ' + col.tyre_number}}</span>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="field-container" *ngFor="let keyName of tpmsKeysNames">
-        <div class="row-container">
-          <ng-container
-            *ngTemplateOutlet="rowTemplate, context: { $implicit: axie.tyres, key: keyName.key, name: keyName.name, isDate: true }">
-          </ng-container>
+        <div class="field-container" *ngFor="let keyName of tpmsKeysNames">
+          <div class="row-container">
+            <ng-container
+              *ngTemplateOutlet="rowTemplate, context: { $implicit: axie.tyres, key: keyName.key, name: keyName.name, isDate: true }">
+            </ng-container>
+          </div>
         </div>
       </div>
     </mat-tab>
@@ -42,12 +46,14 @@
 </mat-card>
 
 <ng-template #rowTemplate let-tyres let-key="key" let-name="name">
-  <div class="row-container__col field-name">
+  <div class="row-container__field-name">
     <div>
       <span>{{name}}</span>
     </div>
   </div>
-  <div class="row-container__col" *ngFor="let tyre of tyres; let i=index">
-    <div>{{tyre[key] || 'N/A' }}</div>
+  <div class="row-container__values">
+    <div class="row-container__values__item" *ngFor="let tyre of tyres; let i=index">
+      <div>{{tyre[key] || 'N/A' }}</div>
+    </div>
   </div>
 </ng-template>

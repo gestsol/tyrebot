@@ -17,7 +17,7 @@
   </mat-card>
   <div class="active-vehicles__header">
     <h1>Vehículos y Activos</h1>
-    <span>VEHÍCULOS: {{(vehicles$ | async)?.length}}</span>
+    <span [ngClass]="{'detail': showBackBtn}">VEHÍCULOS: {{(vehicles$ | async)?.length}}</span>
     <app-back-button *ngIf="showBackBtn" :path="./list"></app-back-button>
   </div>
   <router-outlet></router-outlet>
