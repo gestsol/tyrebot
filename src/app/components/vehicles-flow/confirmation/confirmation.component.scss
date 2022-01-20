@@ -45,10 +45,7 @@ $panel-radius: 12px;
       font-weight: bold;
     }
     app-back-button {
-      position: absolute;
-      right: 0;
-      top: 0;
-      bottom: 0;
+      display: block;
     }
   }
 
@@ -141,6 +138,12 @@ $panel-radius: 12px;
 }
 @media (min-width: 760px) {
   .step-4 {
+    &__header app-back-button {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+    }
     &__panel {
       flex-direction: row;
     }
