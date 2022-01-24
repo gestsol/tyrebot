@@ -1,10 +1,14 @@
 @use '/src/sass/vars/sizes' as sizes;
 @use '/src/sass/vars/colors' as colors;
 
+.app-container {
+  display: flex;
+  min-height: calc(100vh - #{sizes.$header} - #{sizes.$footer});
+}
+
 .main-page {
   width: calc(100% - #{sizes.$side-nav});
   transition: width 0.3s;
-  min-height: 100vh;
   &.close {
     width: 100%
   }
@@ -33,6 +37,10 @@ app-menu {
   }
 }
 
+app-footer {
+  display: block;
+  height: auto;
+}
 
 @media (max-width: 1200px) {
   .main-page {
@@ -43,6 +51,7 @@ app-menu {
     width: 300px;
     z-index: 9999;
     box-shadow: 1px 7px 22px 5px rgba(0,0,0,0.31);
+    // height: 100vh;
   }
   .overlay:not(.close) {
     width: 100vw;

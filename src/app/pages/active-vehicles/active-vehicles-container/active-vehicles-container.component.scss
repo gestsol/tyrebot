@@ -32,15 +32,15 @@ h1 {
     bottom: 0;
     right: 0;
   }
-  ::ng-deep .back-btn {
+  ::ng-deep .form-btn--back-btn {
     margin-bottom: 0;
   }
 }
 
 .search-button {
   position: sticky;
-  bottom: 50px;
-  left: calc(100% - 106px);
+  bottom: 20px;
+  left: calc(100% - 86px);
   background: linear-gradient(125deg, #339AF0 0%, #FFFFFFA8 100%);
   z-index: 999;
 }

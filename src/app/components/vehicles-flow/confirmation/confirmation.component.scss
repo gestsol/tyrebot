@@ -8,7 +8,7 @@ $panel-radius: 12px;
   padding: 1rem 2rem;
 }
 
-.step-4 {
+:host .step-4 {
   &__panel__header {
     position: relative;
     h2 {
@@ -96,11 +96,14 @@ $panel-radius: 12px;
       font-weight: bold;
       font-size: 1rem;
     }
-    mat-form-field {
+    ::ng-deep mat-form-field {
       width: 70px;
       margin: auto;
       display: flex;
       flex-direction: column;
+      .mat-form-field-flex:hover .mat-form-field-outline {
+        opacity: 1;
+      }
     }
 
     input {

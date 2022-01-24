@@ -1,5 +1,5 @@
 <app-header></app-header>
-<div style="display: flex;">
+<div class="app-container">
   <app-menu [ngClass]="{'close': navState}"></app-menu>
   <div class="overlay" (click)="close()" [ngClass]="{'close': navState}"></div>
   <div class="main-page" [ngClass]="{'close': navState}">
