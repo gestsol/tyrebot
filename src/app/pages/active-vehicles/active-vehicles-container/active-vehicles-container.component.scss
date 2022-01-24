@@ -16,7 +16,7 @@ h1 {
   margin: 0;
 }
 
-.active-vehicles__header {
+:host .active-vehicles__header {
   position: relative;
   margin: 2rem 0 0.5rem 0;
   span {
@@ -37,10 +37,18 @@ h1 {
   }
 }
 
+:host ::ng-deep mat-paginator {
+  .mat-paginator-range-label {
+    margin-right: 0px !important;
+  }
+  .mat-paginator-page-size-label {
+    display: none !important;
+  }
+}
 .search-button {
   position: sticky;
   bottom: 20px;
-  left: calc(100% - 86px);
+  left: calc(100% - 20px);
   background: linear-gradient(125deg, #339AF0 0%, #FFFFFFA8 100%);
   z-index: 999;
 }
@@ -59,5 +67,14 @@ h1 {
     bottom: 0;
     left: 0;
     margin: 0;
+  }
+
+  :host ::ng-deep mat-paginator {
+    .mat-paginator-range-label {
+      margin-right: 32px !important;
+    }
+    .mat-paginator-page-size-label {
+      display: inline !important;
+    }
   }
 }

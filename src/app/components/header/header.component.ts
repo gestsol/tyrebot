@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {formatDate } from '@angular/common';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { formatDate } from '@angular/common';
 import { NavigationService } from 'src/app/services/navigation.service';
 
 @Component({
@@ -7,18 +7,26 @@ import { NavigationService } from 'src/app/services/navigation.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
-  today= new Date();
+export class HeaderComponent implements OnInit, OnDestroy {
   jstoday = '';
+  interval: any = null;
 
   constructor(private navigationService: NavigationService) {}
 
   ngOnInit(): void {
-    this.jstoday = formatDate(this.today, 'hh:mm:ss a  dd MMMM yyyy', 'en-US', '+0530');
+    this.interval = setInterval(() => {
+      this.jstoday = formatDate(new Date(), 'hh:mm:ss a  dd MMMM yyyy', 'en-US', '+0530');
+    }, 1000)
   }
 
   toggleNav() {
     this.navigationService.toggle()
+  }
+
+  ngOnDestroy(): void {
+    if (this.interval) {
+      clearInterval(this.interval)
+    }
   }
 
 }
