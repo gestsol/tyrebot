@@ -71,3 +71,26 @@ mat-paginator {
   background-color: #343A40;
   color: white;
 }
+
+.actions-container {
+  display: none;
+  gap: 1rem;
+  &--mobile {
+    display: flex;
+    & button:nth-child(1) {
+      color: colors.$primary;
+    }
+    & button:nth-child(2) {
+      color: colors.$secondary
+    }
+  }
+}
+
+@media (min-width: 630px) {
+  .actions-container {
+    display: flex;
+    &--mobile {
+      display: none;
+    }
+  }
+}

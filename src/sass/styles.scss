@@ -55,11 +55,11 @@ body{
 .main-container {
   margin: auto;
   margin-bottom: 3rem;
-  padding: 0 1rem;
+  padding: 0 0.5rem;
   max-width: 1300px;
 }
 
-@media (min-width: 375px) {
+@media (min-width: 420px) {
   .main-container {
     padding: 0 2rem;
   }

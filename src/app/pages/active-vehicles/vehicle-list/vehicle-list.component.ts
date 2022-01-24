@@ -39,7 +39,7 @@ export class VehicleListComponent implements OnInit, OnDestroy, AfterViewInit {
     },
     {
       key: 'action',
-      name: 'Detalles'
+      name: 'Acciones'
     }
   ];
 
