@@ -1,0 +1,22 @@
+<div class="main-container">
+  <mat-card class="login">
+      <img src="/assets/img/logo.svg" alt="tyrebot-logo" />
+      <p>Sistema de Gestión de Neumáticos</p>
+      <h1>Inicio de Sesión</h1>
+      <form [formGroup]="form">
+        <mat-form-field appearance="outline" class="light rounded">
+          <input matInput placeholder="Patente" #input formControlName="email">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="light rounded">
+          <input matInput placeholder="Patente" #input formControlName="password">
+          <mat-icon matSuffix>visibility</mat-icon>
+        </mat-form-field>
+        <div style="margin: 2rem 0;">
+          <button class="form-btn">
+            <span> Iniciar Sesión </span>
+          </button>
+          <span>¿Has olvidado tu contraseña?</span>
+        </div>
+    </form>
+  </mat-card>
+</div>

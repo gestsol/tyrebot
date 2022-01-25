@@ -32,10 +32,6 @@ const routes: Routes = [
         redirectTo: 'step-1'
       }
     ],
-  },
-  {
-    path: '**',
-    redirectTo: 'step-1'
   }
 ];
 

@@ -1,12 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './pages/login/login.component';
 
 const routes: Routes = [
-	{path:'', redirectTo:'active-vehicle', pathMatch: 'full'},
-	{path:'add-vehicle', loadChildren: () => import('./components/vehicles-flow/vehicles-flow.module').then( m => m.VehiclesFlowModule)},
-	{path:'active-vehicle', loadChildren: () => import('./pages/active-vehicles/active-vehicles.module').then( m => m.ActiveVehiclesModule)},
-	{path:'**', redirectTo:'', pathMatch: 'full'},
-
+	{
+    path: '',
+    loadChildren: () => import('./pages/main/main.module').then( m => m.MainModule)
+  },
+	{
+    path: 'login',
+    component: LoginComponent
+  },
+	{
+    path: '**',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({

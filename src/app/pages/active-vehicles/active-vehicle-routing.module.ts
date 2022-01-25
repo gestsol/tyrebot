@@ -28,10 +28,6 @@ const routes: Routes = [
     path: 'edit/:id',
     data: { edit: true },
     loadChildren: () => import('../../components/vehicles-flow/vehicles-flow.module').then( m => m.VehiclesFlowModule)
-  },
-  {
-    path: '**',
-    redirectTo: 'list'
   }
 ];
 

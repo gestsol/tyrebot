@@ -1,0 +1,39 @@
+.main-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+.login {
+  padding: 3rem 4rem;
+  max-width: 488px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  img {
+    width: 50%
+  }
+  .form-btn {
+    margin-bottom: 1rem;
+    &::before {
+      z-index: 0;
+    }
+    * {
+      position: relative;
+      z-index: 1;
+    }
+  }
+}
+
+mat-form-field {
+  width: 100%;
+}

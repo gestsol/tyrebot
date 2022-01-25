@@ -1,0 +1,8 @@
+<app-header></app-header>
+<div class="app-container">
+  <app-menu [ngClass]="{'close': navState}"></app-menu>
+  <div class="overlay" (click)="close()" [ngClass]="{'close': navState}"></div>
+  <div class="main-page" [ngClass]="{'close': navState}">
+    <router-outlet></router-outlet>
+  </div>
+</div>
