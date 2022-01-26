@@ -1,0 +1,48 @@
+@use '/src/sass/vars/colors' as colors;
+
+h1 {
+  color: white;
+  font-size: clamp(1.5rem, 2vw, 2rem);
+  margin: 2rem;
+  text-align: center;
+}
+
+:host .detail {
+	border: solid 1px;
+	border: solid 2px colors.$border-text-dark;
+	margin: auto;
+	margin-top: 20px;
+	border-radius: 20px;
+  padding: 3rem 4rem;
+  max-width: 700px;
+  color: white;
+  & > h2 {
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    margin-bottom: 2rem;
+  }
+  &__last-connection {
+    padding-bottom: 1.5rem;
+    font-size: 0.8rem;
+    border-bottom: 1px solid colors.$border-text-dark;
+    margin-bottom: 1.5rem;
+  }
+
+  &__info {
+    margin-bottom: 3rem;
+    &__state.access span {
+      color: colors.$blue;
+    }
+    &__state.denied span {
+      color: colors.$red;
+    }
+  }
+
+  &__actitons {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    .form-btn {
+      width: 240px;
+    }
+  }
+}

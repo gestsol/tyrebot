@@ -35,6 +35,14 @@
     transition: opacity 0.2s;
   }
 
+  &.success:before {
+    background: transparent linear-gradient(125deg, #{colors.$green} 0%, #FFFFFFA8 100%) 0% 0% no-repeat padding-box;
+  }
+
+  &.danger:before {
+    background: transparent linear-gradient(125deg, #{colors.$red} 0%, #FFFFFFA8 100%) 0% 0% no-repeat padding-box;
+  }
+
   .mat-progress-spinner circle, .mat-spinner circle {
     stroke: #fff;
   }

@@ -10,7 +10,9 @@ export class LoginComponent implements OnInit {
   form = this.fb.group({
     email: ['', [Validators.required, , Validators.pattern(/^.+@.+\..+$/)]],
     password: ['', [Validators.required, Validators.maxLength(8)]]
-  })
+  });
+
+  seePassword = false;
 
   constructor(
     private fb: FormBuilder

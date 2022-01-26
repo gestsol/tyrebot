@@ -30,7 +30,8 @@ export class NavigationService {
     },
     {
       name: 'Administrar Cuentas',
-      active: false
+      active: false,
+      route: '/manage-accounts'
     },
     {
       name: 'Vehículo',

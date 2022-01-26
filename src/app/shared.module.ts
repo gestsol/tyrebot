@@ -13,6 +13,9 @@ import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/m
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatButtonModule } from '@angular/material/button';
 
 import { httpInterceptorProviders } from './intereptors/base';
 import { BusModule } from './components/bus/bus.module';
@@ -45,7 +48,10 @@ import { VehicleCreationSuccessComponent } from './components/vehicle-creation-s
     MatProgressSpinnerModule,
     BusModule,
     BackButtonComponent,
-    MatDialogModule
+    MatDialogModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatButtonModule
   ],
   providers: [
     httpInterceptorProviders,
