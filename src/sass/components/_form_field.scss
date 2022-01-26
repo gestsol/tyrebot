@@ -96,6 +96,9 @@ mat-error {
   &.rounded .mat-form-field-appearance-outline .mat-form-field-outline-thick {
     border-radius: 28px !important;
   }
+  &.rounded .mat-form-field-suffix {
+    top: 0.4em !important;
+  }
 }
 
 .mat-form-field-appearance-outline:not(.mat-form-field-invalid) {
