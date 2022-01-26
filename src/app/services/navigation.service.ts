@@ -51,6 +51,11 @@ export class NavigationService {
       ]
     },
     {
+      name: 'Neumáticos',
+      active: false,
+      route: '/tyres'
+    },
+    {
       name: 'Mi Cuenta',
       active: false
     },

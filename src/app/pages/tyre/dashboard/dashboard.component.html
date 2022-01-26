@@ -1,0 +1,49 @@
+<div class="main-container">
+  <app-filters></app-filters>
+  <div class="total-kpi">
+    <mat-card *ngFor="let item of totalKpis">
+      <mat-progress-spinner
+        class="example-margin"
+        color="primary"
+        mode="determinate"
+        [value]="item.percentage"
+        diameter="50"
+      ></mat-progress-spinner>
+      <div class="total-kpi__info">
+        <div><span>{{item.name}}</span></div>
+        <div><span>{{item.value | number}}</span></div>
+      </div>
+    </mat-card>
+  </div>
+  <div class="detail-kpis">
+    <mat-card>
+      <div echarts [options]="chartOption" class="demo-chart" style="height: 400px"></div>
+    </mat-card>
+    <mat-card>
+      <div echarts [options]="chartOption" class="demo-chart" style="height: 400px"></div>
+    </mat-card>
+    <mat-card>
+      <div class="detail-kpis__revision">
+        <div class="detail-kpis__revision__chart" echarts [options]="revisionChartOption"></div>
+        <div class="detail-kpis__revision__info">
+          <span>{{2440 | number}}</span>
+          <span>AL DÍA</span>
+        </div>
+      </div>
+      <div class="detail-kpis__revision">
+        <div class="detail-kpis__revision__chart" echarts [options]="revisionChartOption"></div>
+        <div class="detail-kpis__revision__info">
+          <span>{{2440 | number}}</span>
+          <span>PROXIMOS A VENCER</span>
+        </div>
+      </div>
+      <div class="detail-kpis__revision">
+        <div class="detail-kpis__revision__chart" echarts [options]="revisionChartOption"></div>
+        <div class="detail-kpis__revision__info">
+          <span>{{2440 | number}}</span>
+          <span>VENCIDOS</span>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

@@ -20,6 +20,10 @@ const routes: Routes = [
         loadChildren: () => import('../active-vehicles/active-vehicles.module').then( m => m.ActiveVehiclesModule)
       },
       {
+        path: 'tyres',
+        loadChildren: () => import('../tyre/tyre.module').then( m => m.TyreModule)
+      },
+      {
         path: '',
         redirectTo: 'active-vehicle'
       }

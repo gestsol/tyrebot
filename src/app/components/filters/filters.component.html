@@ -1,0 +1,19 @@
+<mat-card class="search-form">
+  <form [formGroup]="form" class="search-form__form">
+    <mat-form-field appearance="outline" class="light rounded">
+      <input matInput placeholder="Patente" #input formControlName="plate">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="light rounded">
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate placeholder="Desde" formControlName="from">
+        <input matEndDate placeholder="Hasta" formControlName="to" (dateChange)="dateChange()">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+  </form>
+</mat-card>
+<button (click)="openSearchDialog()" class="search-button" mat-mini-fab aria-label="Buscar">
+  <mat-icon>search</mat-icon>
+</button>

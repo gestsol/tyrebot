@@ -7,6 +7,7 @@ import { HeaderComponent } from '../../components/header/header.component';
 import { MainComponent } from './main.component';
 import { MenuComponent } from 'src/app/components/menu/menu.component';
 import { SharedModule } from 'src/app/shared.module';
+import { FiltersModule } from 'src/app/components/filters/filters.module';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
