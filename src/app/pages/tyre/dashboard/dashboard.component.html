@@ -17,12 +17,30 @@
   </div>
   <div class="detail-kpis">
     <mat-card>
-      <div echarts [options]="chartOption" class="demo-chart" style="height: 400px"></div>
+      <div class="detail-kpis__title">
+        <h2>PRESIÓN DE NEUMÁTICOS</h2>
+        <button mat-button>
+          <mat-icon>more_horiz</mat-icon>
+        </button>
+      </div>
+      <div echarts [options]="chartOption" class="big-chart"></div>
     </mat-card>
     <mat-card>
-      <div echarts [options]="chartOption" class="demo-chart" style="height: 400px"></div>
+      <div class="detail-kpis__title">
+        <h2>TEMPERATURA (Alertas)</h2>
+        <button mat-button>
+          <mat-icon>more_horiz</mat-icon>
+        </button>
+      </div>
+      <div echarts [options]="chartOption" class="big-chart"></div>
     </mat-card>
     <mat-card>
+      <div class="detail-kpis__title">
+        <h2>REVISIÓN NEUMÁTICOS</h2>
+        <button mat-button>
+          <mat-icon>more_horiz</mat-icon>
+        </button>
+      </div>
       <div class="detail-kpis__revision">
         <div class="detail-kpis__revision__chart" echarts [options]="revisionChartOption"></div>
         <div class="detail-kpis__revision__info">
@@ -45,5 +63,61 @@
         </div>
       </div>
     </mat-card>
+    <mat-card>
+      <div class="detail-kpis__title">
+        <h2>MARCAS MÁS UTILIZADOS</h2>
+      </div>
+      <div echarts [options]="brandChartOption" class="big-chart"></div>
+    </mat-card>
+    <mat-card>
+      <div class="detail-kpis__title">
+        <h2>VIDA UTIL POR MARCA</h2>
+      </div>
+      <div echarts [options]="brandChartOption" class="big-chart"></div>
+    </mat-card>
+    <mat-card class="detail-kpis__tyres">
+      <div class="detail-kpis__title">
+        <h2>ALERTAS DE NEUMÁTICO</h2>
+      </div>
+      <div>
+        <ng-container *ngTemplateOutlet="alert"></ng-container>
+        <ng-container *ngTemplateOutlet="alert"></ng-container>
+        <ng-container *ngTemplateOutlet="alert"></ng-container>
+        <ng-container *ngTemplateOutlet="alert, context:{$implicit: true}"></ng-container>
+      </div>
+    </mat-card>
+    <mat-card class="detail-kpis__aligment">
+      <div>
+        <div class="detail-kpis__title">
+          <h2>ALERTA DE VEHICULOS</h2>
+        </div>
+        <div class="detail-kpis__aligment__alert-container">
+          <ng-container *ngTemplateOutlet="alert"></ng-container>
+          <ng-container *ngTemplateOutlet="alert, context:{$implicit: true}"></ng-container>
+        </div>
+      </div>
+      <div class="detail-kpis__aligment__separator"></div>
+      <div>
+        <div class="detail-kpis__title">
+          <h2>ALINEACIÓN Y BALANCEO</h2>
+        </div>
+        <div class="detail-kpis__aligment__alert-container">
+          <ng-container *ngTemplateOutlet="alert, context:{$implicit: true}"></ng-container>
+          <ng-container *ngTemplateOutlet="alert"></ng-container>
+        </div>
+      </div>
+    </mat-card>
+    <mat-card>
+    </mat-card>
   </div>
 </div>
+
+<ng-template let-accent #alert>
+  <div class="detail-kpis__alert" [ngClass]="{'accent': accent}">
+    <button mat-button class="detail-kpis__alert__menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <div class="detail-kpis__alert__value"><span>2340</span></div>
+    <div class="detail-kpis__alert__title"><span>Tº fuera de rango</span></div>
+  </div>
+</ng-template>

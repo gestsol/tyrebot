@@ -43,7 +43,7 @@ td, th {
 }
 
 :host ::ng-deep tbody tr {
-  background-color: #343A40;
+  background-color: colors.$bg-blue-light;
   border-spacing: 1rem 0;
   td {
     color: white;
@@ -68,7 +68,7 @@ td, th {
 
 mat-paginator {
   border-radius: 16px;
-  background-color: #343A40;
+  background-color: colors.$bg-blue-light;
   color: white;
 }
 

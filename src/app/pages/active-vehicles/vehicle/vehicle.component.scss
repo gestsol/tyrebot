@@ -152,7 +152,7 @@
   margin: 0.5rem 0;
   .row-container {
     &__values {
-      background-color: #343A40;
+      background-color: colors.$bg-blue-light;
     }
     &__values:last-child {
       border-top-right-radius: 20px;

@@ -26,7 +26,7 @@ export class DashboardComponent implements OnInit {
     {
       name: 'PINCHADOS',
       value: 3520,
-      percentage: '50'
+      percentage: '50',
     },
     {
       name: 'DESECHADOS',
@@ -57,9 +57,9 @@ export class DashboardComponent implements OnInit {
           show: false
         },
         data: [
-          { value: 81, name: 'ÓPTIMA' },
-          { value: 11, name: 'ALTA' },
-          { value: 9, name: 'BAJA' },
+          { value: 81, name: 'ÓPTIMA', itemStyle: { color: '#51CF66' }, },
+          { value: 11, name: 'ALTA', itemStyle: { color: '#F03E3E' }, },
+          { value: 9, name: 'BAJA', itemStyle: { color: '#FCC419' }, },
         ]
       }
     ]
@@ -91,13 +91,70 @@ export class DashboardComponent implements OnInit {
           show: false,
         },
         data: [
-          { value: 81, name: 'ÓPTIMA' },
+          { value: 62, name: 'ÓPTIMA' },
           { value: 11, name: 'ALTA' },
-          { value: 9, name: 'BAJA' },
         ]
       }
     ]
   };
+
+  brandChartOption: EChartsOption = {
+    grid: {
+      containLabel: true,
+      bottom: 0,
+      left: 0
+    },
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'shadow'
+      }
+    },
+    legend: {
+      show: false
+    },
+    xAxis: {
+      type: 'value',
+      boundaryGap: [0, 0.01],
+      axisLabel: {
+        color: '#fff'
+      },
+      axisLine: {
+        show: false
+      },
+      splitLine: {
+        lineStyle: {
+          color: '#666'
+        }
+      }
+    },
+    yAxis: {
+      axisTick: {
+        show: false
+      },
+      axisLabel: {
+        color: '#fff'
+      },
+      axisLine: {
+        show: false
+      },
+      type: 'category',
+      boundaryGap: true,
+      data: ['Dunlop', 'Pirelli', 'Bridgestone', 'Michelin', 'Good Year', 'Firestone']
+    },
+    series: [
+      {
+        barWidth: 20,
+        itemStyle: {
+          borderRadius: 15,
+          color: '#FCC419'
+        },
+        name: '2011',
+        type: 'bar',
+        data: [3500, 4100, 4700, 5690, 7800, 8500]
+      }
+    ]
+  }
 
   constructor() { }
 

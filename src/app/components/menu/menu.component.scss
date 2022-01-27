@@ -2,7 +2,7 @@
 @use '/src/sass/vars/colors' as colors;
 
 %item-active {
-  background-color: #343A40;
+  background-color: colors.$bg-blue-light;
   color: white;
   font-weight: 600;
 }
@@ -58,7 +58,7 @@
     &__container {
       margin-top: 1rem;
       padding: 5px;
-      border-left: solid 2px #343A40;
+      border-left: solid 2px colors.$bg-blue-light;
     }
   }
   &__logout {
