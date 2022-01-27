@@ -25,7 +25,7 @@
       </div>
       <div echarts [options]="chartOption" class="big-chart"></div>
     </mat-card>
-    <mat-card>
+    <mat-card class="fixed-height">
       <div class="detail-kpis__title">
         <h2>TEMPERATURA (Alertas)</h2>
         <button mat-button>
@@ -34,7 +34,7 @@
       </div>
       <div echarts [options]="chartOption" class="big-chart"></div>
     </mat-card>
-    <mat-card>
+    <mat-card class="fixed-height">
       <div class="detail-kpis__title">
         <h2>REVISIÓN NEUMÁTICOS</h2>
         <button mat-button>
@@ -63,13 +63,13 @@
         </div>
       </div>
     </mat-card>
-    <mat-card>
+    <mat-card class="fixed-height">
       <div class="detail-kpis__title">
         <h2>MARCAS MÁS UTILIZADOS</h2>
       </div>
       <div echarts [options]="brandChartOption" class="big-chart"></div>
     </mat-card>
-    <mat-card>
+    <mat-card class="fixed-height">
       <div class="detail-kpis__title">
         <h2>VIDA UTIL POR MARCA</h2>
       </div>
@@ -107,7 +107,15 @@
         </div>
       </div>
     </mat-card>
-    <mat-card>
+    <mat-card class="detail-kpis__contact">
+      <button mat-button class="detail-kpis__contact__help">
+        <mat-icon>help_outline</mat-icon>
+      </button>
+      <div class="detail-kpis__title"><h2>CONTACTO</h2></div>
+      <ul>
+        <li>Correo: Tyrebotsemilla@Gmail.Com</li>
+        <li>Numero: + 56 9 90 33 33 46</li>
+      </ul>
     </mat-card>
   </div>
 </div>
