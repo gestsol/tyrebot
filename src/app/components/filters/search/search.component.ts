@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder } from '@angular/forms';
 import * as moment from 'moment';
-import { ActiveVehiclesService } from '../active-vehicles.service';
 import { combineLatest } from 'rxjs';
+import { FiltersService } from '../filters.service';
 
 @Component({
   selector: 'app-search',
@@ -19,12 +19,12 @@ export class SearchComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<SearchComponent>,
-    private activeVehicleService: ActiveVehiclesService,
+    private filterService: FiltersService,
     private fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
-    combineLatest([this.activeVehicleService.plate$, this.activeVehicleService.date$])
+    combineLatest([this.filterService.plate$, this.filterService.date$])
     .subscribe(([plate, dates]) => {
       console.log('open')
       this.form.setValue({
@@ -49,10 +49,10 @@ export class SearchComponent implements OnInit {
         .set('seconds', 59)
         .format()
       }
-      this.activeVehicleService.setDate(date)
+      this.filterService.setDate(date)
     }
 
-    this.activeVehicleService.setPlate(plate);
+    this.filterService.setPlate(plate);
     this.close()
   }
 

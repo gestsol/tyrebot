@@ -1,14 +1,10 @@
 @use '/src/sass/abstracts/vars/sizes' as sizes;
-
-.search-form {
-  display: none;
-  &__form {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-  }
+.main-container {
+  min-height: calc(100vh - #{sizes.$header + sizes.$footer});
+  margin-bottom: 0;
+  padding-bottom: 1rem;
+  box-sizing: border-box;
 }
-
 h1 {
   color: white;
   font-size: bold;
@@ -45,23 +41,8 @@ h1 {
     display: none !important;
   }
 }
-.search-button {
-  position: sticky;
-  bottom: 20px;
-  left: calc(100% - 20px);
-  background: linear-gradient(125deg, #339AF0 0%, #FFFFFFA8 100%);
-  z-index: 999;
-}
 
 @media (min-width: 630px) {
-  .search-button {
-    display: none;
-  }
-
-  .search-form {
-    display: block;
-  }
-
   .active-vehicles__header span {
     position: absolute;
     bottom: 0;

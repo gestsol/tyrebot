@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import * as moment from 'moment';
-import { SearchComponent } from 'src/app/pages/active-vehicles/search/search.component';
+import { SearchComponent } from 'src/app/components/filters/search/search.component';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { FiltersService } from './filters.service';
 
@@ -71,5 +71,4 @@ export class FiltersComponent implements OnInit {
       panelClass: 'custom-dialog'
     });
   }
-
 }

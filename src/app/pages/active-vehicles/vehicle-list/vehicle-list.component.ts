@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, combineLatest, of, Subject, Subscription } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
+import { FiltersService } from 'src/app/components/filters/filters.service';
 import { ActiveVehiclesService } from '../active-vehicles.service';
 
 @Component({
@@ -52,6 +53,7 @@ export class VehicleListComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
     private activeVehicleService: ActiveVehiclesService,
+    private filterService: FiltersService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
@@ -69,7 +71,7 @@ export class VehicleListComponent implements OnInit, OnDestroy, AfterViewInit {
   ngAfterViewInit() {
     this.paginator._formFieldAppearance = 'outline'
     setTimeout(() => {
-      this.tableSub = combineLatest([this.pageSub, this.activeVehicleService.plate$]).pipe(
+      this.tableSub = combineLatest([this.pageSub, this.filterService.plate$]).pipe(
         startWith([0, '']),
         switchMap((data) => {
           this.loading = true;

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { VehicleService } from 'src/app/services/vehicle.service';
+import { FiltersService } from 'src/app/components/filters/filters.service';
 import { ActiveVehiclesService } from '../active-vehicles.service';
 
 @Component({
@@ -35,6 +35,7 @@ export class VehicleComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
+    private filterService: FiltersService,
     private activeVehicleService: ActiveVehiclesService
   ) { }
 
@@ -42,7 +43,7 @@ export class VehicleComponent implements OnInit, OnDestroy {
     this.route.params.subscribe((params) => {
       if (params['id']) {
         this.id = parseInt(params['id'])
-        this.activeVehicleService.date$.subscribe(value => {
+        this.filterService.date$.subscribe(value => {
           this.dateFrom = value.from
           this.dateTo = value.to
           this.getData(this.id)
