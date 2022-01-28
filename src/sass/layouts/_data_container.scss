@@ -1,0 +1,62 @@
+@use '/src/sass/abstracts/vars/sizes' as sizes;
+
+.main-container {
+  min-height: calc(100vh - #{sizes.$header + sizes.$footer});
+  margin-bottom: 0;
+  padding-bottom: 1rem;
+  box-sizing: border-box;
+}
+h1 {
+  color: white;
+  font-size: bold;
+  text-align: center;
+  margin: 0;
+}
+
+:host .active-vehicles__header {
+  position: relative;
+  margin: 2rem 0 0.5rem 0;
+  span {
+    display: block;
+    color: white;
+    margin-top: 1rem;
+  }
+  span.detail {
+    margin-top: 2rem;
+  }
+  app-back-button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+  ::ng-deep .form-btn--back-btn {
+    margin-bottom: 0;
+  }
+}
+
+:host ::ng-deep mat-paginator {
+  .mat-paginator-range-label {
+    margin-right: 0px !important;
+  }
+  .mat-paginator-page-size-label {
+    display: none !important;
+  }
+}
+
+@media (min-width: 630px) {
+  .active-vehicles__header span {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+  }
+
+  :host ::ng-deep mat-paginator {
+    .mat-paginator-range-label {
+      margin-right: 32px !important;
+    }
+    .mat-paginator-page-size-label {
+      display: inline !important;
+    }
+  }
+}

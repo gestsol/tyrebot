@@ -1,0 +1,9 @@
+<div class="main-container">
+  <app-filters></app-filters>
+  <div class="active-vehicles__header">
+    <h1>Neumáticos</h1>
+    <span [ngClass]="{'detail': showBackBtn}">VEHÍCULOS: 10</span>
+    <app-back-button *ngIf="showBackBtn" :path="./list"></app-back-button>
+  </div>
+  <router-outlet></router-outlet>
+</div>

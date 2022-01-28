@@ -1,0 +1,96 @@
+@use '/src/sass/abstracts/vars/colors' as colors;
+@use '/src/sass/abstracts/vars/sizes' as sizes;
+
+$card-min-height: 300px;
+
+:host ::ng-deep mat-spinner {
+  circle {
+    stroke: white;
+  }
+  margin: auto;
+}
+
+.data-card {
+  min-height: $card-min-height;
+  &__no-result {
+    color: white;
+    width: 100%;
+    height: $card-min-height;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+table {
+  width: 100%;
+  background-color: transparent;
+  border-collapse: separate;
+  border-spacing: 0 1rem !important;
+  min-width: 600px;
+}
+
+td, th {
+  width: 17%;
+}
+
+:host ::ng-deep thead tr {
+  background-color: transparent;
+  th {
+    color: #FFFFFF83;
+    font-size: clamp(0.8rem, 2vw, #{sizes.$table-font-size});
+  }
+}
+
+:host ::ng-deep tbody tr {
+  background-color: colors.$bg-blue-light;
+  border-spacing: 1rem 0;
+  td {
+    color: white;
+    font-size: 1rem;
+  }
+  td:first-child {
+    border-top-left-radius: 16px;
+    border-bottom-left-radius: 16px;
+  }
+  td:last-child {
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
+  }
+}
+
+.form-btn {
+  z-index: 1;
+  margin: 0.7rem 0 0.7rem 0;
+  width: 100px;
+  padding: 0.5rem;
+}
+
+mat-paginator {
+  border-radius: 16px;
+  background-color: colors.$bg-blue-light;
+  color: white;
+}
+
+.actions-container {
+  display: none;
+  gap: 1rem;
+  &--mobile {
+    display: flex;
+    & button:nth-child(1) {
+      color: colors.$primary;
+    }
+    & button:nth-child(2) {
+      color: colors.$secondary
+    }
+  }
+}
+
+@media (min-width: 630px) {
+  .actions-container {
+    display: flex;
+    &--mobile {
+      display: none;
+    }
+  }
+}

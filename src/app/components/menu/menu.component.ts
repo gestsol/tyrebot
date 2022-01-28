@@ -18,8 +18,8 @@ export class MenuComponent implements OnInit {
     this.menu = this.navigation.menu
     this.navigation.currentUrl$.subscribe((url) => {
       this.menu.map((lvl1Item) => {
-        if (lvl1Item.route) {
-          lvl1Item.active = lvl1Item.route === url
+        if (lvl1Item?.route && url.includes(lvl1Item.route)) {
+          lvl1Item.active = true
         } else if (lvl1Item.list) {
           let founded = false
           lvl1Item.list.map(lvl2Item => {

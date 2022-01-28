@@ -1,125 +1,122 @@
-<div class="main-container">
-  <app-filters></app-filters>
-  <div class="total-kpi">
-    <mat-card *ngFor="let item of totalKpis">
-      <mat-progress-spinner
-        class="example-margin"
-        color="primary"
-        mode="determinate"
-        [value]="item.percentage"
-        diameter="50"
-      ></mat-progress-spinner>
-      <div class="total-kpi__info">
-        <div><span>{{item.name}}</span></div>
-        <div><span>{{item.value | number}}</span></div>
-      </div>
-    </mat-card>
-  </div>
-  <div class="detail-kpis">
-    <mat-card>
-      <div class="detail-kpis__title">
-        <h2>PRESIÓN DE NEUMÁTICOS</h2>
-        <button mat-button>
-          <mat-icon>more_horiz</mat-icon>
-        </button>
-      </div>
-      <div echarts [options]="chartOption" class="big-chart"></div>
-    </mat-card>
-    <mat-card class="fixed-height">
-      <div class="detail-kpis__title">
-        <h2>TEMPERATURA (Alertas)</h2>
-        <button mat-button>
-          <mat-icon>more_horiz</mat-icon>
-        </button>
-      </div>
-      <div echarts [options]="chartOption" class="big-chart"></div>
-    </mat-card>
-    <mat-card class="fixed-height">
-      <div class="detail-kpis__title">
-        <h2>REVISIÓN NEUMÁTICOS</h2>
-        <button mat-button>
-          <mat-icon>more_horiz</mat-icon>
-        </button>
-      </div>
-      <div class="detail-kpis__revision__container">
-        <div class="detail-kpis__revision">
-          <div class="detail-kpis__revision__chart" echarts [options]="revisionChartOption"></div>
-          <div class="detail-kpis__revision__info">
-            <span>{{2440 | number}}</span>
-            <span>AL DÍA</span>
-          </div>
-        </div>
-        <div class="detail-kpis__revision">
-          <div class="detail-kpis__revision__chart" echarts [options]="revisionChartOption"></div>
-          <div class="detail-kpis__revision__info">
-            <span>{{2440 | number}}</span>
-            <span>PROXIMOS A VENCER</span>
-          </div>
-        </div>
-        <div class="detail-kpis__revision">
-          <div class="detail-kpis__revision__chart" echarts [options]="revisionChartOption"></div>
-          <div class="detail-kpis__revision__info">
-            <span>{{2440 | number}}</span>
-            <span>VENCIDOS</span>
-          </div>
+<div class="total-kpi">
+  <mat-card *ngFor="let item of totalKpis">
+    <mat-progress-spinner
+      class="example-margin"
+      color="primary"
+      mode="determinate"
+      [value]="item.percentage"
+      diameter="50"
+    ></mat-progress-spinner>
+    <div class="total-kpi__info">
+      <div><span>{{item.name}}</span></div>
+      <div><span>{{item.value | number}}</span></div>
+    </div>
+  </mat-card>
+</div>
+<div class="detail-kpis">
+  <mat-card>
+    <div class="detail-kpis__title">
+      <h2>PRESIÓN DE NEUMÁTICOS</h2>
+      <button mat-button (click)="toPressureList()">
+        <mat-icon>more_horiz</mat-icon>
+      </button>
+    </div>
+    <div echarts [options]="chartOption" class="big-chart"></div>
+  </mat-card>
+  <mat-card class="fixed-height">
+    <div class="detail-kpis__title">
+      <h2>TEMPERATURA (Alertas)</h2>
+      <button mat-button>
+        <mat-icon>more_horiz</mat-icon>
+      </button>
+    </div>
+    <div echarts [options]="chartOption" class="big-chart"></div>
+  </mat-card>
+  <mat-card class="fixed-height">
+    <div class="detail-kpis__title">
+      <h2>REVISIÓN NEUMÁTICOS</h2>
+      <button mat-button>
+        <mat-icon>more_horiz</mat-icon>
+      </button>
+    </div>
+    <div class="detail-kpis__revision__container">
+      <div class="detail-kpis__revision">
+        <div class="detail-kpis__revision__chart" echarts [options]="revisionChartOption"></div>
+        <div class="detail-kpis__revision__info">
+          <span>{{2440 | number}}</span>
+          <span>AL DÍA</span>
         </div>
       </div>
-      </mat-card>
-    <mat-card class="fixed-height">
-      <div class="detail-kpis__title">
-        <h2>MARCAS MÁS UTILIZADOS</h2>
+      <div class="detail-kpis__revision">
+        <div class="detail-kpis__revision__chart" echarts [options]="revisionChartOption"></div>
+        <div class="detail-kpis__revision__info">
+          <span>{{2440 | number}}</span>
+          <span>PROXIMOS A VENCER</span>
+        </div>
       </div>
-      <div echarts [options]="brandChartOption" class="big-chart"></div>
+      <div class="detail-kpis__revision">
+        <div class="detail-kpis__revision__chart" echarts [options]="revisionChartOption"></div>
+        <div class="detail-kpis__revision__info">
+          <span>{{2440 | number}}</span>
+          <span>VENCIDOS</span>
+        </div>
+      </div>
+    </div>
     </mat-card>
-    <mat-card class="fixed-height">
+  <mat-card class="fixed-height">
+    <div class="detail-kpis__title">
+      <h2>MARCAS MÁS UTILIZADOS</h2>
+    </div>
+    <div echarts [options]="brandChartOption" class="big-chart"></div>
+  </mat-card>
+  <mat-card class="fixed-height">
+    <div class="detail-kpis__title">
+      <h2>VIDA UTIL POR MARCA</h2>
+    </div>
+    <div echarts [options]="brandChartOption" class="big-chart"></div>
+  </mat-card>
+  <mat-card class="detail-kpis__tyres">
+    <div class="detail-kpis__title">
+      <h2>ALERTAS DE NEUMÁTICO</h2>
+    </div>
+    <div>
+      <ng-container *ngTemplateOutlet="alert"></ng-container>
+      <ng-container *ngTemplateOutlet="alert"></ng-container>
+      <ng-container *ngTemplateOutlet="alert"></ng-container>
+      <ng-container *ngTemplateOutlet="alert, context:{$implicit: true}"></ng-container>
+    </div>
+  </mat-card>
+  <mat-card class="detail-kpis__aligment">
+    <div>
       <div class="detail-kpis__title">
-        <h2>VIDA UTIL POR MARCA</h2>
+        <h2>ALERTA DE VEHICULOS</h2>
       </div>
-      <div echarts [options]="brandChartOption" class="big-chart"></div>
-    </mat-card>
-    <mat-card class="detail-kpis__tyres">
-      <div class="detail-kpis__title">
-        <h2>ALERTAS DE NEUMÁTICO</h2>
-      </div>
-      <div>
-        <ng-container *ngTemplateOutlet="alert"></ng-container>
-        <ng-container *ngTemplateOutlet="alert"></ng-container>
+      <div class="detail-kpis__aligment__alert-container">
         <ng-container *ngTemplateOutlet="alert"></ng-container>
         <ng-container *ngTemplateOutlet="alert, context:{$implicit: true}"></ng-container>
       </div>
-    </mat-card>
-    <mat-card class="detail-kpis__aligment">
-      <div>
-        <div class="detail-kpis__title">
-          <h2>ALERTA DE VEHICULOS</h2>
-        </div>
-        <div class="detail-kpis__aligment__alert-container">
-          <ng-container *ngTemplateOutlet="alert"></ng-container>
-          <ng-container *ngTemplateOutlet="alert, context:{$implicit: true}"></ng-container>
-        </div>
+    </div>
+    <div class="detail-kpis__aligment__separator"></div>
+    <div>
+      <div class="detail-kpis__title">
+        <h2>ALINEACIÓN Y BALANCEO</h2>
       </div>
-      <div class="detail-kpis__aligment__separator"></div>
-      <div>
-        <div class="detail-kpis__title">
-          <h2>ALINEACIÓN Y BALANCEO</h2>
-        </div>
-        <div class="detail-kpis__aligment__alert-container">
-          <ng-container *ngTemplateOutlet="alert, context:{$implicit: true}"></ng-container>
-          <ng-container *ngTemplateOutlet="alert"></ng-container>
-        </div>
+      <div class="detail-kpis__aligment__alert-container">
+        <ng-container *ngTemplateOutlet="alert, context:{$implicit: true}"></ng-container>
+        <ng-container *ngTemplateOutlet="alert"></ng-container>
       </div>
-    </mat-card>
-    <mat-card class="detail-kpis__contact">
-      <button mat-button class="detail-kpis__contact__help">
-        <mat-icon>help_outline</mat-icon>
-      </button>
-      <div class="detail-kpis__title"><h2>CONTACTO</h2></div>
-      <ul>
-        <li>Correo: Tyrebotsemilla@Gmail.Com</li>
-        <li>Numero: + 56 9 90 33 33 46</li>
-      </ul>
-    </mat-card>
-  </div>
+    </div>
+  </mat-card>
+  <mat-card class="detail-kpis__contact">
+    <button mat-button class="detail-kpis__contact__help">
+      <mat-icon>help_outline</mat-icon>
+    </button>
+    <div class="detail-kpis__title"><h2>CONTACTO</h2></div>
+    <ul>
+      <li>Correo: Tyrebotsemilla@Gmail.Com</li>
+      <li>Numero: + 56 9 90 33 33 46</li>
+    </ul>
+  </mat-card>
 </div>
 
 <ng-template let-accent #alert>

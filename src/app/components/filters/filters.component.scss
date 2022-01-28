@@ -2,6 +2,7 @@
 
 .search-form {
   display: none;
+  background: linear-gradient(180deg, #212529 0%, #{mix(#212529, white, 85%)} 100%) 0% 0% no-repeat padding-box;
   &__form {
     display: flex;
     justify-content: center;

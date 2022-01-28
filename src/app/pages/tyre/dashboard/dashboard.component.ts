@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EChartsOption } from 'echarts';
 
 @Component({
@@ -156,9 +157,18 @@ export class DashboardComponent implements OnInit {
     ]
   }
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  toPressureList() {
+    this.router.navigate(['../pressure-list'], {
+      relativeTo: this.route
+    })
   }
 
 }

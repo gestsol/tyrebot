@@ -7,11 +7,15 @@ import { TyreRoutingModule } from './tyre-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SharedModule } from 'src/app/shared.module';
 import { FiltersModule } from 'src/app/components/filters/filters.module';
+import { PressureListComponent } from './pressure-list/pressure-list.component';
+import { TyreContainerComponent } from './tyre-container/tyre-container.component';
 
 
 @NgModule({
   declarations: [
-    DashboardComponent
+    DashboardComponent,
+    PressureListComponent,
+    TyreContainerComponent
   ],
   imports: [
     CommonModule,

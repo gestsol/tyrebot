@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import * as moment from 'moment';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { ActiveVehiclesService } from '../active-vehicles.service';
-import { FiltersService } from 'src/app/components/filters/filters.service';
 
 @Component({
   selector: 'app-active-vehicles-container',
@@ -17,8 +13,7 @@ export class ActiveVehiclesContainerComponent implements OnInit {
 
   constructor(
     private navigationService: NavigationService,
-    private activeVehicleService: ActiveVehiclesService,
-    public dialog: MatDialog
+    private activeVehicleService: ActiveVehiclesService
   ) { }
 
   ngOnInit(): void {
