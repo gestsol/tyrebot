@@ -1,5 +1,5 @@
-@use '/src/sass/vars/colors' as colors;
-@use '/src/sass/vars/sizes' as sizes;
+@use '/src/sass/abstracts/vars/colors' as colors;
+@use '/src/sass/abstracts/vars/sizes' as sizes;
 
 .main-container {
   display: flex;

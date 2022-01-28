@@ -1,5 +1,5 @@
 
-@use '/src/sass/vars/colors' as colors;
+@use '/src/sass/abstracts/vars/colors' as colors;
 
 $states: (
   "low": (colors.$red,colors.$red-dark),

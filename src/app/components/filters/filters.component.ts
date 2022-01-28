@@ -14,6 +14,8 @@ import { FiltersService } from './filters.service';
 export class FiltersComponent implements OnInit {
   vehicles$ = this.filterService.vehicles$;
   showBackBtn = false;
+  inputFrom: any
+  inputTo: any
   form = this.fb.group({
     plate: [''],
     from: [''],
@@ -50,7 +52,15 @@ export class FiltersComponent implements OnInit {
         .format()
       }
       this.filterService.setDate(data)
+    } else {
+      this.form.patchValue({
+        ...this.filterService.getDate()
+      })
     }
+  }
+
+  calendarChange(event) {
+    console.log(event)
   }
 
   openSearchDialog() {

@@ -7,10 +7,20 @@
     <mat-form-field appearance="outline" class="light rounded">
       <mat-date-range-input [rangePicker]="picker">
         <input matStartDate placeholder="Desde" formControlName="from">
-        <input matEndDate placeholder="Hasta" formControlName="to" (dateChange)="dateChange()">
+        <input matEndDate placeholder="Hasta" formControlName="to">
       </mat-date-range-input>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-date-range-picker #picker></mat-date-range-picker>
+      <mat-date-range-picker #picker>
+        <mat-date-range-picker-actions>
+          <button
+            class="form-btn"
+            matDateRangePickerApply
+            (click)="dateChange()"
+          >
+            Enlazar
+          </button>
+        </mat-date-range-picker-actions>
+      </mat-date-range-picker>
     </mat-form-field>
   </form>
 </mat-card>

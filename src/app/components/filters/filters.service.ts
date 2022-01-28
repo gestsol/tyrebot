@@ -28,6 +28,14 @@ export class FiltersService {
     this.plateSub.next(value)
   }
 
+  getDate() {
+    return this.dateSub.value
+  }
+
+  getPlate() {
+    return this.plateSub.value
+  }
+
   setVehicles(value: any[]) {
     this.vehiclesSub.next(value)
   }

@@ -1,5 +1,5 @@
 @use 'sass:list';
-@use '/src/sass/vars/colors' as colors;
+@use '/src/sass/abstracts/vars/colors' as colors;
 
 .step-1 {
   max-width: 1000px;
