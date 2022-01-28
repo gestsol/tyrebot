@@ -13,6 +13,7 @@ import { ActiveVehiclesService } from '../../active-vehicles/active-vehicles.ser
   styleUrls: ['./pressure-list.component.scss']
 })
 export class PressureListComponent implements OnInit {
+  tabs = ['Optima', 'Alta', 'Baja'];
   tableSub: Subscription | null = null
   pageSub = new BehaviorSubject(0)
   loading = false;
