@@ -11,7 +11,7 @@
         <input matEndDate placeholder="Hasta" formControlName="to">
       </mat-date-range-input>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-date-range-picker #picker></mat-date-range-picker>
+      <mat-date-range-picker touchUi #picker></mat-date-range-picker>
     </mat-form-field>
     <div class="actions-container">
       <button class="form-btn form-btn--back-btn" (click)="close()">

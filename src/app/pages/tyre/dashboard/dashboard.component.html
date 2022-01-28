@@ -41,28 +41,30 @@
           <mat-icon>more_horiz</mat-icon>
         </button>
       </div>
-      <div class="detail-kpis__revision">
-        <div class="detail-kpis__revision__chart" echarts [options]="revisionChartOption"></div>
-        <div class="detail-kpis__revision__info">
-          <span>{{2440 | number}}</span>
-          <span>AL DÍA</span>
+      <div class="detail-kpis__revision__container">
+        <div class="detail-kpis__revision">
+          <div class="detail-kpis__revision__chart" echarts [options]="revisionChartOption"></div>
+          <div class="detail-kpis__revision__info">
+            <span>{{2440 | number}}</span>
+            <span>AL DÍA</span>
+          </div>
+        </div>
+        <div class="detail-kpis__revision">
+          <div class="detail-kpis__revision__chart" echarts [options]="revisionChartOption"></div>
+          <div class="detail-kpis__revision__info">
+            <span>{{2440 | number}}</span>
+            <span>PROXIMOS A VENCER</span>
+          </div>
+        </div>
+        <div class="detail-kpis__revision">
+          <div class="detail-kpis__revision__chart" echarts [options]="revisionChartOption"></div>
+          <div class="detail-kpis__revision__info">
+            <span>{{2440 | number}}</span>
+            <span>VENCIDOS</span>
+          </div>
         </div>
       </div>
-      <div class="detail-kpis__revision">
-        <div class="detail-kpis__revision__chart" echarts [options]="revisionChartOption"></div>
-        <div class="detail-kpis__revision__info">
-          <span>{{2440 | number}}</span>
-          <span>PROXIMOS A VENCER</span>
-        </div>
-      </div>
-      <div class="detail-kpis__revision">
-        <div class="detail-kpis__revision__chart" echarts [options]="revisionChartOption"></div>
-        <div class="detail-kpis__revision__info">
-          <span>{{2440 | number}}</span>
-          <span>VENCIDOS</span>
-        </div>
-      </div>
-    </mat-card>
+      </mat-card>
     <mat-card class="fixed-height">
       <div class="detail-kpis__title">
         <h2>MARCAS MÁS UTILIZADOS</h2>

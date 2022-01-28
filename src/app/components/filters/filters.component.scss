@@ -14,7 +14,7 @@
 
 .search-button {
   position: sticky;
-  bottom: 20px;
+  top: calc(100vh - 90px);
   left: calc(100% - 20px);
   background: linear-gradient(125deg, #339AF0 0%, #FFFFFFA8 100%);
   z-index: 999;
