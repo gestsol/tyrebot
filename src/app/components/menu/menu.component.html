@@ -3,7 +3,7 @@
     <mat-icon>clear</mat-icon>
   </button>
 	<ul class="menu__lvl1">
-	  <li *ngFor="let lvl1 of menu; let i = index;">
+	  <li *ngFor="let lvl1 of menu; let i = index;" [class]="lvl1.classes">
       <ng-container *ngTemplateOutlet="menuItem, context: { $implicit: lvl1 }"></ng-container>
       <div *ngIf="lvl1.list" class="menu__lvl2" [ngClass]="{'open': lvl1.open}">
         <ul class="menu__lvl2__container">

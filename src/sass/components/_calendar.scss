@@ -1,10 +1,8 @@
 @use '../abstracts/vars/_colors' as colors;
+@use '../abstracts/_mixins' as mixins;
 
 .mat-datepicker-content {
-  background-color: #{mix(colors.$bg-blue, white, 93%)}cf !important;
-  backdrop-filter: blur(4px);
-  border-radius: 10px;
-  overflow: hidden;
+  @include mixins.transparentPanel();
   .mat-datepicker-actions {
     height: 50px;
     & > .form-btn {

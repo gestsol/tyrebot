@@ -1,0 +1,12 @@
+@use '../abstracts/_mixins' as mixins;
+
+.mat-menu-panel.header__user-menu {
+  @include mixins.transparentPanel();
+  width: 250px;
+  border-radius: 20px;
+  padding-left: 2rem;
+  button {
+    color: #AAAAAA;
+    font-size: 1.1rem;
+  }
+}

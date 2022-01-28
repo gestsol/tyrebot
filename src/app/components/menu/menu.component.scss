@@ -42,6 +42,9 @@
     & > li {
       margin: 1rem 0 0 0;
     }
+    .mobile {
+      display: block;
+    }
   }
   &__lvl2 {
     padding-left: 1.5rem;
@@ -94,5 +97,11 @@
   }
   .menu__close {
     display: flex;
+  }
+}
+
+@media (min-width: 575px) {
+  .menu__lvl1 .mobile {
+    display: none;
   }
 }

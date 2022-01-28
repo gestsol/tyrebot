@@ -4,7 +4,14 @@
     <div class="header__title">SISTEMA DE GESTIÓN DE NEUMÁTICOS</div>
     <div class="header__user">
       <div class="header__date">{{jstoday}}</div>
-      <div class="header__icon-user"></div>
+      <button mat-button [matMenuTriggerFor]="menu" class="header__icon-user">
+        <img src="/assets/img/icon-user.png" alt="user-menu">
+      </button>
+      <mat-menu #menu="matMenu" class="header__user-menu">
+        <button mat-menu-item>Cambiar cuenta</button>
+        <button mat-menu-item>Configuración</button>
+        <button mat-menu-item>Soporte</button>
+      </mat-menu>
     </div>
   </div>
 </header>

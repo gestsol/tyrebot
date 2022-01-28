@@ -9,6 +9,7 @@ export interface MenuItem {
   route?: string
   list?: MenuItem[]
   open?: boolean
+  classes?: string
 }
 
 @Injectable({
@@ -57,7 +58,22 @@ export class NavigationService {
     },
     {
       name: 'Mi Cuenta',
-      active: false
+      active: false,
+      classes: 'mobile',
+      list: [
+        {
+          name: 'Cambiar cuenta',
+          active: false,
+        },
+        {
+          name: 'Configuración',
+          active: false,
+        },
+        {
+          name: 'Soporte',
+          active: false,
+        }
+      ]
     },
     {
       name: 'Configuración',
