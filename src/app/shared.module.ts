@@ -21,16 +21,23 @@ import { httpInterceptorProviders } from './intereptors/base';
 import { BusModule } from './components/bus/bus.module';
 import { BackButtonComponent } from './components/back-button/back-button.component';
 import { VehicleCreationSuccessComponent } from './components/vehicle-creation-success/vehicle-creation-success.component';
+import { TableComponent } from './components/table/table.component';
 
 @NgModule({
   declarations: [
     BackButtonComponent,
-    VehicleCreationSuccessComponent
+    VehicleCreationSuccessComponent,
+    TableComponent
   ],
   imports: [
     CommonModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatButtonModule,
+    MatTableModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     CommonModule,
@@ -51,7 +58,8 @@ import { VehicleCreationSuccessComponent } from './components/vehicle-creation-s
     MatDialogModule,
     MatTableModule,
     MatPaginatorModule,
-    MatButtonModule
+    MatButtonModule,
+    TableComponent
   ],
   providers: [
     httpInterceptorProviders,

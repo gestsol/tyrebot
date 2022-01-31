@@ -166,7 +166,15 @@ export class DashboardComponent implements OnInit {
   }
 
   toPressureList() {
-    this.router.navigate(['../pressure-list'], {
+    this.toRoute('../pressure-list');
+  }
+
+  toTemperatureList() {
+    this.toRoute('../temperature-list');
+  }
+
+  toRoute(relativeUrl: string) {
+    this.router.navigate([relativeUrl], {
       relativeTo: this.route
     })
   }

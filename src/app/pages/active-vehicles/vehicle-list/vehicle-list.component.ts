@@ -1,10 +1,10 @@
 import {AfterViewInit, Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, combineLatest, of, Subject, Subscription } from 'rxjs';
+import { combineLatest, of, Subscription } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { FiltersService } from 'src/app/components/filters/filters.service';
+import { TableComponent } from 'src/app/components/table/table.component';
 import { ActiveVehiclesService } from '../active-vehicles.service';
 
 @Component({
@@ -14,9 +14,7 @@ import { ActiveVehiclesService } from '../active-vehicles.service';
 })
 export class VehicleListComponent implements OnInit, OnDestroy, AfterViewInit {
   tableSub: Subscription | null = null
-  pageSub = new BehaviorSubject(0)
   loading = false;
-  resultsLength = 0;
   columns: {key: string, name: string}[] = [
     {
       key: 'plate',
@@ -44,12 +42,7 @@ export class VehicleListComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   ];
 
-  displayedColumns: string[] = this.columns.map((item) => item.key);
-  dataSource: MatTableDataSource<any> = new MatTableDataSource();
-
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-
-  dataSubscription: Subscription | null = null
+  @ViewChild(TableComponent) table!: TableComponent;
 
   constructor(
     private activeVehicleService: ActiveVehiclesService,
@@ -64,20 +57,15 @@ export class VehicleListComponent implements OnInit, OnDestroy, AfterViewInit {
     this.tableSub?.unsubscribe()
   }
 
-  pageChange() {
-    this.pageSub.next(0)
-  }
-
   ngAfterViewInit() {
-    this.paginator._formFieldAppearance = 'outline'
     setTimeout(() => {
-      this.tableSub = combineLatest([this.pageSub, this.filterService.plate$]).pipe(
+      this.tableSub = combineLatest([this.table.pageChange, this.filterService.plate$]).pipe(
         startWith([0, '']),
         switchMap((data) => {
           this.loading = true;
           return this.activeVehicleService.getVehicles(
-            this.paginator.pageIndex + 1,
-            this.paginator.pageSize,
+            data[0] instanceof MatPaginator ? data[0].pageIndex + 1 : 0,
+            data[0] instanceof MatPaginator ? data[0].pageSize: 1,
             data[1] as string
           ).pipe(
             map((data) => data),
@@ -88,9 +76,8 @@ export class VehicleListComponent implements OnInit, OnDestroy, AfterViewInit {
           );
         })
       ).subscribe((data) => {
-        this.dataSource = new MatTableDataSource(data.data);
+        this.table.setData(data.data, data.total_entries)
         this.loading = false
-        this.resultsLength = data.total_entries
       });
     }, 0)
   }

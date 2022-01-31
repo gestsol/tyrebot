@@ -18,6 +18,10 @@ const routes: Routes = [
         component: PressureListComponent
       },
       {
+        path: 'temperature-list',
+        component: PressureListComponent
+      },
+      {
         path: '',
         redirectTo: 'dashboard'
       }

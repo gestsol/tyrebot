@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, of, Subscription } from 'rxjs';
@@ -8,11 +8,11 @@ import { TableComponent } from 'src/app/components/table/table.component';
 import { ActiveVehiclesService } from '../../active-vehicles/active-vehicles.service';
 
 @Component({
-  selector: 'app-pressure-list',
-  templateUrl: './pressure-list.component.html',
-  styleUrls: ['./pressure-list.component.scss']
+  selector: 'app-temperature-list',
+  templateUrl: './temperature-list.component.html',
+  styleUrls: ['./temperature-list.component.scss']
 })
-export class PressureListComponent implements AfterViewInit {
+export class TemperatureListComponent implements AfterViewInit {
   tabs = ['Optima', 'Alta', 'Baja'];
   tableSub: Subscription | null = null
   loading = false;
