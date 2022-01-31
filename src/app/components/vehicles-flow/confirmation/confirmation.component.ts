@@ -43,14 +43,14 @@ export class ConfirmationComponent implements OnInit {
     })
   }
 
-  toEjes() {
-    this.router.navigate(['../step-2'], {
-      relativeTo: this.route
-    })
-  }
+  // toEjes() {
+  //   this.router.navigate(['../step-1'], {
+  //     relativeTo: this.route
+  //   })
+  // }
 
   toEje(eje: number) {
-    this.router.navigate(['../step-3'], {
+    this.router.navigate(['../step-2'], {
       relativeTo: this.route,
 		  queryParams: {
 		   eje: eje

@@ -58,7 +58,7 @@ export class VehicleConfigurationComponent implements OnInit, AfterViewInit, OnD
       this.flowService.updateStep(step, StepKeys.step3, !params['id'])
     })
 
-    this.router.navigate(['../step-4'], {
+    this.router.navigate(['../step-3'], {
       relativeTo: this.route
     })
   }

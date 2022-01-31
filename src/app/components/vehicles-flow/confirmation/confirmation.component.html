@@ -1,7 +1,7 @@
 <div class="step-4 main-container">
   <div class="step-4__header">
     <h1 class="step-4__header__title">Resumén del Vehículo</h1>
-    <app-back-button path="../step-3"></app-back-button>
+    <app-back-button path="../step-2"></app-back-button>
   </div>
   <div class="step-4__panel">
     <div class="step-4__panel__step-1">
@@ -40,7 +40,7 @@
       <div class="step-4__panel__header">
         <h2>Ejes</h2>
         <h3>RESUMEN DE NEUMÁTICOS POR EJES</h3>
-        <span (click)="toEjes()">Editar</span>
+        <span (click)="toDetail()">Editar</span>
       </div>
       <div class="step-4__panel__step-2__ejes">
         <div *ngFor="let eje of step2?.ejes; let i = index">

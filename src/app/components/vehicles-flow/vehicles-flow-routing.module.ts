@@ -15,17 +15,17 @@ const routes: Routes = [
         component: VehicleDetailComponent,
         path: 'step-1'
       },
+      // {
+      //   component: EjesComponent,
+      //   path: 'step-2'
+      // },
       {
-        component: EjesComponent,
+        component: VehicleConfigurationComponent,
         path: 'step-2'
       },
       {
-        component: VehicleConfigurationComponent,
-        path: 'step-3'
-      },
-      {
         component: ConfirmationComponent,
-        path: 'step-4'
+        path: 'step-3'
       },
       {
         path: '',

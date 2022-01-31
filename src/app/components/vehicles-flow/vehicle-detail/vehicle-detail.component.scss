@@ -52,16 +52,22 @@ input::placeholder{
   row-gap: 1rem;
   &__column {
     flex-wrap: wrap;
-    $self: &;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-content: center;
+    &__input-container {
+      display: flex;
+    }
     &__field {
       max-width: 204px;
     }
     label {
       flex-basis: 0;
+    }
+    &:last-child &__input-container label {
+      flex-basis: auto;
+      align-self: center;
     }
     @each $value in 1 2 3 4 5 6 {
       &:nth-child(#{$value}) {
@@ -69,6 +75,43 @@ input::placeholder{
         grid-row: $value;
       }
     }
+  }
+}
+
+.add-btn {
+  margin: 5px 0 10px 0;
+  height: 30px;
+  background-color: white;
+  color: black;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  min-width: 204px;
+  width: 100%;
+  border: none;
+  transition: all 0.2s;
+  &:active {
+    transform: scale(0.95) !important;
+  }
+  &:disabled {
+    background: gray;
+  }
+}
+
+.axie {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: auto;
+  width: 110px;
+  mat-form-field {
+    width: 80px;
+  }
+  mat-icon {
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
   }
 }
 
@@ -91,6 +134,7 @@ input::placeholder{
     }
   }
 }
+
 @media (min-width: 600px) {
   .form-btn {
     margin-right: 0;
@@ -107,12 +151,22 @@ input::placeholder{
     &__column {
       flex-wrap: nowrap;
       $self: &;
+      label {
+        align-self: center;
+      }
+      &:last-child {
+        flex-wrap: wrap;
+        align-content: flex-start;
+        label {
+          margin-bottom: 0.5rem;
+          flex-basis: 100%;
+        }
+      }
       @each $value in 1 2 3 4 5 6 {
         &:nth-child(#{$value}) {
           @if ($value == 6) {
             grid-column: 2;
-            grid-row: 1;
-            max-height: 40px;
+            grid-row: 1 / 7;
             #{$self}__field {
               max-width: 160px;
             }
@@ -122,11 +176,6 @@ input::placeholder{
           }
         }
       }
-    }
-    .cantEjes {
-      display: block;
-      margin-left: auto;
-      width: 80px;
     }
   }
 }

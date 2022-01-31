@@ -1,6 +1,6 @@
 <div class="step-1 main-container">
 	<h1 class="title" [style]="{marginBottom: hasId? '1rem': ''}">Agregar Vehiculo</h1>
-  <app-back-button *ngIf="hasId" path="../../"></app-back-button>
+  <app-back-button *ngIf="hasId" path="../../../"></app-back-button>
 	<div class="form-container">
 		<h2 class="text-light">Ingrese los datos del nuevo vehiculo</h2>
 		<form [formGroup]="form" (ngSubmit)="continue()">
@@ -54,17 +54,38 @@
             <mat-error *ngIf="f.gps.errors && f.gps.touched">{{f.gps.errors?.required? 'Por favor, indique el Dispositivo GPS': ''}}</mat-error>
           </div>
 				</div>
-        <div class="grid__column form-input-container">
-          <label>CANTIDAD DE EJES:</label>
+        <div class="grid__column">
+          <label>CANTIDAD DE NEUMÁTICOS:</label>
           <div class="grid__column__field">
-            <mat-form-field appearance="outline" class="cantEjes" [ngClass]="{'grey-background': !f.ejes.value}">
-              <mat-select disableOptionCentering formControlName="ejes">
-                <mat-option *ngFor="let value of [2, 3]" [value]="value">
-                  {{value}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-error style="text-align: right;" *ngIf="f.ejes.touched && f.ejes.errors">{{f.ejes.errors?.required? 'Por favor, ingrese la cantidad de ejes': ''}}</mat-error>
+            <button matRipple class="add-btn" (click)="addAxie()" [disabled]="axies.length === 3" type="button">
+              Agregar eje +
+            </button>
+            <div formArrayName="axies">
+              <ng-container *ngFor="let control of axies.controls; let i = index">
+                <div class="grid__column__input-container">
+                  <label>EJE {{i + 1}}</label>
+                  <div class="axie">
+                    <mat-form-field
+                      appearance="outline"
+                      [ngClass]="{'grey-background': !control.value}">
+                      <input matInput [formControlName]="i" type="number">
+                    </mat-form-field>
+                    <mat-icon (click)="removeAxie(i)">clear</mat-icon>
+                  </div>
+                </div>
+                <!-- <mat-error style="text-align: right;" *ngIf="f.ejes.touched && f.ejes.errors">{{f.ejes.errors?.required? 'Por favor, ingrese la cantidad de ejes': ''}}</mat-error> -->
+              </ng-container>
+            </div>
+            <div class="grid__column__input-container">
+              <label>R</label>
+              <div class="axie">
+                <mat-form-field
+                  appearance="outline"
+                  [ngClass]="{'grey-background': !f.backup.value}">
+                  <input matInput formControlName="backup" type="number">
+                </mat-form-field>
+              </div>
+            </div>
           </div>
         </div>
       </div>
