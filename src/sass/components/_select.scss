@@ -1,3 +1,12 @@
+@use '../abstracts/_mixins' as mixins;
+
 .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
   color: #E7A42A !important;
+}
+
+.mat-select-panel {
+  @include mixins.transparentPanel();
+  .mat-option-text {
+    color: white;
+  }
 }

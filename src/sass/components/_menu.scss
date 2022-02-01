@@ -10,3 +10,30 @@
     font-size: 1.1rem;
   }
 }
+
+.mat-menu-panel.search-form__form__report-menu {
+  @include mixins.transparentPanel();
+  border-radius: 20px;
+  width: 250px;
+  padding-top: 1rem;
+  span, button {
+    color: white;
+    padding-left: 2rem;
+  }
+  span {
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 0.7rem;
+  }
+  button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1rem;
+    mat-icon {
+      color: white;
+      margin: 0;
+      font-size: 1rem;
+    }
+  }
+}

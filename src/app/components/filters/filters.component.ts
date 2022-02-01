@@ -19,7 +19,8 @@ export class FiltersComponent implements OnInit {
   form = this.fb.group({
     plate: [''],
     from: [''],
-    to: ['']
+    to: [''],
+    report: ['']
   })
 
   constructor(

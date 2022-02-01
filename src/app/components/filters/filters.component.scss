@@ -4,11 +4,20 @@
   display: none;
   background: linear-gradient(180deg, #212529 0%, #{mix(#212529, white, 85%)} 100%) 0% 0% no-repeat padding-box;
   &__form {
+    position: relative;
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
     gap: 2rem;
     mat-form-field {
       width: 240px;
+    }
+    &__exporter {
+      border-radius: 28px;
+      background-color: white;
+      color: black;
+      height: 35px;
     }
   }
 }
@@ -21,6 +30,16 @@
   z-index: 999;
 }
 
+@media (min-width: 920px) {
+  .search-form__form{
+    justify-content: center;
+    &__exporter {
+      position: absolute;
+      right: 0;
+      top: calc(50% - 18px)
+    }
+  }
+}
 @media (min-width: 630px) {
   .search-button {
     display: none;

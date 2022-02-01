@@ -16,6 +16,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { httpInterceptorProviders } from './intereptors/base';
 import { BusModule } from './components/bus/bus.module';
@@ -37,7 +38,8 @@ import { TableComponent } from './components/table/table.component';
     MatPaginatorModule,
     MatButtonModule,
     MatTableModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatMenuModule
   ],
   exports: [
     CommonModule,
@@ -59,7 +61,8 @@ import { TableComponent } from './components/table/table.component';
     MatTableModule,
     MatPaginatorModule,
     MatButtonModule,
-    TableComponent
+    TableComponent,
+    MatMenuModule
   ],
   providers: [
     httpInterceptorProviders,

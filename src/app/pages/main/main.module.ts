@@ -7,7 +7,6 @@ import { HeaderComponent } from '../../components/header/header.component';
 import { MainComponent } from './main.component';
 import { MenuComponent } from 'src/app/components/menu/menu.component';
 import { SharedModule } from 'src/app/shared.module';
-import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -20,7 +19,6 @@ import { MatMenuModule } from '@angular/material/menu';
     CommonModule,
     MainRoutingModule,
     SharedModule,
-    MatMenuModule
   ]
 })
 export class MainModule { }
