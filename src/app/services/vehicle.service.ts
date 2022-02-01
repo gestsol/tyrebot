@@ -1,7 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, of, zip } from 'rxjs';
-import { finalize, map, mergeMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +9,7 @@ export class VehicleService {
 
   constructor(
     private http: HttpClient
-  ) {
-
-  }
+  ) {}
 
   getHubs() {
     return this.http.get('hub_tpms')

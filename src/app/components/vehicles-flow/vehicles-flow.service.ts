@@ -74,8 +74,8 @@ export class VehiclesFlowService {
     this.data.next(data)
   }
 
-  createVehicle(step1: Step1, step3: Step3, hub_tpms_id: number) {
-    const body = this.generateBody(step1, step3, hub_tpms_id)
+  createVehicle(step1: Step1, step3: Step3) {
+    const body = this.generateBody(step1, step3)
     return this.vehicleService.postVehicles(body)
   }
 
@@ -161,30 +161,29 @@ export class VehiclesFlowService {
   }
 
   createData (step1: Step1, step3: Step3, finalizeCb = () => {}) {
-    return this.vehicleService.postHub(step1.hubName)
-    .pipe(
-      mergeMap((data: any) => {
-        return this.createVehicle(step1, step3, data.data.id)
-      }),
-      finalize(finalizeCb)
-    )
+    return this.createVehicle(step1, step3)
+      .pipe(
+        finalize(finalizeCb)
+      )
   }
 
   updateData (id: number, step1: Step1, step3: Step3, finalizeCb = () => {}) {
-    const body = this.generateBody(step1, step3, step1.hubid)
+    const body = this.generateBody(step1, step3)
     return this.vehicleService.putVehicles(id, body)
     .pipe(
       finalize(finalizeCb)
     )
   }
 
-  generateBody(step1: Step1, step3: Step3, hub_tpms_id?: number) {
+  generateBody(step1: Step1, step3: Step3) {
     return {
       plate: step1.patente,
       internal_number: step1.nrointerno,
       chassis: step1.chassis,
       gps_model: step1.gps,
-      hub_tpms_id: hub_tpms_id,
+      hub_meta: {
+        name: step1.hubName
+      },
       format: {
         axies: step3.ejes.map((item, index) => ({
           type: index !== step3.ejes.length - 1 ? 'main' : 'backup',

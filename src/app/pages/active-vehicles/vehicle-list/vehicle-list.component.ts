@@ -60,12 +60,12 @@ export class VehicleListComponent implements OnInit, OnDestroy, AfterViewInit {
   ngAfterViewInit() {
     setTimeout(() => {
       this.tableSub = combineLatest([this.table.pageChange, this.filterService.plate$]).pipe(
-        startWith([0, '']),
+        startWith([{pageIndex: 0, pageSize: 1}, ''] as [{pageIndex: number, pageSize: number}, string]),
         switchMap((data) => {
           this.loading = true;
           return this.activeVehicleService.getVehicles(
-            data[0] instanceof MatPaginator ? data[0].pageIndex + 1 : 0,
-            data[0] instanceof MatPaginator ? data[0].pageSize: 1,
+            data[0].pageIndex + 1,
+            data[0].pageSize,
             data[1] as string
           ).pipe(
             map((data) => data),

@@ -46,7 +46,7 @@ export class ActiveVehiclesService {
           chassis: item.chassis,
           internal_number: item.internal_number,
           plate: item.plate,
-          hubName: item.hub_tpms.name
+          hubName: item.hub_meta?.name
         }));
         this.setVehicles(data)
         return response
@@ -62,14 +62,14 @@ export class ActiveVehiclesService {
       .format('YYYY-MM-DDTHH:mm:ss')
     const defaultTo = moment().format('YYYY-MM-DDTHH:mm:ss')
     const queryParams = `?from=${from || defaultFrom}&to=${to || defaultTo}`
-    return this.http.get<{data: Summary[]}>(`vehicles/${id}/summary_tpms_data${queryParams}`)
+    return this.http.get<{data: Summary[]}>(`vehicles/${id}/summary_tpms_data_legacy${queryParams}`)
     .pipe(
       map((data) => data.data  as Summary[])
     )
   }
 
   getTpms(id: number) {
-    return this.http.get(`vehicles/${id}/latest_tpms_data`)
+    return this.http.get(`vehicles/${id}/latest_tpms_data_legacy`)
     .pipe(
       map((data: any) => data.data)
     )
