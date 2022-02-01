@@ -93,7 +93,7 @@ export class VehiclesFlowService {
           chassis: data.chassis,
           gps: data.gps_model,
           ejes: parseInt(data.format.axies_count) - 1,
-          hubName: data.hub_tpms.name
+          hubName: data.hub_meta?.name
         }
 
         const step2: Step2 = {
