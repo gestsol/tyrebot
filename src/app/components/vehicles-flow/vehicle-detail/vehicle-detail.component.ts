@@ -38,6 +38,7 @@ export class VehicleDetailComponent implements OnInit {
   ngOnInit(): void {
     this.flowService.data$.subscribe(
 		  (value: FlowData) => {
+        this.axies.clear()
         const {step1, step2} = value
         if (step1) {
           this.form.get('patente')?.setValue(step1.patente)
@@ -48,6 +49,7 @@ export class VehicleDetailComponent implements OnInit {
         }
 
         if (step2) {
+          console.log(step2)
           step2.ejes.forEach((item, i) => {
             if (i !== step2.ejes.length - 1) {
               this.addAxie(item)
