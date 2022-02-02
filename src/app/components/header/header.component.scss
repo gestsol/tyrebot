@@ -14,6 +14,7 @@
     justify-content: space-between;
     align-items: center;
     overflow: visible;
+    gap: 0.3rem;
   }
 
   &__user {
@@ -62,6 +63,10 @@
 @media (min-width: 720px) {
   .header__title {
     display: block;
+  }
+  .header__date {
+    width: 18vw;
+    max-width: 230px;
   }
 }
 

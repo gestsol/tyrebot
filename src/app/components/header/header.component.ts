@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { formatDate } from '@angular/common';
 import { NavigationService } from 'src/app/services/navigation.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-header',
@@ -14,8 +15,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(private navigationService: NavigationService) {}
 
   ngOnInit(): void {
+    moment.locale('es')
     this.interval = setInterval(() => {
-      this.jstoday = formatDate(new Date(), 'hh:mm:ss a  dd MMMM yyyy', 'en-US', '+0530');
+      this.jstoday = moment().format('hh:mm:ss A[,] d [de] MMMM yyyy');
     }, 1000)
   }
 
