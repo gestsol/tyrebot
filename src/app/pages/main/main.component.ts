@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationService } from 'src/app/services/navigation.service';
+import { VehicleService } from 'src/app/services/vehicle.service';
 
 @Component({
   selector: 'app-main',
@@ -11,7 +12,8 @@ export class MainComponent implements OnInit {
   navState: boolean = true;
 
   constructor(
-    private navigation: NavigationService
+    private navigation: NavigationService,
+    private vehicleService: VehicleService
   ) { }
 
   ngOnInit() {
@@ -27,6 +29,9 @@ export class MainComponent implements OnInit {
         behavior: 'smooth'
       })
     });
+
+    this.vehicleService.getTyreBrands().subscribe()
+    this.vehicleService.getTyreStatusList().subscribe()
   }
 
   close() {

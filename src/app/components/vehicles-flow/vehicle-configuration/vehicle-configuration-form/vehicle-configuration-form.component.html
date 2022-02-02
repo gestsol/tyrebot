@@ -65,7 +65,7 @@
     <fieldset class="field-container" formGroupName="tyre_brand">
       <div class="row-container" formArrayName="tires">
         <ng-container
-          *ngTemplateOutlet="controlTemplate, context: { $implicit: tyre_brand.controls, name: 'Marca de Neumático' }">
+          *ngTemplateOutlet="controlTemplate, context: { $implicit: tyre_brand.controls, name: 'Marca de Neumático', isSelect: true, options: tyreBrands$ | async }">
         </ng-container>
       </div>
     </fieldset>
@@ -100,7 +100,7 @@
     <fieldset class="field-container" formGroupName="recauchado">
       <div class="row-container" formArrayName="tires">
         <ng-container
-          *ngTemplateOutlet="controlTemplate, context: { $implicit: recauchado.controls, name: 'Recauchado', isSelect: true }">
+          *ngTemplateOutlet="controlTemplate, context: { $implicit: recauchado.controls, name: 'Estatus', isSelect: true, options: tyreStatusList$ | async }">
         </ng-container>
       </div>
     </fieldset>
@@ -120,7 +120,8 @@
   let-name="name"
   let-isNumber="isNumber"
   let-isDate="isDate"
-  let-isSelect="isSelect">
+  let-isSelect="isSelect"
+  let-options="options">
   <div class="row-container__col field-name">
     <div>
       <span>{{name}}</span>
@@ -144,9 +145,9 @@
       </ng-container>
       <ng-container *ngIf="isSelect">
         <mat-form-field appearance="outline" style="width: 100%;" [ngClass]="{'grey-background': !control.value}">
-          <mat-select disableOptionCentering [placeholder]="'Tire '+ (i + 1)" [formControl]="controls[i]">
-            <mat-option *ngFor="let value of ['SI', 'NO']" [value]="value">
-              {{value}}
+          <mat-select [compareWith]="compareOptions" disableOptionCentering [placeholder]="'Tire '+ (i + 1)" [formControl]="controls[i]">
+            <mat-option *ngFor="let value of options" [value]="value.id">
+              {{value.name}}
             </mat-option>
           </mat-select>
         </mat-form-field>

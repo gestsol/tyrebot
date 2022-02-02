@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { VehicleService } from 'src/app/services/vehicle.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, zip } from 'rxjs';
 import { finalize, map, mergeMap } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
 
 export enum StepKeys {
   step1 = 'step1',
@@ -11,7 +10,8 @@ export enum StepKeys {
 }
 
 export interface EjeData {
-  tires: number
+  tyres: number
+  id?: number[]
   tpms_name: string[]
   tpms_type: string[]
   tpms_manufacturer: string[]
@@ -30,7 +30,6 @@ export interface EjeData {
 
 export interface Step1 {
   patente: string
-  ejes: number
   chassis: string
   hubName: string
   nrointerno: string
@@ -75,7 +74,10 @@ export class VehiclesFlowService {
   }
 
   createVehicle(step1: Step1, step3: Step3) {
-    const body = this.generateBody(step1, step3)
+    const body = {
+      ...this.generateVehicle(step1),
+      tyres: this.generateTyre(step3)
+    }
     return this.vehicleService.postVehicles(body)
   }
 
@@ -92,33 +94,46 @@ export class VehiclesFlowService {
           nrointerno: data.internal_number,
           chassis: data.chassis,
           gps: data.gps_model,
-          ejes: parseInt(data.format.axies_count) - 1,
           hubName: data.hub_meta?.name
         }
 
         const step2: Step2 = {
-          ejes: data.format.axies.map(axie => axie.tyres_count)
+          ejes: []
         }
-
+        const axies: any[] = []
+        let axie1 = data.tyres.filter(tyre => tyre.axie === 1)
+        let axie2 = data.tyres.filter(tyre => tyre.axie === 2)
+        let axie3 = data.tyres.filter(tyre => tyre.axie === 3)
+        let axie4 = data.tyres.filter(tyre => tyre.axie === 4)
+        axies.push(axie1)
+        axies.push(axie2)
+        axies.push(axie3)
+        step2.ejes.push(axie1.length)
+        step2.ejes.push(axie2.length)
+        step2.ejes.push(axie3.length)
+        if (axie4.length) {
+          axies.push(axie4)
+          step2.ejes.push(axie4.length)
+        }
         const step3: Step3 = {
-          ejes: data.format.axies.map(axie => {
-            const getListField = (name: string) => axie.tyres.map((tyre) => tyre[name])
+          ejes: axies.map(axie => {
             return {
-              tires: axie.tyres_count,
-              tpms_name: getListField('tpms_name'),
-              tpms_type: getListField('tpms_type'),
-              tpms_manufacturer: getListField('tpms_manufacturer'),
-              tpms_installation_date: getListField('tpms_installation_date'),
-              tyre_installation_date: getListField('tyre_installation_date'),
-              tyre_temperature: getListField('tyre_temperature'),
-              tyre_pressure: getListField('tyre_pressure'),
-              tyre_brand: getListField('tyre_brand'),
-              tyre_provider: getListField('tyre_provider'),
-              dot: getListField('dot'),
-              tyre_index: getListField('tyre_index'),
-              tyre_measurements: getListField('tyre_measurements'),
-              recauchado: getListField('recauchado'),
-              tyre_wear: getListField('tyre_wear')
+              tyres: axie.length,
+              id: axie.map((tyre) => tyre.id),
+              tpms_name: axie.map((tyre) => tyre.tpms_name),
+              tpms_type: axie.map((tyre) => tyre.tpms_meta.tpms_type),
+              tpms_manufacturer: axie.map((tyre) => tyre.tpms_meta.tpms_manufacturer),
+              tpms_installation_date: axie.map((tyre) => tyre.tpms_meta.tpms_installation_date),
+              tyre_installation_date: axie.map((tyre) => tyre.tyre_installation_date),
+              tyre_temperature: axie.map((tyre) => tyre.temperature),
+              tyre_pressure: axie.map((tyre) => tyre.pressure),
+              tyre_brand: axie.map((tyre) => tyre.tyre_brand_id),
+              tyre_provider: axie.map((tyre) => tyre.provider),
+              dot: axie.map((tyre) => tyre.dot),
+              tyre_index: axie.map((tyre) => tyre.index),
+              tyre_measurements: axie.map((tyre) => tyre.measurements),
+              recauchado: axie.map((tyre) => tyre.tyre_status_id),
+              tyre_wear: axie.map((tyre) => tyre.tyre_wear),
             }
           })
         }
@@ -168,14 +183,28 @@ export class VehiclesFlowService {
   }
 
   updateData (id: number, step1: Step1, step3: Step3, finalizeCb = () => {}) {
-    const body = this.generateBody(step1, step3)
-    return this.vehicleService.putVehicles(id, body)
+    const vehicle = this.generateVehicle(step1)
+    return this.vehicleService.putVehicles(id, vehicle)
     .pipe(
+      mergeMap((vehicle: any) => {
+        const tyres = this.generateTyre(step3)
+        const updateBatch: Observable<any>[] = []
+        const createBatch: Observable<any>[] = []
+        console.log(vehicle)
+        tyres.forEach(tyre => {
+          if (tyre.id)
+            updateBatch.push(this.vehicleService.putTyre(tyre.id, tyre))
+          else
+            createBatch.push(this.vehicleService.postTyre({...tyre, vehicle_id: vehicle.id}))
+        })
+
+        return zip(...updateBatch, ...createBatch)
+      }),
       finalize(finalizeCb)
     )
   }
 
-  generateBody(step1: Step1, step3: Step3) {
+  generateVehicle(step1: Step1) {
     return {
       plate: step1.patente,
       internal_number: step1.nrointerno,
@@ -183,33 +212,44 @@ export class VehiclesFlowService {
       gps_model: step1.gps,
       hub_meta: {
         name: step1.hubName
-      },
-      format: {
-        axies: step3.ejes.map((item, index) => ({
-          type: index !== step3.ejes.length - 1 ? 'main' : 'backup',
-          tyres_count: item.tires,
-          axie_number: index + 1,
-          tyres: new Array(item.tires).fill({}).map((_, i) => ({
-            tyre_number: i + 1,
-            tpms_name: item.tpms_name[i],
+      }
+    }
+  }
+
+  generateTyre(step3: Step3) {
+    let tyres: any[] = []
+    step3.ejes.forEach((item, axieIndex) => {
+      const result = new Array(item.tyres).fill({}).map((_, i) => {
+        const tyre: any = {
+          axie: axieIndex + 1,
+          number: i + 1,
+          tpms_meta: {
             tpms_type: item.tpms_type[i],
             tpms_manufacturer: item.tpms_manufacturer[i],
             tpms_installation_date: item.tpms_installation_date[i],
-            tyre_installation_date: item.tyre_installation_date[i],
-            tyre_manufacturing_date: '',
-            tyre_temperature: item.tyre_temperature[i],
-            tyre_pressure: typeof item.tyre_pressure[i] === 'string'? parseInt(item.tyre_pressure[i] as any):item.tyre_pressure[i],
-            tyre_brand: item.tyre_brand[i],
-            tyre_provider: item.tyre_provider[i],
-            dot: item.dot[i],
-            tyre_index: item.tyre_index[i],
-            tyre_tyre_measurementss: item.tyre_measurements[i],
-            recauchado: item.recauchado[i],
-            tyre_wear: item.tyre_wear[i]
-          }))
-        })),
-        axies_count: step3.ejes.length
-      }
-    }
+          },
+          install_date: item.tyre_installation_date[i],
+          manufacturing_date: '',
+          temperature: item.tyre_temperature[i],
+          pressure: typeof item.tyre_pressure[i] === 'string'? parseInt(item.tyre_pressure[i] as any):item.tyre_pressure[i],
+          tyre_brand_id: item.tyre_brand[i],
+          provider: item.tyre_provider[i],
+          dot: item.dot[i],
+          index: item.tyre_index[i],
+          measurements: item.tyre_measurements[i],
+          tyre_status_id: item.recauchado[i],
+          wear: item.tyre_wear[i],
+          tpms_name: item.tpms_name[i],
+        }
+        if (item.id?.length) {
+          tyre.id = item.id[i]
+        }
+
+        return tyre
+      })
+      tyres = tyres.concat(result)
+    })
+
+    return tyres;
   }
 }

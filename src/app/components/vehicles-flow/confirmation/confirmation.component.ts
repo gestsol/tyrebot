@@ -43,12 +43,6 @@ export class ConfirmationComponent implements OnInit {
     })
   }
 
-  // toEjes() {
-  //   this.router.navigate(['../step-1'], {
-  //     relativeTo: this.route
-  //   })
-  // }
-
   toEje(eje: number) {
     this.router.navigate(['../step-2'], {
       relativeTo: this.route,
@@ -63,9 +57,9 @@ export class ConfirmationComponent implements OnInit {
       const ejesLength = this.step3.ejes.length
       this.axies = this.step3.ejes.map((item, index) => ({
         type: index !== ejesLength - 1 ? 'main' : 'backup',
-        tyres_count: item.tires,
+        tyres_count: item.tyres,
         axie_number: index + 1,
-        tyres: new Array(item.tires).fill({}).map((_, i) => ({
+        tyres: new Array(item.tyres).fill({}).map((_, i) => ({
           tyre_number: i + 1
         }))
       }))
@@ -85,8 +79,8 @@ export class ConfirmationComponent implements OnInit {
         } else {
           this.flowService.updateData(params['id'], this.step1, this.step3, () => this.loading = false)
           .subscribe((response) => {
-            this.openDialog({ type: 'update' })
-            this.toList()
+            // this.openDialog({ type: 'update' })
+            // this.toList()
           }, (err) => console.error(err))
         }
       }

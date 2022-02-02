@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { VehiclesFlowRoutingModule } from './vehicles-flow-routing.module';
 import { VehicleDetailComponent } from './vehicle-detail/vehicle-detail.component';
-import { EjesComponent } from './ejes/ejes.component';
+// import { EjesComponent } from './ejes/ejes.component';
 import { VehicleConfigurationComponent } from './vehicle-configuration/vehicle-configuration.component';
 import { VehicleConfigurationFormComponent } from './vehicle-configuration/vehicle-configuration-form/vehicle-configuration-form.component';
 import { SharedModule } from 'src/app/shared.module';
@@ -13,7 +13,7 @@ import { VehiclesFlowService } from './vehicles-flow.service';
 @NgModule({
   declarations: [
     VehicleDetailComponent,
-    EjesComponent,
+    // EjesComponent,
     VehicleConfigurationComponent,
     VehicleConfigurationFormComponent,
     ConfirmationComponent,

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
-import { EjesComponent } from './ejes/ejes.component';
+// import { EjesComponent } from './ejes/ejes.component';
 import { VehicleConfigurationComponent } from './vehicle-configuration/vehicle-configuration.component';
 import { VehicleDetailComponent } from './vehicle-detail/vehicle-detail.component';
 import { VehiclesFlowComponent } from './vehicles-flow.component';

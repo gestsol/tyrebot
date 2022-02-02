@@ -12,7 +12,7 @@ export class VehicleDetailComponent implements OnInit {
   hasId = false
   form = this.fb.group({
     patente: ['', Validators.required],
-    axies: this.fb.array([], Validators.minLength(2)),
+    axies: this.fb.array([], [Validators.required, Validators.minLength(2)]),
     backup: [1, [Validators.required, Validators.max(3), Validators.min(1)]],
     chassis: ['', Validators.required],
     hubName: ['', Validators.required],
@@ -85,7 +85,6 @@ export class VehicleDetailComponent implements OnInit {
 
     const step1: Step1 = {
       patente: this.form.get('patente')?.value,
-      ejes: this.axies.length,
       chassis: this.form.get('chassis')?.value,
       hubName: this.form.get('hubName')?.value,
       nrointerno: this.form.get('nrointerno')?.value,

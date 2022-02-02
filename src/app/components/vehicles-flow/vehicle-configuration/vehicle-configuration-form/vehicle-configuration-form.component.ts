@@ -2,6 +2,7 @@ import { Component, Directive, ElementRef, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { of } from 'rxjs';
 import { startWith } from 'rxjs/operators';
+import { VehicleService } from 'src/app/services/vehicle.service';
 import { EjeData } from '../../vehicles-flow.service';
 
 @Component({
@@ -16,9 +17,12 @@ export class VehicleConfigurationFormComponent implements OnInit {
   form: FormGroup | null = null;
   statusChanges = of('INVALID')
   tpmsNameChanges = of([]);
+  tyreStatusList$  = this.vehicleService.tyreStatusList$
+  tyreBrands$  = this.vehicleService.tyreBrands$
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private vehicleService: VehicleService
   ) { }
 
   ngOnInit(): void {
@@ -69,7 +73,7 @@ export class VehicleConfigurationFormComponent implements OnInit {
   }
 
   private createControls() {
-    this.headersLength = new Array((this.axie && this.axie.tires? this.axie.tires : 0)).fill('')
+    this.headersLength = new Array((this.axie && this.axie.tyres? this.axie.tyres : 0)).fill('')
     this.form = this.fb.group({
       tpms_name: this.fb.group({
         tires: this.fb.array([])
@@ -122,12 +126,12 @@ export class VehicleConfigurationFormComponent implements OnInit {
     this.addControls(this.tyre_installation_date, this.axie?.tyre_installation_date);
     this.addControls(this.tyre_temperature, this.axie?.tyre_temperature);
     this.addControls(this.tyre_pressure, this.axie?.tyre_pressure, 45, true);
-    this.addControls(this.tyre_brand, this.axie?.tyre_brand);
+    this.addControls(this.tyre_brand, this.axie?.tyre_brand, 1);
     this.addControls(this.tyre_provider, this.axie?.tyre_provider);
     this.addControls(this.dot, this.axie?.dot);
     this.addControls(this.tyre_index, this.axie?.tyre_index);
     this.addControls(this.tyre_measurements, this.axie?.tyre_measurements);
-    this.addControls(this.recauchado, this.axie?.recauchado);
+    this.addControls(this.recauchado, this.axie?.recauchado, 1);
     this.addControls(this.tyre_wear, this.axie?.tyre_wear);
 
     this.statusChanges = this.form.statusChanges.pipe(
@@ -139,7 +143,7 @@ export class VehicleConfigurationFormComponent implements OnInit {
   }
 
   private addControls(controlList: FormArray, value: any[] = [], defaultValue: any = '', required = false) {
-    new Array(this.axie?.tires).fill('').forEach((_, i) => {
+    new Array(this.axie?.tyres).fill('').forEach((_, i) => {
       const control = new FormControl(value[i] || defaultValue, required ? [
         Validators.required
       ] : undefined)
@@ -149,7 +153,8 @@ export class VehicleConfigurationFormComponent implements OnInit {
 
   getData(): EjeData {
     return {
-      tires: this.headersLength.length,
+      id: this.axie?.id,
+      tyres: this.headersLength.length,
       tpms_name: this.tpms_name.controls.map(control => control.value),
       tpms_type: this.tpms_type.controls.map(control => control.value),
       tpms_manufacturer: this.tpms_manufacturer.controls.map(control => control.value),
@@ -170,5 +175,10 @@ export class VehicleConfigurationFormComponent implements OnInit {
   togglePanel(event, template) {
     event.target.classList.toggle('expantion-btn--open')
     template.classList.toggle('open')
+  }
+
+  compareOptions(object1: any, object2: any) {
+    console.log(object1, object2)
+    return object1 && object2 && object1.id == object2.id;
   }
 }
