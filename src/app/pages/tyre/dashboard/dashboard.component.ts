@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EChartsOption } from 'echarts';
+import { combineLatest, Subscriber, Subscription } from 'rxjs';
+import { BrandKpiObj, DashboardService, NominalValuesKpiObj, TotalKpiObj, TotalsKpi } from './dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,96 +10,16 @@ import { EChartsOption } from 'echarts';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  totalKpis = [
-    {
-      name: 'TOTAL NEUMÁTICOS',
-      value: 4000,
-      percentage: '100'
-    },
-    {
-      name: 'COMPRADOS',
-      value: 245,
-      percentage: '70'
-    },
-    {
-      name: 'RECAUCHADOS',
-      value: 100,
-      percentage: '30'
-    },
-    {
-      name: 'PINCHADOS',
-      value: 3520,
-      percentage: '50',
-    },
-    {
-      name: 'DESECHADOS',
-      value: 1000,
-      percentage: '50'
-    }
-  ]
+  kpiSubscriber: Subscription | null = null
+  loadingTotals = false;
+  loadingPressure = false;
+  loadingTemperature = false;
+  loadingBrand = false;
 
-  chartOption: EChartsOption = {
-    tooltip: {
-      trigger: 'item'
-    },
-    legend: {
-      top: '10%',
-      orient: 'vertical',
-      right: 'right',
-      textStyle: {
-        color: '#fff'
-      }
-    },
-    series: [
-      {
-        name: 'PRESIÓN DE NEUMÁTICOS',
-        type: 'pie',
-        radius: ['40%', '70%'],
-        avoidLabelOverlap: false,
-        label: {
-          show: false
-        },
-        data: [
-          { value: 81, name: 'ÓPTIMA', itemStyle: { color: '#51CF66' }, },
-          { value: 11, name: 'ALTA', itemStyle: { color: '#F03E3E' }, },
-          { value: 9, name: 'BAJA', itemStyle: { color: '#FCC419' }, },
-        ]
-      }
-    ]
-  };
-
-  revisionChartOption: EChartsOption = {
-    title: {
-      text: '62%',
-      top: 'middle',
-      left: 'center',
-      textStyle: {
-        color: '#fff',
-        fontSize: 16
-      }
-    },
-    tooltip: {
-      trigger: 'item'
-    },
-    legend: {
-      show: false
-    },
-    series: [
-      {
-        name: 'REVISIÓN NEUMÁTICOS',
-        type: 'pie',
-        radius: ['60%', '70%'],
-        avoidLabelOverlap: false,
-        label: {
-          show: false,
-        },
-        data: [
-          { value: 62, name: 'ÓPTIMA' },
-          { value: 11, name: 'ALTA' },
-        ]
-      }
-    ]
-  };
+  totalKpis: TotalKpiObj = new Array(5).fill({})
+  totalPressure: NominalValuesKpiObj | null = null
+  totalTemperature: NominalValuesKpiObj | null = null
+  totalBrand: BrandKpiObj | null = null
 
   brandChartOption: EChartsOption = {
     grid: {
@@ -157,12 +79,95 @@ export class DashboardComponent implements OnInit {
     ]
   }
 
+  revisionChartOption: EChartsOption = {
+    title: {
+      text: '62%',
+      top: 'middle',
+      left: 'center',
+      textStyle: {
+        color: '#fff',
+        fontSize: 16
+      }
+    },
+    tooltip: {
+      trigger: 'item'
+    },
+    legend: {
+      show: false
+    },
+    series: [
+      {
+        name: 'REVISIÓN NEUMÁTICOS',
+        type: 'pie',
+        radius: ['60%', '70%'],
+        avoidLabelOverlap: false,
+        label: {
+          show: false,
+        },
+        data: [
+          { value: 62, name: 'ÓPTIMA' },
+          { value: 11, name: 'ALTA' },
+        ]
+      }
+    ]
+  };
+
   constructor(
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dashboardService: DashboardService
   ) { }
 
   ngOnInit(): void {
+    this.getKpis();
+  }
+
+  getKpis() {
+    this.getTotals()
+    this.getPressure()
+    this.getTemperature()
+    this.getBrands()
+  }
+
+  getTotals() {
+    this.loadingTotals = true
+    this.dashboardService.getTotalsKpi()
+    .subscribe((totals)=> {
+      this.totalKpis = totals;
+      this.loadingTotals = false
+    },(err) => {
+      this.loadingTotals = false
+    })
+  }
+
+  getPressure() {
+    this.loadingPressure = true
+    this.dashboardService.getPressureKpi(() => this.loadingPressure = false)
+    .subscribe((totals)=> {
+      this.totalPressure = totals;
+    },(err) => {
+      console.error(err)
+    })
+  }
+
+  getTemperature() {
+    this.loadingTemperature = true
+    this.dashboardService.getTemperatureKpi(() => this.loadingTemperature = false)
+    .subscribe((totals)=> {
+      this.totalTemperature = totals;
+    })
+  }
+
+  getBrands() {
+    this.loadingBrand = true
+    this.dashboardService.getTyresByBrand()
+    .subscribe((totals)=> {
+      this.totalBrand = totals;
+      console.log(this.totalBrand)
+      this.loadingBrand = false
+    },(err) => {
+      this.loadingBrand = false
+    })
   }
 
   toPressureList() {

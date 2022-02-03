@@ -42,14 +42,14 @@ export class ActiveVehiclesService {
       map((response: any) => {
         const data: any = response.data.map((item) => ({
           id: item.id,
-          axies: item.format?.axies_count,
+          axies: item.axies?.axies_count,
           chassis: item.chassis,
           internal_number: item.internal_number,
           plate: item.plate,
           hubName: item.hub_meta?.name
         }));
         this.setVehicles(data)
-        return response
+        return {data, total_entries: response.total_entries}
       })
     )
   }

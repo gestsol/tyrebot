@@ -1,16 +1,23 @@
 <div class="total-kpi">
-  <mat-card *ngFor="let item of totalKpis">
-    <mat-progress-spinner
-      class="example-margin"
-      color="primary"
-      mode="determinate"
-      [value]="item.percentage"
-      diameter="50"
-    ></mat-progress-spinner>
-    <div class="total-kpi__info">
-      <div><span>{{item.name}}</span></div>
-      <div><span>{{item.value | number}}</span></div>
-    </div>
+  <mat-card *ngFor="let item of totalKpis" [ngClass]="{'loading': loadingTotals}">
+    <ng-container *ngIf="loadingTotals || !item.name; else totalsData">
+      <mat-spinner
+        diameter="50"
+        ></mat-spinner>
+    </ng-container>
+    <ng-template #totalsData>
+      <mat-progress-spinner
+        [ngClass]="{'not-value': item.value === 0}"
+        color="primary"
+        mode="determinate"
+        [value]="item.percentage"
+        diameter="50"
+      ></mat-progress-spinner>
+      <div class="total-kpi__info">
+        <div><span>{{item.name}}</span></div>
+        <div><span>{{item.value | number}}</span></div>
+      </div>
+    </ng-template>
   </mat-card>
 </div>
 <div class="detail-kpis">
@@ -21,7 +28,17 @@
         <mat-icon>more_horiz</mat-icon>
       </button>
     </div>
-    <div echarts [options]="chartOption" class="big-chart"></div>
+    <div class="loader" *ngIf="loadingPressure">
+      <mat-spinner diameter="100"></mat-spinner>
+    </div>
+    <div class="loader" *ngIf="!loadingPressure && !totalPressure">
+      <h3>Sin datos</h3>
+    </div>
+    <div
+      echarts [options]="totalPressure" class="big-chart"
+      *ngIf="!loadingPressure && totalPressure"
+    >
+    </div>
   </mat-card>
   <mat-card class="fixed-height">
     <div class="detail-kpis__title">
@@ -30,7 +47,16 @@
         <mat-icon>more_horiz</mat-icon>
       </button>
     </div>
-    <div echarts [options]="chartOption" class="big-chart"></div>
+    <div class="loader" *ngIf="loadingTemperature">
+      <mat-spinner diameter="100"></mat-spinner>
+    </div>
+    <div class="loader" *ngIf="!loadingTemperature && !totalTemperature">
+      <h3>Sin datos</h3>
+    </div>
+    <div
+      echarts [options]="totalTemperature" class="big-chart"
+      *ngIf="!loadingTemperature && totalTemperature">
+    </div>
   </mat-card>
   <mat-card class="fixed-height">
     <div class="detail-kpis__title">
@@ -67,7 +93,17 @@
     <div class="detail-kpis__title">
       <h2>MARCAS MÁS UTILIZADOS</h2>
     </div>
-    <div echarts [options]="brandChartOption" class="big-chart"></div>
+    <div class="loader" *ngIf="loadingBrand">
+      <mat-spinner diameter="100"></mat-spinner>
+    </div>
+    <div class="loader" *ngIf="!loadingBrand && !totalBrand">
+      <h3>Sin datos</h3>
+    </div>
+    <div
+      echarts [options]="totalBrand" class="big-chart"
+      *ngIf="!loadingBrand && totalBrand"
+    >
+    </div>
   </mat-card>
   <mat-card class="fixed-height">
     <div class="detail-kpis__title">

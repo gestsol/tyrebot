@@ -75,7 +75,7 @@ export class TemperatureListComponent implements AfterViewInit {
           );
         })
       ).subscribe((data) => {
-        this.table.setData(data.data, data.total_entries)
+        this.table.setData(data?.data, data?.total_entries)
         this.loading = false
       });
     }, 0)

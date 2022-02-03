@@ -89,6 +89,7 @@ export class VehiclesFlowService {
     });
     return this.vehicleService.getVehicle(id).pipe(
       map((data) => {
+        const { axies } = data
         const step1: Step1 = {
           patente: data.plate,
           nrointerno: data.internal_number,
@@ -98,25 +99,20 @@ export class VehiclesFlowService {
         }
 
         const step2: Step2 = {
-          ejes: []
+          ejes: [axies.axie1.length, axies.axie2.length, axies.axie3.length]
         }
-        const axies: any[] = []
-        let axie1 = data.tyres.filter(tyre => tyre.axie === 1)
-        let axie2 = data.tyres.filter(tyre => tyre.axie === 2)
-        let axie3 = data.tyres.filter(tyre => tyre.axie === 3)
-        let axie4 = data.tyres.filter(tyre => tyre.axie === 4)
-        axies.push(axie1)
-        axies.push(axie2)
-        axies.push(axie3)
-        step2.ejes.push(axie1.length)
-        step2.ejes.push(axie2.length)
-        step2.ejes.push(axie3.length)
-        if (axie4.length) {
-          axies.push(axie4)
-          step2.ejes.push(axie4.length)
+
+        if (axies.axie4.length) {
+          step2.ejes.push(data.axie4.length)
+        } else {
+          delete axies.axie4
         }
+
+        delete axies.axies_count
+
+        const axiesArr = Object.keys(axies).map(key => axies[key])
         const step3: Step3 = {
-          ejes: axies.map(axie => {
+          ejes: axiesArr.map(axie => {
             return {
               tyres: axie.length,
               id: axie.map((tyre) => tyre.id),

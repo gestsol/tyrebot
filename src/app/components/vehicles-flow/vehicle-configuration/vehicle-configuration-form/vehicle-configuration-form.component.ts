@@ -124,7 +124,7 @@ export class VehicleConfigurationFormComponent implements OnInit {
     this.addControls(this.tpms_manufacturer, this.axie?.tpms_manufacturer);
     this.addControls(this.tpms_installation_date, this.axie?.tpms_installation_date);
     this.addControls(this.tyre_installation_date, this.axie?.tyre_installation_date);
-    this.addControls(this.tyre_temperature, this.axie?.tyre_temperature);
+    this.addControls(this.tyre_temperature, this.axie?.tyre_temperature, 20, true);
     this.addControls(this.tyre_pressure, this.axie?.tyre_pressure, 45, true);
     this.addControls(this.tyre_brand, this.axie?.tyre_brand, 1);
     this.addControls(this.tyre_provider, this.axie?.tyre_provider);

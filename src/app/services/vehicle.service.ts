@@ -35,12 +35,21 @@ export class VehicleService {
     return this.http.get('vehicles', { params: {
       page, page_size, plate
     } })
-    .pipe(map((data: any) => data))
+    .pipe(map((data: any) => {
+      let response = data.data.map((vehicle) => {
+        return {...vehicle, axies: this.getAxies(vehicle.tyres)}
+      })
+      console.log({data: response, total_entries: data.total_entries})
+      return {data: response, total_entries: data.total_entries}
+    }))
   }
 
   getVehicle(id: number) {
     return this.http.get(`vehicles/${id}`)
-    .pipe(map((data: any) => data.data))
+    .pipe(map((data: any) => ({
+      ...data.data,
+      axies: this.getAxies(data.data.tyres)
+    })))
   }
 
   getTyreBrands() {
@@ -80,7 +89,28 @@ export class VehicleService {
   postTyre(tyre) {
     return this.http.post(`tyres`, {tyre})
   }
+
   putTyre(id: number, tyre) {
     return this.http.put(`tyres/${id}`, {tyre})
+  }
+
+  getAxies(tyres: any[]) {
+    let axie1: any[] = []
+    let axie2: any[] = []
+    let axie3: any[] = []
+    let axie4: any[]  = []
+    let axies_count = 0;
+    tyres.forEach((tyre) => {
+      const cases = {
+        1: () => axie1.push(tyre),
+        2: () => axie2.push(tyre),
+        3: () => axie3.push(tyre),
+        4: () => axie4.push(tyre)
+      }
+      cases[tyre.axie]()
+      axies_count = Math.max(tyre.axie, axies_count)
+    })
+
+    return { axie1, axie2, axie3, axie4, axies_count }
   }
 }
