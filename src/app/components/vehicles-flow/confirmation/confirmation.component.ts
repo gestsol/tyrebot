@@ -79,8 +79,8 @@ export class ConfirmationComponent implements OnInit {
         } else {
           this.flowService.updateData(params['id'], this.step1, this.step3, () => this.loading = false)
           .subscribe((response) => {
-            // this.openDialog({ type: 'update' })
-            // this.toList()
+            this.openDialog({ type: 'update' })
+            this.toList()
           }, (err) => console.error(err))
         }
       }
