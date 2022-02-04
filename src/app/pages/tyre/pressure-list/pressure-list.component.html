@@ -4,9 +4,10 @@
       *ngFor="let tab of tabs; let i = index">
       <app-table
         [columns]="columns"
+        [noEdit]="true"
+        [customPag]="false"
         [loading]="loading"
-        (seeMore)="seeMore($event)"
-        (edit)="edit($event)">
+        (seeMore)="seeMore($event)">
       </app-table>
     </mat-tab>
   </mat-tab-group>

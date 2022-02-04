@@ -39,6 +39,9 @@ td, th {
   th {
     color: #FFFFFF83;
     font-size: clamp(0.8rem, 2vw, #{sizes.$table-font-size});
+    &.th-center {
+      text-align: center;
+    }
   }
 }
 
@@ -76,6 +79,7 @@ mat-paginator {
   display: none;
   gap: 1rem;
   display: flex;
+  justify-content: center;
   & button:nth-child(1) {
     color: colors.$primary;
   }

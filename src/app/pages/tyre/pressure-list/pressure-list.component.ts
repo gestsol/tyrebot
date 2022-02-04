@@ -1,11 +1,10 @@
-import { Component, AfterViewInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { Component, AfterViewInit, ViewChild, QueryList, ViewChildren } from '@angular/core';
+import { MatTabGroup } from '@angular/material/tabs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest, of, Subscription } from 'rxjs';
-import { catchError, map, startWith, switchMap } from 'rxjs/operators';
-import { FiltersService } from 'src/app/components/filters/filters.service';
+import { Subscription } from 'rxjs';
+import { map, startWith, switchMap } from 'rxjs/operators';
 import { TableComponent } from 'src/app/components/table/table.component';
-import { ActiveVehiclesService } from '../../active-vehicles/active-vehicles.service';
+import { DashboardService, TableType } from '../dashboard.service';
 
 @Component({
   selector: 'app-pressure-list',
@@ -13,7 +12,11 @@ import { ActiveVehiclesService } from '../../active-vehicles/active-vehicles.ser
   styleUrls: ['./pressure-list.component.scss']
 })
 export class PressureListComponent implements AfterViewInit {
+  @ViewChild(MatTabGroup) tabGroup!: MatTabGroup
+  @ViewChildren(TableComponent) tables!: QueryList<TableComponent>;
+
   tabs = ['Optima', 'Alta', 'Baja'];
+  types: {[key: number]: TableType} = {}
   tableSub: Subscription | null = null
   loading = false;
   columns: {key: string, name: string}[] = [
@@ -43,11 +46,8 @@ export class PressureListComponent implements AfterViewInit {
     }
   ];
 
-  @ViewChild(TableComponent) table!: TableComponent;
-
   constructor(
-    private activeVehicleService: ActiveVehiclesService,
-    private filterService: FiltersService,
+    private dashboardService: DashboardService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
@@ -58,38 +58,35 @@ export class PressureListComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     setTimeout(() => {
-      this.tableSub = combineLatest([this.table.pageChange, this.filterService.plate$]).pipe(
-        startWith([{pageIndex: 0, pageSize: 1}, ''] as [{pageIndex: number, pageSize: number}, string]),
-        switchMap((data) => {
-          this.loading = true;
-          return this.activeVehicleService.getVehicles(
-            data[0].pageIndex,
-            data[0].pageSize,
-            data[1] as string
-          ).pipe(
-            map((data) => data),
-            catchError((err) => {
-              console.error(err)
-              return of(null)
-            })
-          );
-        })
-      ).subscribe((data) => {
-        this.table.setData(data?.data, data?.total_entries)
-        this.loading = false
-      });
+      this.route.data.subscribe(data => {
+        this.types = data.types;
+        console.log(this.tables)
+        this.getData();
+      })
     }, 0)
   }
 
-  seeMore(vehicle: any) {
-    this.router.navigate(['../detail', vehicle.id], {
-      relativeTo: this.route
-    })
+  getData() {
+    this.loading = true;
+    this.tabGroup.selectedTabChange.pipe(
+      startWith({index: 0}),
+      switchMap((event) => {
+        return this.dashboardService.getTableLecture(this.types[event.index]).pipe(
+          map(data => ({data, index: event.index}))
+        )
+      })
+    ).subscribe(({data, index}) => {
+      console.log({data, index})
+      this.tables.forEach((item, elemIndex) => {
+        if (elemIndex === index) {
+          item.setData(data?.data, data?.total_entries)
+        }
+      })
+      this.loading = false
+    }, (err) => console.error(err))
   }
 
-  edit(vehicle: any) {
-    this.router.navigate(['../edit', vehicle.id], {
-      relativeTo: this.route
-    })
+  seeMore(vehicle: any) {
+    this.router.navigate(['active-vehicle/detail', vehicle.id]);
   }
 }

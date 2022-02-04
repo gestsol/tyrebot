@@ -10,6 +10,8 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 })
 export class TableComponent implements OnInit {
   @Input() loading = false;
+  @Input() noEdit = false;
+  @Input() customPag = true;
   @Input() columns: {key: string, name: string}[] = [];
   @Output() edit = new EventEmitter<number>();
   @Output() seeMore = new EventEmitter<number>();
@@ -46,6 +48,9 @@ export class TableComponent implements OnInit {
 
   setData(data: any, length: number) {
     this.dataSource = new MatTableDataSource(data);
+    if (!this.customPag) {
+      this.dataSource.paginator = this.paginator
+    }
     this.resultsLength = length
   }
 }

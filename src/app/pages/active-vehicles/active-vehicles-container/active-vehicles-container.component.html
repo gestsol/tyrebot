@@ -3,7 +3,7 @@
   <div class="active-vehicles__header">
     <h1>Vehículos y Activos</h1>
     <span [ngClass]="{'detail': showBackBtn}">VEHÍCULOS: {{(vehicles$ | async)?.length}}</span>
-    <app-back-button *ngIf="showBackBtn" :path="./list"></app-back-button>
+    <app-back-button *ngIf="showBackBtn"></app-back-button>
   </div>
   <router-outlet></router-outlet>
 </div>

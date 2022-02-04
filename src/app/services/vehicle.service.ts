@@ -39,7 +39,6 @@ export class VehicleService {
       let response = data.data.map((vehicle) => {
         return {...vehicle, axies: this.getAxies(vehicle.tyres)}
       })
-      console.log({data: response, total_entries: data.total_entries})
       return {data: response, total_entries: data.total_entries}
     }))
   }

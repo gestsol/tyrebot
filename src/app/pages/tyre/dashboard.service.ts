@@ -3,6 +3,28 @@ import { Injectable } from '@angular/core';
 import { catchError, finalize, map } from 'rxjs/operators';
 import { EChartsOption } from 'echarts';
 import { throwError } from 'rxjs';
+import { VehicleService } from 'src/app/services/vehicle.service';
+
+export enum TableType {
+  pressure_low = "pressure_low",
+  pressure_ok = "pressure_ok",
+  pressure_high = "pressure_high",
+  temp_low = "temp_low",
+  temp_ok = "temp_ok",
+  temp_high = "temp_high"
+}
+
+export const PressureType = {
+  0: TableType.pressure_ok,
+  1: TableType.pressure_high,
+  2: TableType.pressure_low
+}
+
+export const TempType = {
+  0: TableType.temp_ok,
+  1: TableType.temp_high,
+  2: TableType.temp_low
+}
 
 export interface TotalsKpi {
   buyed_count: 0,
@@ -41,7 +63,8 @@ export type BrandKpiObj = ReturnType<DashboardService['getBrandKpi']>
 export class DashboardService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private vehicleService: VehicleService
   ) { }
 
   getTotalsKpi() {
@@ -72,6 +95,23 @@ export class DashboardService {
     return this.http.get<TyresByBrand[]>('kpi/tyres_by_brand').pipe(
       map(data => {
         return this.getBrandKpi(data)
+      })
+    )
+  }
+
+  getTableLecture(type: TableType) {
+    return this.http.get<{data: any}>(`kpi/vehicles_${type}`).pipe(
+      map((data: any) => {
+        let response = data.data.map((item) => {
+          return {
+            id: item.id,
+            chassis: item.chassis,
+            internal_number: item.internal_number,
+            plate: item.plate,
+            hubName: item.hub_meta?.name,
+            axies: this.vehicleService.getAxies(item.tyres).axies_count}
+        })
+        return {data: response, total_entries: response.length}
       })
     )
   }
