@@ -23,9 +23,9 @@
 }
 
 .search-button {
-  position: sticky;
-  top: calc(100vh - 70px);
-  left: calc(100% - 20px);
+  position: fixed;
+  bottom: 50px;
+  left: calc(100vw - 80px);
   background: linear-gradient(125deg, #339AF0 0%, #FFFFFFA8 100%);
   z-index: 999;
 }
@@ -40,6 +40,7 @@
     }
   }
 }
+
 @media (min-width: 630px) {
   .search-button {
     display: none;
