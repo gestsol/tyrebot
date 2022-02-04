@@ -2,7 +2,7 @@
 @use '/src/sass/abstracts/vars/colors' as colors;
 
 $states: (
-  "low": (colors.$red,colors.$red-dark),
+  "high": (colors.$red,colors.$red-dark),
   "ok": (colors.$green, colors.$green-dark),
-  "high": (colors.$yellow, colors.$yellow-dark)
+  "low": (colors.$yellow, colors.$yellow-dark)
 );

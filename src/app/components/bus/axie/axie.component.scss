@@ -1,5 +1,4 @@
 @use 'sass:list';
-@use '/src/sass/abstracts/vars/colors' as colors;
 @use '/src/sass/abstracts/vars/tyre_states' as states;
 
 @mixin getColor($tyre) {
