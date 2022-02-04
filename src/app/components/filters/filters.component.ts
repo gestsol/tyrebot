@@ -12,7 +12,6 @@ import { FiltersService } from './filters.service';
   styleUrls: ['./filters.component.scss']
 })
 export class FiltersComponent implements OnInit {
-  vehicles$ = this.filterService.vehicles$;
   showBackBtn = false;
   inputFrom: any
   inputTo: any

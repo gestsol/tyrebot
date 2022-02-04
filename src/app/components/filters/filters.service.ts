@@ -9,11 +9,9 @@ export class FiltersService {
 
   private plateSub = new BehaviorSubject<string>('')
   private dateSub = new BehaviorSubject<{from: string, to: string}>({from: '', to: ''})
-  private vehiclesSub = new BehaviorSubject<any[]>([])
 
   plate$ = this.plateSub.asObservable()
   date$ = this.dateSub.asObservable()
-  vehicles$ = this.vehiclesSub.asObservable()
 
   constructor(
     private vehicleService: VehicleService,
@@ -34,9 +32,5 @@ export class FiltersService {
 
   getPlate() {
     return this.plateSub.value
-  }
-
-  setVehicles(value: any[]) {
-    this.vehiclesSub.next(value)
   }
 }

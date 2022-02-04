@@ -2,7 +2,7 @@
   <app-filters></app-filters>
   <div class="active-vehicles__header">
     <h1>Vehículos y Activos</h1>
-    <span [ngClass]="{'detail': showBackBtn}">VEHÍCULOS: {{(vehicles$ | async)?.length}}</span>
+    <span [ngClass]="{'detail': showBackBtn}">VEHÍCULOS: {{vehicles$ | async}}</span>
     <app-back-button *ngIf="showBackBtn"></app-back-button>
   </div>
   <router-outlet></router-outlet>

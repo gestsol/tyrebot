@@ -24,7 +24,7 @@ export interface Summary {
 })
 export class ActiveVehiclesService {
 
-  private vehiclesSub = new BehaviorSubject<any[]>([])
+  private vehiclesSub = new BehaviorSubject<number>(0)
 
   vehicles$ = this.vehiclesSub.asObservable()
 
@@ -33,7 +33,7 @@ export class ActiveVehiclesService {
     private http: HttpClient
   ) { }
 
-  setVehicles(value: any[]) {
+  setVehicles(value: number) {
     this.vehiclesSub.next(value)
   }
 
@@ -48,7 +48,7 @@ export class ActiveVehiclesService {
           plate: item.plate,
           hubName: item.hub_meta?.name
         }));
-        this.setVehicles(data)
+        this.setVehicles(data.length)
         return {data, total_entries: response.total_entries}
       })
     )

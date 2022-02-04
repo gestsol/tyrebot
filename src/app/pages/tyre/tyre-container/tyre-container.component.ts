@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NavigationService } from 'src/app/services/navigation.service';
+import { DashboardService } from '../dashboard.service';
 
 @Component({
   selector: 'app-tyre-container',
@@ -8,9 +9,12 @@ import { NavigationService } from 'src/app/services/navigation.service';
   styleUrls: ['./tyre-container.component.scss']
 })
 export class TyreContainerComponent implements OnInit {
+  vehicles$ = this.dashboardService.vehicles$;
+
   showBackBtn = false
 
   constructor(
+    private dashboardService: DashboardService,
     private navigationService: NavigationService,
     public dialog: MatDialog
   ) { }

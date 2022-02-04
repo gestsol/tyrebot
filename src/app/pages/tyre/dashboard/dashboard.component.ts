@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EChartsOption } from 'echarts';
-import { combineLatest, Subscriber, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { BrandKpiObj, DashboardService, NominalValuesKpiObj, TotalKpiObj, TotalsKpi } from '../dashboard.service';
 
 @Component({

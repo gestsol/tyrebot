@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, finalize, map } from 'rxjs/operators';
 import { EChartsOption } from 'echarts';
-import { throwError } from 'rxjs';
+import { BehaviorSubject, throwError } from 'rxjs';
 import { VehicleService } from 'src/app/services/vehicle.service';
 
 export enum TableType {
@@ -61,6 +61,9 @@ export type BrandKpiObj = ReturnType<DashboardService['getBrandKpi']>
   providedIn: 'root'
 })
 export class DashboardService {
+  private vehiclesSub = new BehaviorSubject<number>(0)
+
+  vehicles$ = this.vehiclesSub.asObservable()
 
   constructor(
     private http: HttpClient,
@@ -69,7 +72,10 @@ export class DashboardService {
 
   getTotalsKpi() {
     return this.http.get<TotalsKpi>('kpi/total').pipe(
-      map((data) => this.getTotalKpiObj(data))
+      map((data) => {
+        this.vehiclesSub.next(data.vehicles_count)
+        return this.getTotalKpiObj(data)
+      })
     )
   }
 
