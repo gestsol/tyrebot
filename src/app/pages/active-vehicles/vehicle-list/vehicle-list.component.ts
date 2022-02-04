@@ -107,7 +107,7 @@ export class VehicleListComponent implements OnInit, OnDestroy, AfterViewInit {
       disableClose: true
     });
     dialogRef.afterClosed().subscribe(value => {
-      if (true) {
+      if (value) {
         this.dialogDelete.next(null)
       }
     })
@@ -121,10 +121,11 @@ export class VehicleListComponent implements OnInit, OnDestroy, AfterViewInit {
       <h1 class="dialog__title">Eliminar Vehículo</h1>
       <div>¿Esta seguro de eliminar el vehículo?</div>
       <div class="dialog__actions">
-        <button mat-button [mat-dialog-close]="false" class="form-btn form-btn--back-btn form-btn--block">
-         <span>Cancelar</span>
+        <button mat-button [mat-dialog-close]="false"
+          class="dialog__btn form-btn form-btn--back-btn form-btn--block">
+         Cancelar
         </button>
-        <button class="form-btn form-btn--block" (click)="ok()">
+        <button class="form-btn form-btn--block dialog__btn" (click)="ok()">
           <span *ngIf="loading">
            <mat-spinner [diameter]="30"></mat-spinner>
           </span>
