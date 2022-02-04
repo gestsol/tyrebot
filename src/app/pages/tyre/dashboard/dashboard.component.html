@@ -66,27 +66,21 @@
       </button>
     </div>
     <div class="detail-kpis__revision__container">
-      <div class="detail-kpis__revision">
-        <div class="detail-kpis__revision__chart" echarts [options]="revisionChartOption"></div>
-        <div class="detail-kpis__revision__info">
-          <span>{{2440 | number}}</span>
-          <span>AL DÍA</span>
-        </div>
+      <div class="loader" *ngIf="loadingExpired">
+        <mat-spinner diameter="100"></mat-spinner>
       </div>
-      <div class="detail-kpis__revision">
-        <div class="detail-kpis__revision__chart" echarts [options]="revisionChartOption"></div>
-        <div class="detail-kpis__revision__info">
-          <span>{{2440 | number}}</span>
-          <span>PROXIMOS A VENCER</span>
-        </div>
+      <div class="loader" *ngIf="!loadingExpired && !totalExpired">
+        <h3>Sin datos</h3>
       </div>
-      <div class="detail-kpis__revision">
-        <div class="detail-kpis__revision__chart" echarts [options]="revisionChartOption"></div>
-        <div class="detail-kpis__revision__info">
-          <span>{{2440 | number}}</span>
-          <span>VENCIDOS</span>
+      <ng-container *ngIf="!loadingExpired && totalExpired">
+        <div class="detail-kpis__revision" *ngFor="let expired of totalExpired">
+          <div class="detail-kpis__revision__chart" echarts [options]="expired.chart"></div>
+          <div class="detail-kpis__revision__info">
+            <span>{{expired.value | number}}</span>
+            <span>{{expired.name}}</span>
+          </div>
         </div>
-      </div>
+      </ng-container>
     </div>
     </mat-card>
   <mat-card class="fixed-height">

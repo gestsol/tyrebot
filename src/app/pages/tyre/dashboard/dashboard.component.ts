@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EChartsOption } from 'echarts';
 import { Subscription } from 'rxjs';
-import { BrandKpiObj, DashboardService, NominalValuesKpiObj, TotalKpiObj, TotalsKpi } from '../dashboard.service';
+import { BrandKpiObj, DashboardService, ExpirationKpiObj, NominalValuesKpiObj, TotalKpiObj, TotalsKpi } from '../dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,11 +15,13 @@ export class DashboardComponent implements OnInit {
   loadingPressure = false;
   loadingTemperature = false;
   loadingBrand = false;
+  loadingExpired = false;
 
   totalKpis: TotalKpiObj = new Array(5).fill({})
   totalPressure: NominalValuesKpiObj | null = null
   totalTemperature: NominalValuesKpiObj | null = null
   totalBrand: BrandKpiObj | null = null
+  totalExpired: ExpirationKpiObj | null = null
 
   brandChartOption: EChartsOption = {
     grid: {
@@ -79,39 +81,6 @@ export class DashboardComponent implements OnInit {
     ]
   }
 
-  revisionChartOption: EChartsOption = {
-    title: {
-      text: '62%',
-      top: 'middle',
-      left: 'center',
-      textStyle: {
-        color: '#fff',
-        fontSize: 16
-      }
-    },
-    tooltip: {
-      trigger: 'item'
-    },
-    legend: {
-      show: false
-    },
-    series: [
-      {
-        name: 'REVISIÓN NEUMÁTICOS',
-        type: 'pie',
-        radius: ['60%', '70%'],
-        avoidLabelOverlap: false,
-        label: {
-          show: false,
-        },
-        data: [
-          { value: 62, name: 'ÓPTIMA' },
-          { value: 11, name: 'ALTA' },
-        ]
-      }
-    ]
-  };
-
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -123,10 +92,11 @@ export class DashboardComponent implements OnInit {
   }
 
   getKpis() {
-    this.getTotals()
-    this.getPressure()
-    this.getTemperature()
-    this.getBrands()
+    this.getTotals();
+    this.getPressure();
+    this.getTemperature();
+    this.getBrands();
+    this.getExpired();
   }
 
   getTotals() {
@@ -167,6 +137,18 @@ export class DashboardComponent implements OnInit {
       this.loadingBrand = false
     },(err) => {
       this.loadingBrand = false
+    })
+  }
+
+  getExpired() {
+    this.loadingExpired = true
+    this.dashboardService.getExpirationKpi()
+    .subscribe((totals)=> {
+      this.totalExpired = totals;
+      console.log(this.totalExpired)
+      this.loadingExpired = false
+    },(err) => {
+      this.loadingExpired = false
     })
   }
 

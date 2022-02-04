@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { finalize, map } from 'rxjs/operators';
 import { EChartsOption } from 'echarts';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, zip } from 'rxjs';
 import { VehicleService } from 'src/app/services/vehicle.service';
 
 export enum TableType {
@@ -50,12 +50,20 @@ export interface TyresByBrand {
   tyres_count: number
 }
 
+export interface TyresExpired {
+  expired:number
+  ok:number
+  to_expire:number
+}
+
 
 export type TotalKpiObj = ReturnType<DashboardService['getTotalKpiObj']>
 
 export type NominalValuesKpiObj = ReturnType<DashboardService['getNominalValuesKpiObj']>
 
 export type BrandKpiObj = ReturnType<DashboardService['getBrandKpi']>
+
+export type ExpirationKpiObj = ReturnType<DashboardService['getExpirationKpiObj']>
 
 @Injectable({
   providedIn: 'root'
@@ -97,10 +105,18 @@ export class DashboardService {
     )
   }
 
-  getTyresByBrand () {
+  getTyresByBrand() {
     return this.http.get<TyresByBrand[]>('kpi/tyres_by_brand').pipe(
       map(data => {
         return this.getBrandKpi(data)
+      })
+    )
+  }
+
+  getExpirationKpi() {
+    return this.http.get<TyresExpired>('kpi/tyres_by_expiration').pipe(
+      map(data => {
+        return this.getExpirationKpiObj(data)
       })
     )
   }
@@ -256,5 +272,76 @@ export class DashboardService {
       ]
     }
     return brandChartOption
+  }
+
+  getExpirationKpiObj(data: TyresExpired) {
+    const values = [
+    {
+      name: 'AL DÍA',
+      value: data.ok
+    },
+    {
+      name: 'PROXIMOS A VENCER',
+      value: data.to_expire
+    },
+    {
+      name: 'VENCIDOS',
+      value: data.expired
+    }];
+    const total = values.reduce((prev, current) => current.value + prev, 0)
+    const revisionChartOption = values.map((current) => {
+      const percentage = ((current.value/total)* 100).toFixed(0)
+      console.log(percentage)
+      const chart = {
+        title: {
+          text: `${percentage}%`,
+          top: 'middle',
+          left: 'center',
+          textStyle: {
+            color: '#fff',
+            fontSize: 16
+          }
+        },
+        tooltip: {
+          trigger: 'item'
+        },
+        legend: {
+          show: false
+        },
+        series: [
+          {
+            name: 'REVISIÓN NEUMÁTICOS',
+            type: 'pie',
+            radius: ['60%', '70%'],
+            avoidLabelOverlap: false,
+            label: {
+              show: false,
+            },
+            data: [
+              { value: current.value, name: current.name },
+              {
+                tooltip: {
+                  show: false
+                },
+                value: total - current.value,
+                emphasis: {
+                  disabled: true
+                },
+                itemStyle: {
+                  color: 'grey',
+                }
+              },
+            ]
+          }
+        ]
+      }
+      return {
+        name: current.name,
+        value: current.value,
+        chart: chart as EChartsOption
+      }
+    })
+
+    return revisionChartOption;
   }
 }
