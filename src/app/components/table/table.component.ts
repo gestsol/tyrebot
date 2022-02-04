@@ -13,6 +13,7 @@ export class TableComponent implements OnInit {
   @Input() columns: {key: string, name: string}[] = [];
   @Output() edit = new EventEmitter<number>();
   @Output() seeMore = new EventEmitter<number>();
+  @Output() delete = new EventEmitter<number>();
 
   private subPage = new BehaviorSubject<{ pageIndex: number, pageSize: number }>({pageIndex: 0, pageSize: 1});
   pageChange = this.subPage.asObservable();

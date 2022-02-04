@@ -13,6 +13,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  &--block {
+    width: 100%;
+  }
   &:not(.loading):disabled {
     &:before {
       opacity: 0;
@@ -49,7 +52,9 @@
 
 
   &--back-btn {
-    width: 119px;
+    &:not(.form-btn--block) {
+      width: 119px;
+    }
     border-radius: 15px;
     margin-left: auto;
     display: block;

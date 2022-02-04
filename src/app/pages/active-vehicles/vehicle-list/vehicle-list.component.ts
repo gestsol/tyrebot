@@ -1,5 +1,5 @@
-import {AfterViewInit, Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import {AfterViewInit, Component, OnInit, OnDestroy, ViewChild, Inject} from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, of, Subscription } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
@@ -48,7 +48,8 @@ export class VehicleListComponent implements OnInit, OnDestroy, AfterViewInit {
     private activeVehicleService: ActiveVehiclesService,
     private filterService: FiltersService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit() {}
@@ -92,5 +93,62 @@ export class VehicleListComponent implements OnInit, OnDestroy, AfterViewInit {
     this.router.navigate(['../edit', vehicle.id], {
       relativeTo: this.route
     })
+  }
+
+  delete(vehicle: any) {
+    const dialogRef = this.dialog.open(DeleteVehicleDialog, {
+      data: vehicle.id,
+      width: '30vw',
+      maxWidth: 648,
+      minWidth: 300,
+      panelClass: 'custom-dialog',
+      disableClose: true
+    });
+    dialogRef.afterClosed().subscribe(value => {
+      console.log(value)
+    })
+  }
+}
+
+@Component({
+  selector: 'app-delete-vehicle-dialog',
+  template: `
+    <div class="dialog">
+      <h1 class="dialog__title">Eliminar Vehículo</h1>
+      <div>¿Esta seguro de eliminar el vehículo?</div>
+      <div class="dialog__actions">
+        <button mat-button [mat-dialog-close]="false" class="form-btn form-btn--back-btn form-btn--block">
+         <span>Cancelar</span>
+        </button>
+        <button class="form-btn form-btn--block" (click)="ok()">
+          <span *ngIf="loading">
+           <mat-spinner [diameter]="30"></mat-spinner>
+          </span>
+          <span *ngIf="!loading">
+           Aceptar
+          </span>
+        </button>
+      </div>
+    </div>
+  `,
+})
+export class DeleteVehicleDialog {
+  loading = false;
+
+  constructor(
+    public dialogRef: MatDialogRef<DeleteVehicleDialog>,
+    private activeVehicleService: ActiveVehiclesService,
+    @Inject(MAT_DIALOG_DATA) public id: number
+  ) {}
+
+  ok() {
+    this.loading = true
+    // this.activeVehicleService.deleteVehicle(this.id).subscribe(() => {
+    //   this.dialogRef.close(true)
+    //   this.loading = false
+    // }, (err) => {
+    //   this.dialogRef.close(false)
+    //   this.loading = false
+    // })
   }
 }

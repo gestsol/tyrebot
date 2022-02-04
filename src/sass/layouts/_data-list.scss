@@ -75,22 +75,14 @@ mat-paginator {
 .actions-container {
   display: none;
   gap: 1rem;
-  &--mobile {
-    display: flex;
-    & button:nth-child(1) {
-      color: colors.$primary;
-    }
-    & button:nth-child(2) {
-      color: colors.$secondary
-    }
+  display: flex;
+  & button:nth-child(1) {
+    color: colors.$primary;
   }
-}
-
-@media (min-width: 630px) {
-  .actions-container {
-    display: flex;
-    &--mobile {
-      display: none;
-    }
+  & button:nth-child(2) {
+    color: colors.$secondary
+  }
+  & button:nth-child(3) {
+    color: colors.$red
   }
 }

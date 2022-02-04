@@ -113,4 +113,8 @@ export class VehicleService {
 
     return { axie1, axie2, axie3, axie4, axies_count }
   }
+
+  deleteVehicle(id: number) {
+    return this.http.delete(`vehicles/${id}`)
+  }
 }

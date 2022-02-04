@@ -11,3 +11,39 @@
 	width: initial !important;
 	overflow: hidden;
 }
+
+.dialog {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0 1rem;
+  &__title {
+    font-size: clamp(1.4rem, 1vw, 1.8rem);
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+    margin-top: 1.5rem;
+  }
+
+  &__btn {
+    width: 100%;
+  }
+  .mat-button.form-btn {
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  .form-btn:before {
+    z-index: 0;
+  }
+  .form-btn span {
+    position: relative;
+    z-index: 1;
+  }
+}
