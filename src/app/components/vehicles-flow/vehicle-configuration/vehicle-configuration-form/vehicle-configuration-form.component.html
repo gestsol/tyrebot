@@ -34,6 +34,13 @@
         </ng-container>
       </div>
     </fieldset>
+    <fieldset class="field-container" formGroupName="tpms_manufacture_date">
+      <div class="row-container" formArrayName="tires">
+        <ng-container
+          *ngTemplateOutlet="controlTemplate, context: { $implicit: tpms_manufacture_date.controls, name: 'Fecha Vencimiento TPMS', isDate: true }">
+        </ng-container>
+      </div>
+    </fieldset>
     <fieldset class="field-container" formGroupName="tpms_installation_date">
       <div class="row-container" formArrayName="tires">
         <ng-container

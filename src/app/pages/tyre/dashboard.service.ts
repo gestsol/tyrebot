@@ -1,8 +1,8 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, finalize, map } from 'rxjs/operators';
+import { finalize, map } from 'rxjs/operators';
 import { EChartsOption } from 'echarts';
-import { BehaviorSubject, throwError } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { VehicleService } from 'src/app/services/vehicle.service';
 
 export enum TableType {

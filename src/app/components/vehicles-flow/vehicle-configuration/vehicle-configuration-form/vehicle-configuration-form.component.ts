@@ -38,6 +38,9 @@ export class VehicleConfigurationFormComponent implements OnInit {
   get tpms_manufacturer() {
     return this.form?.get('tpms_manufacturer')?.get('tires') as FormArray;
   }
+  get tpms_manufacture_date() {
+    return this.form?.get('tpms_manufacture_date')?.get('tires') as FormArray;
+  }
   get tpms_installation_date() {
     return this.form?.get('tpms_installation_date')?.get('tires') as FormArray;
   }
@@ -84,6 +87,9 @@ export class VehicleConfigurationFormComponent implements OnInit {
       tpms_manufacturer: this.fb.group({
         tires: this.fb.array([])
       }),
+      tpms_manufacture_date: this.fb.group({
+        tires: this.fb.array([])
+      }),
       tpms_installation_date: this.fb.group({
         tires: this.fb.array([])
       }),
@@ -122,6 +128,7 @@ export class VehicleConfigurationFormComponent implements OnInit {
     this.addControls(this.tpms_name, this.axie?.tpms_name, '', true);
     this.addControls(this.tpms_type, this.axie?.tpms_type);
     this.addControls(this.tpms_manufacturer, this.axie?.tpms_manufacturer);
+    this.addControls(this.tpms_manufacture_date, this.axie?.tpms_manufacture_date, '', true);
     this.addControls(this.tpms_installation_date, this.axie?.tpms_installation_date);
     this.addControls(this.tyre_installation_date, this.axie?.tyre_installation_date);
     this.addControls(this.tyre_temperature, this.axie?.tyre_temperature, 20, true);
@@ -158,6 +165,7 @@ export class VehicleConfigurationFormComponent implements OnInit {
       tpms_name: this.tpms_name.controls.map(control => control.value),
       tpms_type: this.tpms_type.controls.map(control => control.value),
       tpms_manufacturer: this.tpms_manufacturer.controls.map(control => control.value),
+      tpms_manufacture_date: this.tpms_manufacture_date.controls.map(control => control.value),
       tpms_installation_date: this.tpms_installation_date.controls.map(control => control.value),
       tyre_installation_date: this.tyre_installation_date.controls.map(control => control.value),
       tyre_temperature: this.tyre_temperature.controls.map(control => control.value),
