@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnInit, OnDestroy, ViewChild, Inject} from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest, of, Subscription } from 'rxjs';
+import { BehaviorSubject, combineLatest, of, Subject, Subscription } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { FiltersService } from 'src/app/components/filters/filters.service';
 import { TableComponent } from 'src/app/components/table/table.component';
@@ -14,6 +14,7 @@ import { ActiveVehiclesService } from '../active-vehicles.service';
 })
 export class VehicleListComponent implements OnInit, OnDestroy, AfterViewInit {
   tableSub: Subscription | null = null
+  dialogDelete = new BehaviorSubject(null)
   loading = false;
   columns: {key: string, name: string}[] = [
     {
@@ -60,8 +61,9 @@ export class VehicleListComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit() {
     setTimeout(() => {
-      this.tableSub = combineLatest([this.table.pageChange, this.filterService.plate$]).pipe(
-        startWith([{pageIndex: 0, pageSize: 1}, ''] as [{pageIndex: number, pageSize: number}, string]),
+      this.tableSub = combineLatest([this.table.pageChange, this.filterService.plate$, this.dialogDelete]).pipe(
+        startWith(
+          [{pageIndex: 0, pageSize: 1}, '', null] as [{pageIndex: number, pageSize: number}, string, null]),
         switchMap((data) => {
           this.loading = true;
           return this.activeVehicleService.getVehicles(
@@ -105,7 +107,9 @@ export class VehicleListComponent implements OnInit, OnDestroy, AfterViewInit {
       disableClose: true
     });
     dialogRef.afterClosed().subscribe(value => {
-      console.log(value)
+      if (true) {
+        this.dialogDelete.next(null)
+      }
     })
   }
 }
@@ -143,12 +147,12 @@ export class DeleteVehicleDialog {
 
   ok() {
     this.loading = true
-    // this.activeVehicleService.deleteVehicle(this.id).subscribe(() => {
-    //   this.dialogRef.close(true)
-    //   this.loading = false
-    // }, (err) => {
-    //   this.dialogRef.close(false)
-    //   this.loading = false
-    // })
+    this.activeVehicleService.deleteVehicle(this.id).subscribe(() => {
+      this.dialogRef.close(true)
+      this.loading = false
+    }, (err) => {
+      this.dialogRef.close(false)
+      this.loading = false
+    })
   }
 }
