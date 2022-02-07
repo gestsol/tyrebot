@@ -31,7 +31,7 @@ export class VehicleListComponent implements OnInit, OnDestroy, AfterViewInit {
     },
     {
       key: 'hubName',
-      name: 'ID HUB'
+      name: 'ID Hub'
     },
     {
       key: 'chassis',

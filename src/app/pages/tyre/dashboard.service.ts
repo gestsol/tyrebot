@@ -45,25 +45,32 @@ export interface NominalValuesKpi {
   total_count: number
 }
 
-export interface TyresByBrand {
-  name: string,
-  tyres_count: number
-}
-
 export interface TyresExpired {
   expired:number
   ok:number
   to_expire:number
 }
 
+export interface TyresByBrand {
+  name: string,
+  tyres_count: number
+}
+
+export interface LifeByBrandKpi {
+  avg_tyre_life: number,
+  id: number,
+  name: string
+}
 
 export type TotalKpiObj = ReturnType<DashboardService['getTotalKpiObj']>
 
 export type NominalValuesKpiObj = ReturnType<DashboardService['getNominalValuesKpiObj']>
 
-export type BrandKpiObj = ReturnType<DashboardService['getBrandKpi']>
-
 export type ExpirationKpiObj = ReturnType<DashboardService['getExpirationKpiObj']>
+
+export type BrandKpiObj = ReturnType<DashboardService['getBrandKpiObj']>
+
+export type LifeByBrandKpiObj = ReturnType<DashboardService['getLifeByBrandKpiObj']>
 
 @Injectable({
   providedIn: 'root'
@@ -105,18 +112,26 @@ export class DashboardService {
     )
   }
 
-  getTyresByBrand() {
-    return this.http.get<TyresByBrand[]>('kpi/tyres_by_brand').pipe(
-      map(data => {
-        return this.getBrandKpi(data)
-      })
-    )
-  }
-
   getExpirationKpi() {
     return this.http.get<TyresExpired>('kpi/tyres_by_expiration').pipe(
       map(data => {
         return this.getExpirationKpiObj(data)
+      })
+    )
+  }
+
+  getTyresByBrand() {
+    return this.http.get<TyresByBrand[]>('kpi/tyres_by_brand').pipe(
+      map(data => {
+        return this.getBrandKpiObj(data)
+      })
+    )
+  }
+
+  getLifeByBrandKpi() {
+    return this.http.get<{data: LifeByBrandKpi[]}>('kpi/tyre_avg_life_by_brand').pipe(
+      map(data => {
+        return this.getLifeByBrandKpiObj(data.data)
       })
     )
   }
@@ -205,15 +220,29 @@ export class DashboardService {
     return chartOption
   }
 
-  private getBrandKpi(data: TyresByBrand[]) {
+  private getBrandKpiObj(data: TyresByBrand[]) {
     const filtered = data.sort((a, b) => a.tyres_count - b.tyres_count).slice(0, 10)
-    const brands = filtered.map(item => item.name)
+    const names = filtered.map(item => item.name)
     const values = filtered.map(item => item.tyres_count)
 
     if (!values.length) {
       return false
     }
+    return this.getBarChart(values, names)
+  }
 
+  private getLifeByBrandKpiObj(data: LifeByBrandKpi[]) {
+    const filtered = data.sort((a, b) => a.avg_tyre_life - b.avg_tyre_life).slice(0, 10)
+    const names = filtered.map(item => item.name)
+    const values = filtered.map(item => item.avg_tyre_life)
+
+    if (!values.length) {
+      return false
+    }
+    return this.getBarChart(values, names)
+  }
+
+  private getBarChart (values: number[], names: string[]) {
     const brandChartOption: EChartsOption = {
       grid: {
         containLabel: true,
@@ -256,7 +285,7 @@ export class DashboardService {
         },
         type: 'category',
         boundaryGap: true,
-        data: brands
+        data: names
       },
       series: [
         {
@@ -271,7 +300,8 @@ export class DashboardService {
         }
       ]
     }
-    return brandChartOption
+
+    return brandChartOption;
   }
 
   getExpirationKpiObj(data: TyresExpired) {

@@ -15,12 +15,14 @@ export class DashboardComponent implements OnInit {
   loadingPressure = false;
   loadingTemperature = false;
   loadingBrand = false;
+  loadingLifeByBranch = false;
   loadingExpired = false;
 
   totalKpis: TotalKpiObj = new Array(5).fill({})
   totalPressure: NominalValuesKpiObj | null = null
   totalTemperature: NominalValuesKpiObj | null = null
   totalBrand: BrandKpiObj | null = null
+  totalLifeByBrand: BrandKpiObj | null = null
   totalExpired: ExpirationKpiObj | null = null
 
   brandChartOption: EChartsOption = {
@@ -97,6 +99,7 @@ export class DashboardComponent implements OnInit {
     this.getTemperature();
     this.getBrands();
     this.getExpired();
+    this.getLifeByBrand();
   }
 
   getTotals() {
@@ -137,6 +140,18 @@ export class DashboardComponent implements OnInit {
       this.loadingBrand = false
     },(err) => {
       this.loadingBrand = false
+    })
+  }
+
+  getLifeByBrand() {
+    this.loadingLifeByBranch = true
+    this.dashboardService.getLifeByBrandKpi()
+    .subscribe((totals)=> {
+      this.totalLifeByBrand = totals;
+      console.log(this.totalLifeByBrand)
+      this.loadingLifeByBranch = false
+    },(err) => {
+      this.loadingLifeByBranch = false
     })
   }
 

@@ -28,12 +28,9 @@
         <mat-icon>more_horiz</mat-icon>
       </button>
     </div>
-    <div class="loader" *ngIf="loadingPressure">
-      <mat-spinner diameter="100"></mat-spinner>
-    </div>
-    <div class="loader" *ngIf="!loadingPressure && !totalPressure">
-      <h3>Sin datos</h3>
-    </div>
+    <ng-container
+      *ngTemplateOutlet="loader, context: {loading: loadingPressure, total: totalPressure}">
+    </ng-container>
     <div
       echarts [options]="totalPressure" class="big-chart"
       *ngIf="!loadingPressure && totalPressure"
@@ -47,12 +44,9 @@
         <mat-icon>more_horiz</mat-icon>
       </button>
     </div>
-    <div class="loader" *ngIf="loadingTemperature">
-      <mat-spinner diameter="100"></mat-spinner>
-    </div>
-    <div class="loader" *ngIf="!loadingTemperature && !totalTemperature">
-      <h3>Sin datos</h3>
-    </div>
+    <ng-container
+      *ngTemplateOutlet="loader, context: {loading: loadingTemperature, total: totalTemperature}">
+    </ng-container>
     <div
       echarts [options]="totalTemperature" class="big-chart"
       *ngIf="!loadingTemperature && totalTemperature">
@@ -66,12 +60,9 @@
       </button>
     </div>
     <div class="detail-kpis__revision__container">
-      <div class="loader" *ngIf="loadingExpired">
-        <mat-spinner diameter="100"></mat-spinner>
-      </div>
-      <div class="loader" *ngIf="!loadingExpired && !totalExpired">
-        <h3>Sin datos</h3>
-      </div>
+      <ng-container
+        *ngTemplateOutlet="loader, context: {loading: loadingExpired, total: totalExpired}">
+      </ng-container>
       <ng-container *ngIf="!loadingExpired && totalExpired">
         <div class="detail-kpis__revision" *ngFor="let expired of totalExpired">
           <div class="detail-kpis__revision__chart" echarts [options]="expired.chart"></div>
@@ -87,12 +78,9 @@
     <div class="detail-kpis__title">
       <h2>MARCAS MÁS UTILIZADOS</h2>
     </div>
-    <div class="loader" *ngIf="loadingBrand">
-      <mat-spinner diameter="100"></mat-spinner>
-    </div>
-    <div class="loader" *ngIf="!loadingBrand && !totalBrand">
-      <h3>Sin datos</h3>
-    </div>
+    <ng-container
+      *ngTemplateOutlet="loader, context: {loading: loadingBrand, total: totalBrand}">
+    </ng-container>
     <div
       echarts [options]="totalBrand" class="big-chart"
       *ngIf="!loadingBrand && totalBrand"
@@ -103,7 +91,14 @@
     <div class="detail-kpis__title">
       <h2>VIDA UTIL POR MARCA</h2>
     </div>
-    <div echarts [options]="brandChartOption" class="big-chart"></div>
+    <ng-container
+      *ngTemplateOutlet="loader, context: {loading: loadingLifeByBranch, total: totalLifeByBrand}">
+    </ng-container>
+    <div
+      echarts [options]="totalLifeByBrand" class="big-chart"
+      *ngIf="!loadingLifeByBranch && totalLifeByBrand"
+    >
+    </div>
   </mat-card>
   <mat-card class="detail-kpis__tyres">
     <div class="detail-kpis__title">
@@ -148,6 +143,15 @@
     </ul>
   </mat-card>
 </div>
+
+<ng-template let-loading="loading" let-total="total" #loader>
+  <div class="loader" *ngIf="loading">
+    <mat-spinner diameter="100"></mat-spinner>
+  </div>
+  <div class="loader" *ngIf="!loading && !total">
+    <h3>Sin datos</h3>
+  </div>
+</ng-template>
 
 <ng-template let-accent #alert>
   <div class="detail-kpis__alert" [ngClass]="{'accent': accent}">

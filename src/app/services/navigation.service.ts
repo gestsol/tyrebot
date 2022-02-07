@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Location } from '@angular/common'
 import { BehaviorSubject } from 'rxjs';
 
@@ -97,11 +97,29 @@ export class NavigationService {
     this.navOpen.next(!this.navOpen.value)
   }
 
-  public getPreviousUrl() {
+  getPreviousUrl() {
     return this.previousUrl;
   }
 
   back() {
     this.location.back();
+  }
+
+  replace(url: string) {
+    this.location.replaceState(url);
+  }
+
+  getFullUrl(route: ActivatedRoute) {
+    let parent: ActivatedRoute | null = route
+    const segments: string[] = []
+    while (parent) {
+      const path = parent.snapshot.url.map(item => item.path)
+        .filter(item => item != '')
+        .join('/')
+      segments.push(path)
+      parent = parent.parent
+    }
+
+    return segments.reverse().filter(item => item != '').join('/')
   }
 }

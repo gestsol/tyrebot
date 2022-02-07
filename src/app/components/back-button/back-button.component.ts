@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 import { NavigationService } from 'src/app/services/navigation.service';
 
 @Component({
@@ -21,13 +21,14 @@ export class BackButtonComponent implements OnInit {
 
   back() {
     const prev = this.navigationService.getPreviousUrl()
-    if (this.path) {
+    if (prev && prev === this.path) {
+      this.navigationService.back()
+    } else if (this.path) {
       this.router.navigate([this.path], {
         relativeTo: this.route
       })
-    } else if (prev) {
-	    this.router.navigate([prev])
+    } else {
+      this.navigationService.back()
     }
   }
-
 }
