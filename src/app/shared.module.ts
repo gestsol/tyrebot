@@ -24,13 +24,15 @@ import { BackButtonComponent } from './components/back-button/back-button.compon
 import { VehicleCreationSuccessComponent } from './components/vehicle-creation-success/vehicle-creation-success.component';
 import { TableComponent } from './components/table/table.component';
 import { BtnXlsxComponent } from './components/btn-xlsx/btn-xlsx.component';
+import { TyreTabsComponent } from './components/tyre-tabs/tyre-tabs.component';
 
 @NgModule({
   declarations: [
     BackButtonComponent,
     VehicleCreationSuccessComponent,
     TableComponent,
-    BtnXlsxComponent
+    BtnXlsxComponent,
+    TyreTabsComponent
   ],
   imports: [
     CommonModule,
@@ -41,7 +43,9 @@ import { BtnXlsxComponent } from './components/btn-xlsx/btn-xlsx.component';
     MatButtonModule,
     MatTableModule,
     MatProgressSpinnerModule,
-    MatMenuModule
+    MatMenuModule,
+    MatTabsModule,
+    MatCardModule
   ],
   exports: [
     CommonModule,
@@ -65,7 +69,8 @@ import { BtnXlsxComponent } from './components/btn-xlsx/btn-xlsx.component';
     MatButtonModule,
     TableComponent,
     MatMenuModule,
-    BtnXlsxComponent
+    BtnXlsxComponent,
+    TyreTabsComponent
   ],
   providers: [
     httpInterceptorProviders,

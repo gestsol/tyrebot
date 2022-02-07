@@ -5,26 +5,13 @@ import { EChartsOption } from 'echarts';
 import { BehaviorSubject, zip } from 'rxjs';
 import { VehicleService } from 'src/app/services/vehicle.service';
 
-export enum TableType {
-  pressure_low = "pressure_low",
-  pressure_ok = "pressure_ok",
-  pressure_high = "pressure_high",
-  temp_low = "temp_low",
-  temp_ok = "temp_ok",
-  temp_high = "temp_high"
-}
+export const PressureType = ["pressure_low", "pressure_ok", "pressure_high"];
 
-export const PressureType = {
-  0: TableType.pressure_ok,
-  1: TableType.pressure_high,
-  2: TableType.pressure_low
-}
+export const TempType = ["temp_low", "temp_ok", "temp_high"];
 
-export const TempType = {
-  0: TableType.temp_ok,
-  1: TableType.temp_high,
-  2: TableType.temp_low
-}
+export const  TyreAlertType = ["temp_low", "temp_ok","temp_high", "temp_high"]
+
+export const  TyreExpiredType = ["pressure_low", "pressure_ok", "pressure_high"]
 
 export interface TotalsKpi {
   buyed_count: 0,
@@ -136,8 +123,8 @@ export class DashboardService {
     )
   }
 
-  getTableLecture(type: TableType) {
-    return this.http.get<{data: any}>(`kpi/vehicles_${type}`).pipe(
+  getTableLecture(url: string) {
+    return this.http.get<{data: any}>(`kpi/vehicles_${url}`).pipe(
       map((data: any) => {
         let response = data.data.map((item) => {
           return {

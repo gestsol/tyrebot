@@ -1,25 +1,19 @@
-import { Component, AfterViewInit, ViewChild, QueryList, ViewChildren } from '@angular/core';
-import { MatTabGroup } from '@angular/material/tabs';
+import { Component, ContentChild, Input, OnInit, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
+import { MatTabChangeEvent, MatTabGroup } from '@angular/material/tabs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map, startWith, switchMap } from 'rxjs/operators';
-import { TableComponent } from 'src/app/components/table/table.component';
-import { DashboardService, TempType } from '../dashboard.service';
+import { DashboardService } from 'src/app/pages/tyre/dashboard.service';
+import { TableComponent } from '../table/table.component';
 
 @Component({
-  selector: 'app-pressure-list',
-  templateUrl: './pressure-list.component.html',
-  styleUrls: ['./pressure-list.component.scss']
+  selector: 'app-tyre-tabs',
+  templateUrl: './tyre-tabs.component.html',
+  styleUrls: ['./tyre-tabs.component.scss']
 })
-export class PressureListComponent implements AfterViewInit {
-  @ViewChild(MatTabGroup) tabGroup!: MatTabGroup
-  @ViewChildren(TableComponent) tables!: QueryList<TableComponent>;
-
-  tabs = ['Optima', 'Alta', 'Baja'];
-  types: string[] = [];
-  tableSub: Subscription | null = null
-  loading = false;
-  columns: {key: string, name: string}[] = [
+export class TyreTabsComponent implements OnInit {
+  @Input() tabs: string[] = [];
+  @Input() columns: {key: string, name: string}[] = [
     {
       key: 'plate',
       name: 'Patente'
@@ -45,12 +39,40 @@ export class PressureListComponent implements AfterViewInit {
       name: 'Acciones'
     }
   ];
+  @ViewChild(MatTabGroup) tabGroup!: MatTabGroup
+  @ViewChildren(TableComponent) tables!: QueryList<TableComponent>;
+
+  types: string[] = [];
+  tableSub: Subscription | null = null
+  loading = false;
 
   constructor(
     private dashboardService: DashboardService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
+
+  ngOnInit(): void {
+  }
+
+  getData() {
+    this.loading = true;
+    this.tabGroup.selectedTabChange.pipe(
+      startWith({index: 0}),
+      switchMap((event) => {
+        return this.dashboardService.getTableLecture(this.types[event.index]).pipe(
+          map(data => ({data, index: event.index}))
+        )
+      })
+    ).subscribe(({data, index}) => {
+      this.tables.forEach((item, elemIndex) => {
+        if (elemIndex === index) {
+          item.setData(data?.data, data?.total_entries)
+        }
+      })
+      this.loading = false
+    }, (err) => console.error(err))
+  }
 
   ngOnDestroy(): void {
     this.tableSub?.unsubscribe()
@@ -66,27 +88,8 @@ export class PressureListComponent implements AfterViewInit {
     }, 0)
   }
 
-  getData() {
-    this.loading = true;
-    this.tabGroup.selectedTabChange.pipe(
-      startWith({index: 0}),
-      switchMap((event) => {
-        return this.dashboardService.getTableLecture(this.types[event.index]).pipe(
-          map(data => ({data, index: event.index}))
-        )
-      })
-    ).subscribe(({data, index}) => {
-      console.log({data, index})
-      this.tables.forEach((item, elemIndex) => {
-        if (elemIndex === index) {
-          item.setData(data?.data, data?.total_entries)
-        }
-      })
-      this.loading = false
-    }, (err) => console.error(err))
-  }
-
   seeMore(vehicle: any) {
     this.router.navigate(['active-vehicle/detail', vehicle.id]);
   }
+
 }

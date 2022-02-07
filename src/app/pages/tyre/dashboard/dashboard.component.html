@@ -55,7 +55,7 @@
   <mat-card class="fixed-height">
     <div class="detail-kpis__title">
       <h2>REVISIÓN NEUMÁTICOS</h2>
-      <button mat-button>
+      <button mat-button (click)="toExpiredList()">
         <mat-icon>more_horiz</mat-icon>
       </button>
     </div>
@@ -105,10 +105,10 @@
       <h2>ALERTAS DE NEUMÁTICO</h2>
     </div>
     <div>
-      <ng-container *ngTemplateOutlet="alert"></ng-container>
-      <ng-container *ngTemplateOutlet="alert"></ng-container>
-      <ng-container *ngTemplateOutlet="alert"></ng-container>
-      <ng-container *ngTemplateOutlet="alert, context:{$implicit: true}"></ng-container>
+      <ng-container *ngTemplateOutlet="alert, context: {url: '/tyres/alert-list'}"></ng-container>
+      <ng-container *ngTemplateOutlet="alert, context: {url: '/tyres/alert-list'}"></ng-container>
+      <ng-container *ngTemplateOutlet="alert, context: {url: '/tyres/alert-list'}"></ng-container>
+      <ng-container *ngTemplateOutlet="alert, context:{$implicit: true, url: '/tyres/alert-list'}"></ng-container>
     </div>
   </mat-card>
   <mat-card class="detail-kpis__aligment">
@@ -117,8 +117,8 @@
         <h2>ALERTA DE VEHICULOS</h2>
       </div>
       <div class="detail-kpis__aligment__alert-container">
-        <ng-container *ngTemplateOutlet="alert"></ng-container>
-        <ng-container *ngTemplateOutlet="alert, context:{$implicit: true}"></ng-container>
+        <ng-container *ngTemplateOutlet="alert, context: {url: '/tyres/tpms-fuel-list'}"></ng-container>
+        <ng-container *ngTemplateOutlet="alert, context:{$implicit: true, url: '/tyres/tpms-fuel-list'}"></ng-container>
       </div>
     </div>
     <div class="detail-kpis__aligment__separator"></div>
@@ -127,8 +127,8 @@
         <h2>ALINEACIÓN Y BALANCEO</h2>
       </div>
       <div class="detail-kpis__aligment__alert-container">
-        <ng-container *ngTemplateOutlet="alert, context:{$implicit: true}"></ng-container>
-        <ng-container *ngTemplateOutlet="alert"></ng-container>
+        <ng-container *ngTemplateOutlet="alert, context:{$implicit: true, url: '/tyres/asymmetry-list'}"></ng-container>
+        <ng-container *ngTemplateOutlet="alert, context: {url: '/tyres/asymmetry-list'}"></ng-container>
       </div>
     </div>
   </mat-card>
@@ -153,9 +153,9 @@
   </div>
 </ng-template>
 
-<ng-template let-accent #alert>
+<ng-template let-accent let-url="url" #alert>
   <div class="detail-kpis__alert" [ngClass]="{'accent': accent}">
-    <button mat-button class="detail-kpis__alert__menu">
+    <button mat-button class="detail-kpis__alert__menu" [routerLink]="url">
       <mat-icon>more_vert</mat-icon>
     </button>
     <div class="detail-kpis__alert__value"><span>2340</span></div>

@@ -175,6 +175,18 @@ export class DashboardComponent implements OnInit {
     this.toRoute('../temperature-list');
   }
 
+  toAlertList() {
+    this.toRoute('../alert-list');
+  }
+
+  toExpiredList() {
+    this.toRoute('../expired-list');
+  }
+
+  tpmsFuelList() {
+    this.toRoute('../tpms-fuel-list');
+  }
+
   toRoute(relativeUrl: string) {
     this.router.navigate([relativeUrl], {
       relativeTo: this.route

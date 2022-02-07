@@ -1,0 +1,15 @@
+<mat-card class="data-card">
+  <mat-tab-group mat-align-tabs="center" dynamicHeight>
+    <mat-tab [label]="tab"
+      *ngFor="let tab of tabs; let i = index">
+      <app-table
+        [columns]="columns"
+        [noEdit]="true"
+        [customPag]="false"
+        [loading]="loading"
+        (seeMore)="seeMore($event)">
+      </app-table>
+    </mat-tab>
+  </mat-tab-group>
+</mat-card>
+
