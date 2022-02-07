@@ -5,7 +5,6 @@ import { ActiveVehicleRoutingModule } from './active-vehicle-routing.module';
 
 import { SharedModule } from 'src/app/shared.module';
 import { VehicleComponent } from './vehicle/vehicle.component';
-import { ActiveVehiclesContainerComponent } from './active-vehicles-container/active-vehicles-container.component';
 import { FiltersModule } from 'src/app/components/filters/filters.module';
 
 
@@ -13,8 +12,7 @@ import { FiltersModule } from 'src/app/components/filters/filters.module';
   declarations: [
     VehicleListComponent,
     DeleteVehicleDialog,
-    VehicleComponent,
-    ActiveVehiclesContainerComponent
+    VehicleComponent
   ],
   imports: [
     CommonModule,

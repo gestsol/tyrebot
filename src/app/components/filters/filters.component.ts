@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import * as moment from 'moment';
@@ -13,8 +13,8 @@ import { FiltersService } from './filters.service';
 })
 export class FiltersComponent implements OnInit {
   showBackBtn = false;
-  inputFrom: any
-  inputTo: any
+  @Input() showDate = false
+  @Input() showPlate = false
   form = this.fb.group({
     plate: [''],
     from: [''],
@@ -68,7 +68,11 @@ export class FiltersComponent implements OnInit {
       width: '80vw',
       minWidth: 300,
       // minHeight: 300,
-      panelClass: 'custom-dialog'
+      panelClass: 'custom-dialog',
+      data: {
+        showDate: this.showDate,
+        showPlate: this.showPlate
+      }
     });
   }
 }

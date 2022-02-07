@@ -31,9 +31,9 @@
 }
 
 @media (min-width: 920px) {
-  .search-form__form{
+  :host .search-form__form{
     justify-content: center;
-    &__exporter {
+    ::ng-deep .exporter {
       position: absolute;
       right: 0;
       top: calc(50% - 18px)

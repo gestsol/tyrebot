@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { startWith, switchMap } from 'rxjs/operators';
 import { FiltersService } from 'src/app/components/filters/filters.service';
 import { ActiveVehiclesService } from '../active-vehicles.service';
 
@@ -33,6 +34,8 @@ export class VehicleComponent implements OnInit, OnDestroy {
   ]
   dataSubscription: Subscription | null = null
 
+  vehicles$ = this.activeVehicleService.vehicles$;
+
   constructor(
     private route: ActivatedRoute,
     private filterService: FiltersService,
@@ -43,10 +46,16 @@ export class VehicleComponent implements OnInit, OnDestroy {
     this.route.params.subscribe((params) => {
       if (params['id']) {
         this.id = parseInt(params['id'])
-        this.filterService.date$.subscribe(value => {
-          this.dateFrom = value.from
-          this.dateTo = value.to
-          this.getData(this.id)
+        this.dataSubscription = this.filterService.date$.pipe(
+          startWith({from: '', to: ''}),
+          switchMap((value) => {
+            this.dateFrom = value.from
+            this.dateTo = value.to
+            return this.activeVehicleService.getBusData(this.id, this.dateFrom, this.dateTo)
+          })
+        ).subscribe((data) => {
+          this.busData = data
+          this.loading = false
         })
       }
     })
@@ -54,16 +63,5 @@ export class VehicleComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.dataSubscription?.unsubscribe()
-  }
-
-  getData(id: number) {
-    this.loading = true
-    if (this.dataSubscription && !this.dataSubscription.closed) {
-      this.dataSubscription.unsubscribe()
-    }
-    this.dataSubscription = this.activeVehicleService.getBusData(id, this.dateFrom, this.dateTo).subscribe((data) => {
-      this.busData = data
-      this.loading = false
-    })
   }
 }

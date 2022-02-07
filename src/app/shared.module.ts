@@ -23,12 +23,14 @@ import { BusModule } from './components/bus/bus.module';
 import { BackButtonComponent } from './components/back-button/back-button.component';
 import { VehicleCreationSuccessComponent } from './components/vehicle-creation-success/vehicle-creation-success.component';
 import { TableComponent } from './components/table/table.component';
+import { BtnXlsxComponent } from './components/btn-xlsx/btn-xlsx.component';
 
 @NgModule({
   declarations: [
     BackButtonComponent,
     VehicleCreationSuccessComponent,
-    TableComponent
+    TableComponent,
+    BtnXlsxComponent
   ],
   imports: [
     CommonModule,
@@ -62,7 +64,8 @@ import { TableComponent } from './components/table/table.component';
     MatPaginatorModule,
     MatButtonModule,
     TableComponent,
-    MatMenuModule
+    MatMenuModule,
+    BtnXlsxComponent
   ],
   providers: [
     httpInterceptorProviders,

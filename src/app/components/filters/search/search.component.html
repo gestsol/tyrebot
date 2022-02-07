@@ -1,11 +1,11 @@
 <h1 mat-dialog-title>Filtrar Vehíclos</h1>
 <div mat-dialog-content>
   <form [formGroup]="form">
-    <mat-form-field appearance="outline" class="light rounded">
+    <mat-form-field appearance="outline" class="light rounded" *ngIf="data.showPlate">
       <input matInput placeholder="Patente" #input formControlName="plate">
       <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
-    <mat-form-field appearance="outline" class="light rounded">
+    <mat-form-field appearance="outline" class="light rounded" *ngIf="data.showDate">
       <mat-date-range-input [rangePicker]="picker">
         <input matStartDate placeholder="Desde" formControlName="from">
         <input matEndDate placeholder="Hasta" formControlName="to">

@@ -1,9 +1,15 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder } from '@angular/forms';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import * as moment from 'moment';
 import { combineLatest } from 'rxjs';
 import { FiltersService } from '../filters.service';
+
+export interface SearchDialogData {
+  showPlate: boolean
+  showDate: boolean
+}
 
 @Component({
   selector: 'app-search',
@@ -18,6 +24,7 @@ export class SearchComponent implements OnInit {
   })
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: SearchDialogData,
     public dialogRef: MatDialogRef<SearchComponent>,
     private filterService: FiltersService,
     private fb: FormBuilder

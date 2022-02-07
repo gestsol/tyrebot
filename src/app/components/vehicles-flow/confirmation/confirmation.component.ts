@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { VehicleCreationSuccessComponent, DialogData } from '../../vehicle-creation-success/vehicle-creation-success.component';
+import { VehicleCreationSuccessComponent, SuccessDialogData } from '../../vehicle-creation-success/vehicle-creation-success.component';
 import { Step1, Step2, Step3, VehiclesFlowService } from '../vehicles-flow.service';
 
 @Component({
@@ -92,7 +92,7 @@ export class ConfirmationComponent implements OnInit {
     this.router.navigate(['../../active-vehicle'])
   }
 
-  openDialog(data: DialogData) {
+  openDialog(data: SuccessDialogData) {
     this.dialog.open(VehicleCreationSuccessComponent, {
       data,
       height: '50vh',

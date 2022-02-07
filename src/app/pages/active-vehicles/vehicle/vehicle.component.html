@@ -1,49 +1,57 @@
-<mat-card class="bus-data" *ngIf="busData">
-  <h2 class="bus-data__plate"> Patente: <span>{{busData.plate}}</span></h2>
-  <div class="bus-data__indicators">
-    <span class="bus-data__indicators__title">Presión</span>
-    <ol>
-      <li>
-        <span></span>
-        <span>Baja</span>
-      </li>
-      <li>
-        <span></span>
-        <span>Ok</span>
-      </li>
-      <li>
-        <span></span>
-        <span>Alta</span>
-      </li>
-    </ol>
+<div class="main-container">
+  <app-filters [showDate]="true"></app-filters>
+  <div class="active-vehicles__header">
+    <h1>Vehículos y Activos</h1>
+    <span class="detail">VEHÍCULOS: {{vehicles$ | async}}</span>
+    <app-back-button></app-back-button>
   </div>
-  <app-bus *ngIf="busData?.format" [axies]="busData.format.axies"></app-bus>
-  <div class="bus-data__footer"><span> INDICE DE CONSUMO DE COMBUSTIBLE </span></div>
-</mat-card>
-<mat-card *ngIf="busData?.format">
-  <mat-tab-group mat-align-tabs="center" dynamicHeight>
-    <mat-tab [label]="axie.type === 'backup' ? 'R' : 'EJE ' + axie.axie_number"
-      *ngFor="let axie of busData.format.axies; let i = index">
-      <div class="mat-tab-container">
-        <div class="row-container field-header">
-          <div class="row-container__field-name"></div>
-          <div class="row-container__values">
-            <div class="row-container__values__item" *ngFor="let col of axie.tyres; let i = index">
-              <span>{{'Tire ' + col.tyre_number}}</span>
+  <mat-card class="bus-data" *ngIf="busData">
+    <h2 class="bus-data__plate"> Patente: <span>{{busData.plate}}</span></h2>
+    <div class="bus-data__indicators">
+      <span class="bus-data__indicators__title">Presión</span>
+      <ol>
+        <li>
+          <span></span>
+          <span>Baja</span>
+        </li>
+        <li>
+          <span></span>
+          <span>Ok</span>
+        </li>
+        <li>
+          <span></span>
+          <span>Alta</span>
+        </li>
+      </ol>
+    </div>
+    <app-bus *ngIf="busData?.format" [axies]="busData.format.axies"></app-bus>
+    <div class="bus-data__footer"><span> INDICE DE CONSUMO DE COMBUSTIBLE </span></div>
+  </mat-card>
+  <mat-card *ngIf="busData?.format">
+    <mat-tab-group mat-align-tabs="center" dynamicHeight>
+      <mat-tab [label]="axie.type === 'backup' ? 'R' : 'EJE ' + axie.axie_number"
+        *ngFor="let axie of busData.format.axies; let i = index">
+        <div class="mat-tab-container">
+          <div class="row-container field-header">
+            <div class="row-container__field-name"></div>
+            <div class="row-container__values">
+              <div class="row-container__values__item" *ngFor="let col of axie.tyres; let i = index">
+                <span>{{'Tire ' + col.tyre_number}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="field-container" *ngFor="let keyName of tpmsKeysNames">
+            <div class="row-container">
+              <ng-container
+                *ngTemplateOutlet="rowTemplate, context: { $implicit: axie.tyres, key: keyName.key, name: keyName.name, isDate: true }">
+              </ng-container>
             </div>
           </div>
         </div>
-        <div class="field-container" *ngFor="let keyName of tpmsKeysNames">
-          <div class="row-container">
-            <ng-container
-              *ngTemplateOutlet="rowTemplate, context: { $implicit: axie.tyres, key: keyName.key, name: keyName.name, isDate: true }">
-            </ng-container>
-          </div>
-        </div>
-      </div>
-    </mat-tab>
-  </mat-tab-group>
-</mat-card>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
+</div>
 
 <ng-template #rowTemplate let-tyres let-key="key" let-name="name">
   <div class="row-container__field-name">

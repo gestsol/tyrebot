@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
-export interface DialogData {
+export interface SuccessDialogData {
   type: 'update' | 'create';
 }
 
@@ -12,7 +12,7 @@ export interface DialogData {
 })
 export class VehicleCreationSuccessComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: SuccessDialogData) {}
 
   ngOnInit(): void {
   }

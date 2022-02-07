@@ -45,6 +45,8 @@ export class VehicleListComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild(TableComponent) table!: TableComponent;
 
+  vehicles$ = this.activeVehicleService.vehicles$;
+
   constructor(
     private activeVehicleService: ActiveVehiclesService,
     private filterService: FiltersService,

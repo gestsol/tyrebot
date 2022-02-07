@@ -1,5 +1,11 @@
-<mat-card class="data-card">
-  <app-table
+<div class="main-container">
+  <app-filters [showPlate]="true"></app-filters>
+  <div class="active-vehicles__header">
+    <h1>Vehículos y Activos</h1>
+    <span>VEHÍCULOS: {{vehicles$ | async}}</span>
+  </div>
+  <mat-card class="data-card">
+    <app-table
     [columns]="columns"
     [loading]="loading"
     (seeMore)="seeMore($event)"
@@ -7,3 +13,4 @@
     (delete)="delete($event)">
   </app-table>
 </mat-card>
+</div>
