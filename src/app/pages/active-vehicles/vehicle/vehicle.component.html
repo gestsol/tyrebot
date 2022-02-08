@@ -53,7 +53,7 @@
   </mat-card>
 </div>
 
-<ng-template #rowTemplate let-tyres let-key="key" let-name="name">
+<ng-template #rowTemplate let-tyres let-key="key" let-name="name" let-isDate="">
   <div class="row-container__field-name">
     <div>
       <span>{{name}}</span>
@@ -63,7 +63,7 @@
     <div class="row-container__values__item" *ngFor="let tyre of tyres; let i=index">
       <div>{{
         (key === 'tpms_type' || key === 'tpms_installation_date' || key === 'tpms_manufacturer'?
-        tyre.tpms_meta[key] :
+        tyre.tpms_meta[key]:
         tyre[key]) ||
         'N/A'
       }}</div>

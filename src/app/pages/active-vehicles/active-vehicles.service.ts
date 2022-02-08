@@ -102,10 +102,23 @@ export class ActiveVehiclesService {
                     state = 'ok'
                   }
                 }
+
                 if (summaryResult) {
                   summaryResult.min_max_temp = `${summaryResult.min_temp.toFixed(0)} / ${summaryResult.max_temp.toFixed(0)} ºc`
                   summaryResult.min_max_pressure = `${summaryResult.min_pressure.toFixed(0)} / ${summaryResult.max_pressure.toFixed(0)} psi`
                   summaryResult.average_pressure = `${((summaryResult.min_temp + summaryResult.max_temp) / 2).toFixed(0)}`
+                }
+
+                if(tyre.tpms_meta.tpms_installation_date?.length) {
+                  tyre.tpms_meta.tpms_installation_date = moment(tyre.tpms_meta.tpms_installation_date).format('DD/MM/YYYY')
+                }
+
+                if(tyre.install_date?.length) {
+                  tyre.install_date = moment(tyre.install_date).format('DD/MM/YYYY')
+                }
+
+                if(tyre.manufacture_date?.length) {
+                  tyre.manufacture_date = moment(tyre.manufacture_date).format('DD/MM/YYYY')
                 }
                 return {
                   ...tyre,
