@@ -1,4 +1,4 @@
-import { Component, Directive, ElementRef, Input, OnInit } from '@angular/core';
+import { Component, Directive, ElementRef, HostListener, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { of } from 'rxjs';
 import { startWith } from 'rxjs/operators';
@@ -19,6 +19,7 @@ export class VehicleConfigurationFormComponent implements OnInit {
   tpmsNameChanges = of([]);
   tyreStatusList$  = this.vehicleService.tyreStatusList$
   tyreBrands$  = this.vehicleService.tyreBrands$
+  isMobile = false
 
   constructor(
     private fb: FormBuilder,
@@ -27,6 +28,12 @@ export class VehicleConfigurationFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.createControls()
+    this.isMobile = window.innerWidth < 790
+  }
+
+  @HostListener('window:resize', ['$event'])
+  resize() {
+    this.isMobile = window.innerWidth < 790
   }
 
   get tpms_name() {
@@ -188,9 +195,17 @@ export class VehicleConfigurationFormComponent implements OnInit {
     }
   }
 
-  togglePanel(event, template) {
+  togglePanel(event, template, factor: number) {
     event.target.classList.toggle('expantion-btn--open')
-    template.classList.toggle('open')
+    if (template.style.height) {
+      template.style.paddingTop = ''
+      template.style.paddingBottom = ''
+      template.style.height = ''
+    } else {
+      template.style.paddingTop = '1.3rem'
+      template.style.paddingBottom = '1.3rem'
+      template.style.height = `${68 * factor}px`
+    }
   }
 
   compareOptions(object1: any, object2: any) {

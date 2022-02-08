@@ -41,7 +41,7 @@ mat-form-field {
     gap: 2rem;
     padding: 0;
     flex-wrap: wrap;
-    max-height: 0;
+    height: 0;
     transition: all 0.5s;
     overflow: hidden;
     & > div {
@@ -50,10 +50,10 @@ mat-form-field {
       align-content: center;
       width: 100%;
     }
-    &.open {
-      max-height: 600px;
-      padding: 1.3rem 0;
-    }
+    // &.open {
+    //   max-height: 600px;
+    //   padding: 1.3rem 0;
+    // }
   }
   &__col.field-name > div {
     display: flex;
@@ -108,7 +108,7 @@ fieldset {
       }
     }
     &__col:not(.field-name) {
-      max-height: 600px;
+      height: auto;
       padding: 1.3rem 0;
       & > div {
         justify-content: flex-start;

@@ -142,16 +142,17 @@
       <span>{{name}}<span *ngIf="required" class="required">*</span></span>
       <mat-icon
         class="expantion-btn"
-        (click)="togglePanel($event, panel)"
+        (click)="togglePanel($event, panel, controls.length)"
         [ngClass]="{'expantion-btn--open': name === 'TPMS id' }">
         expand_more
       </mat-icon>
     </div>
   </div>
-  <div #panel class="row-container__col" [ngClass]="{'open': name === 'TPMS id' }">
+  <div #panel class="row-container__col" [ngStyle]="name === 'TPMS id' && isMobile ? {'padding': '1.3rem 0', height: (68 * controls.length)+'px'}: {}">
     <div *ngFor="let control of controls; let i=index">
       <ng-container *ngIf="!isDate && !isSelect">
-        <mat-form-field appearance="outline" [ngClass]="{'grey-background': !control.value}">
+        <mat-form-field appearance="outline"
+          [ngClass]="{'grey-background': !control.value}">
           <input matInput [placeholder]="'Tire '+ (i + 1)" [formControl]="controls[i]" [type]="isNumber? 'number': 'text'">
           <mat-error *ngIf="control.errors">{{
             control.errors.required ? name + ' es requerido': control.errors.notUnique
