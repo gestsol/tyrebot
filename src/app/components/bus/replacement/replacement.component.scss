@@ -13,7 +13,11 @@
       }
     }
     .#{$state} text {
-      fill: white !important;
+      @if ($state == "NO_SIGNAL") {
+        fill: list.nth($values, 2) !important;
+      } @else {
+        fill: white !important;
+      }
     }
   }
 }

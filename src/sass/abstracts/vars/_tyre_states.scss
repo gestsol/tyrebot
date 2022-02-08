@@ -4,5 +4,6 @@
 $states: (
   "high": (colors.$red,colors.$red-dark),
   "ok": (colors.$green, colors.$green-dark),
-  "low": (colors.$yellow, colors.$yellow-dark)
+  "low": (colors.$yellow, colors.$yellow-dark),
+  "NO_SIGNAL": (white, colors.$red-dark),
 );
