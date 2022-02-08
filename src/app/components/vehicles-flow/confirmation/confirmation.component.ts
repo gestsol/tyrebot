@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BusAxies } from '../../bus/bus.component';
 import { VehicleCreationSuccessComponent, SuccessDialogData } from '../../vehicle-creation-success/vehicle-creation-success.component';
 import { Step1, Step2, Step3, VehiclesFlowService } from '../vehicles-flow.service';
 
@@ -13,7 +14,7 @@ export class ConfirmationComponent implements OnInit {
   step1: Step1 | null = null
   step2: Step2 | null = null
   step3: Step3 | null = null
-  axies: any
+  axies: BusAxies[] | null = null;
   ejesLength = 0
   loading = false
 
@@ -60,7 +61,8 @@ export class ConfirmationComponent implements OnInit {
         tyres_count: item.tyres,
         axie_number: index + 1,
         tyres: new Array(item.tyres).fill({}).map((_, i) => ({
-          tyre_number: i + 1
+          tyre_number: i + 1,
+          state: ''
         }))
       }))
     }

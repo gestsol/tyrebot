@@ -227,7 +227,7 @@ export class VehiclesFlowService {
             tpms_installation_date: item.tpms_installation_date[i],
           },
           install_date: item.tyre_installation_date[i],
-          manufacturing_date: '',
+          manufacture_date: item.manufacture_date[i],
           temperature: item.tyre_temperature[i],
           pressure: typeof item.tyre_pressure[i] === 'string'? parseInt(item.tyre_pressure[i] as any):item.tyre_pressure[i],
           tyre_brand_id: item.tyre_brand[i],

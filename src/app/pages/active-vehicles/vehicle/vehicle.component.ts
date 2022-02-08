@@ -24,13 +24,14 @@ export class VehicleComponent implements OnInit, OnDestroy {
     {key: 'tpms_name', name: 'TPMS id'},
     {key: 'tpms_type', name: 'TPMS tipo'},
     {key: 'tpms_installation_date', name: 'Instalación TPMS'},
-    {key: 'tyre_manufacturing_date', name: 'Fabricación del neumático'},
-    {key: 'tyre_installation_date', name: 'Instalación del neumático'},
-    {key: 'tyre_brand', name: 'Marca'},
-    {key: 'tyre_provider', name: 'Proveedor'},
+    {key: 'tpms_manufacturer', name: 'Fabricante TPMS'},
+    {key: 'manufacture_date', name: 'Fecha Vencimiento Neumático'},
+    {key: 'install_date', name: 'Instalación del neumático'},
+    {key: 'brand', name: 'Marca'},
+    {key: 'provider', name: 'Proveedor'},
     {key: 'dot', name: 'DOT'},
-    {key: 'tyre_index', name: 'Indice carga/vel'},
-    {key: 'tyre_tyre_measurementss', name: 'Medidas'}
+    {key: 'index', name: 'Indice carga/vel'},
+    {key: 'measurementss', name: 'Medidas'}
   ]
   dataSubscription: Subscription | null = null
 

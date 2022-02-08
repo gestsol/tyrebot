@@ -24,13 +24,13 @@
         </li>
       </ol>
     </div>
-    <app-bus *ngIf="busData?.format" [axies]="busData.format.axies"></app-bus>
+    <app-bus *ngIf="busData" [axies]="busData.axies"></app-bus>
     <div class="bus-data__footer"><span> INDICE DE CONSUMO DE COMBUSTIBLE </span></div>
   </mat-card>
-  <mat-card *ngIf="busData?.format">
+  <mat-card *ngIf="busData?.axies">
     <mat-tab-group mat-align-tabs="center" dynamicHeight>
-      <mat-tab [label]="axie.type === 'backup' ? 'R' : 'EJE ' + axie.axie_number"
-        *ngFor="let axie of busData.format.axies; let i = index">
+      <mat-tab [label]="axie.type === 'backup' ? 'R' : 'EJE ' + (i + 1)"
+        *ngFor="let axie of busData.axies; let i = index">
         <div class="mat-tab-container">
           <div class="row-container field-header">
             <div class="row-container__field-name"></div>
@@ -43,7 +43,7 @@
           <div class="field-container" *ngFor="let keyName of tpmsKeysNames">
             <div class="row-container">
               <ng-container
-                *ngTemplateOutlet="rowTemplate, context: { $implicit: axie.tyres, key: keyName.key, name: keyName.name, isDate: true }">
+                *ngTemplateOutlet="rowTemplate, context: { $implicit: axie.tyres, key: keyName.key, name: keyName.name }">
               </ng-container>
             </div>
           </div>
@@ -61,7 +61,12 @@
   </div>
   <div class="row-container__values">
     <div class="row-container__values__item" *ngFor="let tyre of tyres; let i=index">
-      <div>{{tyre[key] || 'N/A' }}</div>
+      <div>{{
+        (key === 'tpms_type' || key === 'tpms_installation_date' || key === 'tpms_manufacturer'?
+        tyre.tpms_meta[key] :
+        tyre[key]) ||
+        'N/A'
+      }}</div>
     </div>
   </div>
 </ng-template>

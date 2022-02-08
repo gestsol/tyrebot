@@ -3,6 +3,37 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+export interface Tyre {
+  tyres: number
+  id?: number
+  tpms_name: string
+  tpms_meta: {
+    tpms_type: string
+    tpms_manufacturer: string
+    tpms_installation_date: string
+  }
+  manufacture_date: string
+  install_date: string
+  temperature: number
+  pressure: number
+  tyre_brand_id: string
+  provider: string
+  dot: string
+  index: string
+  measurements: string
+  recauchado: string
+  wear: string
+}
+
+export interface Vehicle {
+  plate: string
+  chassis: string
+  hubName: string
+  nrointerno: string
+  gps: string
+  hubid?: number
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -71,7 +102,7 @@ export class VehicleService {
     )
   }
 
-  postVehicles(vehicle: any) {
+  postVehicles(vehicle) {
     return this.http.post('vehicles', {vehicle})
   }
 

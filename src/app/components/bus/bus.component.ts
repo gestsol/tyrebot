@@ -1,12 +1,22 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
 
+export interface BusAxies {
+  type: 'main' | 'backup',
+  tyres_count: number,
+  axie_number: number,
+  tyres: {
+    tyre_number: number,
+    state: string
+  }[]
+}
+
 @Component({
   selector: 'app-bus',
   templateUrl: './bus.component.html',
   styleUrls: ['./bus.component.scss']
 })
 export class BusComponent implements OnInit {
-  @Input() axies: any
+  @Input() axies: BusAxies[] = []
   img = '/assets/img/bus/bus.svg'
 
   constructor() { }

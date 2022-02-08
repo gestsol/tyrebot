@@ -82,36 +82,49 @@ export class ActiveVehiclesService {
       this.getTpms(id)
     ).pipe(
       map(([vehicleData, summaryData, tpmsData]) => {
-        if (vehicleData.format && tpmsData) {
-          vehicleData.format.axies = vehicleData.format.axies.map((item: any, index: number) => {
-            const tyres = item.tyres.map((tyre: any) => {
-              const tpmsResult = tpmsData.find((tpms: any) => tpms.name === tyre.tpms_name)
-              const summaryResult = summaryData.find((tpms: any) => tpms.name === tyre.tpms_name)
-              let state = 'NO_SIGNAL'
-              if (tpmsResult) {
-                const pressure = parseInt(tpmsResult.pressure);
-                if ( pressure > tyre.tyre_pressure + tyre.tyre_pressure*0.1) {
-                  state = 'high'
-                } else if (pressure < tyre.tyre_pressure - tyre.tyre_pressure*0.2) {
-                  state = 'low'
-                } else {
-                  state = 'ok'
+        let axies: any[] = [];
+        if (vehicleData && tpmsData) {
+          const { axies_count } = vehicleData.axies
+          Object.keys(vehicleData.axies).forEach((key, axieIndex) => {
+            if (!!vehicleData.axies[key] && vehicleData.axies[key].length && key !== 'axies_count') {
+              const item = vehicleData.axies[key]
+              let tyres = item.map((tyre: any, tyreIndex) => {
+                const tpmsResult = tpmsData.find((tpms: any) => tpms.name === tyre.tpms_name)
+                const summaryResult = summaryData.find((tpms: any) => tpms.name === tyre.tpms_name)
+                let state = 'NO_SIGNAL'
+                if (tpmsResult) {
+                  const pressure = parseInt(tpmsResult.pressure);
+                  if ( pressure > tyre.pressure + tyre.pressure*0.1) {
+                    state = 'high'
+                  } else if (pressure < tyre.pressure - tyre.pressure*0.2) {
+                    state = 'low'
+                  } else {
+                    state = 'ok'
+                  }
                 }
-              }
-              if (summaryResult) {
-                summaryResult.min_max_temp = `${summaryResult.min_temp.toFixed(0)} / ${summaryResult.max_temp.toFixed(0)} ºc`
-                summaryResult.min_max_pressure = `${summaryResult.min_pressure.toFixed(0)} / ${summaryResult.max_pressure.toFixed(0)} psi`
-                summaryResult.average_pressure = `${((summaryResult.min_temp + summaryResult.max_temp) / 2).toFixed(0)}`
-              }
-              return {
-                ...tyre,
-                ...(summaryResult || {}),
-                state
-              }
-            })
-            return { ...item, tyres }
+                if (summaryResult) {
+                  summaryResult.min_max_temp = `${summaryResult.min_temp.toFixed(0)} / ${summaryResult.max_temp.toFixed(0)} ºc`
+                  summaryResult.min_max_pressure = `${summaryResult.min_pressure.toFixed(0)} / ${summaryResult.max_pressure.toFixed(0)} psi`
+                  summaryResult.average_pressure = `${((summaryResult.min_temp + summaryResult.max_temp) / 2).toFixed(0)}`
+                }
+                return {
+                  ...tyre,
+                  ...(summaryResult || {}),
+                  tyre_number: tyreIndex + 1,
+                  state
+                }
+              })
+              axies.push({
+                tyres_count: tyres.length,
+                type: axieIndex + 1 === axies_count? 'backup' : 'main',
+                tyres,
+                axie_number: axieIndex + 1
+              })
+            }
           })
         }
+        vehicleData.axies = axies
+        console.log(vehicleData.axies)
         return vehicleData
       })
     )
