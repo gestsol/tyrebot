@@ -16,6 +16,7 @@ export interface EjeData {
   tpms_type: string[]
   tpms_manufacturer: string[]
   manufacture_date: string[]
+  uninstall_date: string[]
   tpms_installation_date: string[]
   tyre_installation_date: string[]
   tyre_temperature: number[]
@@ -122,6 +123,7 @@ export class VehiclesFlowService {
               tpms_type: axie.map((tyre) => tyre.tpms_meta.tpms_type),
               tpms_manufacturer: axie.map((tyre) => tyre.tpms_meta.tpms_manufacturer),
               manufacture_date: axie.map((tyre) => tyre.manufacture_date),
+              uninstall_date: axie.map((tyre) => tyre.uninstall_date),
               tpms_installation_date: axie.map((tyre) => tyre.tpms_meta.tpms_installation_date),
               tyre_installation_date: axie.map((tyre) => tyre.tyre_installation_date),
               tyre_temperature: axie.map((tyre) => tyre.temperature),
@@ -229,6 +231,7 @@ export class VehiclesFlowService {
           },
           install_date: item.tyre_installation_date[i],
           manufacture_date: item.manufacture_date[i],
+          uninstall_date: item.uninstall_date[i],
           temperature: item.tyre_temperature[i],
           pressure: typeof item.tyre_pressure[i] === 'string'? parseInt(item.tyre_pressure[i] as any):item.tyre_pressure[i],
           tyre_brand_id: item.tyre_brand[i],

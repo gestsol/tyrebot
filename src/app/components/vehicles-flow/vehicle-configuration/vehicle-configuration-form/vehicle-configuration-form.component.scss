@@ -1,5 +1,10 @@
 @use '/src/sass/abstracts/vars/colors' as colors;
 
+.required {
+  color: colors.$red;
+  margin-inline-start: 0.3rem
+}
+
 :host ::ng-deep .mat-form-field-infix {
   width: 100% !important;
 }
