@@ -33,28 +33,28 @@ const routes: Routes = [
         component: PressureListComponent
       },
       {
-        path: 'alert-list',
+        path: 'alert-list/:tab',
         data: {
           types: TempType
         },
         component: AlertsComponent
       },
       {
-        path: 'expired-list',
+        path: 'expired-list/:tab',
         data: {
           types: TempType
         },
         component: ExpiredComponent
       },
       {
-        path: 'asymmetry-list',
+        path: 'asymmetry-list/:tab',
         data: {
           types: TempType
         },
         component: AsymmetryPressureComponent
       },
       {
-        path: 'tpms-fuel-list',
+        path: 'tpms-fuel-list/:tab',
         data: {
           types: TempType
         },

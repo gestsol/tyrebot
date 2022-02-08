@@ -24,7 +24,7 @@
   <mat-card>
     <div class="detail-kpis__title">
       <h2>PRESIÓN DE NEUMÁTICOS</h2>
-      <button mat-button (click)="toPressureList()">
+      <button mat-button routerLink="/tyre/pressure">
         <mat-icon>more_horiz</mat-icon>
       </button>
     </div>
@@ -40,7 +40,7 @@
   <mat-card class="fixed-height">
     <div class="detail-kpis__title">
       <h2>TEMPERATURA</h2>
-      <button mat-button (click)="toTemperatureList()">
+      <button mat-button routerLink="/tyre/temperature">
         <mat-icon>more_horiz</mat-icon>
       </button>
     </div>
@@ -55,7 +55,7 @@
   <mat-card class="fixed-height">
     <div class="detail-kpis__title">
       <h2>REVISIÓN NEUMÁTICOS</h2>
-      <button mat-button (click)="toExpiredList()">
+      <button mat-button routerLink="/tyre/expired-list">
         <mat-icon>more_horiz</mat-icon>
       </button>
     </div>
@@ -105,30 +105,30 @@
       <h2>ALERTAS DE NEUMÁTICO</h2>
     </div>
     <div>
-      <ng-container *ngTemplateOutlet="alert, context: {url: '/tyres/alert-list'}"></ng-container>
-      <ng-container *ngTemplateOutlet="alert, context: {url: '/tyres/alert-list'}"></ng-container>
-      <ng-container *ngTemplateOutlet="alert, context: {url: '/tyres/alert-list'}"></ng-container>
-      <ng-container *ngTemplateOutlet="alert, context:{$implicit: true, url: '/tyres/alert-list'}"></ng-container>
+      <ng-container *ngTemplateOutlet="alert, context: {name: 'Tº fuera de rango', url: '/tyres/alert-list/0'}"></ng-container>
+      <ng-container *ngTemplateOutlet="alert, context: {name: 'Sensor Sin Señal', url: '/tyres/alert-list/3'}"></ng-container>
+      <ng-container *ngTemplateOutlet="alert, context: {name: 'Exceso de presion', url: '/tyres/alert-list/1'}"></ng-container>
+      <ng-container *ngTemplateOutlet="alert, context: {$implicit: true, name: 'Presión Baja', url: '/tyres/alert-list/2'}"></ng-container>
     </div>
   </mat-card>
   <mat-card class="detail-kpis__aligment">
     <div>
       <div class="detail-kpis__title">
-        <h2>ALERTA DE VEHICULOS</h2>
+        <h2>ALINEACIÓN Y BALANCEO</h2>
       </div>
       <div class="detail-kpis__aligment__alert-container">
-        <ng-container *ngTemplateOutlet="alert, context: {url: '/tyres/tpms-fuel-list'}"></ng-container>
-        <ng-container *ngTemplateOutlet="alert, context:{$implicit: true, url: '/tyres/tpms-fuel-list'}"></ng-container>
+        <ng-container *ngTemplateOutlet="alert, context: {name: 'Asimetría de Tº en el mismo Eje', url: '/tyres/asymmetry-list/0'}"></ng-container>
+        <ng-container *ngTemplateOutlet="alert, context:{$implicit: true,name: 'Asimetría de presión en el Eje', url: '/tyres/asymmetry-list/1'}"></ng-container>
       </div>
     </div>
     <div class="detail-kpis__aligment__separator"></div>
     <div>
       <div class="detail-kpis__title">
-        <h2>ALINEACIÓN Y BALANCEO</h2>
+        <h2>ALERTA DE VEHICULOS</h2>
       </div>
       <div class="detail-kpis__aligment__alert-container">
-        <ng-container *ngTemplateOutlet="alert, context:{$implicit: true, url: '/tyres/asymmetry-list'}"></ng-container>
-        <ng-container *ngTemplateOutlet="alert, context: {url: '/tyres/asymmetry-list'}"></ng-container>
+        <ng-container *ngTemplateOutlet="alert, context:{$implicit: true, name: 'TPMS sin señal', url: '/tyres/tpms-fuel-list/0'}"></ng-container>
+        <ng-container *ngTemplateOutlet="alert, context: {name: 'Alto consumo de combustible', url: '/tyres/tpms-fuel-list/1'}"></ng-container>
       </div>
     </div>
   </mat-card>
@@ -153,12 +153,12 @@
   </div>
 </ng-template>
 
-<ng-template let-accent let-url="url" #alert>
+<ng-template let-accent let-name="name" let-url="url" #alert>
   <div class="detail-kpis__alert" [ngClass]="{'accent': accent}">
     <button mat-button class="detail-kpis__alert__menu" [routerLink]="url">
       <mat-icon>more_vert</mat-icon>
     </button>
     <div class="detail-kpis__alert__value"><span>2340</span></div>
-    <div class="detail-kpis__alert__title"><span>Tº fuera de rango</span></div>
+    <div class="detail-kpis__alert__title"><span>{{name}}</span></div>
   </div>
 </ng-template>

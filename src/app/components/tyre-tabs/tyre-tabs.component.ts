@@ -1,8 +1,8 @@
 import { Component, ContentChild, Input, OnInit, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
 import { MatTabChangeEvent, MatTabGroup } from '@angular/material/tabs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
-import { map, startWith, switchMap } from 'rxjs/operators';
+import { Observable, of, Subscription, zip } from 'rxjs';
+import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { DashboardService } from 'src/app/pages/tyre/dashboard.service';
 import { TableComponent } from '../table/table.component';
 
@@ -61,7 +61,8 @@ export class TyreTabsComponent implements OnInit {
       startWith({index: 0}),
       switchMap((event) => {
         return this.dashboardService.getTableLecture(this.types[event.index]).pipe(
-          map(data => ({data, index: event.index}))
+          map(data => ({data, index: event.index})),
+          catchError((err) => of({data: null, index: event.index}))
         )
       })
     ).subscribe(({data, index}) => {
@@ -71,7 +72,9 @@ export class TyreTabsComponent implements OnInit {
         }
       })
       this.loading = false
-    }, (err) => console.error(err))
+    }, (err) => {
+      this.loading = false
+    })
   }
 
   ngOnDestroy(): void {
@@ -80,9 +83,10 @@ export class TyreTabsComponent implements OnInit {
 
   ngAfterViewInit() {
     setTimeout(() => {
-      this.route.data.subscribe(data => {
+      zip(this.route.data, this.route.params).subscribe(([data, params]) => {
         this.types = data.types;
-        console.log(this.tables)
+        const tab = params['tab'] || 0
+        this.tabGroup.selectedIndex = tab
         this.getData();
       })
     }, 0)
