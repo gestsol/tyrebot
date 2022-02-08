@@ -13,32 +13,8 @@ import { TableComponent } from '../table/table.component';
 })
 export class TyreTabsComponent implements OnInit {
   @Input() tabs: string[] = [];
-  @Input() columns: {key: string, name: string}[] = [
-    {
-      key: 'plate',
-      name: 'Patente'
-    },
-    {
-      key: 'internal_number',
-      name: 'Nº de Vehículo'
-    },
-    {
-      key: 'axies',
-      name: 'Ejes'
-    },
-    {
-      key: 'hubName',
-      name: 'Dispositivo GPS'
-    },
-    {
-      key: 'chassis',
-      name: 'Alertas'
-    },
-    {
-      key: 'action',
-      name: 'Acciones'
-    }
-  ];
+  @Input() columns: {key: string, name: string}[] = [];
+
   @ViewChild(MatTabGroup) tabGroup!: MatTabGroup
   @ViewChildren(TableComponent) tables!: QueryList<TableComponent>;
 

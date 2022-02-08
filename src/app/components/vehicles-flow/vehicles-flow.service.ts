@@ -90,6 +90,7 @@ export class VehiclesFlowService {
     });
     return this.vehicleService.getVehicle(id).pipe(
       map((data) => {
+        console.log(data)
         const { axies } = data
         const step1: Step1 = {
           patente: data.plate,
@@ -104,7 +105,7 @@ export class VehiclesFlowService {
         }
 
         if (axies.axie4.length) {
-          step2.ejes.push(data.axie4.length)
+          step2.ejes.push(axies.axie4.length)
         } else {
           delete axies.axie4
         }
