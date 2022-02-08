@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-alerts',
-  template: `<app-tyre-tabs [tabs]="tabs" [columns]="columns"></app-tyre-tabs>`,
-  styleUrls: ['./alerts.component.scss']
+  template: `<app-tyre-tabs [tabs]="tabs" [columns]="columns"></app-tyre-tabs>`
 })
 export class AlertsComponent {
 
