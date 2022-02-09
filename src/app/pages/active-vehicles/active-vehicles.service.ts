@@ -5,6 +5,15 @@ import { map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { HttpClient } from '@angular/common/http';
 
+export interface TPMSData {
+  batt: number
+  created_at: string
+  id: number
+  name: string
+  pressure: number
+  temp: number
+}
+
 export interface Summary {
   from: string,
   max_pressure: number,
@@ -60,7 +69,7 @@ export class ActiveVehiclesService {
       .set('minutes', 0)
       .set('seconds', 0)
       .format('YYYY-MM-DDTHH:mm:ss')
-    const defaultTo = moment().format('YYYY-MM-DDTHH:mm:ss')
+    const defaultTo = moment.utc().format('YYYY-MM-DDTHH:mm:ss')
     const queryParams = `?from=${from || defaultFrom}&to=${to || defaultTo}`
     return this.http.get<{data: Summary[]}>(`vehicles/${id}/summary_tpms_data${queryParams}`)
     .pipe(
@@ -69,9 +78,9 @@ export class ActiveVehiclesService {
   }
 
   getTpms(id: number) {
-    return this.http.get(`vehicles/${id}/latest_tpms_data`)
+    return this.http.get<{data: TPMSData[]}>(`vehicles/${id}/latest_tpms_data`)
     .pipe(
-      map((data: any) => data.data)
+      map((data) => data.data)
     )
   }
 
@@ -93,10 +102,9 @@ export class ActiveVehiclesService {
                 const summaryResult = summaryData.find((tpms: any) => tpms.name === tyre.tpms_name)
                 let state = 'NO_SIGNAL'
                 if (tpmsResult) {
-                  const pressure = parseInt(tpmsResult.pressure);
-                  if ( pressure > tyre.pressure + tyre.pressure*0.1) {
+                  if ( tpmsResult.pressure > tyre.pressure + tyre.pressure*0.1) {
                     state = 'high'
-                  } else if (pressure < tyre.pressure - tyre.pressure*0.2) {
+                  } else if (tpmsResult.pressure < tyre.pressure - tyre.pressure*0.2) {
                     state = 'low'
                   } else {
                     state = 'ok'
@@ -106,7 +114,7 @@ export class ActiveVehiclesService {
                 if (summaryResult) {
                   summaryResult.min_max_temp = `${summaryResult.min_temp.toFixed(0)} / ${summaryResult.max_temp.toFixed(0)} ºc`
                   summaryResult.min_max_pressure = `${summaryResult.min_pressure.toFixed(0)} / ${summaryResult.max_pressure.toFixed(0)} psi`
-                  summaryResult.average_pressure = `${((summaryResult.min_temp + summaryResult.max_temp) / 2).toFixed(0)}`
+                  summaryResult.average_pressure = `${((summaryResult.min_temp + summaryResult.max_temp) / 2).toFixed(0)} psi`
                 }
 
                 if(tyre.tpms_meta.tpms_installation_date?.length) {
@@ -123,6 +131,8 @@ export class ActiveVehiclesService {
                 return {
                   ...tyre,
                   ...(summaryResult || {}),
+                  actual_pressure: tpmsResult? `${tpmsResult.pressure.toFixed(0)} psi`: null,
+                  actual_temp: tpmsResult? `${tpmsResult.temp.toFixed(0)} ºc` : null,
                   tyre_number: tyreIndex + 1,
                   state
                 }

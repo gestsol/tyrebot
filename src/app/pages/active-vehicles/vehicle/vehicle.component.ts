@@ -20,6 +20,8 @@ export class VehicleComponent implements OnInit, OnDestroy {
     {key: 'min_max_temp', name: 'Temp. Min/Max'},
     {key: 'min_max_pressure', name: 'Presión Min/Max'},
     {key: 'average_pressure', name: 'Promedio de P.'},
+    {key: 'actual_pressure', name: 'Presión actual'},
+    {key: 'actual_temp', name: 'Temperatura actual'},
     {key: 'measurements_count', name: 'Mediciones'},
     {key: 'tpms_name', name: 'TPMS id'},
     {key: 'tpms_type', name: 'TPMS tipo'},

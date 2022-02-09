@@ -44,12 +44,16 @@ export class FiltersComponent implements OnInit {
     const to = this.form.get('to')?.value
     if (from && to) {
       const data = {
-        from: moment(this.form.get('from')?.value).format(),
+        from: moment(this.form.get('from')?.value)
+        .set('h', 0)
+        .set('minutes', 0)
+        .set('seconds', 0)
+        .format('YYYY-MM-DDTHH:mm:ss'),
         to: moment(this.form.get('to')?.value)
         .set('h', 23)
         .set('minutes', 59)
         .set('seconds', 59)
-        .format()
+        .format('YYYY-MM-DDTHH:mm:ss')
       }
       this.filterService.setDate(data)
     } else {

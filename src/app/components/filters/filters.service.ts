@@ -13,10 +13,7 @@ export class FiltersService {
   plate$ = this.plateSub.asObservable()
   date$ = this.dateSub.asObservable()
 
-  constructor(
-    private vehicleService: VehicleService,
-    private http: HttpClient
-  ) { }
+  constructor() { }
 
   setDate(data: {from: string, to: string}) {
     this.dateSub.next(data)
