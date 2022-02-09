@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-asymmetry-pressure',
   template: `<app-tyre-tabs [tabs]="tabs" [columns]="columns"></app-tyre-tabs>`
 })
-export class AsymmetryPressureComponent implements OnInit {
+export class AsymmetryPressureComponent {
   tabs = ['Asimetría de Tº en el mismo eje', 'Asimetría de presión en el mismo eje'];
 
   columns: {key: string, name: string}[] = [
@@ -35,8 +35,5 @@ export class AsymmetryPressureComponent implements OnInit {
   ];
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }

@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { EChartsOption } from 'echarts';
 import { Subscription } from 'rxjs';
 import { BrandKpiObj, DashboardService, ExpirationKpiObj, NominalValuesKpiObj, TotalKpiObj, TotalsKpi } from '../dashboard.service';
 
@@ -26,8 +24,6 @@ export class DashboardComponent implements OnInit {
   totalExpired: ExpirationKpiObj | null = null
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute,
     private dashboardService: DashboardService
   ) { }
 

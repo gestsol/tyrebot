@@ -1,21 +1,12 @@
-import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { TableComponent } from 'src/app/components/table/table.component';
-import { TyreTabsComponent } from 'src/app/components/tyre-tabs/tyre-tabs.component';
-import { DashboardService } from '../dashboard.service';
-
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-expired',
-  templateUrl: './expired.component.html',
-  styleUrls: ['./expired.component.scss']
+  template: `<app-tyre-tabs [tabs]="tabs" [columns]="columns"></app-tyre-tabs>`
 })
 export class ExpiredComponent {
-  @ViewChild(TyreTabsComponent) tabGroup!: TyreTabsComponent
-  @ViewChildren(TableComponent) tables!: QueryList<TableComponent>;
-
   tabs = ['Al día', 'Próximos a vencer', 'Vencidos'];
+
   columns: {key: string, name: string}[] = [
     {
       key: 'plate',

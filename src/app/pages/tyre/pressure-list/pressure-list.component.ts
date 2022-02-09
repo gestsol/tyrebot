@@ -1,24 +1,14 @@
-import { Component, AfterViewInit, ViewChild, QueryList, ViewChildren } from '@angular/core';
-import { MatTabGroup } from '@angular/material/tabs';
+import { Component} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { map, startWith, switchMap } from 'rxjs/operators';
-import { TableComponent } from 'src/app/components/table/table.component';
-import { DashboardService, TempType } from '../dashboard.service';
+import { DashboardService } from '../dashboard.service';
 
 @Component({
   selector: 'app-pressure-list',
-  templateUrl: './pressure-list.component.html',
-  styleUrls: ['./pressure-list.component.scss']
+  template: `<app-tyre-tabs [tabs]="tabs" [columns]="columns"></app-tyre-tabs>`
 })
-export class PressureListComponent implements AfterViewInit {
-  @ViewChild(MatTabGroup) tabGroup!: MatTabGroup
-  @ViewChildren(TableComponent) tables!: QueryList<TableComponent>;
+export class PressureListComponent {
 
   tabs = ['Optima', 'Alta', 'Baja'];
-  types: string[] = [];
-  tableSub: Subscription | null = null
-  loading = false;
   columns: {key: string, name: string}[] = [
     {
       key: 'plate',
@@ -46,47 +36,8 @@ export class PressureListComponent implements AfterViewInit {
     }
   ];
 
-  constructor(
-    private dashboardService: DashboardService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {}
+  constructor () {}
 
   ngOnDestroy(): void {
-    this.tableSub?.unsubscribe()
-  }
-
-  ngAfterViewInit() {
-    setTimeout(() => {
-      this.route.data.subscribe(data => {
-        this.types = data.types;
-        console.log(this.tables)
-        this.getData();
-      })
-    }, 0)
-  }
-
-  getData() {
-    this.loading = true;
-    this.tabGroup.selectedTabChange.pipe(
-      startWith({index: 0}),
-      switchMap((event) => {
-        return this.dashboardService.getTableLecture(this.types[event.index]).pipe(
-          map(data => ({data, index: event.index}))
-        )
-      })
-    ).subscribe(({data, index}) => {
-      console.log({data, index})
-      this.tables.forEach((item, elemIndex) => {
-        if (elemIndex === index) {
-          item.setData(data?.data, data?.total_entries)
-        }
-      })
-      this.loading = false
-    }, (err) => console.error(err))
-  }
-
-  seeMore(vehicle: any) {
-    this.router.navigate(['active-vehicle/detail', vehicle.id]);
   }
 }
