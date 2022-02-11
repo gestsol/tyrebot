@@ -105,8 +105,8 @@
       <h2>ALERTAS DE NEUMÁTICO</h2>
     </div>
     <div>
-      <ng-container *ngTemplateOutlet="alert, context: {name: 'Tº fuera de rango', url: '/tyres/alert-list/0'}"></ng-container>
-      <ng-container *ngTemplateOutlet="alert, context: {name: 'Sensor Sin Señal', url: '/tyres/alert-list/3'}"></ng-container>
+      <ng-container *ngTemplateOutlet="alert, context: {name: 'Alta temperatura', url: '/tyres/alert-list/0'}"></ng-container>
+      <ng-container *ngTemplateOutlet="alert, context: {name: 'Sensores sin lectura durante 48h', url: '/tyres/alert-list/3'}"></ng-container>
       <ng-container *ngTemplateOutlet="alert, context: {name: 'Exceso de presion', url: '/tyres/alert-list/1'}"></ng-container>
       <ng-container *ngTemplateOutlet="alert, context: {$implicit: true, name: 'Presión Baja', url: '/tyres/alert-list/2'}"></ng-container>
     </div>
