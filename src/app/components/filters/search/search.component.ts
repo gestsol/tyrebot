@@ -33,7 +33,6 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
     combineLatest([this.filterService.plate$, this.filterService.date$])
     .subscribe(([plate, dates]) => {
-      console.log('open')
       this.form.setValue({
         plate,
         from: dates.from,

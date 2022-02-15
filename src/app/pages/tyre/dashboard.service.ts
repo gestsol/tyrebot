@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { finalize, map } from 'rxjs/operators';
 import { EChartsOption } from 'echarts';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, zip } from 'rxjs';
 import { VehicleService } from 'src/app/services/vehicle.service';
 
 export const PressureType = ["pressure_ok", "pressure_high", "pressure_low"];
@@ -117,6 +117,22 @@ export class DashboardService {
         return this.getLifeByBrandKpiObj(data.data)
       })
     )
+  }
+
+  getTyreAlertsCount() {
+    let urls = [
+      'high_temp_alerts_count',
+      'tpms_without_log_hours_count',
+      'high_pressure_alerts_count',
+      'low_pressure_alerts_count',
+      'tpms_without_log_count'
+    ]
+
+    const requests = urls.map((item) => {
+     return this.http.get<{count: number}>(`kpi/${item}`).pipe(map((data) => data.count))
+    })
+
+    return zip(...requests)
   }
 
   getTableLecture(url: string) {
@@ -304,7 +320,6 @@ export class DashboardService {
     const total = values.reduce((prev, current) => current.value + prev, 0)
     const revisionChartOption = values.map((current) => {
       const percentage = ((current.value/total)* 100).toFixed(0)
-      console.log(percentage)
       const chart = {
         title: {
           text: `${percentage}%`,

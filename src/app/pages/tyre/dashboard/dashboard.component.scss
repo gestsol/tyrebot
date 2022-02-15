@@ -4,18 +4,6 @@
   height: 400px;
 }
 
-:host .loader  {
-  width: 100%;
-  height: 80%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  ::ng-deep mat-spinner circle {
-    stroke: white !important;
-  }
-}
-
 :host .total-kpi {
   display: flex;
   gap: 0.5rem;
@@ -269,5 +257,17 @@
       padding: 0;
       height: 200px;
     }
+  }
+}
+
+:host mat-card div.loader  {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  ::ng-deep mat-spinner circle {
+    stroke: white !important;
   }
 }

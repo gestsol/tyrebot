@@ -31,7 +31,6 @@ export class BusComponent implements OnInit {
   }
 
   selectImg () {
-    console.log(window.innerWidth)
     if (window.innerWidth < 700) {
       this.img = '/assets/img/bus/bus-mobile2.png'
     } else {

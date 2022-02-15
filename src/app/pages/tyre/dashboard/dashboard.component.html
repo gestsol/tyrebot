@@ -104,11 +104,16 @@
     <div class="detail-kpis__title">
       <h2>ALERTAS DE NEUMÁTICO</h2>
     </div>
-    <div>
-      <ng-container *ngTemplateOutlet="alert, context: {name: 'Alta temperatura', url: '/tyres/alert-list/0'}"></ng-container>
-      <ng-container *ngTemplateOutlet="alert, context: {name: 'Sensores sin lectura durante 48h', url: '/tyres/alert-list/3'}"></ng-container>
-      <ng-container *ngTemplateOutlet="alert, context: {name: 'Exceso de presion', url: '/tyres/alert-list/1'}"></ng-container>
-      <ng-container *ngTemplateOutlet="alert, context: {$implicit: true, name: 'Presión Baja', url: '/tyres/alert-list/2'}"></ng-container>
+    <ng-container
+      *ngTemplateOutlet="loader, context: {loading: loadingTyreAlerts, total: 1}">
+    </ng-container>
+    <div *ngIf="!loadingTyreAlerts">
+      <ng-container *ngFor="let item of tyreAlerts">
+        <ng-container *ngTemplateOutlet="
+          alert,
+          context: {$implicit: item.accent, name: item.name, url: item.url, value: item.value}
+        "></ng-container>
+      </ng-container>
     </div>
   </mat-card>
   <mat-card class="detail-kpis__aligment">
@@ -153,12 +158,12 @@
   </div>
 </ng-template>
 
-<ng-template let-accent let-name="name" let-url="url" #alert>
+<ng-template let-accent let-name="name" let-url="url" let-value="value" #alert>
   <div class="detail-kpis__alert" [ngClass]="{'accent': accent}">
     <button mat-button class="detail-kpis__alert__menu" [routerLink]="url">
       <mat-icon>more_vert</mat-icon>
     </button>
-    <div class="detail-kpis__alert__value"><span>2340</span></div>
+    <div class="detail-kpis__alert__value"><span>{{value || 0}}</span></div>
     <div class="detail-kpis__alert__title"><span>{{name}}</span></div>
   </div>
 </ng-template>

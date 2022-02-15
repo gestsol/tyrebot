@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit {
   loadingBrand = false;
   loadingLifeByBranch = false;
   loadingExpired = false;
+  loadingTyreAlerts = false;
 
   totalKpis: TotalKpiObj = new Array(5).fill({})
   totalPressure: NominalValuesKpiObj | null = null
@@ -22,6 +23,17 @@ export class DashboardComponent implements OnInit {
   totalBrand: BrandKpiObj | null = null
   totalLifeByBrand: BrandKpiObj | null = null
   totalExpired: ExpirationKpiObj | null = null
+  tyreAlerts = [
+    {name: 'Alta temperatura', url: '/tyres/alert-list/0', value: 0},
+    {name: 'Sensores sin lectura durante 48h', url: '/tyres/alert-list/3', value: 0},
+    {name: 'Exceso de presion', url: '/tyres/alert-list/1', value: 0},
+    {accent: true, name: 'Presión Baja', url: '/tyres/alert-list/2', value: 0}
+  ]
+  highTempAlerts = 0
+  highPressureAlerts = 0
+  lowPressureAlerts = 0
+  tpmsWithoutLog = 0
+  tpms_withoutLogHours = 0
 
   constructor(
     private dashboardService: DashboardService
@@ -38,6 +50,7 @@ export class DashboardComponent implements OnInit {
     this.getBrands();
     this.getExpired();
     this.getLifeByBrand();
+    this.getTyreAlertsCount();
   }
 
   getTotals() {
@@ -102,6 +115,20 @@ export class DashboardComponent implements OnInit {
       this.loadingExpired = false
     },(err) => {
       this.loadingExpired = false
+    })
+  }
+
+  getTyreAlertsCount() {
+    this.loadingTyreAlerts = true
+    this.dashboardService.getTyreAlertsCount()
+    .subscribe((counts)=> {
+      this.tyreAlerts = this.tyreAlerts.map((item, i) => ({
+        ...item,
+        value: counts[i]
+      }))
+      this.loadingTyreAlerts = false
+    },(err) => {
+      this.loadingTyreAlerts = false
     })
   }
 }

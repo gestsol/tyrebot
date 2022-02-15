@@ -64,7 +64,6 @@ export class FiltersComponent implements OnInit {
   }
 
   calendarChange(event) {
-    console.log(event)
   }
 
   openSearchDialog() {

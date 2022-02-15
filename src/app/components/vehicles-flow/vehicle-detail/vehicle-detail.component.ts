@@ -49,7 +49,6 @@ export class VehicleDetailComponent implements OnInit {
         }
 
         if (step2) {
-          console.log(step2)
           step2.ejes.forEach((item, i) => {
             if (i !== step2.ejes.length - 1) {
               this.addAxie(item)
