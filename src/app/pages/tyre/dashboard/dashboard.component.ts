@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { BrandKpiObj, DashboardService, ExpirationKpiObj, NominalValuesKpiObj, TotalKpiObj, TotalsKpi } from '../dashboard.service';
+import { BrandKpiObj, DashboardService, ExpirationKpiObj, NominalValuesKpiObj, TotalKpiObj, TotalsKpi } from './dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,11 +29,6 @@ export class DashboardComponent implements OnInit {
     {name: 'Exceso de presion', url: '/tyres/alert-list/1', value: 0},
     {accent: true, name: 'Presión Baja', url: '/tyres/alert-list/2', value: 0}
   ]
-  highTempAlerts = 0
-  highPressureAlerts = 0
-  lowPressureAlerts = 0
-  tpmsWithoutLog = 0
-  tpms_withoutLogHours = 0
 
   constructor(
     private dashboardService: DashboardService

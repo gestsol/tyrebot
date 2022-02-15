@@ -1,9 +1,8 @@
-import { Component, ContentChild, Input, OnInit, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
-import { MatTabChangeEvent, MatTabGroup } from '@angular/material/tabs';
+import { Component, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { MatTabGroup } from '@angular/material/tabs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of, Subscription, zip } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
-import { DashboardService } from 'src/app/pages/tyre/dashboard.service';
 import { TableComponent } from '../table/table.component';
 
 @Component({
@@ -12,18 +11,17 @@ import { TableComponent } from '../table/table.component';
   styleUrls: ['./tyre-tabs.component.scss']
 })
 export class TyreTabsComponent implements OnInit {
+  @Input() request: (index: number) => Observable<{data: any; total_entries: any;}> = () => of({data: [], total_entries: 0});
   @Input() tabs: string[] = [];
   @Input() columns: {key: string, name: string}[] = [];
 
   @ViewChild(MatTabGroup) tabGroup!: MatTabGroup
   @ViewChildren(TableComponent) tables!: QueryList<TableComponent>;
 
-  types: string[] = [];
   tableSub: Subscription | null = null
   loading = false;
 
   constructor(
-    private dashboardService: DashboardService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
@@ -36,7 +34,8 @@ export class TyreTabsComponent implements OnInit {
     this.tabGroup.selectedTabChange.pipe(
       startWith({index: 0}),
       switchMap((event) => {
-        return this.dashboardService.getTableLecture(this.types[event.index]).pipe(
+        console.log(event)
+        return this.request(event.index).pipe(
           map(data => ({data, index: event.index})),
           catchError((err) => of({data: null, index: event.index}))
         )
@@ -49,6 +48,7 @@ export class TyreTabsComponent implements OnInit {
       })
       this.loading = false
     }, (err) => {
+      console.error(err)
       this.loading = false
     })
   }
@@ -59,8 +59,7 @@ export class TyreTabsComponent implements OnInit {
 
   ngAfterViewInit() {
     setTimeout(() => {
-      zip(this.route.data, this.route.params).subscribe(([data, params]) => {
-        this.types = data.types;
+      this.route.params.subscribe((params) => {
         const tab = params['tab'] || 0
         this.tabGroup.selectedIndex = tab
         this.getData();

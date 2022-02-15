@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AlertsComponent } from './alerts/alerts.component';
 import { AsymmetryPressureComponent } from './asymmetry-pressure/asymmetry-pressure.component';
-import { PressureType, TempType } from './dashboard.service';
+import { PressureType, TempType } from '../../services/tyre.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ExpiredComponent } from './expired/expired.component';
 import { PressureListComponent } from './pressure-list/pressure-list.component';
@@ -34,30 +34,18 @@ const routes: Routes = [
       },
       {
         path: 'alert-list/:tab',
-        data: {
-          types: TempType
-        },
         component: AlertsComponent
       },
       {
         path: 'expired-list/:tab',
-        data: {
-          types: TempType
-        },
         component: ExpiredComponent
       },
       {
         path: 'asymmetry-list/:tab',
-        data: {
-          types: TempType
-        },
         component: AsymmetryPressureComponent
       },
       {
         path: 'tpms-fuel-list/:tab',
-        data: {
-          types: TempType
-        },
         component: TpmsFuelComponent
       },
       {

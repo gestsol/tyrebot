@@ -1,32 +1,10 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, of, zip } from 'rxjs';
+import { BehaviorSubject, zip } from 'rxjs';
 import { VehicleService } from 'src/app/services/vehicle.service';
+import { TyreState, TyreService, Summary, TPMSData } from 'src/app/services/tyre.service';
 import { map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { HttpClient } from '@angular/common/http';
-
-export interface TPMSData {
-  batt: number
-  created_at: string
-  id: number
-  name: string
-  pressure: number
-  temp: number
-}
-
-export interface Summary {
-  from: string,
-  max_pressure: number,
-  max_temp: number,
-  measurements_count: number,
-  min_pressure: number,
-  min_temp: number,
-  name: string,
-  to: string,
-  min_max_temp?: string,
-  min_max_pressure: string,
-  average_pressure: string
-}
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +17,7 @@ export class ActiveVehiclesService {
 
   constructor(
     private vehicleService: VehicleService,
-    private http: HttpClient
+    private tyreService: TyreService
   ) { }
 
   setVehicles(value: number) {
@@ -63,32 +41,11 @@ export class ActiveVehiclesService {
     )
   }
 
-  getSummary(id: number, from: string, to: string) {
-    const defaultFrom = moment()
-      .set('h', 0)
-      .set('minutes', 0)
-      .set('seconds', 0)
-      .format('YYYY-MM-DDTHH:mm:ss')
-    const defaultTo = moment.utc().format('YYYY-MM-DDTHH:mm:ss')
-    const queryParams = `?from=${from || defaultFrom}&to=${to || defaultTo}`
-    return this.http.get<{data: Summary[]}>(`vehicles/${id}/summary_tpms_data${queryParams}`)
-    .pipe(
-      map((data) => data.data  as Summary[])
-    )
-  }
-
-  getTpms(id: number) {
-    return this.http.get<{data: TPMSData[]}>(`vehicles/${id}/latest_tpms_data`)
-    .pipe(
-      map((data) => data.data)
-    )
-  }
-
   getBusData(id: number, dateFrom: string, dateTo: string) {
     return zip(
       this.vehicleService.getVehicle(id),
-      this.getSummary(id, dateFrom, dateTo),
-      this.getTpms(id)
+      this.tyreService.getSummary(id, dateFrom, dateTo),
+      this.tyreService.getTpms(id)
     ).pipe(
       map(([vehicleData, summaryData, tpmsData]) => {
         let axies: any[] = [];
@@ -100,14 +57,14 @@ export class ActiveVehiclesService {
               let tyres = item.map((tyre: any, tyreIndex) => {
                 const tpmsResult = tpmsData.find((tpms: any) => tpms.name === tyre.tpms_name)
                 const summaryResult = summaryData.find((tpms: any) => tpms.name === tyre.tpms_name)
-                let state = 'NO_SIGNAL'
+                let state = TyreState.NoSignal
                 if (tpmsResult) {
                   if ( tpmsResult.pressure > tyre.pressure + tyre.pressure*0.1) {
-                    state = 'high'
+                    state = TyreState.High
                   } else if (tpmsResult.pressure < tyre.pressure - tyre.pressure*0.2) {
-                    state = 'low'
+                    state = TyreState.Low
                   } else {
-                    state = 'ok'
+                    state = TyreState.Ok
                   }
                 }
 

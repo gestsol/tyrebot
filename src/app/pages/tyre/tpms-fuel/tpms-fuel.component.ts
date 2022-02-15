@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
+import { TyreService, TempType } from '../../../services/tyre.service';
 
 @Component({
   selector: 'app-tpms-fuel',
-  template: `<app-tyre-tabs [tabs]="tabs" [columns]="columns"></app-tyre-tabs>`
+  template: `<app-tyre-tabs [request]="getData" [tabs]="tabs" [columns]="columns"></app-tyre-tabs>`
 })
 export class TpmsFuelComponent {
   tabs = ['TPMS Sin Señal', 'Alto consumo de combustible'];
+  types = TempType;
 
   columns: {key: string, name: string}[] = [
     {
@@ -34,6 +36,11 @@ export class TpmsFuelComponent {
     }
   ];
 
-  constructor() { }
+  getData = (index: number) =>
+    this.tyre.getTableLecture(TempType[index])
+
+  constructor (
+    private tyre: TyreService
+  ) {}
 
 }

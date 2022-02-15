@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NavigationService } from 'src/app/services/navigation.service';
-import { DashboardService } from '../dashboard.service';
+import { DashboardService } from '../dashboard/dashboard.service';
 
 @Component({
   selector: 'app-tyre-container',

@@ -1,12 +1,17 @@
-import { Component} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { DashboardService } from '../dashboard.service';
+import { Component, OnInit} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { TyreService } from '../../../services/tyre.service';
 
 @Component({
   selector: 'app-pressure-list',
-  template: `<app-tyre-tabs [tabs]="tabs" [columns]="columns"></app-tyre-tabs>`
+  template: `
+  <ng-container *ngIf="types?.length">
+    <app-tyre-tabs [request]="getData" [tabs]="tabs" [columns]="columns"></app-tyre-tabs>
+  </ng-container>
+  `
 })
-export class PressureListComponent {
+export class PressureListComponent implements OnInit {
+  types: string[] = [];
 
   tabs = ['Optima', 'Alta', 'Baja'];
   columns: {key: string, name: string}[] = [
@@ -36,7 +41,19 @@ export class PressureListComponent {
     }
   ];
 
-  constructor () {}
+  getData = (index: number) =>
+    this.tyre.getTableLecture(this.types[index])
+
+  constructor (
+    private route: ActivatedRoute,
+    private tyre: TyreService
+  ) {}
+
+  ngOnInit() {
+    this.route.data.subscribe((data) => {
+      this.types = data.types
+    })
+  }
 
   ngOnDestroy(): void {
   }

@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component } from '@angular/core';
+import { TyreService, TempType } from '../../../services/tyre.service';
 @Component({
   selector: 'app-asymmetry-pressure',
-  template: `<app-tyre-tabs [tabs]="tabs" [columns]="columns"></app-tyre-tabs>`
+  template: `<app-tyre-tabs [request]="getData" [tabs]="tabs" [columns]="columns"></app-tyre-tabs>`
 })
 export class AsymmetryPressureComponent {
   tabs = ['Asimetría de Tº en el mismo eje', 'Asimetría de presión en el mismo eje'];
+  types = TempType;
 
   columns: {key: string, name: string}[] = [
     {
@@ -34,6 +35,11 @@ export class AsymmetryPressureComponent {
     }
   ];
 
-  constructor() { }
+  getData = (index: number) =>
+    this.tyre.getTableLecture(TempType[index])
+
+  constructor (
+    private tyre: TyreService
+  ) {}
 
 }

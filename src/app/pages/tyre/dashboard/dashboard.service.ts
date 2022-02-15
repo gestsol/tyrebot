@@ -5,10 +5,6 @@ import { EChartsOption } from 'echarts';
 import { BehaviorSubject, zip } from 'rxjs';
 import { VehicleService } from 'src/app/services/vehicle.service';
 
-export const PressureType = ["pressure_ok", "pressure_high", "pressure_low"];
-
-export const TempType = ["temp_ok", "temp_high", "temp_low"];
-
 export interface TotalsKpi {
   buyed_count: 0,
   desechados_count: 0,
@@ -64,8 +60,7 @@ export class DashboardService {
   vehicles$ = this.vehiclesSub.asObservable()
 
   constructor(
-    private http: HttpClient,
-    private vehicleService: VehicleService
+    private http: HttpClient
   ) { }
 
   getTotalsKpi() {
@@ -133,23 +128,6 @@ export class DashboardService {
     })
 
     return zip(...requests)
-  }
-
-  getTableLecture(url: string) {
-    return this.http.get<{data: any}>(`kpi/vehicles_${url}`).pipe(
-      map((data: any) => {
-        let response = data.data.map((item) => {
-          return {
-            id: item.id,
-            chassis: item.chassis,
-            internal_number: item.internal_number,
-            plate: item.plate,
-            hubName: item.hub_meta?.name,
-            axies: this.vehicleService.getAxies(item.tyres).axies_count}
-        })
-        return {data: response, total_entries: response.length}
-      })
-    )
   }
 
   private getTotalKpiObj(data: TotalsKpi) {

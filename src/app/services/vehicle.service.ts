@@ -57,11 +57,13 @@ export class VehicleService {
     return this.http.post('hub_tpms', {hub: body})
   }
 
-  getVehicles(page = 1, page_size = 30, plate = '') {
+  getVehicles(page = 1, page_size = 30, plate = '', paginate = true) {
     const params = new HttpParams()
-    params.set('page', page)
-    params.set('page_size', page_size)
-    params.set('plate', plate)
+    if (paginate) {
+      params.set('page', page)
+      params.set('page_size', page_size)
+      params.set('plate', plate)
+    }
 
     return this.http.get('vehicles', { params: {
       page, page_size, plate
