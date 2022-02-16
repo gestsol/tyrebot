@@ -132,8 +132,17 @@
         <h2>ALERTA DE VEHICULOS</h2>
       </div>
       <div class="detail-kpis__aligment__alert-container">
-        <ng-container *ngTemplateOutlet="alert, context:{$implicit: true, name: 'TPMS sin señal', url: '/tyres/tpms-fuel-list/0'}"></ng-container>
-        <ng-container *ngTemplateOutlet="alert, context: {name: 'Alto consumo de combustible', url: '/tyres/tpms-fuel-list/1'}"></ng-container>
+        <ng-container
+          *ngTemplateOutlet="loader, context: {loading: loadingVehicleAlerts, total: 1}">
+        </ng-container>
+        <ng-container *ngIf="!loadingVehicleAlerts">
+          <ng-container *ngFor="let item of vehicleAlerts">
+            <ng-container *ngTemplateOutlet="
+              alert,
+              context: {$implicit: item.accent, name: item.name, url: item.url, value: item.value}
+            "></ng-container>
+          </ng-container>
+        </ng-container>
       </div>
     </div>
   </mat-card>

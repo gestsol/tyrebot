@@ -119,8 +119,19 @@ export class DashboardService {
       'high_temp_alerts_count',
       'tpms_without_log_hours_count',
       'high_pressure_alerts_count',
-      'low_pressure_alerts_count',
-      'tpms_without_log_count'
+      'low_pressure_alerts_count'
+    ]
+
+    const requests = urls.map((item) => {
+     return this.http.get<{count: number}>(`kpi/${item}`).pipe(map((data) => data.count))
+    })
+
+    return zip(...requests)
+  }
+  getVehicleAlertsCount() {
+    let urls = [
+      'tpms_without_log_count',
+      'vehicles_with_excessive_fuel_consumption_count'
     ]
 
     const requests = urls.map((item) => {
