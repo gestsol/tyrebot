@@ -2,7 +2,10 @@ import { Component } from '@angular/core';
 import { TyreService, TempType } from '../../../services/tyre.service';
 @Component({
   selector: 'app-asymmetry-pressure',
-  template: `<app-tyre-tabs [request]="getData" [tabs]="tabs" [columns]="columns"></app-tyre-tabs>`
+  template: `
+    <app-back-button path="../../dashboard"></app-back-button>
+    <app-tyre-tabs [request]="getData" [tabs]="tabs" [columns]="columns"></app-tyre-tabs>
+  `
 })
 export class AsymmetryPressureComponent {
   tabs = ['Asimetría de Tº en el mismo eje', 'Asimetría de presión en el mismo eje'];

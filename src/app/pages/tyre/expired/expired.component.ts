@@ -3,7 +3,10 @@ import { TyreService, TempType } from '../../../services/tyre.service';
 
 @Component({
   selector: 'app-expired',
-  template: `<app-tyre-tabs [request]="getData" [tabs]="tabs" [columns]="columns"></app-tyre-tabs>`
+  template: `
+    <app-back-button path="../../dashboard"></app-back-button>
+    <app-tyre-tabs [request]="getData" [tabs]="tabs" [columns]="columns"></app-tyre-tabs>
+  `
 })
 export class ExpiredComponent {
   tabs = ['Al día', 'Próximos a vencer', 'Vencidos'];

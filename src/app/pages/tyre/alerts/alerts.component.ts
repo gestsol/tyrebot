@@ -3,7 +3,10 @@ import { TyreService, TempType, TyreState } from '../../../services/tyre.service
 
 @Component({
   selector: 'app-alerts',
-  template: `<app-tyre-tabs [request]="getData" [tabs]="tabs" [columns]="columns"></app-tyre-tabs>`
+  template: `
+    <app-back-button path="../../dashboard"></app-back-button>
+    <app-tyre-tabs [request]="getData" [tabs]="tabs" [columns]="columns"></app-tyre-tabs>
+  `
 })
 export class AlertsComponent {
 

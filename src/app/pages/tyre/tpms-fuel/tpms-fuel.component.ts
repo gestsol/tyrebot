@@ -3,7 +3,10 @@ import { TyreService, TempType, TyreState } from '../../../services/tyre.service
 
 @Component({
   selector: 'app-tpms-fuel',
-  template: `<app-tyre-tabs [request]="getData" [tabs]="tabs" [columns]="columns"></app-tyre-tabs>`
+  template: `
+    <app-back-button path="../../dashboard"></app-back-button>
+    <app-tyre-tabs [request]="getData" [tabs]="tabs" [columns]="columns"></app-tyre-tabs>
+  `
 })
 export class TpmsFuelComponent {
   tabs = ['TPMS Sin Señal', 'Alto consumo de combustible'];

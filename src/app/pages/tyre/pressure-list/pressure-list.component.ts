@@ -5,9 +5,10 @@ import { TyreService } from '../../../services/tyre.service';
 @Component({
   selector: 'app-pressure-list',
   template: `
-  <ng-container *ngIf="types?.length">
-    <app-tyre-tabs [request]="getData" [tabs]="tabs" [columns]="columns"></app-tyre-tabs>
-  </ng-container>
+    <ng-container *ngIf="types?.length">
+      <app-back-button path="../dashboard"></app-back-button>
+      <app-tyre-tabs [request]="getData" [tabs]="tabs" [columns]="columns"></app-tyre-tabs>
+    </ng-container>
   `
 })
 export class PressureListComponent implements OnInit {

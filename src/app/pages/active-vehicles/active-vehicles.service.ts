@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, zip } from 'rxjs';
 import { VehicleService } from 'src/app/services/vehicle.service';
-import { TyreState, TyreService, Summary, TPMSData } from 'src/app/services/tyre.service';
+import { TyreState, TyreService, Summary, TPMSData } from '../../services/tyre.service';
 import { map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { HttpClient } from '@angular/common/http';
