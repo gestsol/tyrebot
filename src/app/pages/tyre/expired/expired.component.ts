@@ -28,7 +28,7 @@ export class ExpiredComponent {
     },
     {
       key: 'chassis',
-      name: 'Alertas'
+      name: 'Chasis'
     },
     {
       key: 'action',

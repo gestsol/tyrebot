@@ -33,7 +33,7 @@ export class PressureListComponent implements OnInit {
     },
     {
       key: 'chassis',
-      name: 'Alertas'
+      name: 'Chasis'
     },
     {
       key: 'action',

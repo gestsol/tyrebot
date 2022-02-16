@@ -13,7 +13,7 @@
       }
     }
     .#{$state} text {
-      @if ($state == "NO_SIGNAL") {
+      @if ($state == "NO_SIGNAL" or $state == "NO_SIGNAL_48") {
         fill: list.nth($values, 2) !important;
       } @else {
         fill: white !important;

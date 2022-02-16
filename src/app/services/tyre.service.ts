@@ -13,7 +13,8 @@ export enum TyreState {
   High = 'high',
   Low = 'low',
   Ok = 'ok',
-  NoSignal = 'NO_SIGNAL'
+  NoSignal = 'NO_SIGNAL',
+  NoSignal48 = 'NO_SIGNAL_48'
 }
 
 export interface TPMSData {
@@ -79,15 +80,15 @@ export class TyreService {
             chassis: item.chassis,
             internal_number: item.internal_number,
             plate: item.plate,
-            hubName: item.hub_meta?.name,
-            axies: this.vehicleService.getAxies(item.tyres).axies_count}
+            hubName: item.hub_meta?.name
+          }
         })
         return {data: response, total_entries: response.length}
       })
     )
   }
 
-  getVehiclesHighTemp(state: TyreState, field = 'pressure') {
+  getVehiclesByState(states: TyreState[], field = 'pressure') {
     return this.vehicleService.getVehicles(0, 10000).pipe(
       mergeMap(async (response: any) => {
         const vehicles: any[] = []
@@ -97,7 +98,7 @@ export class TyreService {
             const tpmsResult = tpmsList.find(item =>
               tyre.tpms_name === item.name
             )
-            if (this.getTyreStatus(tpmsResult, tyre[field]) === state) {
+            if (states.find(state => state === this.getTyreStatus(tpmsResult, tyre[field]))) {
               const vehicleRow = {
                 id: vehicle.id,
                 chassis: vehicle.chassis,
@@ -119,7 +120,9 @@ export class TyreService {
 
   getTyreStatus(tpmsResult: TPMSData | null | undefined, value) {
     if (tpmsResult) {
-      if ( tpmsResult.pressure > value + value*0.1) {
+      if (moment.utc().diff(moment(tpmsResult.created_at), 'h') >= 48) {
+        return TyreState.NoSignal48
+      } else if (tpmsResult.pressure > value + value*0.1) {
         return TyreState.High
       } else if (tpmsResult.pressure < value - value*0.2) {
         return TyreState.Low

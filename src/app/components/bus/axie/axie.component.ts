@@ -1,5 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { SvgIconComponent } from 'angular-svg-icon';
+import { TyreState } from 'src/app/services/tyre.service';
 
 @Component({
   selector: 'app-axie',
@@ -20,12 +21,16 @@ export class AxieComponent implements AfterViewInit {
     this.tyres.forEach((item, i) => {
       const tyre = i + 1
       const newClass = item.state? `${item.state}-${tyre}`: ''
-      if (newClass.includes('NO_SIGNAL')) {
+      if (newClass.includes(TyreState.NoSignal) || newClass.includes(TyreState.NoSignal48)) {
         const interval = setInterval(() => {
           const node = this.axieTemplateRef.element.nativeElement?.querySelector(`.${newClass} #Tire_${tyre} text`)
           if (node) {
             node.innerHTML = 'Sin Señal'
-            node.setAttribute('transform', 'translate(68 352.62)')
+            const attribute = node.getAttribute('transform') as string
+            const splited = attribute.split(' ')
+            splited[0] = 'translate(68'
+            const newAttribute = splited.join(' ')
+            node.setAttribute('transform', newAttribute)
             clearInterval(interval)
           }
         }, 100)

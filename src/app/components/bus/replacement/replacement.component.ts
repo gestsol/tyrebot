@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
 import { SvgIconComponent } from 'angular-svg-icon';
+import { TyreState } from 'src/app/services/tyre.service';
 
 @Component({
   selector: 'app-replacement',
@@ -13,7 +14,7 @@ export class ReplacementComponent implements AfterViewInit {
   constructor() { }
 
   ngAfterViewInit(): void {
-    if (this.state.includes('NO_SIGNAL')) {
+    if (this.state.includes(TyreState.NoSignal) || this.state.includes(TyreState.NoSignal48)) {
       const interval = setInterval(() => {
         const nodes = this.replaceTemplateRef.element.nativeElement?.querySelectorAll(`.${this.state} #Tire_${this.type}R text`)
         if (nodes?.length) {

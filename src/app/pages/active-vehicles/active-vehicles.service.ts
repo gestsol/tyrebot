@@ -57,16 +57,7 @@ export class ActiveVehiclesService {
               let tyres = item.map((tyre: any, tyreIndex) => {
                 const tpmsResult = tpmsData.find((tpms: any) => tpms.name === tyre.tpms_name)
                 const summaryResult = summaryData.find((tpms: any) => tpms.name === tyre.tpms_name)
-                let state = TyreState.NoSignal
-                if (tpmsResult) {
-                  if ( tpmsResult.pressure > tyre.pressure + tyre.pressure*0.1) {
-                    state = TyreState.High
-                  } else if (tpmsResult.pressure < tyre.pressure - tyre.pressure*0.2) {
-                    state = TyreState.Low
-                  } else {
-                    state = TyreState.Ok
-                  }
-                }
+                let state = this.tyreService.getTyreStatus(tpmsResult, tyre.pressure)
 
                 if (summaryResult) {
                   summaryResult.min_max_temp = `${summaryResult.min_temp.toFixed(0)} / ${summaryResult.max_temp.toFixed(0)} ºc`
@@ -88,9 +79,10 @@ export class ActiveVehiclesService {
                 return {
                   ...tyre,
                   ...(summaryResult || {}),
-                  actual_pressure: tpmsResult? `${tpmsResult.pressure.toFixed(0)} psi`: null,
-                  actual_temp: tpmsResult? `${tpmsResult.temp.toFixed(0)} ºc` : null,
+                  actual_pressure: tpmsResult ? `${tpmsResult.pressure.toFixed(0)} psi`: null,
+                  actual_temp: tpmsResult ? `${tpmsResult.temp.toFixed(0)} ºc` : null,
                   tyre_number: tyreIndex + 1,
+                  last_mesurement: tpmsResult ? moment(tpmsResult.created_at).format('DD/MM/YYYY') : 'N/A',
                   state
                 }
               })

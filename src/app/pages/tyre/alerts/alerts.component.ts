@@ -37,24 +37,24 @@ export class AlertsComponent {
   ];
 
   getData = (index: number) =>{
-    const parameters = [
+    const parameters: {states: TyreState[], field?: string}[] = [
       {
-        state: TyreState.High,
+        states: [TyreState.High],
         field: 'temperature'
       },
       {
-        state: TyreState.High,
+        states: [TyreState.High],
         field: 'pressure'
       },
       {
-        state: TyreState.Low,
+        states: [TyreState.Low],
         field: 'pressure'
       },
       {
-        state: TyreState.NoSignal
+        states: [TyreState.NoSignal48]
       }
     ]
-    return this.tyre.getVehiclesHighTemp(parameters[index].state, parameters[index].field)
+    return this.tyre.getVehiclesByState(parameters[index].states, parameters[index].field)
   }
   constructor (
     private tyre: TyreService

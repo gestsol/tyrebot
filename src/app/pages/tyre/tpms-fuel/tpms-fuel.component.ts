@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TyreService, TempType } from '../../../services/tyre.service';
+import { TyreService, TempType, TyreState } from '../../../services/tyre.service';
 
 @Component({
   selector: 'app-tpms-fuel',
@@ -28,7 +28,7 @@ export class TpmsFuelComponent {
     },
     {
       key: 'chassis',
-      name: 'Alertas'
+      name: 'Chasis'
     },
     {
       key: 'action',
@@ -36,8 +36,13 @@ export class TpmsFuelComponent {
     }
   ];
 
-  getData = (index: number) =>
-    this.tyre.getTableLecture(TempType[index])
+  getData = (index: number) => {
+    if (index === 0) {
+      return this.tyre.getVehiclesByState([TyreState.NoSignal])
+    } else {
+      return this.tyre.getTableLecture('with_excessive_fuel_consumption')
+    }
+  }
 
   constructor (
     private tyre: TyreService

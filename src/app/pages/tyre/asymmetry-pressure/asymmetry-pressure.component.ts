@@ -27,7 +27,7 @@ export class AsymmetryPressureComponent {
     },
     {
       key: 'chassis',
-      name: 'Alertas'
+      name: 'Chassis'
     },
     {
       key: 'action',
