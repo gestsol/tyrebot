@@ -1,7 +1,7 @@
 @use '/src/sass/abstracts/vars/sizes' as sizes;
 
 .page-container {
-  min-height: calc(100vh - #{sizes.$footer});
+  min-height: 100vh;
 }
 
 app-footer {

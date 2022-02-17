@@ -1,7 +1,7 @@
 @use '/src/sass/abstracts/vars/sizes' as sizes;
 
 .main-container {
-  min-height: calc(100vh - #{sizes.$header + sizes.$footer});
+  min-height: calc(100vh - #{sizes.$header});
   margin-bottom: 0;
   padding-bottom: 1rem;
   box-sizing: border-box;
