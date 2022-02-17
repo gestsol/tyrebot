@@ -29,8 +29,8 @@ export class AsymmetryPressureComponent {
       name: 'Dispositivo GPS'
     },
     {
-      key: 'chassis',
-      name: 'Chassis'
+      key: 'sd',
+      name: 'Desviación Estandar'
     },
     {
       key: 'action',
@@ -38,10 +38,7 @@ export class AsymmetryPressureComponent {
     }
   ];
 
-  getData = (index: number) => {
-    const urls = ['with_temperature_asymmetry', 'with_pressure_asymmetry']
-    return this.tyre.getTableLecture(urls[index])
-  }
+  getData = (index: number) => this.tyre.getTableAsymmetry(!!index)
 
   constructor (
     private tyre: TyreService

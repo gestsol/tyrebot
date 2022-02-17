@@ -88,6 +88,23 @@ export class TyreService {
     )
   }
 
+  getTableAsymmetry(isPressure = false) {
+    return this.http.get<{data: any}>(`kpi/vehicles_with_${isPressure? 'pressure': 'temperature'}_asymmetry`).pipe(
+      map((data: any) => {
+        let response = data.data.map((item) => {
+          return {
+            id: item.id,
+            internal_number: item.internal_number,
+            plate: item.plate,
+            hubName: item.hub_meta?.name,
+            sd: item.kpi_meta[isPressure? 'press_sd': 'temp_sd'].toFixed(2),
+          }
+        })
+        return {data: response, total_entries: response.length}
+      })
+    )
+  }
+
   getVehiclesByState(states: TyreState[], field = 'pressure') {
     return this.vehicleService.getVehicles(0, 10000).pipe(
       mergeMap(async (response: any) => {
