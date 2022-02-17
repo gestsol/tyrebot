@@ -122,8 +122,17 @@
         <h2>ALINEACIÓN Y BALANCEO</h2>
       </div>
       <div class="detail-kpis__aligment__alert-container">
-        <ng-container *ngTemplateOutlet="alert, context: {name: 'Asimetría de Tº en el mismo Eje', url: '/tyres/asymmetry-list/0'}"></ng-container>
-        <ng-container *ngTemplateOutlet="alert, context:{$implicit: true,name: 'Asimetría de presión en el Eje', url: '/tyres/asymmetry-list/1'}"></ng-container>
+        <ng-container
+          *ngTemplateOutlet="loader, context: {loading: loadingAsymmetryAlerts, total: 1}">
+        </ng-container>
+        <ng-container *ngIf="!loadingAsymmetryAlerts">
+          <ng-container *ngFor="let item of asymmetryAlerts">
+            <ng-container *ngTemplateOutlet="
+              alert,
+              context: {$implicit: item.accent, name: item.name, url: item.url, value: item.value}
+            "></ng-container>
+          </ng-container>
+        </ng-container>
       </div>
     </div>
     <div class="detail-kpis__aligment__separator"></div>

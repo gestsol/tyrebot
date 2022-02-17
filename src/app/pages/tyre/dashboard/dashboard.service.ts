@@ -128,17 +128,29 @@ export class DashboardService {
 
     return zip(...requests)
   }
+
   getVehicleAlertsCount() {
     let urls = [
       'tpms_without_log_count',
       'vehicles_with_excessive_fuel_consumption_count'
     ]
+    return this.getAlertsCount(urls)
+  }
 
+  getAsymmetryAlertsCount() {
+    let urls = [
+      'temperature_asymmetry_count',
+      'pressure_asymmetry_count'
+    ]
+    return this.getAlertsCount(urls)
+  }
+
+  private getAlertsCount(urls: string[]) {
     const requests = urls.map((item) => {
-     return this.http.get<{count: number}>(`kpi/${item}`).pipe(map((data) => data.count))
-    })
+      return this.http.get<{count: number}>(`kpi/${item}`).pipe(map((data) => data.count))
+     })
 
-    return zip(...requests)
+     return zip(...requests)
   }
 
   private getTotalKpiObj(data: TotalsKpi) {

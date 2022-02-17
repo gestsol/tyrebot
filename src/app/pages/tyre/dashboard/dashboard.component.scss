@@ -113,6 +113,8 @@
     align-items: center;
     color: white;
     h2 {
+      height: 1.3rem;
+      line-height: 1.1;
       margin: 1rem 0 0 1rem;
       font-size: clamp(0.8rem, 2vw, 1.1rem);
       margin-bottom: 0;
@@ -159,6 +161,7 @@
     position: relative;
     color: white;
     padding: 1rem;
+    padding-bottom: clamp(1rem, calc(2rem - 1vw), 1.7rem);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -174,6 +177,9 @@
       top: 0.5rem;
     }
     &__title {
+      display: inline-block;
+      height: 1rem;
+      line-height: 1;
       font-size: 0.8rem;
     }
     &__value {

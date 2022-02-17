@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
   loadingExpired = false;
   loadingTyreAlerts = false;
   loadingVehicleAlerts = false;
+  loadingAsymmetryAlerts = false;
 
   totalKpis: TotalKpiObj = new Array(5).fill({})
   totalPressure: NominalValuesKpiObj | null = null
@@ -33,6 +34,10 @@ export class DashboardComponent implements OnInit {
   vehicleAlerts = [
     {accent: true, name: 'TPMS sin señal', url: '/tyres/tpms-fuel-list/0', value: 0},
     {name: 'Alto consumo de combustible', url: '/tyres/tpms-fuel-list/1', value: 0}
+  ]
+  asymmetryAlerts = [
+    {name: 'Asimetría de Tº en el mismo Eje', url: '/tyres/asymmetry-list/0', value: 0},
+    {accent: true, name: 'Asimetría de presión en el Eje', url: '/tyres/asymmetry-list/1', value: 0}
   ]
 
   constructor(
@@ -52,6 +57,7 @@ export class DashboardComponent implements OnInit {
     this.getLifeByBrand();
     this.getTyreAlertsCount();
     this.getVehicleAlertsCount();
+    this.getAsymmetryAlertsCount();
   }
 
   getTotals() {
@@ -144,6 +150,20 @@ export class DashboardComponent implements OnInit {
       this.loadingVehicleAlerts = false
     },(err) => {
       this.loadingVehicleAlerts = false
+    })
+  }
+
+  getAsymmetryAlertsCount() {
+    this.loadingAsymmetryAlerts = true
+    this.dashboardService.getAsymmetryAlertsCount()
+    .subscribe((counts)=> {
+      this.asymmetryAlerts = this.asymmetryAlerts.map((item, i) => ({
+        ...item,
+        value: counts[i]
+      }))
+      this.loadingAsymmetryAlerts = false
+    },(err) => {
+      this.loadingAsymmetryAlerts = false
     })
   }
 }
