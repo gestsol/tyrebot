@@ -89,14 +89,14 @@
   </mat-card>
   <mat-card class="fixed-height">
     <div class="detail-kpis__title">
-      <h2>VIDA UTIL POR MARCA</h2>
+      <h2>INDICE DE COMBUSTIBLE</h2>
     </div>
     <ng-container
-      *ngTemplateOutlet="loader, context: {loading: loadingLifeByBranch, total: totalLifeByBrand}">
+      *ngTemplateOutlet="loader, context: {loading: loadingVehicleAlerts, total: totalFuelIndex}">
     </ng-container>
     <div
-      echarts [options]="totalLifeByBrand" class="big-chart"
-      *ngIf="!loadingLifeByBranch && totalLifeByBrand"
+      echarts [options]="totalFuelIndex" class="big-chart"
+      *ngIf="!loadingVehicleAlerts && totalFuelIndex"
     >
     </div>
   </mat-card>

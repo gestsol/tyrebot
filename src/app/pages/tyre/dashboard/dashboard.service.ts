@@ -49,7 +49,7 @@ export type ExpirationKpiObj = ReturnType<DashboardService['getExpirationKpiObj'
 
 export type BrandKpiObj = ReturnType<DashboardService['getBrandKpiObj']>
 
-export type LifeByBrandKpiObj = ReturnType<DashboardService['getLifeByBrandKpiObj']>
+export type FuelIndexKpiObj = ReturnType<DashboardService['getFuelIndexKpiObj']>
 
 @Injectable({
   providedIn: 'root'
@@ -106,14 +106,6 @@ export class DashboardService {
     )
   }
 
-  getLifeByBrandKpi() {
-    return this.http.get<{data: LifeByBrandKpi[]}>('kpi/tyre_avg_life_by_brand').pipe(
-      map(data => {
-        return this.getLifeByBrandKpiObj(data.data)
-      })
-    )
-  }
-
   getTyreAlertsCount() {
     let urls = [
       'high_temp_alerts_count',
@@ -129,12 +121,25 @@ export class DashboardService {
     return zip(...requests)
   }
 
-  getVehicleAlertsCount() {
+  getVehicleFuelSummary() {
     let urls = [
       'tpms_without_log_count',
-      'vehicles_with_excessive_fuel_consumption_count'
+      'vehicles_with_excessive_fuel_consumption_summary'
     ]
-    return this.getAlertsCount(urls)
+    const requests = urls.map((item) => {
+     return this.http.get<{count: number, data?: number[]}>(`kpi/${item}`)
+    })
+
+    return zip(...requests).pipe(
+      map((responses) => {
+        let result = {
+          withoutLogCount: responses[0].count,
+          fuelCount: responses[1].count,
+          fuelChart: this.getFuelIndexKpiObj(responses[1].data)
+        }
+        return result
+      })
+    )
   }
 
   getAsymmetryAlertsCount() {
@@ -142,10 +147,6 @@ export class DashboardService {
       'temperature_asymmetry_count',
       'pressure_asymmetry_count'
     ]
-    return this.getAlertsCount(urls)
-  }
-
-  private getAlertsCount(urls: string[]) {
     const requests = urls.map((item) => {
       return this.http.get<{count: number}>(`kpi/${item}`).pipe(map((data) => data.count))
      })
@@ -187,7 +188,7 @@ export class DashboardService {
     ]
   }
 
-  private getNominalValuesKpiObj(data: NominalValuesKpi, name: string) {
+  private getNominalValuesKpiObj(data: {ok_count: number, high_count: number, low_count: number}, name: string) {
     const chartOption: EChartsOption = {
       tooltip: {
         trigger: 'item'
@@ -231,15 +232,23 @@ export class DashboardService {
     return this.getBarChart(values, names)
   }
 
-  private getLifeByBrandKpiObj(data: LifeByBrandKpi[]) {
-    const filtered = data.sort((a, b) => a.avg_tyre_life - b.avg_tyre_life).slice(0, 10)
-    const names = filtered.map(item => item.name)
-    const values = filtered.map(item => item.avg_tyre_life)
-
+  private getFuelIndexKpiObj(values: number[] = []) {
     if (!values.length) {
       return false
     }
-    return this.getBarChart(values, names)
+    let ok_count = 0
+    let high_count = 0
+    let low_count = 0
+    values.forEach((value) => {
+      if (value <= 5) {
+        low_count ++
+      } else if (value >= 10) {
+        high_count ++
+      } else {
+        ok_count ++
+      }
+    })
+    return this.getNominalValuesKpiObj({ok_count, high_count, low_count}, 'INDICE DE COMBUSTIBLE')
   }
 
   private getBarChart (values: number[], names: string[]) {

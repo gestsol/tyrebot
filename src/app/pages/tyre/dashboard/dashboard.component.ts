@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { BrandKpiObj, DashboardService, ExpirationKpiObj, NominalValuesKpiObj, TotalKpiObj, TotalsKpi } from './dashboard.service';
+import { BrandKpiObj, DashboardService, ExpirationKpiObj, FuelIndexKpiObj, NominalValuesKpiObj, TotalKpiObj, TotalsKpi } from './dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +13,6 @@ export class DashboardComponent implements OnInit {
   loadingPressure = false;
   loadingTemperature = false;
   loadingBrand = false;
-  loadingLifeByBranch = false;
   loadingExpired = false;
   loadingTyreAlerts = false;
   loadingVehicleAlerts = false;
@@ -23,7 +22,7 @@ export class DashboardComponent implements OnInit {
   totalPressure: NominalValuesKpiObj | null = null
   totalTemperature: NominalValuesKpiObj | null = null
   totalBrand: BrandKpiObj | null = null
-  totalLifeByBrand: BrandKpiObj | null = null
+  totalFuelIndex: FuelIndexKpiObj | null = null
   totalExpired: ExpirationKpiObj | null = null
   tyreAlerts = [
     {name: 'Alta temperatura', url: '/tyres/alert-list/0', value: 0},
@@ -54,7 +53,6 @@ export class DashboardComponent implements OnInit {
     this.getTemperature();
     this.getBrands();
     this.getExpired();
-    this.getLifeByBrand();
     this.getTyreAlertsCount();
     this.getVehicleAlertsCount();
     this.getAsymmetryAlertsCount();
@@ -101,18 +99,6 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  getLifeByBrand() {
-    this.loadingLifeByBranch = true
-    this.dashboardService.getLifeByBrandKpi()
-    .subscribe((totals)=> {
-      this.totalLifeByBrand = totals;
-      console.log(this.totalLifeByBrand)
-      this.loadingLifeByBranch = false
-    },(err) => {
-      this.loadingLifeByBranch = false
-    })
-  }
-
   getExpired() {
     this.loadingExpired = true
     this.dashboardService.getExpirationKpi()
@@ -141,12 +127,11 @@ export class DashboardComponent implements OnInit {
 
   getVehicleAlertsCount() {
     this.loadingVehicleAlerts = true
-    this.dashboardService.getVehicleAlertsCount()
-    .subscribe((counts)=> {
-      this.vehicleAlerts = this.vehicleAlerts.map((item, i) => ({
-        ...item,
-        value: counts[i]
-      }))
+    this.dashboardService.getVehicleFuelSummary()
+    .subscribe((data)=> {
+      this.vehicleAlerts[0].value = data.withoutLogCount
+      this.vehicleAlerts[1].value = data.fuelCount
+      this.totalFuelIndex = data.fuelChart as FuelIndexKpiObj
       this.loadingVehicleAlerts = false
     },(err) => {
       this.loadingVehicleAlerts = false

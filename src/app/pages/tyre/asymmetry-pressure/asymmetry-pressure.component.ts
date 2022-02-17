@@ -38,8 +38,10 @@ export class AsymmetryPressureComponent {
     }
   ];
 
-  getData = (index: number) =>
-    this.tyre.getTableLecture(TempType[index])
+  getData = (index: number) => {
+    const urls = ['with_temperature_asymmetry', 'with_pressure_asymmetry']
+    return this.tyre.getTableLecture(urls[index])
+  }
 
   constructor (
     private tyre: TyreService
