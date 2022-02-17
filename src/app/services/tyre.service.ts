@@ -80,7 +80,8 @@ export class TyreService {
             chassis: item.chassis,
             internal_number: item.internal_number,
             plate: item.plate,
-            hubName: item.hub_meta?.name
+            hubName: item.hub_meta?.name,
+            fuelIndex: item.kpi_meta?.index_fuel_over_consumption?.toFixed(2)
           }
         })
         return {data: response, total_entries: response.length}

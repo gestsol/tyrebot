@@ -30,8 +30,8 @@ export class TpmsFuelComponent {
       name: 'Dispositivo GPS'
     },
     {
-      key: 'chassis',
-      name: 'Chasis'
+      key: 'fuelIndex',
+      name: 'Indice de Combustible'
     },
     {
       key: 'action',
