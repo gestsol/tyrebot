@@ -92,7 +92,6 @@ export class DashboardComponent implements OnInit {
     this.dashboardService.getTyresByBrand()
     .subscribe((totals)=> {
       this.totalBrand = totals;
-      console.log(this.totalBrand)
       this.loadingBrand = false
     },(err) => {
       this.loadingBrand = false
@@ -104,7 +103,6 @@ export class DashboardComponent implements OnInit {
     this.dashboardService.getExpirationKpi()
     .subscribe((totals)=> {
       this.totalExpired = totals;
-      console.log(this.totalExpired)
       this.loadingExpired = false
     },(err) => {
       this.loadingExpired = false

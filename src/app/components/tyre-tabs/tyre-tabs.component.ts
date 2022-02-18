@@ -34,7 +34,6 @@ export class TyreTabsComponent implements OnInit {
     this.tabGroup.selectedTabChange.pipe(
       startWith({index: 0}),
       switchMap((event) => {
-        console.log(event)
         return this.request(event.index).pipe(
           map(data => ({data, index: event.index})),
           catchError((err) => of({data: null, index: event.index}))

@@ -9,7 +9,7 @@ export enum StepKeys {
   step3 = 'step3'
 }
 
-export interface EjeData {
+export interface AxieData {
   tyres: number
   id?: number[]
   tpms_name: string[]
@@ -21,7 +21,7 @@ export interface EjeData {
   tyre_installation_date: string[]
   tyre_temperature: number[]
   tyre_pressure: number[]
-  tyre_brand: string[]
+  tyre_brand_id: number[]
   tyre_provider: string[]
   dot: string[]
   tyre_index: string[]
@@ -44,7 +44,7 @@ export interface Step2 {
 }
 
 export interface Step3 {
-  ejes: EjeData[]
+  ejes: AxieData[]
 }
 
 export interface FlowData {
@@ -91,7 +91,6 @@ export class VehiclesFlowService {
     });
     return this.vehicleService.getVehicle(id).pipe(
       map((data) => {
-        console.log(data)
         const { axies } = data
         const step1: Step1 = {
           patente: data.plate,
@@ -128,7 +127,7 @@ export class VehiclesFlowService {
               tyre_installation_date: axie.map((tyre) => tyre.install_date),
               tyre_temperature: axie.map((tyre) => tyre.temperature),
               tyre_pressure: axie.map((tyre) => tyre.pressure),
-              tyre_brand: axie.map((tyre) => tyre.tyre_brand_id),
+              tyre_brand_id: axie.map((tyre) => tyre.tyre_brand_id),
               tyre_provider: axie.map((tyre) => tyre.providers),
               dot: axie.map((tyre) => tyre.dot),
               tyre_index: axie.map((tyre) => tyre.index),
@@ -191,7 +190,6 @@ export class VehiclesFlowService {
         const tyres = this.generateTyre(step3)
         const updateBatch: Observable<any>[] = []
         const createBatch: Observable<any>[] = []
-        console.log(vehicle)
         tyres.forEach(tyre => {
           if (tyre.id)
             updateBatch.push(this.vehicleService.putTyre(tyre.id, tyre))
@@ -234,7 +232,7 @@ export class VehiclesFlowService {
           uninstall_date: item.uninstall_date[i],
           temperature: item.tyre_temperature[i],
           pressure: typeof item.tyre_pressure[i] === 'string'? parseInt(item.tyre_pressure[i] as any):item.tyre_pressure[i],
-          tyre_brand_id: item.tyre_brand[i],
+          tyre_brand_id: item.tyre_brand_id[i],
           providers: item.tyre_provider[i],
           dot: item.dot[i],
           index: item.tyre_index[i],

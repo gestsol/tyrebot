@@ -16,8 +16,8 @@ export interface Tyre {
   install_date: string
   temperature: number
   pressure: number
-  tyre_brand_id: string
-  provider: string
+  tyre_brand_id: number
+  providers: string
   dot: string
   index: string
   measurements: string
@@ -89,7 +89,7 @@ export class VehicleService {
     .pipe(
       map((data: any) => {
         this.subTyreBrands.next(data.data)
-        return  data.data
+        return data.data
       })
     )
   }
@@ -111,10 +111,7 @@ export class VehicleService {
   putVehicles(id: number, vehicle) {
     return this.http.put(`vehicles/${id}`, {vehicle})
     .pipe(
-      map((data: any) => {
-        this.subTyreBrands.next(data.data)
-        return  data.data
-      })
+      map((data: any) => data.data)
     )
   }
 

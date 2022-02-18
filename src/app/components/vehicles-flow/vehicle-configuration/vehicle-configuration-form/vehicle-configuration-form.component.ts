@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { of } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import { VehicleService } from 'src/app/services/vehicle.service';
-import { EjeData } from '../../vehicles-flow.service';
+import { AxieData } from '../../vehicles-flow.service';
 
 @Component({
   selector: 'app-vehicle-configuration-form',
@@ -11,7 +11,7 @@ import { EjeData } from '../../vehicles-flow.service';
   styleUrls: ['./vehicle-configuration-form.component.scss']
 })
 export class VehicleConfigurationFormComponent implements OnInit {
-  @Input() axie: Partial<EjeData> | null = null
+  @Input() axie: Partial<AxieData> | null = null
 
   headersLength: string[] = [];
   form: FormGroup | null = null;
@@ -63,8 +63,8 @@ export class VehicleConfigurationFormComponent implements OnInit {
   get tyre_pressure() {
     return this.form?.get('tyre_pressure')?.get('tires') as FormArray;
   }
-  get tyre_brand() {
-    return this.form?.get('tyre_brand')?.get('tires') as FormArray;
+  get tyre_brand_id() {
+    return this.form?.get('tyre_brand_id')?.get('tires') as FormArray;
   }
   get tyre_provider() {
     return this.form?.get('tyre_provider')?.get('tires') as FormArray;
@@ -115,7 +115,7 @@ export class VehicleConfigurationFormComponent implements OnInit {
       tyre_pressure: this.fb.group({
         tires: this.fb.array([])
       }),
-      tyre_brand: this.fb.group({
+      tyre_brand_id: this.fb.group({
         tires: this.fb.array([])
       }),
       tyre_provider: this.fb.group({
@@ -147,7 +147,7 @@ export class VehicleConfigurationFormComponent implements OnInit {
     this.addControls(this.tyre_installation_date, this.axie?.tyre_installation_date);
     this.addControls(this.tyre_temperature, this.axie?.tyre_temperature, 20, true);
     this.addControls(this.tyre_pressure, this.axie?.tyre_pressure, 45, true);
-    this.addControls(this.tyre_brand, this.axie?.tyre_brand, 1);
+    this.addControls(this.tyre_brand_id, this.axie?.tyre_brand_id, 1);
     this.addControls(this.tyre_provider, this.axie?.tyre_provider);
     this.addControls(this.dot, this.axie?.dot);
     this.addControls(this.tyre_index, this.axie?.tyre_index);
@@ -172,8 +172,8 @@ export class VehicleConfigurationFormComponent implements OnInit {
     });
   }
 
-  getData(): EjeData {
-    return {
+  getData(): AxieData {
+    const axies = {
       id: this.axie?.id,
       tyres: this.headersLength.length,
       tpms_name: this.tpms_name.controls.map(control => control.value),
@@ -185,7 +185,7 @@ export class VehicleConfigurationFormComponent implements OnInit {
       tyre_installation_date: this.tyre_installation_date.controls.map(control => control.value),
       tyre_temperature: this.tyre_temperature.controls.map(control => control.value),
       tyre_pressure: this.tyre_pressure.controls.map(control => control.value),
-      tyre_brand: this.tyre_brand.controls.map(control => control.value),
+      tyre_brand_id: this.tyre_brand_id.controls.map(control => parseInt(control.value)),
       tyre_provider: this.tyre_provider.controls.map(control => control.value),
       dot: this.dot.controls.map(control => control.value),
       tyre_index: this.tyre_index.controls.map(control => control.value),
@@ -193,6 +193,7 @@ export class VehicleConfigurationFormComponent implements OnInit {
       recauchado: this.recauchado.controls.map(control => control.value),
       tyre_wear: this.tyre_wear.controls.map(control => control.value)
     }
+    return axies
   }
 
   togglePanel(event, template, factor: number) {

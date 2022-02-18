@@ -96,7 +96,6 @@ export class ActiveVehiclesService {
           })
         }
         vehicleData.axies = axies
-        console.log(vehicleData.axies)
         return vehicleData
       })
     )

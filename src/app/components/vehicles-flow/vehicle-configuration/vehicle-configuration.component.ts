@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit, OnDestroy, QueryList, ViewChildren, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, Observable, Subscription } from 'rxjs';
-import { VehiclesFlowService, EjeData, FlowData, Step3, StepKeys } from '../vehicles-flow.service';
+import { VehiclesFlowService, AxieData, FlowData, Step3, StepKeys } from '../vehicles-flow.service';
 import { VehicleConfigurationFormComponent } from './vehicle-configuration-form/vehicle-configuration-form.component';
 import { MatTabGroup } from '@angular/material/tabs';
 
@@ -19,7 +19,7 @@ export class VehicleConfigurationComponent implements OnInit, AfterViewInit, OnD
   statusList: Observable<any>[] = [];
   tpmsList: Observable<any>[] = [];
   isFormValid = false;
-  ejes: Partial<EjeData>[] = [];
+  ejes: Partial<AxieData>[] = [];
 
   constructor(
     private router: Router,
@@ -46,7 +46,7 @@ export class VehicleConfigurationComponent implements OnInit, AfterViewInit, OnD
   }
 
   continue() {
-    const ejes: EjeData[] = []
+    const ejes: AxieData[] = []
     this.items.forEach(item => {
       ejes.push(item.getData())
     })

@@ -76,10 +76,10 @@
         </ng-container>
       </div>
     </fieldset>
-    <fieldset class="field-container" formGroupName="tyre_brand">
+    <fieldset class="field-container" formGroupName="tyre_brand_id">
       <div class="row-container" formArrayName="tires">
         <ng-container
-          *ngTemplateOutlet="controlTemplate, context: { $implicit: tyre_brand.controls, name: 'Marca de Neumático', isSelect: true, options: tyreBrands$ | async }">
+          *ngTemplateOutlet="controlTemplate, context: { $implicit: tyre_brand_id.controls, name: 'Marca de Neumático', isSelect: true, options: tyreBrands$ | async }">
         </ng-container>
       </div>
     </fieldset>
