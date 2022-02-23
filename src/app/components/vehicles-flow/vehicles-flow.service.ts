@@ -104,7 +104,7 @@ export class VehiclesFlowService {
           ejes: [axies.axie1.length, axies.axie2.length, axies.axie3.length]
         }
 
-        if (axies.axie4.length) {
+        if (axies.axie4?.length) {
           step2.ejes.push(axies.axie4.length)
         } else {
           delete axies.axie4

@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 export interface Tyre {
-  tyres: number
+  axie: number
   id?: number
   tpms_name: string
   tpms_meta: {
@@ -17,6 +17,7 @@ export interface Tyre {
   temperature: number
   pressure: number
   tyre_brand_id: number
+  tyre_status_id: number
   providers: string
   dot: string
   index: string
@@ -28,10 +29,10 @@ export interface Tyre {
 export interface Vehicle {
   plate: string
   chassis: string
-  hubName: string
-  nrointerno: string
-  gps: string
-  hubid?: number
+  internal_number: string
+  gps_model: string
+  hub_meta: {name: string}
+  tyres: Tyre[]
 }
 
 @Injectable({
@@ -65,7 +66,14 @@ export class VehicleService {
       params.set('plate', plate)
     }
 
-    return this.http.get('vehicles', { params: {
+    return this.http.get<{
+      page_number: number
+      page_size: number
+      total_entries: number
+      total_pages: number
+      data: Vehicle[]
+    }
+    >('vehicles', { params: {
       page, page_size, plate
     } })
     .pipe(map((data: any) => {
@@ -77,8 +85,8 @@ export class VehicleService {
   }
 
   getVehicle(id: number) {
-    return this.http.get(`vehicles/${id}`)
-    .pipe(map((data: any) => ({
+    return this.http.get<{data: Vehicle}>(`vehicles/${id}`)
+    .pipe(map((data) => ({
       ...data.data,
       axies: this.getAxies(data.data.tyres)
     })))
@@ -123,11 +131,17 @@ export class VehicleService {
     return this.http.put(`tyres/${id}`, {tyre})
   }
 
-  getAxies(tyres: any[]) {
-    let axie1: any[] = []
-    let axie2: any[] = []
-    let axie3: any[] = []
-    let axie4: any[]  = []
+  getAxies(tyres: Tyre[]): {
+    axie1: Tyre[]
+    axie2: Tyre[]
+    axie3: Tyre[]
+    axie4?: Tyre[]
+    axies_count?: number
+  } {
+    let axie1: Tyre[] = []
+    let axie2: Tyre[] = []
+    let axie3: Tyre[] = []
+    let axie4: Tyre[] = []
     let axies_count = 0;
     tyres.forEach((tyre) => {
       const cases = {
