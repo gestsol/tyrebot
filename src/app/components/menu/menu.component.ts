@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem, NavigationService } from 'src/app/services/navigation.service';
+import { SessionService } from 'src/app/services/session.service';
 
 
 @Component({
@@ -11,7 +12,8 @@ export class MenuComponent implements OnInit {
   menu: MenuItem[] = []
 
   constructor(
-    private navigation: NavigationService
+    private navigation: NavigationService,
+    private sessionService: SessionService
   ) { }
 
   ngOnInit(): void {
@@ -58,5 +60,9 @@ export class MenuComponent implements OnInit {
     if (item.route && window.innerWidth <= 1200) {
       this.close()
     }
+  }
+
+  logout() {
+    this.sessionService.logout()
   }
 }

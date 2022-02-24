@@ -38,20 +38,23 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    &__control {
-      width: 100%;
-      margin-bottom: 1rem;
-    }
-    &__control > label {
-      color: colors.$input-background-light;
-      margin-left: 1rem;
-    }
-    &__submit {
-      margin: 2rem 0;
-    }
-    &__submit > span {
-      color: colors.$dark-blue
-    }
+  }
+  &__error {
+    color: colors.$red;
+  }
+  &__form-field {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  &__form-field > label {
+    color: colors.$input-background-light;
+    margin-left: 1rem;
+  }
+  &__form-submit {
+    margin: 2rem 0;
+  }
+  &__form-submit > span {
+    color: colors.$dark-blue
   }
 
   .form-btn {

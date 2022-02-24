@@ -8,6 +8,11 @@ import {
 import { Observable, throwError } from 'rxjs'
 import { catchError, retry } from 'rxjs/operators'
 import { HttpErrorResponse } from '@angular/common/http'
+import { TOKEN_NAME } from '../services/session.service'
+
+export interface InterceptorError extends HttpErrorResponse {
+  defaultMessage: string;
+}
 
 @Injectable()
 export class CommonOptions implements HttpInterceptor {
@@ -16,14 +21,15 @@ export class CommonOptions implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     const baseUrl = window.location.origin;
-    const url = 'https://tyrebot-backend.witservices.io/api/';
-    // let headers = req.headers.set('Content-Type', 'application/json')
-    // if (req.url !== 'login' && req.url !== 'register') {
-    //   const token = `Bearer ${localStorage.getItem('token')}`
-    //   headers = headers.set('Authorization', token)
-    // }
+    const url = 'https://tyrebot-backend.witservices.io/multiempresa/api/';
+    let headers = req.headers.set('Content-Type', 'application/json')
+    if (req.url !== 'login' && req.url !== 'register') {
+      const token = `Bearer ${localStorage.getItem(TOKEN_NAME)}`
+      headers = headers.set('Authorization', token)
+    }
 
     const reqCopy = req.clone({
+      headers,
       url: req.url.includes('svg') ? baseUrl + req.url: url + req.url
     })
     return next.handle(reqCopy).pipe(
@@ -44,6 +50,10 @@ export class CommonOptions implements HttpInterceptor {
       )
     }
     // Return an observable with a user-facing error message.
-    return throwError('Something bad happened; please try again later.')
+    const customError: InterceptorError = {
+      ...error,
+      defaultMessage: 'Ocurrió un error al procesar su solicitud, intente de nuevo mas tarde'
+    };
+    return throwError(customError)
   }
 }

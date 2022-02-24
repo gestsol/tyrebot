@@ -7,6 +7,23 @@
   font-weight: 600;
 }
 
+%list-content {
+  display: block;
+  width: 100%;
+  padding: 0.65rem;
+  text-decoration: none;
+  color: #ababab;
+  border-radius: 10px;
+  transition: all 0.2s ease-in;
+  white-space: nowrap;
+  &:hover {
+    @extend %item-active;
+  }
+  &.item-active {
+    @extend %item-active;
+  }
+}
+
 .menu {
   width: 100%;
 	background-color: colors.$bg-blue;
@@ -19,20 +36,7 @@
     transition: all 0.2s ease-in;
   }
   a {
-    display: block;
-    width: 100%;
-    padding: 0.65rem;
-    text-decoration: none;
-	  color: #ababab;
-    border-radius: 10px;
-    transition: all 0.2s ease-in;
-    white-space: nowrap;
-    &:hover {
-      @extend %item-active;
-    }
-    &.item-active {
-      @extend %item-active;
-    }
+    @extend %list-content;
   }
 	// min-height: 115vh;
   &__lvl1 {
@@ -70,9 +74,12 @@
     position: sticky;
     width: calc(100% - 70px);
     top: calc(100vh - #{sizes.$header} - 80px);
-    ion-icon, span {
-      vertical-align: middle;
-      margin-inline-start: 0.5rem;
+    & > span {
+      @extend %list-content;
+      ion-icon, & span {
+        vertical-align: middle;
+        margin-inline-start: 0.5rem;
+      }
     }
     ion-icon {
       font-size: 1.5rem;

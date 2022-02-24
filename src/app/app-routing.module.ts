@@ -1,20 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './pages/login/login.component';
+import { MainGuard } from './guards/main.guard';
 
 const routes: Routes = [
 	{
     path: '',
+    canActivate: [MainGuard],
     loadChildren: () => import('./pages/main/main.module').then( m => m.MainModule)
   },
 	{
-    path: 'login',
-    component: LoginComponent
+    path: 'join',
+    loadChildren: () => import('./pages/session/session.module').then( m => m.SessionModule)
   },
 	{
     path: '**',
-    redirectTo: 'login',
-    pathMatch: 'full'
+    pathMatch: 'full',
+    redirectTo: 'join'
   }
 ];
 
