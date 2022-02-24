@@ -5,7 +5,7 @@ import { MainRoutingModule } from './main-routing.module';
 
 import { HeaderComponent } from '../../components/header/header.component';
 import { MainComponent } from './main.component';
-import { MenuComponent } from 'src/app/components/menu/menu.component';
+import { LogoutDialog, MenuComponent } from 'src/app/components/menu/menu.component';
 import { SharedModule } from 'src/app/shared.module';
 
 @NgModule({
@@ -13,7 +13,8 @@ import { SharedModule } from 'src/app/shared.module';
   declarations: [
     MainComponent,
     HeaderComponent,
-    MenuComponent
+    MenuComponent,
+    LogoutDialog
   ],
   imports: [
     CommonModule,

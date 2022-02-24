@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MenuItem, NavigationService } from 'src/app/services/navigation.service';
 import { SessionService } from 'src/app/services/session.service';
 
@@ -13,8 +14,9 @@ export class MenuComponent implements OnInit {
 
   constructor(
     private navigation: NavigationService,
-    private sessionService: SessionService
-  ) { }
+    private sessionService: SessionService,
+    public dialog: MatDialog
+    ) { }
 
   ngOnInit(): void {
     this.menu = this.navigation.menu
@@ -63,6 +65,52 @@ export class MenuComponent implements OnInit {
   }
 
   logout() {
-    this.sessionService.logout()
+    if (window.innerWidth <= 1200) {
+      this.navigation.toggle()
+    }
+    const dialogRef = this.dialog.open(LogoutDialog, {
+      width: '30vw',
+      maxWidth: 648,
+      minWidth: 300,
+      panelClass: 'custom-dialog',
+      disableClose: true
+    });
+    dialogRef.afterClosed().subscribe(value => {
+      if (value) {
+        this.sessionService.logout()
+      }
+    })
+  }
+}
+
+@Component({
+  selector: 'app-delete-vehicle-dialog',
+  template: `
+    <div class="dialog">
+      <h1 class="dialog__title">Cerrar Sesión</h1>
+      <div>¿Esta seguro de que desea cerrar sesión?</div>
+      <div class="dialog__actions">
+        <button mat-button [mat-dialog-close]="false"
+          class="dialog__btn form-btn form-btn--back-btn form-btn--block">
+         Cancelar
+        </button>
+        <button class="form-btn form-btn--block dialog__btn" (click)="action(true)">
+          <span>
+           Aceptar
+          </span>
+        </button>
+      </div>
+    </div>
+  `,
+})
+export class LogoutDialog {
+  loading = false;
+
+  constructor(
+    public dialogRef: MatDialogRef<LogoutDialog>
+  ) {}
+
+  action(value: boolean) {
+    this.dialogRef.close(value)
   }
 }
