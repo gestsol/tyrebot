@@ -7,14 +7,14 @@
 
         <!-- Position Column -->
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef> nombre de usuario </th>
-          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          <th mat-header-cell *matHeaderCellDef> email de usuario </th>
+          <td mat-cell *matCellDef="let element"> {{element.email}} </td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="last_connection">
           <th mat-header-cell *matHeaderCellDef> ÚLTIMO MOVIMIENTO </th>
-          <td mat-cell *matCellDef="let element"> {{element.last_connection}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.last_login}} </td>
         </ng-container>
 
         <!-- Weight Column -->
@@ -23,11 +23,11 @@
           <td
             mat-cell
             *matCellDef="let element"
-            [ngClass]="{'access':element.state === states.access, 'denied':element.state === states.denied}"
+            [ngClass]="{'access':element.active, 'denied':!element.active}"
             class="list-container__table__state"
           >
           <button mat-button (click)="toDetail()">
-            {{element.state}}
+            {{element.active? states.access : states.denied}}
           </button>
           </td>
         </ng-container>
