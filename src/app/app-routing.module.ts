@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainGuard } from './guards/main.guard';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 const routes: Routes = [
 	{
@@ -15,7 +16,7 @@ const routes: Routes = [
 	{
     path: '**',
     pathMatch: 'full',
-    redirectTo: 'join'
+    component: NotFoundComponent
   }
 ];
 

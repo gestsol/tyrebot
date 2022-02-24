@@ -1,0 +1,38 @@
+@use '/src/sass/abstracts/vars/colors' as colors;
+
+:host .not-find {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  &__wrapper {
+    padding: 2rem 1rem 0 1rem;
+    text-align: center;
+  }
+  &__image {
+    width: clamp(150px, 20vw, 250px);
+    margin-bottom: 5rem;
+  }
+  &__title {
+    color: white;
+    font-size: clamp(3rem, 15vw, 13rem);
+  }
+  &__description {
+    font-size: clamp(1rem, 5vw, 1.4rem);
+    color: colors.$light-blue;
+    max-width: 550px;
+    margin-bottom: 2rem;
+  }
+  ::ng-deep app-back-button {
+    display: inline-block;
+    width: fit-content;
+    text-align: center;
+    button {
+      text-align: center;
+    }
+    mat-icon {
+      margin: 0;
+    }
+  }
+}
