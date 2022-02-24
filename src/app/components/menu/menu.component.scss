@@ -73,7 +73,7 @@
   &__logout {
     position: sticky;
     width: calc(100% - 70px);
-    top: calc(100vh - #{sizes.$header} - 80px);
+    top: calc(100vh - #{sizes.$header} - 120px);
     & > span {
       @extend %list-content;
       ion-icon, & span {

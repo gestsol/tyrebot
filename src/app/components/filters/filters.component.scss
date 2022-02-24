@@ -2,7 +2,10 @@
 
 .search-form {
   display: none;
-  background: linear-gradient(180deg, #212529 0%, #{mix(#212529, white, 85%)} 100%) 0% 0% no-repeat padding-box;
+  padding-top: 1rem;
+  &__card {
+    background: linear-gradient(180deg, #212529 0%, #{mix(#212529, white, 85%)} 100%) 0% 0% no-repeat padding-box;
+  }
   &__form {
     position: relative;
     display: flex;
@@ -31,7 +34,7 @@
 }
 
 @media (min-width: 920px) {
-  :host .search-form__form{
+  :host .search-form__form {
     justify-content: center;
     ::ng-deep .exporter {
       position: absolute;

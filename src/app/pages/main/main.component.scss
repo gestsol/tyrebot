@@ -3,7 +3,7 @@
 
 .app-container {
   display: flex;
-  min-height: calc(100vh - #{sizes.$header} - #{sizes.$footer});
+  min-height: calc(100vh - #{sizes.$header});
 }
 
 .main-page {
@@ -31,7 +31,7 @@ app-menu {
   top: 0;
 	width: sizes.$side-nav;
   transition: width 0.3s;
-  height: 100vh; //Restar tamaño del header mientras no se mueva el scroll
+  height: 100vh;
   &.close {
     width: 0;
   }
@@ -46,7 +46,7 @@ app-menu {
     width: 300px;
     z-index: 9999;
     box-shadow: 1px 7px 22px 5px rgba(0,0,0,0.31);
-    // height: 100vh;
+    height: 100vh;
   }
   .overlay:not(.close) {
     width: 100vw;

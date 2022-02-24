@@ -1,30 +1,32 @@
-<mat-card class="search-form">
-  <form [formGroup]="form" class="search-form__form">
-    <mat-form-field appearance="outline" class="light rounded" *ngIf="showPlate">
-      <input matInput placeholder="Patente" #input formControlName="plate">
-      <mat-icon matSuffix>search</mat-icon>
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="light rounded" *ngIf="showDate">
-      <mat-date-range-input [rangePicker]="picker">
-        <input matStartDate placeholder="Desde" formControlName="from">
-        <input matEndDate placeholder="Hasta" formControlName="to">
-      </mat-date-range-input>
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-date-range-picker #picker>
-        <mat-date-range-picker-actions>
-          <button
-            class="form-btn"
-            matDateRangePickerApply
-            (click)="dateChange()"
-          >
-            Enlazar
-          </button>
-        </mat-date-range-picker-actions>
-      </mat-date-range-picker>
-    </mat-form-field>
-    <app-btn-xlsx></app-btn-xlsx>
-  </form>
-</mat-card>
+<div class="search-form">
+  <mat-card class="search-form__card">
+    <form [formGroup]="form" class="search-form__form">
+      <mat-form-field appearance="outline" class="light rounded" *ngIf="showPlate">
+        <input matInput placeholder="Patente" #input formControlName="plate">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="light rounded" *ngIf="showDate">
+        <mat-date-range-input [rangePicker]="picker">
+          <input matStartDate placeholder="Desde" formControlName="from">
+          <input matEndDate placeholder="Hasta" formControlName="to">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker>
+          <mat-date-range-picker-actions>
+            <button
+              class="form-btn"
+              matDateRangePickerApply
+              (click)="dateChange()"
+            >
+              Enlazar
+            </button>
+          </mat-date-range-picker-actions>
+        </mat-date-range-picker>
+      </mat-form-field>
+      <app-btn-xlsx></app-btn-xlsx>
+    </form>
+  </mat-card>
+</div>
 <button (click)="openSearchDialog()" class="search-button" mat-mini-fab aria-label="Buscar">
   <mat-icon>search</mat-icon>
 </button>
