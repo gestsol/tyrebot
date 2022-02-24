@@ -13,11 +13,11 @@ enum State {
 
 
 export interface TableItem {
+  id: number;
   email: string;
   last_login: string;
   active: boolean;
 }
-
 
 @Component({
   selector: 'app-manage-accounts-list',
@@ -41,6 +41,7 @@ export class ManageAccountsListComponent implements AfterViewInit {
   ngOnInit() {
     this.userService.getAll().subscribe((list) => {
       this.dataSource.data = list.map((item) => ({
+        id: item.id,
         email: item.email,
         last_login: item.last_login? moment(item.last_login, 'YYYY-MM-DDTHH:mm:ss').format('DD/MM/YYYY HH:mm:ss') : 'N/A',
         active: item.active
@@ -53,8 +54,8 @@ export class ManageAccountsListComponent implements AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  toDetail() {
-    this.router.navigate(['detail', 1], {
+  toDetail(id: number) {
+    this.router.navigate(['detail', id], {
       relativeTo: this.route,
     })
   }

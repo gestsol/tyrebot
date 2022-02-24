@@ -1,17 +1,36 @@
 <div class="main-container">
   <h1>Configuraciónes</h1>
   <div class="detail">
-    <div class="detail__last-connection">
-      <span>0:03 de 12 de Agosto, 2021</span>
+    <div class="detail__last-connection" *ngIf="user && id">
+      <span>{{user?.last_login}}</span>
     </div>
     <div class="detail__info">
-      <h2 class="detail__info__name">Paloma Varas P.</h2>
+      <h2 class="detail__info__name">{{user?.name || 'Sin datos de nombre'}}</h2>
       <p class="detail__info__address">Estación Central, modulo 1</p>
-      <p class="detail__info__state access">Estado: <span>Accesible</span></p>
+      <p class="detail__info__state" [ngClass]="{'access': user?.active, 'denied': !user?.active}">Estado:
+        <span>
+          {{user?.active ? 'Accesible': 'Denegado'}}
+        </span>
+      </p>
     </div>
     <div class="detail__actitons">
-      <button class="form-btn danger">Denegar acceso</button>
-      <button class="form-btn success">Dar acceso</button>
+      <button class="form-btn danger" [disabled]="!user || !id" (click)="updateUser(false)">
+        <ng-container *ngIf="loadingUpdate !== 2">
+          Denegar acceso
+        </ng-container>
+        <ng-container *ngIf="loadingUpdate === 2">
+          <mat-spinner [diameter]="30" style="margin: auto"></mat-spinner>
+        </ng-container>
+      </button>
+      <button class="form-btn success" [disabled]="!user || !id" (click)="updateUser(true)">
+        <ng-container *ngIf="loadingUpdate !== 1">
+          Dar acceso
+        </ng-container>
+        <ng-container *ngIf="loadingUpdate === 1">
+          <mat-spinner [diameter]="30" style="margin: auto"></mat-spinner>
+        </ng-container>
+      </button>
     </div>
   </div>
 </div>
+<span>

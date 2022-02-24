@@ -21,13 +21,19 @@ export class UserService {
   ) { }
 
   getAll() {
-    return this.http.get<{data: User[]}>('users').pipe(
+    return this.http.get<{data: Required<User>[]}>('users').pipe(
       map(({data}) => data)
     )
   }
 
   getOne(id: number) {
     return this.http.get<{data: User}>(`users/${id}`).pipe(
+      map(({data}) => data)
+    )
+  }
+
+  update(user: Partial<User>, id: number) {
+    return this.http.put<{data: User}>(`users/${id}`, {user}).pipe(
       map(({data}) => data)
     )
   }

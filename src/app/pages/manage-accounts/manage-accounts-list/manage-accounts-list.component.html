@@ -26,7 +26,7 @@
             [ngClass]="{'access':element.active, 'denied':!element.active}"
             class="list-container__table__state"
           >
-          <button mat-button (click)="toDetail()">
+          <button mat-button (click)="toDetail(element.id)">
             {{element.active? states.access : states.denied}}
           </button>
           </td>
