@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { zip } from 'rxjs';
+import { map, mergeMap } from 'rxjs/operators';
+import { CompanyService } from './company.service';
 
 export interface User {
   id?: number
@@ -9,6 +11,8 @@ export interface User {
   last_login: string
   name: string
   username: string
+  company_id: number
+  company_name?: string
 }
 
 @Injectable({
@@ -17,18 +21,20 @@ export interface User {
 export class UserService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private companyService: CompanyService
   ) { }
 
   getAll() {
     return this.http.get<{data: Required<User>[]}>('users').pipe(
-      map(({data}) => data)
+      mergeMap(({data}) => this.setCompany(data))
     )
   }
 
   getOne(id: number) {
-    return this.http.get<{data: User}>(`users/${id}`).pipe(
-      map(({data}) => data)
+    return this.http.get<{data: Required<User>}>(`users/${id}`).pipe(
+      mergeMap(({data}) => this.setCompany([data])),
+      map(data => data[0])
     )
   }
 
@@ -36,5 +42,14 @@ export class UserService {
     return this.http.put<{data: User}>(`users/${id}`, {user}).pipe(
       map(({data}) => data)
     )
+  }
+
+  private setCompany(users: Required<User>[]) {
+    const requests = users.map(
+      (user) => this.companyService.getOne(user.company_id).pipe(
+        map((data) => ({...user, company_name: data.name}))
+      )
+    )
+    return zip(...requests)
   }
 }

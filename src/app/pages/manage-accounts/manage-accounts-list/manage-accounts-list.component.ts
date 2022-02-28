@@ -16,6 +16,7 @@ export interface TableItem {
   email: string;
   last_login: string;
   active: boolean;
+  company_name: string;
 }
 
 @Component({
@@ -24,7 +25,7 @@ export interface TableItem {
   styleUrls: ['./manage-accounts-list.component.scss']
 })
 export class ManageAccountsListComponent implements AfterViewInit {
-  displayedColumns: string[] = ['name', 'last_connection', 'state'];
+  displayedColumns: string[] = ['name', 'company_name', 'last_connection', 'state'];
   dataSource = new MatTableDataSource<TableItem>();
 
   states = State
@@ -40,10 +41,10 @@ export class ManageAccountsListComponent implements AfterViewInit {
   ngOnInit() {
     this.userService.getAll().subscribe((list) => {
       this.dataSource.data = list.map((item) => ({
-        id: item.id,
-        email: item.email,
-        last_login: item.last_login? moment(item.last_login, 'YYYY-MM-DDTHH:mm:ss').format('DD/MM/YYYY HH:mm:ss') : 'N/A',
-        active: item.active
+        ...item,
+        last_login: item.last_login ?
+          moment(item.last_login, 'YYYY-MM-DDTHH:mm:ss').format('DD/MM/YYYY HH:mm:ss') :
+          'N/A'
       }))
     })
   }
