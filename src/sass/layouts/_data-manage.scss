@@ -1,0 +1,73 @@
+@use '/src/sass/abstracts/vars/colors' as colors;
+
+h1 {
+  color: white;
+  font-size: clamp(1.5rem, 2vw, 2rem);
+  margin: 2rem;
+  text-align: center;
+}
+
+:host .list-container {
+	border: solid 1px;
+	border: solid 2px colors.$border-text-dark;
+	margin: auto;
+	margin-top: 20px;
+	border-radius: 20px;
+  padding: 2rem;
+
+  & > h2 {
+    color: white;
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    margin-bottom: 2rem;
+  }
+
+  &__table {
+    table {
+      table-layout: fixed;
+      width: 100%;
+      background-color: transparent;
+      td, th {
+        color: colors.$border-text-dark;
+        font-size: clamp(0.65rem, 2vw, 1rem);
+      }
+
+      td {
+        border: none;
+      }
+
+      th {
+        border-color: colors.$border-text-dark;
+        height: 2rem;
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  ::ng-deep mat-paginator {
+    background-color: transparent;
+    color: colors.$border-text-dark;
+    .mat-paginator-range-label {
+      margin-right: 0px !important;
+    }
+    .mat-paginator-page-size-label {
+      display: none !important;
+    }
+  }
+}
+
+@media (min-width: 630px) {
+  :host .list-container ::ng-deep mat-paginator {
+    .mat-paginator-range-label {
+      margin-right: 32px !important;
+    }
+    .mat-paginator-page-size-label {
+      display: inline !important;
+    }
+  }
+}
+
+.actions-container {
+  & button:nth-child(1) {
+    color: colors.$secondary;
+  }
+}

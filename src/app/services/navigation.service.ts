@@ -30,6 +30,11 @@ export class NavigationService {
       active: false
     },
     {
+      name: 'Administrar Compañías',
+      active: false,
+      route: '/manage-companies'
+    },
+    {
       name: 'Administrar Cuentas',
       active: false,
       route: '/manage-accounts'

@@ -8,6 +8,10 @@ const routes: Routes = [
     component: MainComponent,
     children: [
       {
+        path: 'manage-companies',
+        loadChildren: () => import('../manage-companies/manage-companies.module').then( m => m.ManageCompaniesModule)
+      },
+      {
         path: 'manage-accounts',
         loadChildren: () => import('../manage-accounts/manage-accounts.module').then( m => m.ManageAccountsModule)
       },

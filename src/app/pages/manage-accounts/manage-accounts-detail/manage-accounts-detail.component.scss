@@ -29,10 +29,10 @@ h1 {
 
   &__info {
     margin-bottom: 3rem;
-    &__state.access span {
+    &-state.access span {
       color: colors.$blue;
     }
-    &__state.denied span {
+    &-state.denied span {
       color: colors.$red;
     }
   }

@@ -1,0 +1,36 @@
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 300px;
+  margin: auto;
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  button {
+    max-width: 110px;
+    border-radius: 20px;
+  }
+
+  .actions-container {
+    margin-top: 1rem;
+    display: flex;
+    gap: 1.1rem;
+    justify-content: flex-end;
+    align-self: flex-end;
+  }
+}
+
+.form-btn {
+  &::before {
+    z-index: 0;
+  }
+  * {
+    position: relative;
+    z-index: 1;
+  }
+}

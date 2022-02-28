@@ -5,9 +5,9 @@
       <span>{{user?.last_login}}</span>
     </div>
     <div class="detail__info">
-      <h2 class="detail__info__name">{{user?.name || 'Sin datos de nombre'}}</h2>
-      <p class="detail__info__address">Estación Central, modulo 1</p>
-      <p class="detail__info__state" [ngClass]="{'access': user?.active, 'denied': !user?.active}">Estado:
+      <h2 class="detail__info-name">{{user?.name || 'Sin datos de nombre'}}</h2>
+      <p class="detail__info-address">Estación Central, modulo 1</p>
+      <p class="detail__info-state" [ngClass]="{'access': user?.active, 'denied': !user?.active}">Estado:
         <span>
           {{user?.active ? 'Accesible': 'Denegado'}}
         </span>
@@ -33,4 +33,3 @@
     </div>
   </div>
 </div>
-<span>

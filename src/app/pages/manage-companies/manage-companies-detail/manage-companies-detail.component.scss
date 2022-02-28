@@ -1,0 +1,9 @@
+@use '/src/sass/components/modal-form';
+
+form .actions-container {
+  justify-content: space-between;
+  align-self: stretch;
+  button:nth-child(1) {
+    margin: 0;
+  }
+}
