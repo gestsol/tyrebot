@@ -1,3 +1,5 @@
+@use '../abstracts/vars/_colors' as colors;
+
 form {
   display: flex;
   flex-direction: column;
@@ -22,6 +24,24 @@ form {
     gap: 1.1rem;
     justify-content: flex-end;
     align-self: flex-end;
+  }
+}
+
+:host ::ng-deep mat-checkbox {
+  .mat-checkbox-frame {
+    border-color: white;
+  }
+}
+:host ::ng-deep mat-checkbox.mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background-color: colors.$blue;
+}
+
+:host ::ng-deep mat-checkbox {
+  &:active:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element {
+    background-color: colors.$blue;
+  }
+  &.mat-checkbox-checked:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element {
+    background-color: colors.$blue;
   }
 }
 

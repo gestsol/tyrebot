@@ -8,7 +8,7 @@ export interface User {
   id?: number
   active: boolean
   email: string
-  last_login: string
+  last_login?: string
   name: string
   username: string
   company_id: number
@@ -42,6 +42,18 @@ export class UserService {
     return this.http.put<{data: User}>(`users/${id}`, {user}).pipe(
       map(({data}) => data)
     )
+  }
+
+  create(user: User) {
+    user.last_login = ''
+    return this.http.post<{data: Required<User>}>(`users`, {user}).pipe(
+      mergeMap(({data}) => this.setCompany([data])),
+      map(data => data[0])
+    )
+  }
+
+  delete(id: number) {
+    return this.http.delete(`users/${id}`)
   }
 
   private setCompany(users: Required<User>[]) {

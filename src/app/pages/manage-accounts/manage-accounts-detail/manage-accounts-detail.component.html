@@ -1,35 +1,48 @@
-<div class="main-container">
-  <h1>Configuraciónes</h1>
-  <div class="detail">
-    <div class="detail__last-connection" *ngIf="user && id">
-      <span>{{user?.last_login}}</span>
-    </div>
-    <div class="detail__info">
-      <h2 class="detail__info-name">{{user?.name || 'Sin datos de nombre'}}</h2>
-      <p class="detail__info-address">{{user?.company_name || 'Sin datos de compañía'}}</p>
-      <p class="detail__info-state" [ngClass]="{'access': user?.active, 'denied': !user?.active}">Estado:
+<h1 mat-dialog-title>{{
+  data.action === 2? 'Editar ':
+  data.action === 3? 'Crear ': ''
+}}Usuario</h1>
+<div mat-dialog-content>
+  <form [formGroup]="form">
+    <mat-form-field appearance="outline" class="light rounded">
+      <input matInput placeholder="Nombre" #input formControlName="name">
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="light rounded">
+      <input matInput placeholder="Correo" #input formControlName="email">
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="light rounded">
+      <input matInput placeholder="Nombre de Usuario" #input formControlName="username">
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="light rounded">
+      <mat-select [compareWith]="compareOptions" disableOptionCentering placeholder="Compañía" formControlName="company_id">
+        <mat-option *ngFor="let value of (options | async)" [value]="value.id">
+          {{value.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="light rounded" *ngIf="form.get('password')">
+      <input matInput type="password" placeholder="Contraseña" #input formControlName="password">
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="light rounded" *ngIf="form.get('password')">
+      <input matInput type="password" placeholder="Repitir Contraseña" #input formControlName="repeat_password" [errorStateMatcher]="matcher">
+    </mat-form-field>
+    <mat-checkbox formControlName="active">Activo</mat-checkbox>
+    <div class="actions-container">
+      <button class="form-btn form-btn--back-btn" (click)="close()">
         <span>
-          {{user?.active ? 'Accesible': 'Denegado'}}
+          Cancelar
         </span>
-      </p>
-    </div>
-    <div class="detail__actitons">
-      <button class="form-btn danger" [disabled]="!user || !id" (click)="updateUser(false)">
-        <ng-container *ngIf="loadingUpdate !== 2">
-          Denegar acceso
-        </ng-container>
-        <ng-container *ngIf="loadingUpdate === 2">
-          <mat-spinner [diameter]="30" style="margin: auto"></mat-spinner>
-        </ng-container>
       </button>
-      <button class="form-btn success" [disabled]="!user || !id" (click)="updateUser(true)">
-        <ng-container *ngIf="loadingUpdate !== 1">
-          Dar acceso
-        </ng-container>
-        <ng-container *ngIf="loadingUpdate === 1">
-          <mat-spinner [diameter]="30" style="margin: auto"></mat-spinner>
-        </ng-container>
+      <button class="form-btn" (click)="submit()" [disabled]="form.invalid">
+        <span>
+          <ng-container *ngIf="!loading">
+            Guardar
+          </ng-container>
+          <ng-container *ngIf="loading">
+            <mat-spinner [diameter]="30" style="margin: auto"></mat-spinner>
+          </ng-container>
+        </span>
       </button>
     </div>
-  </div>
+  </form>
 </div>

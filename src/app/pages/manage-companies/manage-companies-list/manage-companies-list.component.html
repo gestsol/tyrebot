@@ -1,7 +1,12 @@
 <div class="main-container">
   <h1>Configuraciónes</h1>
   <div class="list-container">
-    <h2>Compañías</h2>
+    <div class="list-container_header">
+      <h2>Compañías</h2>
+      <button mat-stroked-button (click)="create()">
+        Agregar
+      </button>
+    </div>
     <div class="list-container__table">
       <table mat-table [dataSource]="dataSource">
 
@@ -25,9 +30,12 @@
             *matCellDef="let element"
             class="actions-container"
           >
-          <button (click)="edit(element)" mat-icon-button>
-            <mat-icon>edit</mat-icon>
-          </button>
+            <button (click)="edit(element)" mat-icon-button>
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button (click)="delete(element)" mat-icon-button>
+              <mat-icon>delete</mat-icon>
+            </button>
           </td>
         </ng-container>
 

@@ -17,6 +17,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 import { httpInterceptorProviders } from './intereptors/base';
 import { BusModule } from './components/bus/bus.module';
@@ -70,7 +71,8 @@ import { TyreTabsComponent } from './components/tyre-tabs/tyre-tabs.component';
     TableComponent,
     MatMenuModule,
     BtnXlsxComponent,
-    TyreTabsComponent
+    TyreTabsComponent,
+    MatCheckboxModule
   ],
   providers: [
     httpInterceptorProviders,

@@ -63,7 +63,7 @@ mat-error {
     //   color: colors.$primary;
     // }
 
-    & input, & span {
+    & input, & span:not(.mat-select-placeholder) {
       color: black;
     }
   }

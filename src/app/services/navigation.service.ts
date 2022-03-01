@@ -30,16 +30,6 @@ export class NavigationService {
       active: false
     },
     {
-      name: 'Administrar Compañías',
-      active: false,
-      route: '/manage-companies'
-    },
-    {
-      name: 'Administrar Cuentas',
-      active: false,
-      route: '/manage-accounts'
-    },
-    {
       name: 'Vehículo',
       active: false,
       open: false,
@@ -82,7 +72,20 @@ export class NavigationService {
     },
     {
       name: 'Configuración',
-      active: false
+      active: false,
+      open: false,
+      list: [
+        {
+          name: 'Administrar Compañías',
+          active: false,
+          route: '/manage-companies'
+        },
+        {
+          name: 'Administrar Cuentas',
+          active: false,
+          route: '/manage-accounts'
+        },
+      ]
     }
   ]
 

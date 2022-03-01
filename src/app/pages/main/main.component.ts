@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CompanyService } from 'src/app/services/company.service';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { VehicleService } from 'src/app/services/vehicle.service';
 
@@ -13,6 +14,7 @@ export class MainComponent implements OnInit {
 
   constructor(
     private navigation: NavigationService,
+    private companyService: CompanyService,
     private vehicleService: VehicleService
   ) { }
 
@@ -32,6 +34,7 @@ export class MainComponent implements OnInit {
 
     this.vehicleService.getTyreBrands().subscribe()
     this.vehicleService.getTyreStatusList().subscribe()
+    this.companyService.getAll().subscribe()
   }
 
   close() {

@@ -1,9 +1,22 @@
-import { Component, ComponentFactoryResolver, Inject, OnInit } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
-import * as moment from 'moment';
+import { Component, Inject, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormControl, FormGroupDirective, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CompanyService } from 'src/app/services/company.service';
 import { User, UserService } from 'src/app/services/user.service';
+import { AjaxDialogAction, AjaxDialogResult } from '../../main/main.service';
 
+const passworfValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+  const password = control.get('password');
+  const repeat_password = control.get('repeat_password');
+
+  return password && repeat_password && password.value !== repeat_password.value ? { notEqual: true } : null;
+};
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | null): boolean {
+    return !!(control?.parent?.errors?.notEqual && control?.dirty);
+  }
+}
 @Component({
   selector: 'app-manage-accounts-detail',
   templateUrl: './manage-accounts-detail.component.html',
@@ -11,71 +24,86 @@ import { User, UserService } from 'src/app/services/user.service';
 })
 export class ManageAccountsDetailComponent implements OnInit {
   loading = false;
-  loadingUpdate = 0;
-  user: User | null = null
-  id = 0
+  options = this.companyService.companies$
+
+  matcher = new MyErrorStateMatcher();
+  form = this.fb.group({
+    name: ['', Validators.required],
+    email: ['', Validators.required],
+    username: ['', Validators.required],
+    company_id: [null, Validators.required],
+    active: [false]
+  })
 
   constructor(
-    private route: ActivatedRoute,
+    @Inject(MAT_DIALOG_DATA) public data: Partial<User> & {action: AjaxDialogAction},
+    public dialogRef: MatDialogRef<ManageAccountsDetailComponent>,
     private userService: UserService,
-    public dialog: MatDialog
-    ) { }
+    private companyService: CompanyService,
+    private fb: FormBuilder
+  ) { }
 
   ngOnInit(): void {
-    moment.locale('es')
-    this.loading = true
-    this.id = this.route.snapshot.params['id']
-    this.userService.getOne(this.id).subscribe((user) => {
-      const date = user.last_login?
-        moment(user.last_login, 'YYYY-MM-DDTHH:mm:ss').format('HH:mm:ss [del] DD [de] MMMM[,] YYYY'):
-        'Sin datos de conexión';
-      user.last_login = date
-      this.user = user;
-      this.loading = false;
-    }, (err) => {
-      console.error(err);
-      this.loading = false
-    })
+    console.log(this.data)
+    this.form.get('name')?.setValue(this.data.name)
+    this.form.get('email')?.setValue(this.data.email)
+    this.form.get('username')?.setValue(this.data.username)
+    this.form.get('company_id')?.setValue(this.data.company_id)
+    this.form.get('active')?.setValue(this.data.active)
+    if (this.data.action === AjaxDialogAction.create) {
+      this.addControls('password', '', true)
+      this.addControls('repeat_password', '', true)
+      this.form.addValidators(passworfValidator)
+    }
   }
 
-  updateUser(active) {
-    if (this.user && this.id && !this.loadingUpdate) {
-      this.loadingUpdate = active? 1: 2
-      this.userService.update({active}, this.id).subscribe((response) => {
-        this.user = response
-        this.showNotification()
-        this.loadingUpdate = 0
-      },(err) => {
+  private addControls(name: string, value = '', required = false) {
+    const control = new FormControl(value, required ? [
+      Validators.required
+    ] : undefined)
+    this.form.addControl(name, control)
+  }
+
+  submit() {
+    this.loading = true
+    const user: User & {password?: string} = {
+      name: this.form.get('name')?.value,
+      email: this.form.get('email')?.value,
+      username: this.form.get('username')?.value,
+      company_id: this.form.get('company_id')?.value,
+      active: this.form.get('active')?.value
+    };
+
+    if (this.data.action === AjaxDialogAction.create) {
+      user.password = this.form.get('password')?.value
+    }
+
+    if (this.data.action === AjaxDialogAction.update && this.data.id) {
+      this.userService.update(user, this.data.id).subscribe(() => {
+        this.loading = true
+        this.close(AjaxDialogResult.success)
+      }, (err) => {
+        this.loading = true
         console.error(err)
-        this.loadingUpdate = 0
+        this.close(AjaxDialogResult.error)
+      })
+    } else if (this.data.action === AjaxDialogAction.create) {
+      this.userService.create(user).subscribe(() => {
+        this.loading = true
+        this.close(AjaxDialogResult.success)
+      }, (err) => {
+        this.loading = true
+        console.error(err)
+        this.close(AjaxDialogResult.error)
       })
     }
   }
 
-  showNotification () {
-    this.dialog.open(UpdateNotifier, {
-      width: '30vw',
-      maxWidth: 648,
-      minWidth: 300,
-      panelClass: 'custom-dialog',
-      disableClose: true
-    });
+  close(result: AjaxDialogResult = AjaxDialogResult.close) {
+    this.dialogRef.close(result);
   }
-}
 
-@Component({
-  template: `
-  <div class="dialog">
-    <img src="/assets/img/Artboard 1.png" alt="">
-    <h1 class="dialog__title">
-      El usuario se actualizó correctamente
-    </h1>
-    <button class="form-btn" mat-dialog-close>
-      <span>Continuar</span>
-    </button>
-  </div>
-  `
-})
-export class UpdateNotifier {
-  constructor() {}
+  compareOptions(object1: any, object2: any) {
+    return object1 && object2 && object1.id == object2.id;
+  }
 }

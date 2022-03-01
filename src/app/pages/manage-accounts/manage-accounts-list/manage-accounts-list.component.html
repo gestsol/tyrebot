@@ -1,7 +1,12 @@
 <div class="main-container">
   <h1>Configuraciónes</h1>
   <div class="list-container">
-    <h2>Accesibilidad</h2>
+    <div class="list-container_header">
+      <h2>Usuarios</h2>
+      <button mat-stroked-button (click)="create()">
+        Agregar
+      </button>
+    </div>
     <div class="list-container__table">
       <table mat-table [dataSource]="dataSource">
 
@@ -9,6 +14,21 @@
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef> email de usuario </th>
           <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> acciones </th>
+          <td mat-cell
+            *matCellDef="let element"
+            class="actions-container"
+          >
+            <button mat-button (click)="edit(element)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button (click)="delete(element)" mat-icon-button>
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="company_name">
@@ -31,9 +51,7 @@
             [ngClass]="{'access':element.active, 'denied':!element.active}"
             class="list-container__table-state"
           >
-          <button mat-button (click)="toDetail(element.id)">
             {{element.active? states.access : states.denied}}
-          </button>
           </td>
         </ng-container>
 

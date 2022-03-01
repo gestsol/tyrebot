@@ -1,9 +1,14 @@
 @use './vars/colors' as colors;
 
 @mixin transparentPanel() {
-  background-color: #{mix(colors.$bg-blue, white, 93%)}cf !important;
-  backdrop-filter: blur(4px);
+  background-color: #{mix(colors.$bg-blue, white, 93%)}ff !important;
   border-radius: 10px;
   overflow: hidden;
   color: white;
+  @supports (backdrop-filter: blur(4px)) {
+    & {
+      backdrop-filter: blur(4px);
+      background-color: #{mix(colors.$bg-blue, white, 93%)}cf !important;
+    }
+  }
 }

@@ -1,65 +1,20 @@
-@use '/src/sass/abstracts/vars/colors' as colors;
+@use '/src/sass/components/modal-form';
 
-h1 {
-  color: white;
-  font-size: clamp(1.5rem, 2vw, 2rem);
-  margin: 2rem;
-  text-align: center;
-}
-
-.detail {
-	border: solid 1px;
-	border: solid 2px colors.$border-text-dark;
-	margin: auto;
-	margin-top: 20px;
-	border-radius: 20px;
-  padding: 3rem 1rem;
-  max-width: 700px;
-  color: white;
-  & > h2 {
-    font-size: clamp(1.2rem, 2vw, 1.5rem);
-    margin-bottom: 2rem;
-  }
-  &__last-connection {
-    padding-bottom: 1.5rem;
-    font-size: 0.8rem;
-    border-bottom: 1px solid colors.$border-text-dark;
-    margin-bottom: 1.5rem;
-  }
-
-  &__info {
-    margin-bottom: 3rem;
-    &-state.access span {
-      color: colors.$blue;
-    }
-    &-state.denied span {
-      color: colors.$red;
+form {
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 500px;
+  justify-content: space-between;
+  padding: 0 1rem;
+  .actions-container {
+    justify-content: flex-end;
+    align-self: stretch;
+    width: 100%;
+    button:nth-child(1) {
+      margin: 0;
     }
   }
-
-  &__actitons {
-    display: flex;
-    justify-content: space-between;
-    gap: 0.5rem;
-    .form-btn {
-      width: 40%;
-      min-width: 130px;
-    }
-  }
-}
-
-@media (min-width: 375px) {
-  .detail {
-    padding: 3rem 2rem;
-  }
-}
-@media (min-width: 700px) {
-  .detail {
-    padding: 3rem 4rem;
-    &__actitons {
-      .form-btn {
-        max-width: 240px;
-      }
-    }
+  mat-form-field {
+    width: auto;
   }
 }

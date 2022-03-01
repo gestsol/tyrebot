@@ -1,9 +1,12 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, Inject, ViewChild} from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
-import { UserService } from 'src/app/services/user.service';
+import { User, UserService } from 'src/app/services/user.service';
+import { AjaxDialogAction, AjaxDialogResult } from '../../main/main.service';
+import { ManageAccountsDetailComponent } from '../manage-accounts-detail/manage-accounts-detail.component';
 
 enum State {
   access = 'Acceso',
@@ -25,28 +28,20 @@ export interface TableItem {
   styleUrls: ['./manage-accounts-list.component.scss']
 })
 export class ManageAccountsListComponent implements AfterViewInit {
-  displayedColumns: string[] = ['name', 'company_name', 'last_connection', 'state'];
+  displayedColumns: string[] = ['name', 'company_name', 'last_connection', 'state', 'actions'];
   dataSource = new MatTableDataSource<TableItem>();
 
   states = State
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private userService: UserService
+    private userService: UserService,
+    public dialog: MatDialog
   ) {}
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngOnInit() {
-    this.userService.getAll().subscribe((list) => {
-      this.dataSource.data = list.map((item) => ({
-        ...item,
-        last_login: item.last_login ?
-          moment(item.last_login, 'YYYY-MM-DDTHH:mm:ss').format('DD/MM/YYYY HH:mm:ss') :
-          'N/A'
-      }))
-    })
+    this.setTable()
   }
 
   ngAfterViewInit() {
@@ -54,9 +49,99 @@ export class ManageAccountsListComponent implements AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  toDetail(id: number) {
-    this.router.navigate(['detail', id], {
-      relativeTo: this.route,
+  create() {
+    this.editDiaplog({action: AjaxDialogAction.create})
+  }
+
+  edit(data: Required<User>) {
+    this.editDiaplog({...data, action: AjaxDialogAction.update})
+  }
+
+  editDiaplog(data: Partial<User> & {action: AjaxDialogAction}) {
+    const dialogRef = this.dialog.open(ManageAccountsDetailComponent, {
+      data,
+      width: '60vw',
+      maxWidth: 500,
+      minWidth: 300,
+      panelClass: 'custom-dialog',
+      disableClose: false
+    });
+    dialogRef.afterClosed().subscribe((value: AjaxDialogResult) => {
+      console.log(value)
+      if (value === AjaxDialogResult.success) {
+        this.setTable()
+      }
+    })
+  }
+
+  setTable() {
+    this.userService.getAll().subscribe((list) => {
+      this.dataSource.data = list.map((item) => ({
+        ...item,
+        last_login: item.last_login ?
+          moment(item.last_login, 'YYYY-MM-DDTHH:mm:ss').format('DD/MM/YYYY HH:mm:ss') :
+          'N/A'
+      })).sort((a, b) => a.id - b.id)
+    })
+  }
+
+  delete(vehicle: any) {
+    const dialogRef = this.dialog.open(DeleteUserDialog, {
+      data: vehicle.id,
+      width: '30vw',
+      maxWidth: 648,
+      minWidth: 300,
+      panelClass: 'custom-dialog',
+      disableClose: true
+    });
+    dialogRef.afterClosed().subscribe(value => {
+      if (value) {
+        this.setTable()
+      }
+    })
+  }
+}
+
+@Component({
+  selector: 'app-delete-vehicle-dialog',
+  template: `
+    <div class="dialog">
+      <h1 class="dialog__title">Eliminar Usuario</h1>
+      <div>¿Esta seguro de eliminar este usuario?</div>
+      <div class="dialog__actions">
+        <button mat-button [mat-dialog-close]="false"
+          class="dialog__btn form-btn form-btn--back-btn form-btn--block">
+         Cancelar
+        </button>
+        <button class="form-btn form-btn--block dialog__btn" (click)="ok()">
+          <span *ngIf="loading">
+           <mat-spinner [diameter]="30"></mat-spinner>
+          </span>
+          <span *ngIf="!loading">
+           Aceptar
+          </span>
+        </button>
+      </div>
+    </div>
+  `,
+})
+export class DeleteUserDialog {
+  loading = false;
+
+  constructor(
+    public dialogRef: MatDialogRef<DeleteUserDialog>,
+    private userService: UserService,
+    @Inject(MAT_DIALOG_DATA) public id: number
+  ) {}
+
+  ok() {
+    this.loading = true
+    this.userService.delete(this.id).subscribe(() => {
+      this.dialogRef.close(true)
+      this.loading = false
+    }, (err) => {
+      this.dialogRef.close(false)
+      this.loading = false
     })
   }
 }
