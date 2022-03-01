@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroupDirective, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CompanyService } from 'src/app/services/company.service';
+import { Company, CompanyService } from 'src/app/services/company.service';
 import { User, UserService } from 'src/app/services/user.service';
 import { AjaxDialogAction, AjaxDialogResult } from '../../main/main.service';
 
@@ -24,7 +24,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class ManageAccountsDetailComponent implements OnInit {
   loading = false;
-  options = this.companyService.companies$
+  options: Company[] = []
 
   matcher = new MyErrorStateMatcher();
   form = this.fb.group({
@@ -44,7 +44,9 @@ export class ManageAccountsDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.data)
+    this.companyService.companies$.subscribe((list) => {
+      this.options = list
+    })
     this.form.get('name')?.setValue(this.data.name)
     this.form.get('email')?.setValue(this.data.email)
     this.form.get('username')?.setValue(this.data.username)
@@ -101,9 +103,5 @@ export class ManageAccountsDetailComponent implements OnInit {
 
   close(result: AjaxDialogResult = AjaxDialogResult.close) {
     this.dialogRef.close(result);
-  }
-
-  compareOptions(object1: any, object2: any) {
-    return object1 && object2 && object1.id == object2.id;
   }
 }
