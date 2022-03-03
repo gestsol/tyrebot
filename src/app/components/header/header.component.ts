@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { formatDate } from '@angular/common';
 import { NavigationService } from 'src/app/services/navigation.service';
 import * as moment from 'moment';
+import { MainService } from 'src/app/pages/main/main.service';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   jstoday = '';
   interval: any = null;
 
-  constructor(private navigationService: NavigationService) {}
+  constructor(private mainService: MainService) {}
 
   ngOnInit(): void {
     moment.locale('es')
@@ -22,7 +23,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   toggleNav() {
-    this.navigationService.toggle()
+    this.mainService.toggle()
   }
 
   ngOnDestroy(): void {

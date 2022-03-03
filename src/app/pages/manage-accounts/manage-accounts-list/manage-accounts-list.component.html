@@ -22,10 +22,11 @@
             *matCellDef="let element"
             class="actions-container"
           >
-            <button mat-button (click)="edit(element)">
+            <button mat-button (click)="edit(element)" *ngIf="actualUser && (actualUser.role < element.role || actualUser.id === element.id)">
               <mat-icon>edit</mat-icon>
             </button>
-            <button (click)="delete(element)" mat-icon-button>
+            <button (click)="delete(element)" mat-icon-button
+              *ngIf="actualUser && actualUser.role < element.role">
               <mat-icon>delete</mat-icon>
             </button>
           </td>

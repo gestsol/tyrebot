@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CompanyService } from 'src/app/services/company.service';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { VehicleService } from 'src/app/services/vehicle.service';
+import { MainService } from './main.service';
 
 @Component({
   selector: 'app-main',
@@ -14,12 +15,12 @@ export class MainComponent implements OnInit {
 
   constructor(
     private navigation: NavigationService,
-    private companyService: CompanyService,
-    private vehicleService: VehicleService
+    private mainService: MainService
   ) { }
 
   ngOnInit() {
-    this.navigation.navOpen$.subscribe((value) => {
+    this.mainService.initData()
+    this.mainService.navOpen$.subscribe((value) => {
       this.navState = !value;
     })
 
@@ -31,14 +32,10 @@ export class MainComponent implements OnInit {
         behavior: 'smooth'
       })
     });
-
-    this.vehicleService.getTyreBrands().subscribe()
-    this.vehicleService.getTyreStatusList().subscribe()
-    this.companyService.getAll().subscribe()
   }
 
   close() {
-    this.navigation.toggle()
+    this.mainService.toggle()
   }
 
 }

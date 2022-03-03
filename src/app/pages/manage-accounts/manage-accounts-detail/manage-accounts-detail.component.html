@@ -20,6 +20,13 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+    <mat-form-field appearance="outline" class="light rounded" *ngIf="form.get('role')">
+      <mat-select disableOptionCentering placeholder="Tipo de rol" formControlName="role">
+        <mat-option *ngFor="let value of roleOptions" [value]="value.id">
+          {{value.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
     <mat-form-field appearance="outline" class="light rounded" *ngIf="form.get('password')">
       <input matInput type="password" placeholder="Contraseña" #input formControlName="password">
     </mat-form-field>

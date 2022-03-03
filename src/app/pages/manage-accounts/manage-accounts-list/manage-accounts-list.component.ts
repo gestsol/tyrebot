@@ -4,8 +4,9 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
+import { Roles } from 'src/app/services/session.service';
 import { User, UserService } from 'src/app/services/user.service';
-import { AjaxDialogAction, AjaxDialogResult } from '../../main/main.service';
+import { AjaxDialogAction, AjaxDialogResult, MainService } from '../../main/main.service';
 import { ManageAccountsDetailComponent } from '../manage-accounts-detail/manage-accounts-detail.component';
 
 enum State {
@@ -31,16 +32,21 @@ export class ManageAccountsListComponent implements AfterViewInit {
   displayedColumns: string[] = ['name', 'company_name', 'last_connection', 'state', 'actions'];
   dataSource = new MatTableDataSource<TableItem>();
 
+  actualUser: User | null = null
   states = State
+
+  roles = Roles
 
   constructor(
     private userService: UserService,
+    private mainService: MainService,
     public dialog: MatDialog
   ) {}
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngOnInit() {
+    this.mainService.actualUser$.subscribe((user) => this.actualUser = user)
     this.setTable()
   }
 

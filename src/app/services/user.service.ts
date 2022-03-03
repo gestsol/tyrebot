@@ -13,6 +13,7 @@ export interface User {
   username: string
   company_id: number
   company_name?: string
+  role: number
 }
 
 @Injectable({

@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Location } from '@angular/common'
 import { BehaviorSubject } from 'rxjs';
+import { Roles, SessionService } from './session.service';
+import { MainService } from '../pages/main/main.service';
 
 export interface MenuItem {
   name: string
@@ -10,6 +12,7 @@ export interface MenuItem {
   list?: MenuItem[]
   open?: boolean
   classes?: string
+  inactive?: boolean
 }
 
 @Injectable({
@@ -18,13 +21,10 @@ export interface MenuItem {
 export class NavigationService {
   private previousUrl: string = '';
 
-  private navOpen = new BehaviorSubject(false)
-  navOpen$ = this.navOpen.asObservable()
-
   private currentUrl = new BehaviorSubject('')
   currentUrl$ = this.currentUrl.asObservable()
 
-  menu: MenuItem[] = [
+  initialMmenu: MenuItem[] = [
     {
       name: 'Informacion de Mi Perfil',
       active: false
@@ -74,10 +74,12 @@ export class NavigationService {
       name: 'Configuración',
       active: false,
       open: false,
+      inactive: false,
       list: [
         {
           name: 'Administrar Compañías',
           active: false,
+          inactive: false,
           route: '/manage-companies'
         },
         {
@@ -93,16 +95,7 @@ export class NavigationService {
     private router: Router,
     private location: Location
   ) {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.previousUrl = this.currentUrl.value;
-        this.currentUrl.next(event.urlAfterRedirects)
-      }
-    })
-  }
-
-  toggle() {
-    this.navOpen.next(!this.navOpen.value)
+    this.urlTracking();
   }
 
   getPreviousUrl() {
@@ -129,5 +122,14 @@ export class NavigationService {
     }
 
     return segments.reverse().filter(item => item != '').join('/')
+  }
+
+  private urlTracking() {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.previousUrl = this.currentUrl.value;
+        this.currentUrl.next(event.urlAfterRedirects)
+      }
+    })
   }
 }

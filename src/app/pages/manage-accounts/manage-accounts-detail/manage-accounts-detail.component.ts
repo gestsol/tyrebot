@@ -3,8 +3,9 @@ import { AbstractControl, FormBuilder, FormControl, FormGroupDirective, Validati
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Company, CompanyService } from 'src/app/services/company.service';
+import { Roles } from 'src/app/services/session.service';
 import { User, UserService } from 'src/app/services/user.service';
-import { AjaxDialogAction, AjaxDialogResult } from '../../main/main.service';
+import { AjaxDialogAction, AjaxDialogResult, MainService } from '../../main/main.service';
 
 const passworfValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
   const password = control.get('password');
@@ -23,9 +24,19 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./manage-accounts-detail.component.scss']
 })
 export class ManageAccountsDetailComponent implements OnInit {
+  actualUser: User | null = null
   loading = false;
   options: Company[] = []
-
+  roleOptions = [
+    {
+      name: 'Administrador',
+      id: Roles.Admin
+    },
+    {
+      name: 'Estandar',
+      id: Roles.Standart
+    }
+  ]
   matcher = new MyErrorStateMatcher();
   form = this.fb.group({
     name: ['', Validators.required],
@@ -35,11 +46,14 @@ export class ManageAccountsDetailComponent implements OnInit {
     active: [false]
   })
 
+  canModifyRole = false
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: Partial<User> & {action: AjaxDialogAction},
     public dialogRef: MatDialogRef<ManageAccountsDetailComponent>,
     private userService: UserService,
     private companyService: CompanyService,
+    private mainService: MainService,
     private fb: FormBuilder
   ) { }
 
@@ -57,9 +71,29 @@ export class ManageAccountsDetailComponent implements OnInit {
       this.addControls('repeat_password', '', true)
       this.form.addValidators(passworfValidator)
     }
+    this.mainService.actualUser$.subscribe((actualUser) => {
+      console.log(actualUser)
+      this.actualUser = actualUser
+      if (actualUser?.role === Roles.Master) {
+        if (
+          this.data.action === AjaxDialogAction.update &&
+          this.data.role &&
+          actualUser.role < this.data.role
+          ) {
+          this.createRoleControl()
+        } else if (this.data.action === AjaxDialogAction.create) {
+          this.createRoleControl()
+        }
+      }
+    })
   }
 
-  private addControls(name: string, value = '', required = false) {
+  private createRoleControl () {
+    this.canModifyRole = true
+    this.addControls('role', this.data.role || Roles.Standart, true)
+  }
+
+  private addControls(name: string, value: any = '', required = false) {
     const control = new FormControl(value, required ? [
       Validators.required
     ] : undefined)
@@ -73,8 +107,13 @@ export class ManageAccountsDetailComponent implements OnInit {
       email: this.form.get('email')?.value,
       username: this.form.get('username')?.value,
       company_id: this.form.get('company_id')?.value,
-      active: this.form.get('active')?.value
+      active: this.form.get('active')?.value,
+      role: this.data.role || Roles.Standart
     };
+
+    if (this.canModifyRole) {
+      user.role = this.form.get('role')?.value
+    }
 
     if (this.data.action === AjaxDialogAction.create) {
       user.password = this.form.get('password')?.value
