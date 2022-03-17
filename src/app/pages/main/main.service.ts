@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, defer, iif, of } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CompanyService } from 'src/app/services/company.service';
 import { NavigationService } from 'src/app/services/navigation.service';
@@ -7,6 +7,9 @@ import { Roles } from 'src/app/services/session.service';
 import { User, UserService } from 'src/app/services/user.service';
 import { VehicleService } from 'src/app/services/vehicle.service';
 import { getActualUserId } from 'src/app/utils/token';
+import produce, {setAutoFreeze} from "immer"
+
+setAutoFreeze(false)
 
 export enum AjaxDialogResult {
   success = 1,
@@ -20,15 +23,88 @@ export enum AjaxDialogAction {
   create = 3
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+export interface MenuItem {
+  name: string
+  active: boolean
+  route?: string
+  list?: MenuItem[]
+  open?: boolean
+  classes?: string
+  inactive?: boolean
+}
+@Injectable()
 export class MainService {
+  initialMenu: MenuItem[] = [
+    {
+      name: 'Informacion de Mi Perfil',
+      active: false
+    },
+    {
+      name: 'Vehículo',
+      active: false,
+      open: false,
+      list: [
+        {
+          name: 'Vehículos Activos',
+          active: false,
+          route: '/active-vehicle'
+        },
+        {
+          name: 'Agregar Vehículo',
+          active: false,
+          route: '/add-vehicle'
+        }
+      ]
+    },
+    {
+      name: 'Neumáticos',
+      active: false,
+      route: '/tyres'
+    },
+    {
+      name: 'Mi Cuenta',
+      active: false,
+      classes: 'mobile',
+      list: [
+        {
+          name: 'Cambiar cuenta',
+          active: false,
+        },
+        {
+          name: 'Configuración',
+          active: false,
+        },
+        {
+          name: 'Soporte',
+          active: false,
+        }
+      ]
+    },
+    {
+      name: 'Configuración',
+      active: false,
+      open: false,
+      inactive: false,
+      list: [
+        {
+          name: 'Administrar Compañías',
+          active: false,
+          inactive: false,
+          route: '/manage-companies'
+        },
+        {
+          name: 'Administrar Cuentas',
+          active: false,
+          route: '/manage-accounts'
+        },
+      ]
+    }
+  ]
 
   private subActualUser = new BehaviorSubject<User | null>(null);
   actualUser$ = this.subActualUser.asObservable();
 
-  private subMenu = new BehaviorSubject(this.navigationService.initialMmenu)
+  private subMenu = new BehaviorSubject(this.initialMenu)
   menu$ = this.subMenu.asObservable()
 
   private navOpen = new BehaviorSubject(false)
@@ -68,18 +144,19 @@ export class MainService {
   private configureMenu() {
     this.actualUser$.subscribe((actualUser) => {
       if (!actualUser) return
-      const {initialMmenu} = this.navigationService
-      console.log(actualUser, 'user')
-      if (actualUser?.role === Roles.Admin) {
-        const list = initialMmenu[initialMmenu.length - 1].list
-        if (list) {
-          list[0].inactive = true
+      const newMenu = produce<MenuItem[]>(this.initialMenu, initialMenu => {
+        if (actualUser?.role === Roles.Admin) {
+          const list = initialMenu[initialMenu.length - 1].list
+          if (list) {
+            list[0].inactive = true
+          }
         }
-      }
-      if (actualUser?.role === Roles.Standart) {
-        initialMmenu[initialMmenu.length - 1].inactive = true
-      }
-      this.subMenu.next(initialMmenu)
+        if (actualUser?.role === Roles.Standart) {
+          initialMenu[initialMenu.length - 1].inactive = true
+        }
+      })
+
+      this.subMenu.next(newMenu)
     })
   }
 

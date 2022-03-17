@@ -21,6 +21,7 @@ import { MainService } from './main.service';
     CommonModule,
     MainRoutingModule,
     SharedModule,
-  ]
+  ],
+  providers: [MainService]
 })
 export class MainModule { }

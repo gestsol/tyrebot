@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MainService } from 'src/app/pages/main/main.service';
-import { MenuItem, NavigationService } from 'src/app/services/navigation.service';
+import { NavigationService } from 'src/app/services/navigation.service';
+import { MenuItem } from 'src/app/pages/main/main.service';
 import { SessionService } from 'src/app/services/session.service';
 
 
